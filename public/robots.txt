@@ -1,0 +1,20 @@
+# ================================
+# robots.txt — MO'CYNO (mocyno.com)
+# Dernière mise à jour : 10 novembre 2025
+# ================================
+
+User-agent: *
+Allow: /
+
+# Pages sans valeur SEO (exclues de l'index)
+Disallow: /merci.html
+Disallow: /404.html
+Disallow: /cookies.html
+Disallow: /politique-confidentialite.html
+
+# Fichiers techniques (facultatif, pour plus de propreté)
+Disallow: /firebase.json
+Disallow: /consent-ga.js
+
+# Plan du site XML
+Sitemap: https://mocyno.com/sitemap.xml

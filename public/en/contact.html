@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact & Quote — MO'CYNO</title>
+  <meta name="description" content="Request a quote for private security services in the French Riviera: manned guarding, K9 units, SSIAP fire safety, event security.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/styles.css">
+
+  <!-- GA4 via consent management -->
+  <meta name="ga-measurement-id" content="G-E5JX7DYYYN">
+  <script defer src="/consent-ga.js"></script>
+
+  <!-- Google Ads gtag for conversions -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    window.gtag = window.gtag || gtag;
+
+    // Google Ads configuration
+    gtag('config', 'AW-1067390390');
+  </script>
+
+  <!-- Conversion Google Ads : CONTACT (1) -->
+  <script>
+    function sendContactConversion(callback) {
+      try {
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion_event_contact_1', {
+            'event_callback': function () {
+              if (typeof callback === 'function') {
+                callback();
+              }
+            },
+            'event_timeout': 2000
+            // You can add extra params here if needed (value, currency, etc.)
+          });
+        } else if (typeof callback === 'function') {
+          // If gtag is not available (no consent, blocked, etc.), continue normally
+          callback();
+        }
+      } catch (e) {
+        if (typeof callback === 'function') {
+          callback();
+        }
+      }
+    }
+  </script>
+
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav">
+    <a class="logo" href="/en/">
+      <picture>
+        <source srcset="/mocyno-logo.webp" type="image/webp">
+        <img
+          src="/mocyno-logo.webp"
+          alt="Logo MO'Cyno"
+          width="36"
+          height="36"
+          style="border-radius:8px"
+        >
+      </picture>
+      <span>MO'CYNO</span>
+    </a>
+    <nav class="links">
+      <a href="/en/services/">Services</a>
+      <a href="/en/#expertises">Expertise</a>
+      <a href="/en/#zones">Areas</a>
+      <a href="/en/#references">References</a>
+      <a class="btn primary" href="/en/contact.html">Quote & Contact</a>
+      <a aria-label="Français" hreflang="fr" href="/">FR</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="max-width:900px">
+  <section class="section" style="padding-top:32px">
+    <h1>Contact & Quote</h1>
+    <p class="small">Describe your needs. We will get back to you within 24 business hours.</p>
+
+    <!-- No inline onsubmit: handled by JS below (conversion + localStorage) -->
+    <form id="contactForm" action="/api/contact" method="POST">
+      <!-- Honeypot anti-bot -->
+      <input type="text" name="website" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" autocomplete="off">
+
+      <label for="name">Full name / Company
+        <input id="name" name="name" autocomplete="name" required>
+      </label>
+
+      <label for="email">Email
+        <input id="email" name="email" type="email" autocomplete="email" required>
+      </label>
+
+      <label for="phone">Phone
+        <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required>
+      </label>
+
+      <label for="service">Service
+        <select id="service" name="service">
+          <option>Manned guarding</option>
+          <option>K9 unit</option>
+          <option>SSIAP / Fire safety</option>
+          <option>Event security</option>
+          <option>Other / Consulting</option>
+        </select>
+      </label>
+
+      <label for="message" style="grid-column:1/-1">Message
+        <textarea id="message" name="message" rows="6" required></textarea>
+      </label>
+
+      <button class="btn primary" type="submit">Send</button>
+    </form>
+
+    <hr>
+
+    <p class="small" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+      📞 <a href="tel:+33666035116">+33 6 66 03 51 16</a> ·
+      ✉️ <a href="mailto:contact@mocyno.com">contact@mocyno.com</a> ·
+      📍 <a href="https://maps.google.com/?q=31+Rue+Chevalier+Paul,+83000+Toulon" target="_blank" rel="noopener">31 Rue Chevalier Paul, 83000 Toulon</a> ·
+      💬 <a href="https://wa.me/message/53TDACISLGDRJ1" target="_blank" rel="noopener">
+        <img src="/whatsapp.png" alt="WhatsApp" width="20" height="20" style="margin-right:6px;"> WhatsApp
+      </a> ·
+      🔗 <a href="https://www.linkedin.com/company/mocyno/" target="_blank" rel="noopener">
+        <img src="/linkedin.png" alt="LinkedIn" width="20" height="20" style="margin-right:6px;"> LinkedIn
+      </a>
+    </p>
+  </section>
+</main>
+
+<footer class="site-footer" style="background:#0f3552;color:#fff">
+  <div class="container footer-grid">
+    <div class="footer-left">
+      <p class="footer-meta">© 2025 MO'CYNO — SASU — SIRET 990 179 566 00015 — NAF 80.10Z</p>
+      <div class="footer-inline">
+        <span>31 Rue Chevalier Paul, 83000 Toulon, France</span>
+        <span>•</span>
+        <span>CNAPS license: AUT-83-2124-09-09-20250998415.</span>
+      </div>
+    </div>
+
+    <nav class="footer-links">
+      <a href="/en/about.html">About</a>
+      <a href="/en/legal.html">Legal</a>
+      <a href="/en/privacy.html">Privacy</a>
+      <a href="/en/cookies.html">Cookies</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- Script: mark EN contact + send Google Ads conversion before real submit -->
+<script>
+  (function() {
+    var form = document.getElementById('contactForm');
+    if (!form) return;
+
+    form.addEventListener('submit', function (event) {
+      // Avoid double conversion
+      if (form.dataset.conversionSent === '1') {
+        return;
+      }
+
+      event.preventDefault();
+      form.dataset.conversionSent = '1';
+
+      // Mark last contact language as EN (same logic as previous markEnContact)
+      try {
+        localStorage.setItem('last_contact_lang', 'en');
+      } catch (e) {
+        // ignore if storage is blocked
+      }
+
+      // Send Google Ads conversion, then actually submit
+      sendContactConversion(function() {
+        form.submit();
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

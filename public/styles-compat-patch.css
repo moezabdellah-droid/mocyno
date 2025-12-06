@@ -1,0 +1,11 @@
+/* ===== Mo'Cyno — Compat/Perf patch ===== */
+:root{ text-size-adjust:100%; -webkit-text-size-adjust:100%; text-size-adjust: 100%; }
+input,select,textarea,button{ -webkit-appearance:none; appearance: none; -moz-appearance:none; appearance: none; appearance:none; }
+*{ -webkit-user-select:text;-webkit-user-select: text; user-select: text; }
+.backdrop-blur{ -webkit-backdrop-filter:blur(8px);-webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+html{ scrollbar-width:thin; }
+::-webkit-scrollbar{ width:8px; height:8px; }
+::-webkit-scrollbar-thumb{ background:#c7c7c7; border-radius:999px; }
+.bg-clip{ -webkit-background-clip:text; background-clip:text; }
+@keyframes slide-in{ from{ transform:translateX(-16px); opacity:0;} to{ transform:translateX(0); opacity:1;} }
+.menu-item{ animation:slide-in .25s ease both; will-change:transform, opacity; }

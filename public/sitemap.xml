@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- FR -->
+  <url><loc>https://mocyno.com/</loc><lastmod>2025-11-10</lastmod><priority>1.0</priority></url>
+  <url><loc>https://mocyno.com/a-propos.html</loc><lastmod>2025-11-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://mocyno.com/contact.html</loc><lastmod>2025-11-10</lastmod><priority>0.7</priority></url>
+
+  <url><loc>https://mocyno.com/services/</loc><lastmod>2025-11-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://mocyno.com/services/surveillance-humaine.html</loc><lastmod>2025-11-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://mocyno.com/services/securite-cynophile.html</loc><lastmod>2025-11-10</lastmod><priority>0.9</priority></url>
+  <url><loc>https://mocyno.com/services/securite-incendie-ssiap.html</loc><lastmod>2025-11-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://mocyno.com/services/securite-evenementielle.html</loc><lastmod>2025-11-10</lastmod><priority>0.7</priority></url>
+  <url><loc>https://mocyno.com/services/protection-luxe.html</loc><lastmod>2025-11-10</lastmod><priority>0.7</priority></url>
+
+  <!-- EN (si en ligne) -->
+  <url><loc>https://mocyno.com/en/</loc><lastmod>2025-11-10</lastmod><priority>0.5</priority></url>
+  <url><loc>https://mocyno.com/en/legal.html</loc><lastmod>2025-11-10</lastmod><priority>0.3</priority></url>
+  <url><loc>https://mocyno.com/en/privacy.html</loc><lastmod>2025-11-10</lastmod><priority>0.3</priority></url>
+</urlset>
