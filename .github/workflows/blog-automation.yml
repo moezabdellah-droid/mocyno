@@ -10,20 +10,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # Autorise le workflow à pousser du code
+      contents: write   # Allow push to the repo
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          persist-credentials: false  # On utilise notre propre token pour le push
+          persist-credentials: false
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install @google/generative-ai
 
       - name: Generate Article
@@ -39,3 +39,6 @@ jobs:
           git commit -m "Auto-generated blog post" || echo "No changes to commit"
 
       - name: Push changes
+        uses: ad-m/github-push-action@v0.8.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
