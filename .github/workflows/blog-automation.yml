@@ -17,8 +17,8 @@ jobs:
         with:
           node-version: '20'
       
-      - name: Install Dependencies
-        run: npm install google-generative-ai # Ou autre lib utilisée
+      -- name: Install Dependencies
+      run: npm install @google/generative-ai
 
       - name: Generate Article
         env:
