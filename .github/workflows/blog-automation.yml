@@ -9,8 +9,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # Autorise le workflow à pousser du code
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false  # On utilise notre propre token pour le push
 
       - name: Use Node.js
         uses: actions/setup-node@v3
@@ -25,10 +31,11 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/generate-blog.js
 
-      - name: Commit and Push changes
+      - name: Commit changes
         run: |
           git config --global user.name 'Mocyno Bot'
           git config --global user.email 'bot@mocyno.com'
           git add public/blog/
           git commit -m "Auto-generated blog post" || echo "No changes to commit"
-          git push
+
+      - name: Push changes
