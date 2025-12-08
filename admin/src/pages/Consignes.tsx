@@ -13,7 +13,6 @@ export const ConsigneList = () => (
         <Datagrid rowClick="show">
             <TextField source="title" label="Titre" />
             <SelectInput source="type" choices={consigneTypes} label="Type" readOnly />
-            <SelectInput source="type" choices={consigneTypes} label="Type" readOnly />
             <ReferenceField source="targetId" reference="sites" link="show" label="Site concerné">
                 <TextField source="name" />
             </ReferenceField>
@@ -23,6 +22,7 @@ export const ConsigneList = () => (
     </List>
 );
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const transform = (data: any) => ({
     ...data,
     authorId: 'admin',

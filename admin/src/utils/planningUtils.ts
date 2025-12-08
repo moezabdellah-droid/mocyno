@@ -1,5 +1,5 @@
 import moment from 'moment';
-import type { Mission } from '../types/models';
+import type { Mission, PlanningEvent, Agent } from '../types/models';
 
 export const calculateDuration = (start: moment.Moment, end: moment.Moment) => {
     return moment.duration(end.diff(start)).asHours();
@@ -71,53 +71,16 @@ export const calculateVacationStats = (start: moment.Moment, end: moment.Moment)
     return { total, night, sunday, holiday };
 };
 
-export const calculateMissionStats = (missions: Mission[], now: moment.Moment = moment()) => {
-    let totalHours = 0;
-    let doneHours = 0;
+export const calculateMissionStats = (missions: Mission[], events: PlanningEvent[] = [], agent: Agent, now: moment.Moment = moment()) => {
+    let totalPlanned = 0;
+    let totalDone = 0;
     let futureHours = 0;
-    const agentsSet = new Set<string>();
-    const sitesSet = new Set<string>();
-
-    missions.forEach((mission) => {
-        if (!mission.agentAssignments) return;
-
-        let isMissionActive = false;
-
-        mission.agentAssignments.forEach((assignment) => {
-            assignment.vacations.forEach((vacation) => {
-                const start = moment(`${vacation.date}T${vacation.start}`);
-                const end = moment(`${vacation.date}T${vacation.end}`);
-
-                if (end.isBefore(start)) end.add(1, 'day');
-
-                const stats = calculateVacationStats(start, end);
-                const duration = stats.total;
-
-                if (end.isAfter(now)) {
-                    futureHours += duration;
-                    agentsSet.add(assignment.agentId);
-                    isMissionActive = true;
-                } else {
-                    doneHours += duration;
-                }
-                totalHours += duration;
-            });
-        });
-
-        if (isMissionActive) {
-            sitesSet.add(mission.siteId);
-        }
-    });
+    let nightHours = 0;
+    let sundayHours = 0;
     let holidayHours = 0;
-    let futureHours = 0;
 
-    events.forEach(event => {
-        if (event.agentId !== agent.id) return;
-
-        const start = moment(event.start);
-        const end = moment(event.end);
-
-        // Stats for this specific event
+    // Helper to add stats from a duration
+    const addStats = (start: moment.Moment, end: moment.Moment) => {
         const stats = calculateVacationStats(start, end);
 
         totalPlanned += stats.total;
@@ -125,13 +88,38 @@ export const calculateMissionStats = (missions: Mission[], now: moment.Moment = 
         sundayHours += stats.sunday;
         holidayHours += stats.holiday;
 
-        // Done vs Future
         if (end.isAfter(now)) {
             futureHours += stats.total;
-            // Partial done could be calculated here if needed, but for now strict separation
         } else {
             totalDone += stats.total;
         }
+    };
+
+    // 1. Process Missions
+    missions.forEach((mission) => {
+        if (!mission.agentAssignments) return;
+
+        mission.agentAssignments.forEach((assignment) => {
+            if (assignment.agentId !== agent.id) return;
+
+            assignment.vacations.forEach((vacation) => {
+                const start = moment(`${vacation.date}T${vacation.start}`);
+                const end = moment(`${vacation.date}T${vacation.end}`);
+                if (end.isBefore(start)) end.add(1, 'day');
+
+                addStats(start, end);
+            });
+        });
+    });
+
+    // 2. Process Calendar Events
+    events.forEach(event => {
+        if (event.agentId !== agent.id) return;
+
+        const start = moment(event.start);
+        const end = moment(event.end);
+
+        addStats(start, end);
     });
 
     return {
@@ -143,4 +131,8 @@ export const calculateMissionStats = (missions: Mission[], now: moment.Moment = 
         holidayHours,
         futureHours
     };
+};
+
+export const calculatePayroll = (agent: Agent, events: PlanningEvent[], date: Date) => {
+    return calculateMissionStats([], events, agent, moment(date));
 };
