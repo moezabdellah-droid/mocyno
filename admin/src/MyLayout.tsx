@@ -7,12 +7,12 @@ import { Link } from 'react-router-dom';
 import React, { type ForwardedRef } from 'react';
 
 // Custom User Menu Item to link to Profile
-const ProfileMenu = React.forwardRef<HTMLLIElement, any>((props, ref: ForwardedRef<HTMLLIElement>) => {
+const ProfileMenu = React.forwardRef<HTMLLIElement, unknown>((props, ref: ForwardedRef<HTMLLIElement>) => {
     return (
         <MenuItem
             component={Link}
             to="/profile"
-            ref={ref as any}
+            ref={ref as unknown}
             {...props}
         >
             <ListItemIcon>

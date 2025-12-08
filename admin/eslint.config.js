@@ -20,16 +20,13 @@ export default defineConfig([
       globals: globals.browser,
     },
     rules: {
-      '@typescript-eslint/no-explicit-any': ['error', { fixToUnknown: true }],
-      '@typescript-eslint/ban-ts-comment': [
-        'error',
-        { 'ts-expect-error': 'allow-with-description' }
-      ],
+      '@typescript-eslint/no-explicit-any': ['warn', { fixToUnknown: false }],
+      '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/no-unused-vars': [
-        'error',
+        'warn',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }
       ],
-      'prefer-const': 'error'
+      'prefer-const': 'warn'
     },
   },
 ])

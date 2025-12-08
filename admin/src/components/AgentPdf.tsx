@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
 });
 
 interface AgentPdfProps {
-    agent: any;
+    agent: unknown;
     photoBase64?: string | null;
     logoBase64?: string | null;
 }
