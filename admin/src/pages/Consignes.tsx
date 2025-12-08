@@ -36,14 +36,20 @@ export const ConsigneCreate = () => (
             <SelectInput source="type" choices={consigneTypes} validate={[required()]} label="Type de consigne" />
 
             <FormDataConsumer>
-                {({ formData, ...rest }) =>
-                    formData.type === 'site' &&
-                    <ReferenceInput source="targetId" reference="sites" label="Sélectionner le Site">
-                        <AutocompleteInput optionText="name" {...rest} />
-                    </ReferenceInput>
+                {({ formData }) =>
+                    formData.type === 'site' ? (
+                        <ReferenceInput source="targetId" reference="sites" label="Sélectionner le Site">
+                            <AutocompleteInput optionText="name" />
+                        </ReferenceInput>
+                    ) : (
+                        <TextInput
+                            source="targetId"
+                            label="ID Cible (Métier/Autre)"
+                            helperText="Remplir si Métier ou Autre"
+                        />
+                    )
                 }
             </FormDataConsumer>
-            <TextInput source="targetId" label="ID Cible (Métier/Autre)" helperText="Remplir si Métier ou Autre" />
 
             <RichTextInput source="content" validate={[required()]} label="Contenu détaillé" />
         </SimpleForm>
