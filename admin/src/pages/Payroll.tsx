@@ -1,6 +1,15 @@
 
 import { useMemo, useState } from 'react';
-import { Button, Grid as Grid2, Typography, Box, Paper, Avatar, Divider, Chip, CircularProgress } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
+import Chip from '@mui/material/Chip';
+import CircularProgress from '@mui/material/CircularProgress';
+import GridComponent from '@mui/material/Grid';
+const Grid = GridComponent as any;
 import { Title, useGetList, Loading, useNotify } from 'react-admin';
 import DownloadIcon from '@mui/icons-material/Download';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
@@ -115,9 +124,9 @@ const Payroll = () => {
                 </Button>
             </Box>
 
-            <Grid2 container spacing={3}>
+            <Grid container spacing={3}>
                 {stats.map(({ agent, totalDone, futureHours, nightHours, sundayHours, holidayHours }: PayrollStats) => (
-                    <Grid2 item xs={12} md={6} lg={4} key={agent.id}>
+                    <Grid item xs={12} md={6} lg={4} key={agent.id}>
                         <Paper elevation={2} sx={{ p: 3, borderRadius: 2, height: '100%' }}>
                             <Box display="flex" alignItems="center" mb={2}>
                                 <Avatar sx={{ bgcolor: '#CD1A20', mr: 2 }}>
@@ -141,55 +150,55 @@ const Payroll = () => {
 
                             <Divider sx={{ my: 2 }} />
 
-                            <Grid2 container spacing={2}>
+                            <Grid container spacing={2}>
                                 { /* Total & Done */}
-                                <Grid2 item xs={6}>
+                                <Grid item xs={6}>
                                     <Box sx={{ p: 1.5, bgcolor: '#f5f5f5', borderRadius: 1, textAlign: 'center' }}>
                                         <Typography variant="caption" color="textSecondary">Effectuées</Typography>
                                         <Typography variant="h5" color="success.main" fontWeight="bold">
                                             {totalDone.toFixed(1)}h
                                         </Typography>
                                     </Box>
-                                </Grid2>
-                                <Grid2 item xs={6}>
+                                </Grid>
+                                <Grid item xs={6}>
                                     <Box sx={{ p: 1.5, bgcolor: '#f5f5f5', borderRadius: 1, textAlign: 'center' }}>
                                         <Typography variant="caption" color="textSecondary">Planifiées (Futur)</Typography>
                                         <Typography variant="h5" color="primary.main" fontWeight="bold">
                                             {futureHours.toFixed(1)}h
                                         </Typography>
                                     </Box>
-                                </Grid2>
+                                </Grid>
 
                                 { /* Details */}
-                                <Grid2 item xs={12}>
+                                <Grid item xs={12}>
                                     <Typography variant="subtitle2" sx={{ mt: 1, mb: 1, fontWeight: 'bold' }}>
                                         Majorations & Détails
                                     </Typography>
-                                </Grid2>
+                                </Grid>
 
-                                <Grid2 item xs={4}>
+                                <Grid item xs={4}>
                                     <Box display="flex" flexDirection="column" alignItems="center">
                                         <NightlightRoundIcon color="action" fontSize="small" />
                                         <Typography variant="caption" mt={0.5}>Nuit</Typography>
                                         <Typography fontWeight="bold">{nightHours.toFixed(1)}h</Typography>
                                     </Box>
-                                </Grid2>
-                                <Grid2 item xs={4}>
+                                </Grid>
+                                <Grid item xs={4}>
                                     <Box display="flex" flexDirection="column" alignItems="center">
                                         <CalendarTodayIcon color="action" fontSize="small" />
                                         <Typography variant="caption" mt={0.5}>Dimanche</Typography>
                                         <Typography fontWeight="bold">{sundayHours.toFixed(1)}h</Typography>
                                     </Box>
-                                </Grid2>
-                                <Grid2 item xs={4}>
+                                </Grid>
+                                <Grid item xs={4}>
                                     <Box display="flex" flexDirection="column" alignItems="center">
                                         <StarIcon color="action" fontSize="small" />
                                         <Typography variant="caption" mt={0.5}>Férié</Typography>
                                         <Typography fontWeight="bold">{holidayHours.toFixed(1)}h</Typography>
                                     </Box>
-                                </Grid2>
+                                </Grid>
 
-                                <Grid2 item xs={12} sx={{ mt: 2 }}>
+                                <Grid item xs={12} sx={{ mt: 2 }}>
                                     <Button
                                         fullWidth
                                         variant="outlined"
@@ -200,12 +209,12 @@ const Payroll = () => {
                                     >
                                         {sendingEmail === agent.id ? "Envoi..." : "Renvoyer Planning"}
                                     </Button>
-                                </Grid2>
-                            </Grid2>
+                                </Grid>
+                            </Grid>
                         </Paper>
-                    </Grid2>
+                    </Grid>
                 ))}
-            </Grid2>
+            </Grid>
         </Box>
     );
 };
