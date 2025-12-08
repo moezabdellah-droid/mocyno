@@ -30,9 +30,9 @@ interface FormatRange {
 
 const formats = {
     timeGutterFormat: 'HH:mm',
-    eventTimeRangeFormat: ({ start, end }: any, culture?: string, local?: any) =>
+    eventTimeRangeFormat: ({ start, end }: unknown, culture?: string, local?: unknown) =>
         `${local.format(start, 'HH:mm', culture)} - ${local.format(end, 'HH:mm', culture)}`,
-    agendaTimeRangeFormat: ({ start, end }: any, culture?: string, local?: any) =>
+    agendaTimeRangeFormat: ({ start, end }: unknown, culture?: string, local?: unknown) =>
         `${local.format(start, 'HH:mm', culture)} - ${local.format(end, 'HH:mm', culture)}`,
     dayHeaderFormat: 'dddd DD MMMM'
 };
@@ -139,7 +139,7 @@ const Planning = () => {
         setSelectedMissionId(null);
     };
 
-    const handleSelectSlot = useCallback((slotInfo: any) => {
+    const handleSelectSlot = useCallback((slotInfo: unknown) => {
         resetForm();
         setAgentAssignments([{
             agentId: '',
@@ -154,26 +154,26 @@ const Planning = () => {
         setOpenDialog(true);
     }, []);
 
-    const handleEditClick = (mission: any) => {
+    const handleEditClick = (mission: unknown) => {
         setEditMode(true);
         setSelectedMissionId(mission.id);
         setMissionData({
             siteId: mission.siteId,
             notes: mission.notes || ''
         });
-        const assignmentsCopy = mission.agentAssignments.map((a: any) => ({
+        const assignmentsCopy = mission.agentAssignments.map((a: unknown) => ({
             ...a,
-            vacations: a.vacations.map((v: any) => ({ ...v }))
+            vacations: a.vacations.map((v: unknown) => ({ ...v }))
         }));
         setAgentAssignments(assignmentsCopy);
         setOpenDialog(true);
     };
 
-    const handleSelectEvent = (event: any) => {
+    const handleSelectEvent = (event: unknown) => {
         handleEditClick(event.resource.mission);
     };
 
-    const handleRowClick = (_id: any, _resource: any, record: any): false => {
+    const handleRowClick = (_id: unknown, _resource: unknown, record: unknown): false => {
         handleEditClick(record);
         return false;
     };
@@ -202,7 +202,7 @@ const Planning = () => {
     const handleAgentChange = (assignmentIdx: number, field: string, value: string) => {
         const updated = [...agentAssignments];
         if (field === 'agentId') {
-            const agent = agents?.find((a: any) => a.id === value);
+            const agent = agents?.find((a: unknown) => a.id === value);
             updated[assignmentIdx] = {
                 ...updated[assignmentIdx],
                 agentId: value,
@@ -245,7 +245,7 @@ const Planning = () => {
 
     const handleSaveMission = async () => {
         try {
-            const site = sites?.find((s: any) => s.id === missionData.siteId);
+            const site = sites?.find((s: unknown) => s.id === missionData.siteId);
             if (!site) {
                 notify('Site introuvable', { type: 'error' });
                 return;
@@ -262,13 +262,13 @@ const Planning = () => {
                 for (const vacation of assignment.vacations) {
                     const { start: vacationStart, end: vacationEnd } = getEventRange(vacation.date, vacation.start, vacation.end);
 
-                    const hasConflict = events?.some((mission: any) => {
+                    const hasConflict = events?.some((mission: unknown) => {
                         if (editMode && mission.id === selectedMissionId) return false;
 
                         if (!mission.agentAssignments) return false;
-                        return mission.agentAssignments.some((a: any) => {
+                        return mission.agentAssignments.some((a: unknown) => {
                             if (a.agentId !== assignment.agentId) return false;
-                            return a.vacations.some((v: any) => {
+                            return a.vacations.some((v: unknown) => {
                                 const { start: eventStart, end: eventEnd } = getEventRange(v.date, v.start, v.end);
                                 return (vacationStart < eventEnd && vacationEnd > eventStart);
                             });
@@ -295,7 +295,7 @@ const Planning = () => {
                 await update('planning', {
                     id: selectedMissionId,
                     data: payloadData,
-                    previousData: events?.find((e: any) => e.id === selectedMissionId)
+                    previousData: events?.find((e: unknown) => e.id === selectedMissionId)
                 });
                 notify('Mission mise à jour avec succès !');
             } else {
@@ -310,25 +310,25 @@ const Planning = () => {
             }
 
             handleCloseDialog();
-        } catch (error: any) {
+        } catch (error: unknown) {
             notify(`Erreur: ${error.message}`, { type: 'error' });
         }
     };
 
     const getAgentsForAssignment = (specialty: string | null) => {
         if (!missionData.siteId || !sites || !agents) return [];
-        const site = sites.find((s: any) => s.id === missionData.siteId);
+        const site = sites.find((s: unknown) => s.id === missionData.siteId);
 
         let potentialAgents = agents;
 
         if (site?.requiredSpecialties?.length > 0) {
-            potentialAgents = potentialAgents.filter((agent: any) =>
+            potentialAgents = potentialAgents.filter((agent: unknown) =>
                 agent.specialties?.some((s: string) => site.requiredSpecialties.includes(s))
             );
         }
 
         if (specialty) {
-            return potentialAgents.filter((agent: any) =>
+            return potentialAgents.filter((agent: unknown) =>
                 agent.specialties?.includes(specialty)
             );
         }
@@ -347,7 +347,7 @@ const Planning = () => {
         ];
 
         if (!missionData.siteId || !sites) return allSpecialties;
-        const site = sites.find((s: any) => s.id === missionData.siteId);
+        const site = sites.find((s: unknown) => s.id === missionData.siteId);
 
         if (site?.requiredSpecialties?.length > 0) {
             return allSpecialties.filter(s => site.requiredSpecialties.includes(s.id));
@@ -413,15 +413,15 @@ const Planning = () => {
 
                                 <FunctionField
                                     label="Période"
-                                    render={(record: any) => {
+                                    render={(record: unknown) => {
                                         if (!record.agentAssignments) return '-';
-                                        const allVacations = record.agentAssignments.flatMap((a: any) => a.vacations);
+                                        const allVacations = record.agentAssignments.flatMap((a: unknown) => a.vacations);
                                         if (allVacations.length === 0) return '-';
 
                                         const starts: number[] = [];
                                         const ends: number[] = [];
 
-                                        allVacations.forEach((v: any) => {
+                                        allVacations.forEach((v: unknown) => {
                                             const { start, end } = getEventRange(v.date, v.start, v.end);
                                             starts.push(start.getTime());
                                             ends.push(end.getTime());
@@ -445,11 +445,11 @@ const Planning = () => {
 
                                 <FunctionField
                                     label="Agents & Heures"
-                                    render={(record: any) => {
+                                    render={(record: unknown) => {
                                         return (
                                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                                                {record.agentAssignments?.map((assignment: any, idx: number) => {
-                                                    const totalMinutes = assignment.vacations.reduce((acc: number, v: any) => {
+                                                {record.agentAssignments?.map((assignment: unknown, idx: number) => {
+                                                    const totalMinutes = assignment.vacations.reduce((acc: number, v: unknown) => {
                                                         const { start, end } = getEventRange(v.date, v.start, v.end);
                                                         const duration = (end.getTime() - start.getTime()) / (1000 * 60);
                                                         return acc + duration;
@@ -471,12 +471,12 @@ const Planning = () => {
 
                                 <FunctionField
                                     label="Total Mission"
-                                    render={(record: any) => {
+                                    render={(record: unknown) => {
                                         if (!record.agentAssignments) return '-';
                                         let totalMinutesMission = 0;
 
-                                        record.agentAssignments.forEach((assignment: any) => {
-                                            const agentMins = assignment.vacations.reduce((acc: number, v: any) => {
+                                        record.agentAssignments.forEach((assignment: unknown) => {
+                                            const agentMins = assignment.vacations.reduce((acc: number, v: unknown) => {
                                                 const { start, end } = getEventRange(v.date, v.start, v.end);
                                                 const duration = (end.getTime() - start.getTime()) / (1000 * 60);
                                                 return acc + duration;
@@ -530,7 +530,7 @@ const Planning = () => {
                         margin="normal"
                         required
                     >
-                        {(sites || []).map((site: any) => (
+                        {(sites || []).map((site: unknown) => (
                             <MenuItem key={site.id} value={site.id}>
                                 {site.name}
                             </MenuItem>
@@ -580,7 +580,7 @@ const Planning = () => {
                                         required
                                         disabled={!missionData.siteId}
                                     >
-                                        {getAgentsForAssignment(assignment.specialty).map((agent: any) => (
+                                        {getAgentsForAssignment(assignment.specialty).map((agent: unknown) => (
                                             <MenuItem key={agent.id} value={agent.id}>
                                                 {agent.firstName} {agent.lastName} ({agent.specialties?.join(', ') || 'N/A'})
                                             </MenuItem>

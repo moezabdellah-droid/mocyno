@@ -19,7 +19,7 @@ import { SiteList, SiteCreate, SiteEdit } from './pages/Sites';
 // Wrapper component to check permissions before rendering Planning
 const PlanningWithPermissions = (props: ResourceProps) => {
   // This will be handled by React Admin's built-in permission system
-  return <Planning {...(props as any)} />;
+  return <Planning {...(props as unknown)} />;
 };
 
 const App = () => (

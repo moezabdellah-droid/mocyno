@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Paper from '@mui/material/Paper';
 import GridComponent from '@mui/material/Grid';
-const Grid = GridComponent as any;
+const Grid = GridComponent as unknown;
 import { useGetList, Title } from 'react-admin';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';

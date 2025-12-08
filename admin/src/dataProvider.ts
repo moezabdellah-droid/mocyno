@@ -45,7 +45,7 @@ const dataProvider: DataProvider = {
         }));
 
         return {
-            data: data as any,
+            data: data as unknown,
             total: data.length,
         };
     },
@@ -163,6 +163,6 @@ const dataProvider: DataProvider = {
             data: params.ids
         };
     }
-} as any;
+} as unknown;
 
 export default dataProvider;

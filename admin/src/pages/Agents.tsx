@@ -177,7 +177,7 @@ const AgentDownloadButtons = () => {
 export const AgentList = () => (
     <List>
         <Datagrid rowClick="edit">
-            <FunctionField label="Photo" render={(record: any) =>
+            <FunctionField label="Photo" render={(record: unknown) =>
                 record.photoURL ? <img src={record.photoURL} style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }} alt="" /> : null
             } />
             <TextField source="matricule" label="Matricule" />
@@ -185,7 +185,7 @@ export const AgentList = () => (
             <TextField source="lastName" label="Nom" />
             <TextField source="professionalCardNumber" label="Carte Pro" />
             <EmailField source="email" />
-            <FunctionField label="Spécialités" render={(record: any) => record.specialties ? record.specialties.join(', ') : ''} />
+            <FunctionField label="Spécialités" render={(record: unknown) => record.specialties ? record.specialties.join(', ') : ''} />
             <TextField source="status" />
             <DateField source="createdAt" label="Créé le" />
         </Datagrid>
@@ -270,7 +270,7 @@ export const AgentEdit = () => (
 
                 <TextInput source="professionalCardNumber" label="Numéro de Carte Pro (Ex: CAR-083-2030-03-18-XXXXXXXXXXX)" validate={validateCardPro} fullWidth />
                 <DateInput source="professionalCardObtainedAt" label="Date d'Obtention Carte Pro" fullWidth />
-                <FunctionField label="Date Validité (Calculée)" render={(record: any) => {
+                <FunctionField label="Date Validité (Calculée)" render={(record: unknown) => {
                     if (!record.professionalCardObtainedAt) return '-';
                     const date = new Date(record.professionalCardObtainedAt);
                     date.setFullYear(date.getFullYear() + 5);
@@ -322,7 +322,7 @@ export const AgentCreate = () => {
     const notify = useNotify();
     const redirect = useRedirect();
 
-    const save = async (data: any) => {
+    const save = async (data: unknown) => {
         setLoading(true);
         try {
             // Handle Photo Upload Manually first
@@ -343,7 +343,7 @@ export const AgentCreate = () => {
             });
             notify('Agent créé avec succès');
             redirect('/agents');
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error(error);
             notify(`Erreur: ${error.message}`, { type: 'error' });
         } finally {

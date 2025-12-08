@@ -9,7 +9,7 @@ import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import CircularProgress from '@mui/material/CircularProgress';
 import GridComponent from '@mui/material/Grid';
-const Grid = GridComponent as any;
+const Grid = GridComponent as unknown;
 import { Title, useGetList, Loading, useNotify } from 'react-admin';
 import DownloadIcon from '@mui/icons-material/Download';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
