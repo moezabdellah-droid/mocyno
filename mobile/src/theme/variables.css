@@ -1,0 +1,31 @@
+/* Hide background logic for camera preview */
+body.scanner-active {
+    --background: transparent;
+    background: transparent;
+}
+
+.scanner-active .ion-page {
+    --background: transparent;
+    background: transparent;
+}
+
+.scanner-active ion-content {
+    --background: transparent;
+}
+
+/* Mo'Cyno Branding */
+:root {
+    --ion-color-primary: #CD1A20;
+    --ion-color-primary-rgb: 205, 26, 32;
+    --ion-color-primary-contrast: #ffffff;
+    --ion-color-primary-contrast-rgb: 255, 255, 255;
+    --ion-color-primary-shade: #b4171c;
+    --ion-color-primary-tint: #d23136;
+
+    --ion-color-secondary: #000000;
+    --ion-color-secondary-rgb: 0, 0, 0;
+    --ion-color-secondary-contrast: #ffffff;
+    --ion-color-secondary-contrast-rgb: 255, 255, 255;
+    --ion-color-secondary-shade: #000000;
+    --ion-color-secondary-tint: #1a1a1a;
+}

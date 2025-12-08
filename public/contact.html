@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WH9T9G58');</script>
+<!-- End Google Tag Manager -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Contact & Devis — MO'CYNO</title>
-  <meta name="description" content="Demandez un devis pour une solution de sécurité privée en PACA : surveillance humaine, cynophile, SSIAP, événementiel.">
+  <meta name="description"
+    content="Demandez un devis pour une solution de sécurité privée en PACA : surveillance humaine, cynophile, SSIAP, événementiel.">
   <meta name="robots" content="index,follow">
   <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/styles.css">
@@ -13,98 +22,125 @@
   <meta name="ga-measurement-id" content="G-E5JX7DYYYN">
   <script defer src="/consent-ga.js"></script>
 </head>
+
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WH9T9G58"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
-<header class="site-header">
-  <div class="container nav">
-    <a class="logo" href="/">
-      <img src="/mocyno-logo.png" alt="MO'CYNO" width="36" height="36" style="border-radius:8px">
-      <span>MO'CYNO</span>
-    </a>
-    <nav class="links" role="navigation" aria-label="Navigation principale">
-      <a href="/services/">Services</a>
-      <a href="/#expertises">Expertises</a>
-      <a href="/#zones">Zones</a>
-      <a href="/#references">Références</a>
-      <a class="btn primary" href="/contact.html">Devis & Contact</a>
-    </nav>
-  </div>
-</header>
-
-<main class="container" style="max-width:900px">
-  <section class="section" style="padding-top:32px">
-    <h1>Devis & Contact</h1>
-    <p class="small">Décrivez votre besoin, nous revenons vers vous rapidement (24 h ouvrées).</p>
-
-    <form id="contactForm" action="/api/contact" method="POST" aria-label="Formulaire de contact">
-      <!-- Honeypot anti-bot (doit rester vide) -->
-      <input type="text" name="website" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" autocomplete="off" aria-hidden="true">
-
-      <label for="name">Nom / Entreprise
-        <input id="name" name="name" autocomplete="name" required>
-      </label>
-
-      <label for="email">Email
-        <input id="email" name="email" type="email" autocomplete="email" required>
-      </label>
-
-      <label for="phone">Téléphone
-        <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required>
-      </label>
-
-      <label for="service">Service
-        <select id="service" name="service">
-          <option>Surveillance humaine</option>
-          <option>Équipe cynophile (K9)</option>
-          <option>SSIAP / Prévention incendie</option>
-          <option>Sûreté événementielle</option>
-          <option>Autre / Conseil</option>
-        </select>
-      </label>
-
-      <label for="message" style="grid-column:1/-1">Message
-        <textarea id="message" name="message" rows="6" required></textarea>
-      </label>
-
-      <button class="btn primary" type="submit">Envoyer</button>
-    </form>
-
-    <hr>
-
-    <p class="small" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-      📞 <a href="tel:+33666035116">+33 6 66 03 51 16</a> ·
-      ✉️ <a href="mailto:contact@mocyno.com">contact@mocyno.com</a> ·
-      📍 <a href="https://maps.google.com/?q=31+Rue+Chevalier+Paul,+83000+Toulon" target="_blank" rel="noopener">31 Rue Chevalier Paul, 83000 Toulon</a> ·
-      💬 <a href="https://wa.me/message/53TDACISLGDRJ1" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;text-decoration:none;">
-        <img src="/whatsapp.png" alt="WhatsApp" width="20" height="20" style="margin-right:6px;vertical-align:middle;"> WhatsApp
-      </a> ·
-      🔗 <a href="https://www.linkedin.com/company/mocyno/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;text-decoration:none;">
-        <img src="/linkedin.png" alt="LinkedIn" width="20" height="20" style="margin-right:6px;vertical-align:middle;"> LinkedIn
+  <header class="site-header">
+    <div class="container nav">
+      <a class="logo" href="/">
+        <img src="/mocyno-logo.png" alt="MO'CYNO" width="36" height="36" style="border-radius:8px">
+        <span>MO'CYNO</span>
       </a>
-    </p>
-  </section>
-</main>
-
-<footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
-  <div class="container footer-grid">
-    <div class="footer-left">
-      <p class="footer-meta">© 2025 MO'CYNO — SASU — SIRET 990 179 566 00015 — NAF 80.10Z</p>
-      <div class="footer-inline">
-        <span>31 Rue Chevalier Paul, 83000 Toulon, France</span>
-        <span>•</span>
-        <span>Autorisation d'exercer CNAPS : AUT-83-2124-09-09-20250998415.</span>
-      </div>
+      <nav class="links" role="navigation" aria-label="Navigation principale">
+        <a href="/services/">Services</a>
+        <a href="/#expertises">Expertises</a>
+        <a href="/#zones">Zones</a>
+        <a href="/#references">Références</a>
+        <a href="/blog/" style="font-weight:700">Blog</a>
+        <a class="btn primary" href="/contact.html">Devis & Contact</a>
+      </nav>
     </div>
+  </header>
 
-    <nav class="footer-links" role="navigation" aria-label="Navigation secondaire">
-      <a href="/a-propos.html">À propos</a>
-      <a href="/mentions-legales.html">Mentions légales</a>
-      <a href="/politique-confidentialite.html">Confidentialité</a>
-      <a href="/cookies.html">Cookies</a>
-      <a href="/sitemap.xml">Sitemap</a>
-    </nav>
-  </div>
-</footer>
+  <main class="container" style="max-width:900px">
+    <section class="section" style="padding-top:32px">
+      <h1>Devis & Contact</h1>
+      <p class="small">Décrivez votre besoin, nous revenons vers vous rapidement (24 h ouvrées).</p>
 
+      <form id="contactForm" action="/api/contact" method="POST" aria-label="Formulaire de contact">
+        <!-- Honeypot anti-bot (doit rester vide) -->
+        <input type="text" name="website" style="position:absolute;left:-9999px;opacity:0" tabindex="-1"
+          autocomplete="off" aria-hidden="true">
+
+        <label for="name">Nom / Entreprise
+          <input id="name" name="name" autocomplete="name" required>
+        </label>
+
+        <label for="email">Email
+          <input id="email" name="email" type="email" autocomplete="email" required>
+        </label>
+
+        <label for="phone">Téléphone
+          <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required>
+        </label>
+
+        <label for="service">Service
+          <select id="service" name="service">
+            <option>Surveillance humaine</option>
+            <option>Équipe cynophile (K9)</option>
+            <option>SSIAP / Prévention incendie</option>
+            <option>Sûreté événementielle</option>
+            <option>Autre / Conseil</option>
+          </select>
+        </label>
+
+        <label for="message" style="grid-column:1/-1">Message
+          <textarea id="message" name="message" rows="6" required></textarea>
+        </label>
+
+        <button class="btn primary" type="submit">Envoyer</button>
+      </form>
+
+      <hr>
+
+      <p class="small" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        📞 <a href="tel:+33666035116">+33 6 66 03 51 16</a> ·
+        ✉️ <a href="mailto:contact@mocyno.com">contact@mocyno.com</a> ·
+        📍 <a href="https://maps.google.com/?q=31+Rue+Chevalier+Paul,+83000+Toulon" target="_blank" rel="noopener">31
+          Rue Chevalier Paul, 83000 Toulon</a> ·
+        💬 <a href="https://wa.me/message/53TDACISLGDRJ1" target="_blank" rel="noopener"
+          style="display:inline-flex;align-items:center;text-decoration:none;">
+          <img src="/whatsapp.png" alt="WhatsApp" width="20" height="20"
+            style="margin-right:6px;vertical-align:middle;"> WhatsApp
+        </a> ·
+        🔗 <a href="https://www.linkedin.com/company/mocyno/" target="_blank" rel="noopener"
+          style="display:inline-flex;align-items:center;text-decoration:none;">
+          <img src="/linkedin.png" alt="LinkedIn" width="20" height="20"
+            style="margin-right:6px;vertical-align:middle;"> LinkedIn
+        </a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
+    <div class="container footer-grid">
+      <div class="footer-left">
+        <p class="footer-meta">© 2025 MO'CYNO — SASU — SIRET 990 179 566 00015 — NAF 80.10Z</p>
+        <div class="footer-inline">
+          <span>31 Rue Chevalier Paul, 83000 Toulon, France</span>
+          <span>•</span>
+          <span>Autorisation d'exercer CNAPS : AUT-83-2124-09-09-20250998415.</span>
+        </div>
+      </div>
+
+      <nav class="footer-links" role="navigation" aria-label="Navigation secondaire">
+        <a href="/a-propos.html">À propos</a>
+        <a href="/mentions-legales.html">Mentions légales</a>
+        <a href="/politique-confidentialite.html">Confidentialité</a>
+        <a href="/cookies.html">Cookies</a>
+        <a href="/sitemap.xml">Sitemap</a>
+      </nav>
+    </div>
+  </footer>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/693452a684fc15197fdfc2a0/1jbq65n5t';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
 </body>
+
 </html>
+

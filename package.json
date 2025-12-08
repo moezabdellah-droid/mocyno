@@ -1,0 +1,24 @@
+{
+  "name": "mocyno2",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moezabdellah-droid/mocyno.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moezabdellah-droid/mocyno/issues"
+  },
+  "homepage": "https://github.com/moezabdellah-droid/mocyno#readme",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1"
+  }
+}

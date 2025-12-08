@@ -1,0 +1,23 @@
+rules_version = '2';
+
+// Craft rules based on data model
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read: if request.auth != null;
+    }
+    
+    // Agent Photos
+    // Path: agent_photos/{userId}/{filename}
+    match /agent_photos/{userId}/{fileName} {
+      allow write: if request.auth != null && (request.auth.uid == userId || firestore.get(/databases/(default)/documents/agents/$(request.auth.uid)).data.role in ['admin', 'manager']);
+    }
+
+    // Badges PDF
+    // Path: badges/{filename}
+    // Only Admin/Manager should generate these
+    match /badges/{fileName} {
+      allow write: if request.auth != null && firestore.get(/databases/(default)/documents/agents/$(request.auth.uid)).data.role in ['admin', 'manager'];
+    }
+  }
+}
