@@ -1,141 +1,147 @@
-padding: 30,
-    fontFamily: 'Helvetica'
+import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
+import moment from 'moment';
+import type { Agent } from '@mocyno/types';
+
+const styles = StyleSheet.create({
+    page: {
+        padding: 30,
+        fontFamily: 'Helvetica'
     },
-badgePage: {
-    flexDirection: 'column',
+    badgePage: {
+        flexDirection: 'column',
         backgroundColor: '#FFFFFF',
-            fontFamily: 'Helvetica'
-},
-badgeWrapper: {
-    width: '85.6mm',
+        fontFamily: 'Helvetica'
+    },
+    badgeWrapper: {
+        width: '85.6mm',
         height: '54mm',
-            border: '1px solid #ddd',
-                borderRadius: 8,
-                    overflow: 'hidden',
-                        margin: 10,
-                            backgroundColor: '#fff',
-                                position: 'relative'
-},
-badgeFront: {
-    width: '100%',
+        border: '1px solid #ddd',
+        borderRadius: 8,
+        overflow: 'hidden',
+        margin: 10,
+        backgroundColor: '#fff',
+        position: 'relative'
+    },
+    badgeFront: {
+        width: '100%',
         height: '100%',
-            flexDirection: 'row'
-},
-badgeBack: {
-    width: '100%',
+        flexDirection: 'row'
+    },
+    badgeBack: {
+        width: '100%',
         height: '100%',
-            padding: 10,
-                justifyContent: 'center',
-                    alignItems: 'center',
-                        backgroundColor: '#fff'
-},
-badgeHeaderRed: {
-    position: 'absolute',
-        top: 0,
-            left: 0,
-                width: '100%',
-                    height: 12,
-                        backgroundColor: '#CD1A20'
-},
-badgePhotoContainer: {
-    width: '35%',
-        padding: 8,
-            justifyContent: 'center',
-                alignItems: 'center',
-                    paddingTop: 20
-},
-badgePhoto: {
-    width: 60,
-        height: 70,
-            borderRadius: 4,
-                objectFit: 'cover',
-                    border: '1px solid #ccc'
-},
-badgeInfoContainer: {
-    width: '65%',
-        padding: 8,
-            paddingTop: 20,
-                justifyContent: 'flex-start'
-},
-badgeName: {
-    fontSize: 11,
-        fontWeight: 'bold',
-            textTransform: 'uppercase',
-                marginBottom: 2
-},
-badgeFirstName: {
-    fontSize: 10,
-        marginBottom: 4
-},
-badgeLabel: {
-    fontSize: 6,
-        color: '#666',
-            textTransform: 'uppercase',
-                marginTop: 4
-},
-badgeValue: {
-    fontSize: 8,
-        fontWeight: 'bold',
-            color: '#000'
-},
-badgeValueRed: {
-    fontSize: 8,
-        fontWeight: 'bold',
-            color: '#CD1A20'
-},
-badgeBackText: {
-    fontSize: 7,
-        textAlign: 'center',
-            marginBottom: 4,
-                color: '#333'
-},
-badgeLegalTitle: {
-    fontSize: 8,
-        fontWeight: 'bold',
-            textAlign: 'center',
-                marginBottom: 2,
-                    textTransform: 'uppercase'
-},
-badgeLegalSmall: {
-    fontSize: 5,
-        textAlign: 'center',
-            color: '#666',
-                marginTop: 5,
-                    fontStyle: 'italic'
-},
-header: {
-    fontSize: 18,
-        marginBottom: 20,
-            textAlign: 'center',
-                color: '#CD1A20',
-                    fontWeight: 'bold',
-                        textTransform: 'uppercase'
-},
-section: {
-    margin: 10,
         padding: 10,
-            borderBottom: '1px solid #eee'
-},
-sectionTitle: {
-    fontSize: 14,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff'
+    },
+    badgeHeaderRed: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: 12,
+        backgroundColor: '#CD1A20'
+    },
+    badgePhotoContainer: {
+        width: '35%',
+        padding: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 20
+    },
+    badgePhoto: {
+        width: 60,
+        height: 70,
+        borderRadius: 4,
+        objectFit: 'cover',
+        border: '1px solid #ccc'
+    },
+    badgeInfoContainer: {
+        width: '65%',
+        padding: 8,
+        paddingTop: 20,
+        justifyContent: 'flex-start'
+    },
+    badgeName: {
+        fontSize: 11,
         fontWeight: 'bold',
-            marginBottom: 5,
-                color: '#333'
-},
-fieldLabel: {
-    fontSize: 10,
-        color: '#666',
-            width: 150
-},
-fieldValue: {
-    fontSize: 11,
-        color: '#000',
-            flex: 1
-},
-row: {
-    flexDirection: 'row',
+        textTransform: 'uppercase',
+        marginBottom: 2
+    },
+    badgeFirstName: {
+        fontSize: 10,
         marginBottom: 4
-}
+    },
+    badgeLabel: {
+        fontSize: 6,
+        color: '#666',
+        textTransform: 'uppercase',
+        marginTop: 4
+    },
+    badgeValue: {
+        fontSize: 8,
+        fontWeight: 'bold',
+        color: '#000'
+    },
+    badgeValueRed: {
+        fontSize: 8,
+        fontWeight: 'bold',
+        color: '#CD1A20'
+    },
+    badgeBackText: {
+        fontSize: 7,
+        textAlign: 'center',
+        marginBottom: 4,
+        color: '#333'
+    },
+    badgeLegalTitle: {
+        fontSize: 8,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: 2,
+        textTransform: 'uppercase'
+    },
+    badgeLegalSmall: {
+        fontSize: 5,
+        textAlign: 'center',
+        color: '#666',
+        marginTop: 5,
+        fontStyle: 'italic'
+    },
+    header: {
+        fontSize: 18,
+        marginBottom: 20,
+        textAlign: 'center',
+        color: '#CD1A20',
+        fontWeight: 'bold',
+        textTransform: 'uppercase'
+    },
+    section: {
+        margin: 10,
+        padding: 10,
+        borderBottom: '1px solid #eee'
+    },
+    sectionTitle: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        marginBottom: 5,
+        color: '#333'
+    },
+    fieldLabel: {
+        fontSize: 10,
+        color: '#666',
+        width: 150
+    },
+    fieldValue: {
+        fontSize: 11,
+        color: '#000',
+        flex: 1
+    },
+    row: {
+        flexDirection: 'row',
+        marginBottom: 4
+    }
 });
 
 interface AgentPdfProps {
