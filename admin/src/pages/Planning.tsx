@@ -1,6 +1,4 @@
 import { useState, useCallback } from 'react';
-import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
-import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import moment from 'moment';
 // @ts-expect-error - moment locale files don't have TypeScript declarations
 
@@ -67,10 +65,13 @@ const Planning = () => {
     };
 
     // Transform missions to calendar events
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const calendarEvents = (events || []).flatMap((mission: any) => {
         if (!mission.agentAssignments) return [];
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return mission.agentAssignments.flatMap((assignment: any, assignmentIdx: number) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             return assignment.vacations.map((v: any, vacIdx: number) => {
                 const { start, end } = getEventRange(v.date, v.start, v.end);
                 return {

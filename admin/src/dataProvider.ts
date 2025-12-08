@@ -1,21 +1,13 @@
 import type {
     DataProvider,
-    GetListParams,
-    GetListResult,
+    DataProvider,
     GetOneParams,
-    GetOneResult,
     GetManyParams,
-    GetManyResult,
-    GetManyReferenceParams,
-    GetManyReferenceResult,
     CreateParams,
-    CreateResult,
     UpdateParams,
-    UpdateResult,
     UpdateManyParams,
-    UpdateManyResult,
     DeleteParams,
-    DeleteResult
+    DeleteManyParams
 } from 'react-admin';
 import {
     collection,
@@ -28,7 +20,6 @@ import {
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from './firebase';
-import type { Event, Consigne, Agent } from '@mocyno/types';
 
 interface FileUpload {
     rawFile: File;
@@ -120,7 +111,7 @@ const dataProvider: DataProvider = {
     },
 
     update: async (resource: string, params: UpdateParams) => {
-        const { id, ...rest } = params.data;
+        const { ...rest } = params.data;
 
         // Handle file upload
         if (rest.photoURL && typeof rest.photoURL !== 'string') {
