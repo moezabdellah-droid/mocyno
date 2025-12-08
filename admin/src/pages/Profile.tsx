@@ -29,8 +29,9 @@ const Profile = () => {
                 notify("Mot de passe mis à jour avec succès");
                 setPassword('');
                 setConfirm('');
-            } catch (error: any) {
-                notify("Erreur: " + error.message, { type: 'error' });
+            } catch (error: unknown) {
+                const errorMessage = error instanceof Error ? error.message : 'Une erreur est survenue';
+                notify("Erreur: " + errorMessage, { type: 'error' });
             }
         }
         setLoading(false);

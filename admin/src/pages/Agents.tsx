@@ -7,7 +7,8 @@ import {
 } from 'react-admin';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-};
+import type { Agent } from '../types/models';
+
 
 // Validation for Dog ID: 250 268 780 869 046 (15 digits usually displayed in groups)
 // Regex: 15 digits, allowing spaces

@@ -1,8 +1,17 @@
+
+import { Datagrid, List, TextField, DeleteButton, FunctionField, SimpleForm, TextInput, required, SelectArrayInput, Create, Edit } from 'react-admin';
+import { Site } from '../types/models';
+
+export const SiteList = () => (
+    <List>
+        <Datagrid rowClick="edit">
+            <TextField source="name" label="Nom du Site" />
+            <TextField source="address" label="Adresse" />
             <TextField source="clientContact" label="Contact Client" />
             <FunctionField label="Spécialités Requises" render={(record: Site) => record.requiredSpecialties ? record.requiredSpecialties.join(', ') : ''} />
             <DeleteButton />
-        </Datagrid >
-    </List >
+        </Datagrid>
+    </List>
 );
 
 const SiteForm = () => (
