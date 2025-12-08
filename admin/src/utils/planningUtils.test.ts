@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { calculatePayroll } from './planningUtils';
-import type { Agent, PlanningEvent } from '@mocyno/types';
+import type { Agent, PlanningEvent } from '../types/models';
 
 const mockAgent: Agent = {
     id: 'agent-1',

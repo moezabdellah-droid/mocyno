@@ -1,4 +1,24 @@
 import { useState, useCallback } from 'react';
+import {
+    useGetList, useCreate, useUpdate, useNotify, Loading,
+    List, Datagrid, TextField as RaTextField, FunctionField, DeleteButton, Title
+} from 'react-admin';
+import {
+    Card, CardHeader, CardContent, Button, Box, Tabs, Tab,
+    Typography, Dialog, DialogTitle, DialogContent, DialogActions,
+    TextField, MenuItem, IconButton
+} from '@mui/material';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
+import { Calendar, Views, momentLocalizer } from 'react-big-calendar';
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
+
+const DnDCalendar = withDragAndDrop(Calendar);
+import type { AgentAssignment, Vacation } from '../types/models';
+
+const localizer = momentLocalizer(moment);
+
 import moment from 'moment';
 // @ts-expect-error - moment locale files don't have TypeScript declarations
 
@@ -10,10 +30,10 @@ interface FormatRange {
 
 const formats = {
     timeGutterFormat: 'HH:mm',
-    eventTimeRangeFormat: ({ start, end }: FormatRange, culture: string, local: typeof moment) =>
-        `${local(start).format('HH:mm')} - ${local(end).format('HH:mm')}`,
-    agendaTimeRangeFormat: ({ start, end }: FormatRange, culture: string, local: typeof moment) =>
-        `${local(start).format('HH:mm')} - ${local(end).format('HH:mm')}`,
+    eventTimeRangeFormat: ({ start, end }: any, culture?: string, local?: any) =>
+        `${local.format(start, 'HH:mm', culture)} - ${local.format(end, 'HH:mm', culture)}`,
+    agendaTimeRangeFormat: ({ start, end }: any, culture?: string, local?: any) =>
+        `${local.format(start, 'HH:mm', culture)} - ${local.format(end, 'HH:mm', culture)}`,
     dayHeaderFormat: 'dddd DD MMMM'
 };
 

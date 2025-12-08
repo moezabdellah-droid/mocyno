@@ -1,6 +1,6 @@
 import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import moment from 'moment';
-import type { Agent } from '@mocyno/types';
+
 
 const styles = StyleSheet.create({
     page: {
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
 });
 
 interface AgentPdfProps {
-    agent: Agent;
+    agent: any;
     photoBase64?: string | null;
     logoBase64?: string | null;
 }

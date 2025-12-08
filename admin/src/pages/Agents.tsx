@@ -8,7 +8,21 @@ import {
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import type { Agent } from '../types/models';
+import { Button, CircularProgress } from '@mui/material';
+import DownloadIcon from '@mui/icons-material/Download';
+import GenerateIcon from '@mui/icons-material/Autorenew';
+import { imageUrlToPngBase64 } from '../utils/imageUtils';
+import { AgentBadgePdf, AgentProfilePdf } from '../components/AgentPdf';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { storage } from '../firebase';
 
+// Basic validation for professional card
+const validateCardPro = (value: string) => {
+    if (!value) return undefined;
+    // Format: CAR-083-2030-03-18-XXXXXXXXXXX (Example)
+    const regex = /^CAR-\d{3}-\d{4}-\d{2}-\d{2}-\d{11}$/;
+    return regex.test(value) ? undefined : 'Format invalide (Ex: CAR-083-2030-03-18-...)';
+};
 
 // Validation for Dog ID: 250 268 780 869 046 (15 digits usually displayed in groups)
 // Regex: 15 digits, allowing spaces
@@ -163,7 +177,7 @@ const AgentDownloadButtons = () => {
 export const AgentList = () => (
     <List>
         <Datagrid rowClick="edit">
-            <FunctionField label="Photo" render={(record: Agent) =>
+            <FunctionField label="Photo" render={(record: any) =>
                 record.photoURL ? <img src={record.photoURL} style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }} alt="" /> : null
             } />
             <TextField source="matricule" label="Matricule" />
@@ -171,17 +185,23 @@ export const AgentList = () => (
             <TextField source="lastName" label="Nom" />
             <TextField source="professionalCardNumber" label="Carte Pro" />
             <EmailField source="email" />
-            <FunctionField label="Spécialités" render={(record: Agent) => record.specialties ? record.specialties.join(', ') : ''} />
+            <FunctionField label="Spécialités" render={(record: any) => record.specialties ? record.specialties.join(', ') : ''} />
             <TextField source="status" />
             <DateField source="createdAt" label="Créé le" />
         </Datagrid>
     </List>
 );
 
-const UserEditActions = () => (
-    <TopToolbar>
-    </TopToolbar>
-);
+const UserEditActions = () => {
+    const record = useRecordContext();
+    if (!record) return null;
+    return (
+        <TopToolbar>
+            <AgentBadgePdf agent={record as unknown as Agent} />
+            <AgentProfilePdf agent={record as unknown as Agent} />
+        </TopToolbar>
+    );
+};
 
 export const AgentEdit = () => (
     <Edit actions={<UserEditActions />}>

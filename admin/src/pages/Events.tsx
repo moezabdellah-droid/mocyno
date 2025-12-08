@@ -1,6 +1,6 @@
 
 import { Datagrid, List, TextField, DateField, FunctionField, Show, SimpleShowLayout } from 'react-admin';
-import { Event } from '../types/models';
+import type { Event } from '../types/models';
 
 export const EventList = () => (
     <List>

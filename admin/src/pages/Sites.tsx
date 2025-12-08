@@ -1,6 +1,6 @@
 
 import { Datagrid, List, TextField, DeleteButton, FunctionField, SimpleForm, TextInput, required, SelectArrayInput, Create, Edit } from 'react-admin';
-import { Site } from '../types/models';
+import type { Site } from '../types/models';
 
 export const SiteList = () => (
     <List>
