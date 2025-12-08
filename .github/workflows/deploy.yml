@@ -1,0 +1,83 @@
+name: 🚀 CI/CD Mo'cyno Admin Panel
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    name: 🧪 Test & Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: 🛠️ Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🔍 TypeScript check
+        run: pnpm --filter admin exec tsc --noEmit
+
+      - name: 🧹 Lint
+        run: pnpm --filter admin run lint
+
+      - name: 🔨 Build production
+        run: pnpm --filter admin run build
+
+      - name: 📊 Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: admin-build
+          path: admin/dist/
+
+  deploy:
+    name: 🚀 Deploy to Firebase
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: 🛠️ Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🔨 Build admin
+        run: pnpm --filter admin run build
+
+      - name: 🚀 Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SA }}
+          channelId: live
+          projectId: mocyno
+          target: admin
+      
+      - name: 🔗 Post-deploy validation
+        run: |
+          curl -f https://mocyno.web.app/admin || exit 1
+          echo "✅ Production deployment successful!"

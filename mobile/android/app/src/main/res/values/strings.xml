@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Mo-Cyno</string>
+    <string name="title_activity_main">Mo-Cyno</string>
+    <string name="package_name">com.mocyno.mobile</string>
+    <string name="custom_url_scheme">com.mocyno.mobile</string>
+</resources>

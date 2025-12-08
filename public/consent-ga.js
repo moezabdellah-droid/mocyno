@@ -6,14 +6,14 @@
    *  Config / helpers
    * =========================== */
   var LS_KEY = 'mocyno_consent_state'; // 'granted' | 'denied'
-  var LS_TS  = 'mocyno_consent_ts';
+  var LS_TS = 'mocyno_consent_ts';
   var FALLBACK_GA4 = 'G-E5JX7DYYYN';   // remplace si besoin
   var FALLBACK_ADS = null;             // ex: 'AW-1067390390' ou laisse null
   var DOC = document;
   var WIN = window;
 
   function getMeta(name) {
-    var m = DOC.querySelector('meta[name="'+name+'"]');
+    var m = DOC.querySelector('meta[name="' + name + '"]');
     return m && m.content ? m.content.trim() : '';
   }
   function getGA4Id() {
@@ -28,21 +28,21 @@
     if (location.pathname.startsWith('/en')) return true;
     return false;
   }
-  function nowISO(){ try { return new Date().toISOString(); } catch(e){ return '';} }
+  function nowISO() { try { return new Date().toISOString(); } catch (e) { return ''; } }
 
   function readConsent() {
-    try { return localStorage.getItem(LS_KEY) || 'denied'; } catch(e) { return 'denied'; }
+    try { return localStorage.getItem(LS_KEY) || 'denied'; } catch (e) { return 'denied'; }
   }
   function saveConsent(value) {
     try {
       localStorage.setItem(LS_KEY, value);
       localStorage.setItem(LS_TS, nowISO());
-    } catch(e){}
+    } catch (e) { }
   }
 
   /* Expose un mini-API pour révoquer facilement depuis le site */
   WIN.MOCYNO_CONSENT = {
-    revoke: function() {
+    revoke: function () {
       saveConsent('denied');
       // Recharger pour repartir en mode "denied"
       location.reload();
@@ -53,7 +53,7 @@
    *  gtag bootstrap (sans charger gtag.js)
    * ========================================= */
   WIN.dataLayer = WIN.dataLayer || [];
-  function gtag(){ WIN.dataLayer.push(arguments); }
+  function gtag() { WIN.dataLayer.push(arguments); }
   WIN.gtag = WIN.gtag || gtag;
 
   /* Mettre le consentement par défaut sur DENIED
@@ -145,12 +145,27 @@
     box.style.maxWidth = '980px';
     box.style.margin = '0 auto';
 
+    // Dans la fonction buildBanner(), après la ligne 127
+    box.setAttribute('aria-labelledby', 'consent-title');
+    box.setAttribute('aria-describedby', 'consent-desc');
+
+    var title = DOC.createElement('div');
+    title.id = 'consent-title';
+    title.style.fontWeight = '700';
+    title.style.marginBottom = '4px';
+    title.textContent = en ? 'Cookie Consent' : 'Consentement aux cookies';
+
     var txt = DOC.createElement('div');
+    txt.id = 'consent-desc';
     txt.style.fontSize = '14px';
     txt.style.lineHeight = '1.45';
     txt.innerHTML = en
       ? "We use analytics cookies (GA4) only after your consent. You can revoke anytime."
       : "Nous utilisons des cookies d’analyse (GA4) uniquement après votre consentement. Vous pouvez le révoquer à tout moment.";
+
+    var textContainer = DOC.createElement('div');
+    textContainer.appendChild(title);
+    textContainer.appendChild(txt);
 
     var actions = DOC.createElement('div');
     actions.style.display = 'flex';
@@ -227,9 +242,9 @@
             form_id: f.id || '',
             form_action: f.action || location.pathname
           });
-        } catch(_) {}
+        } catch (_) { }
       }, true);
-    } catch(_) {}
+    } catch (_) { }
   }
 
   /* =========================================

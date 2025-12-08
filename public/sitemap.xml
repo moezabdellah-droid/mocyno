@@ -1,19 +1,245 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- FR -->
-  <url><loc>https://mocyno.com/</loc><lastmod>2025-11-10</lastmod><priority>1.0</priority></url>
-  <url><loc>https://mocyno.com/a-propos.html</loc><lastmod>2025-11-10</lastmod><priority>0.6</priority></url>
-  <url><loc>https://mocyno.com/contact.html</loc><lastmod>2025-11-10</lastmod><priority>0.7</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- HOMEPAGE -->
+  <url>
+    <loc>https://mocyno.com/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/"/>
+    <lastmod>2025-12-06</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/"/>
+    <lastmod>2025-12-06</lastmod>
+    <priority>1.0</priority>
+  </url>
 
-  <url><loc>https://mocyno.com/services/</loc><lastmod>2025-11-10</lastmod><priority>0.8</priority></url>
-  <url><loc>https://mocyno.com/services/surveillance-humaine.html</loc><lastmod>2025-11-10</lastmod><priority>0.8</priority></url>
-  <url><loc>https://mocyno.com/services/securite-cynophile.html</loc><lastmod>2025-11-10</lastmod><priority>0.9</priority></url>
-  <url><loc>https://mocyno.com/services/securite-incendie-ssiap.html</loc><lastmod>2025-11-10</lastmod><priority>0.8</priority></url>
-  <url><loc>https://mocyno.com/services/securite-evenementielle.html</loc><lastmod>2025-11-10</lastmod><priority>0.7</priority></url>
-  <url><loc>https://mocyno.com/services/protection-luxe.html</loc><lastmod>2025-11-10</lastmod><priority>0.7</priority></url>
+  <!-- SERVICES INDEX -->
+  <url>
+    <loc>https://mocyno.com/services/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/services/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/"/>
+    <priority>0.9</priority>
+  </url>
 
-  <!-- EN (si en ligne) -->
-  <url><loc>https://mocyno.com/en/</loc><lastmod>2025-11-10</lastmod><priority>0.5</priority></url>
-  <url><loc>https://mocyno.com/en/legal.html</loc><lastmod>2025-11-10</lastmod><priority>0.3</priority></url>
-  <url><loc>https://mocyno.com/en/privacy.html</loc><lastmod>2025-11-10</lastmod><priority>0.3</priority></url>
+  <!-- HISTORICAL SERVICES (FR) -->
+  <url>
+    <loc>https://mocyno.com/services/surveillance-humaine.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/surveillance-humaine.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/surveillance-humaine.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/services/securite-cynophile.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/securite-cynophile.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/securite-cynophile.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/services/securite-incendie-ssiap.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/securite-incendie-ssiap.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/securite-incendie-ssiap.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/services/securite-evenementielle.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/securite-evenementielle.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/securite-evenementielle.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/services/protection-luxe.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/protection-luxe.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/protection-luxe.html"/>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- HISTORICAL SERVICES (EN) -->
+  <url>
+    <loc>https://mocyno.com/en/services/surveillance-humaine.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/surveillance-humaine.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/surveillance-humaine.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/services/securite-cynophile.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/securite-cynophile.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/securite-cynophile.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/services/securite-incendie-ssiap.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/securite-incendie-ssiap.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/securite-incendie-ssiap.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/services/securite-evenementielle.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/securite-evenementielle.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/securite-evenementielle.html"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/services/protection-luxe.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/protection-luxe.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/protection-luxe.html"/>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- NEW SECTOR PAGES (FR) -->
+  <url>
+    <loc>https://mocyno.com/services/marinas-ports/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/marinas-ports/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/marinas-ports/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/services/chantiers/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/chantiers/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/construction-sites/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/services/evenementiel-premium/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/evenementiel-premium/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/premium-events/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/services/luxe-boutiques/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/luxe-boutiques/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/luxury-boutiques/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/services/hotellerie/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/hotellerie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/hospitality/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/services/residentiel/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/residentiel/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/residential/"/>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- NEW SECTOR PAGES (EN) -->
+  <url>
+    <loc>https://mocyno.com/en/services/marinas-ports/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/marinas-ports/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/marinas-ports/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/services/construction-sites/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/chantiers/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/construction-sites/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/services/premium-events/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/evenementiel-premium/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/premium-events/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/services/luxury-boutiques/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/luxe-boutiques/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/luxury-boutiques/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/services/hospitality/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/hotellerie/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/hospitality/"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/services/residential/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/services/residentiel/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/residential/"/>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- BLOG -->
+  <url>
+    <loc>https://mocyno.com/blog/</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/blog/gardiennage-chantier-toulon.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/blog/securite-mariage-var.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/blog/securite-villa-saint-tropez.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/blog/ssiap-hotel-paca.html</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- LEGAL & OTHER -->
+  <url>
+    <loc>https://mocyno.com/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/contact.html"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/contact.html"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/a-propos.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/a-propos.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/about.html"/>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/a-propos.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/about.html"/>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/mentions-legales.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/mentions-legales.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/legal.html"/>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/legal.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/mentions-legales.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/legal.html"/>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/politique-confidentialite.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/politique-confidentialite.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/privacy.html"/>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/politique-confidentialite.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/privacy.html"/>
+    <priority>0.3</priority>
+  </url>
 </urlset>
