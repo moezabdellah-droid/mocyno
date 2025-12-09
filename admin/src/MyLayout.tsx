@@ -1,26 +1,19 @@
 // @ts-nocheck
 import type { LayoutProps, AppBarProps, UserMenuProps } from 'react-admin';
-import { Layout, AppBar, UserMenu, Logout, Link } from 'react-admin';
-import { MenuItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Layout, AppBar, UserMenu, Logout, MenuItemLink } from 'react-admin';
 import SettingsIcon from '@mui/icons-material/Settings';
-import React, { type ForwardedRef } from 'react';
+import React from 'react';
 
 // Custom User Menu Item to link to Profile
-const ProfileMenu = React.forwardRef<HTMLLIElement, unknown>((props, ref: ForwardedRef<HTMLLIElement>) => {
+const ProfileMenu = () => {
     return (
-        <MenuItem
-            component={Link}
+        <MenuItemLink
             to="/profile"
-            ref={ref as unknown}
-            {...props}
-        >
-            <ListItemIcon>
-                <SettingsIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Mon Profil</ListItemText>
-        </MenuItem>
+            primaryText="Mon Profil"
+            leftIcon={<SettingsIcon />}
+        />
     );
-});
+};
 
 // Custom User Menu including Profile and default Logout
 const MyUserMenu = (props: UserMenuProps) => (
