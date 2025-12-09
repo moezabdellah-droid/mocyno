@@ -163,16 +163,22 @@ export const AgentBadgePdf = ({ agent, photoBase64, logoBase64 }: AgentPdfProps)
                 {/* RECTO (FRONT) */}
                 <View style={styles.badgeWrapper}>
                     {logoBase64 && (
-                        <Image src={logoBase64} style={{
+                        <View style={{
                             position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: 140,
-                            height: 140,
-                            opacity: 0.08,
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            justifyContent: 'center',
+                            alignItems: 'center',
                             zIndex: -1
-                        }} />
+                        }}>
+                            <Image src={logoBase64} style={{
+                                width: 140,
+                                height: 140,
+                                opacity: 0.08
+                            }} />
+                        </View>
                     )}
 
                     <View style={styles.badgeHeaderRed} />
@@ -212,16 +218,22 @@ export const AgentBadgePdf = ({ agent, photoBase64, logoBase64 }: AgentPdfProps)
                 {/* VERSO (BACK) */}
                 <View style={styles.badgeWrapper}>
                     {logoBase64 && (
-                        <Image src={logoBase64} style={{
+                        <View style={{
                             position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: 140,
-                            height: 140,
-                            opacity: 0.15,
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            justifyContent: 'center',
+                            alignItems: 'center',
                             zIndex: -1
-                        }} />
+                        }}>
+                            <Image src={logoBase64} style={{
+                                width: 140,
+                                height: 140,
+                                opacity: 0.15
+                            }} />
+                        </View>
                     )}
 
                     <View style={styles.badgeBack}>
