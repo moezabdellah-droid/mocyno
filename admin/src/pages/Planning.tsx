@@ -23,11 +23,6 @@ import moment from 'moment';
 // @ts-expect-error - moment locale files don't have TypeScript declarations
 
 // Custom formats for 24h time
-interface FormatRange {
-    start: Date;
-    end: Date;
-}
-
 const formats = {
     timeGutterFormat: 'HH:mm',
     eventTimeRangeFormat: ({ start, end }: unknown, culture?: string, local?: unknown) =>

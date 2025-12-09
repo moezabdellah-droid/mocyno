@@ -14,7 +14,7 @@ export const ConsigneList = () => (
             <TextField source="title" label="Titre" />
             <FunctionField
                 label="Type"
-                render={(record: any) => {
+                render={(record: { type?: string }) => {
                     const typeObj = consigneTypes.find(t => t.id === record.type);
                     return typeObj ? typeObj.name : record.type;
                 }}
