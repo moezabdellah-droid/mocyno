@@ -324,13 +324,18 @@ export const AgentCreate = () => {
     const notify = useNotify();
     const redirect = useRedirect();
 
-    const save = async (data: any) => {
+    interface AgentFormData extends Omit<Partial<Agent>, 'photoURL'> {
+        photoURL?: string | { rawFile: File; src?: string; title?: string } | null;
+    }
+
+    const save = async (data: Partial<Agent>) => {
+        const formData = data as AgentFormData;
         setLoading(true);
         try {
             // Handle Photo Upload Manually first
             let photoUrl = null;
-            if (data.photoURL && data.photoURL.rawFile) {
-                const file = data.photoURL.rawFile;
+            if (formData.photoURL && typeof formData.photoURL !== 'string' && 'rawFile' in formData.photoURL) {
+                const file = formData.photoURL.rawFile;
                 const storageRef = ref(storage, `agents/photos/${file.name}`);
                 await uploadBytes(storageRef, file);
                 photoUrl = await getDownloadURL(storageRef);

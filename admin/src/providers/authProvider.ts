@@ -9,7 +9,7 @@ import {
     type AuthError
 } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from './firebase.config';
+import { auth, db } from '../firebase.config';
 
 // Helper to get user-friendly error messages
 const getAuthErrorMessage = (error: AuthError): string => {

@@ -11,35 +11,43 @@ import {
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import { Calendar, Views, momentLocalizer } from 'react-big-calendar';
+import { Calendar, Views, momentLocalizer, type DateLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-
-const DnDCalendar = withDragAndDrop(Calendar);
-import type { AgentAssignment, Vacation, Mission, Site, Agent, CalendarSlotInfo } from '../types/models';
-
-const localizer = momentLocalizer(moment);
-
 import moment from 'moment';
+import type { AgentAssignment, Vacation, Mission, Site, Agent, CalendarSlotInfo, PlanningEvent } from '../types/models';
+import {
+    usePlanningEvents,
+} from '../hooks/usePlanningEvents';
+import {
+    getEventRange,
+    calculateMissionPeriod,
+    calculateAgentDurationInMission,
+    calculateMissionDuration
+} from '../utils/planningDurations';
 
+const DnDCalendar = withDragAndDrop<PlanningEvent>(Calendar);
+const localizer = momentLocalizer(moment);
 
 // Custom formats for 24h time
 const formats = {
     timeGutterFormat: 'HH:mm',
-    eventTimeRangeFormat: ({ start, end }: { start: Date, end: Date }, culture?: string, local?: any) =>
-        `${local.format(start, 'HH:mm', culture)} - ${local.format(end, 'HH:mm', culture)}`,
-    agendaTimeRangeFormat: ({ start, end }: { start: Date, end: Date }, culture?: string, local?: any) =>
-        `${local.format(start, 'HH:mm', culture)} - ${local.format(end, 'HH:mm', culture)}`,
+    eventTimeRangeFormat: ({ start, end }: { start: Date, end: Date }, culture?: string, local?: DateLocalizer) =>
+        `${local?.format(start, 'HH:mm', culture)} - ${local?.format(end, 'HH:mm', culture)}`,
+    agendaTimeRangeFormat: ({ start, end }: { start: Date, end: Date }, culture?: string, local?: DateLocalizer) =>
+        `${local?.format(start, 'HH:mm', culture)} - ${local?.format(end, 'HH:mm', culture)}`,
     dayHeaderFormat: 'dddd DD MMMM'
 };
 
 const Planning = () => {
-    const { data: events, isLoading } = useGetList<Mission>('planning', { pagination: { page: 1, perPage: 1000 } });
+    const { data: events, isLoading: isLoadingEvents } = useGetList<Mission>('planning', { pagination: { page: 1, perPage: 1000 } });
     const { data: sites } = useGetList<Site>('sites', { pagination: { page: 1, perPage: 1000 } });
     const { data: agents } = useGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
     const [create] = useCreate();
     const [update] = useUpdate();
     const notify = useNotify();
+
+    const { events: calendarEvents } = usePlanningEvents(events);
 
     // Dialog State
     const [openDialog, setOpenDialog] = useState(false);
@@ -67,40 +75,6 @@ const Planning = () => {
     const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
         setTabValue(newValue);
     };
-
-    // Helper to calculate start and end dates handling cross-day shifts
-    const getEventRange = (date: string, startStr: string, endStr: string) => {
-        const start = new Date(`${date}T${startStr}`);
-        let end = new Date(`${date}T${endStr}`);
-
-        // If end time is earlier than start time, it means it ends the next day
-        if (end < start) {
-            end = new Date(end.getTime() + 24 * 60 * 60 * 1000);
-        }
-        return { start, end };
-    };
-
-    // Transform missions to calendar events
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const calendarEvents = (events || []).flatMap((mission: Mission) => {
-        if (!mission.agentAssignments) return [];
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return mission.agentAssignments.flatMap((assignment: any, assignmentIdx: number) => {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            return assignment.vacations.map((v: any, vacIdx: number) => {
-                const { start, end } = getEventRange(v.date, v.start, v.end);
-                return {
-                    id: `${mission.id}-${assignmentIdx}-${vacIdx}`,
-                    missionId: mission.id,
-                    start,
-                    end,
-                    title: `${mission.siteName} - ${assignment.agentName} (${assignment.specialty})`,
-                    resource: { mission, assignment, vacation: v }
-                };
-            });
-        });
-    });
 
     const onEventResize = useCallback(
         () => {
@@ -165,8 +139,10 @@ const Planning = () => {
         setOpenDialog(true);
     };
 
-    const handleSelectEvent = (event: any) => {
-        handleEditClick(event.resource.mission);
+    const handleSelectEvent = (event: PlanningEvent) => {
+        if (event && event.resource && event.resource.mission) {
+            handleEditClick(event.resource.mission);
+        }
     };
 
     const handleRowClick = (_id: unknown, _resource: unknown, record: unknown): false => {
@@ -352,7 +328,7 @@ const Planning = () => {
         return allSpecialties;
     };
 
-    if (isLoading) return <Loading />;
+    if (isLoadingEvents) return <Loading />;
 
     return (
         <Card>
@@ -410,29 +386,16 @@ const Planning = () => {
                                 <FunctionField
                                     label="Période"
                                     render={(record: Mission) => {
-                                        if (!record.agentAssignments) return '-';
-                                        const allVacations = record.agentAssignments.flatMap((a: AgentAssignment) => a.vacations);
-                                        if (allVacations.length === 0) return '-';
-
-                                        const starts: number[] = [];
-                                        const ends: number[] = [];
-
-                                        allVacations.forEach((v: Vacation) => {
-                                            const { start, end } = getEventRange(v.date, v.start, v.end);
-                                            starts.push(start.getTime());
-                                            ends.push(end.getTime());
-                                        });
-
-                                        const minStart = new Date(Math.min(...starts));
-                                        const maxEnd = new Date(Math.max(...ends));
+                                        const { start, end } = calculateMissionPeriod(record);
+                                        if (!start || !end) return '-';
 
                                         return (
                                             <Box>
                                                 <Typography variant="body2" component="div">
-                                                    Du {minStart.toLocaleDateString()} {minStart.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                    Du {start.toLocaleDateString()} {start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                                 </Typography>
                                                 <Typography variant="body2" component="div">
-                                                    Au {maxEnd.toLocaleDateString()} {maxEnd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                    Au {end.toLocaleDateString()} {end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                                 </Typography>
                                             </Box>
                                         );
@@ -445,14 +408,8 @@ const Planning = () => {
                                         return (
                                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                                                 {record.agentAssignments?.map((assignment: AgentAssignment, idx: number) => {
-                                                    const totalMinutes = assignment.vacations.reduce((acc: number, v: Vacation) => {
-                                                        const { start, end } = getEventRange(v.date, v.start, v.end);
-                                                        const duration = (end.getTime() - start.getTime()) / (1000 * 60);
-                                                        return acc + duration;
-                                                    }, 0);
-                                                    const hours = Math.floor(totalMinutes / 60);
-                                                    const mins = totalMinutes % 60;
-                                                    const timeStr = mins > 0 ? `${hours}h${mins}` : `${hours}h`;
+                                                    const { hours, minutes } = calculateAgentDurationInMission(record, assignment.agentId);
+                                                    const timeStr = minutes > 0 ? `${hours}h${minutes}` : `${hours}h`;
 
                                                     return (
                                                         <Typography key={idx} variant="body2" noWrap>
@@ -468,24 +425,11 @@ const Planning = () => {
                                 <FunctionField
                                     label="Total Mission"
                                     render={(record: Mission) => {
-                                        if (!record.agentAssignments) return '-';
-                                        let totalMinutesMission = 0;
-
-                                        record.agentAssignments.forEach((assignment: AgentAssignment) => {
-                                            const agentMins = assignment.vacations.reduce((acc: number, v: Vacation) => {
-                                                const { start, end } = getEventRange(v.date, v.start, v.end);
-                                                const duration = (end.getTime() - start.getTime()) / (1000 * 60);
-                                                return acc + duration;
-                                            }, 0);
-                                            totalMinutesMission += agentMins;
-                                        });
-
-                                        const hours = Math.floor(totalMinutesMission / 60);
-                                        const mins = totalMinutesMission % 60;
+                                        const { hours, minutes } = calculateMissionDuration(record);
 
                                         return (
                                             <Typography variant="body1" fontWeight="bold">
-                                                {mins > 0 ? `${hours}h${mins}` : `${hours}h`}
+                                                {minutes > 0 ? `${hours}h${minutes}` : `${hours}h`}
                                             </Typography>
                                         );
                                     }}

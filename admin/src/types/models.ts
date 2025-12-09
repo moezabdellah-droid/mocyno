@@ -86,6 +86,7 @@ export interface Consigne {
     siteId?: string;
     siteName?: string;
     priority?: 'low' | 'medium' | 'high';
+    targetId?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
 }
@@ -130,6 +131,11 @@ export interface PlanningEvent {
     vacationIdx: number;
     color?: string;
     allDay?: boolean;
+    resource?: {
+        mission: Mission;
+        assignment: AgentAssignment;
+        vacation: Vacation;
+    };
 }
 
 export interface AgentSchedule {
