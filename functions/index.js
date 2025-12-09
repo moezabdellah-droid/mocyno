@@ -551,3 +551,41 @@ exports.generateMatricule = onCall({ region: "europe-west1" }, async (request) =
     throw new HttpsError('internal', error.message);
   }
 });
+
+// Function to update an agent's password
+exports.updateAgentPassword = onCall({ region: "europe-west1" }, async (request) => {
+  // Check authentication (must be admin)
+  if (!request.auth) {
+    throw new HttpsError('unauthenticated', 'User must be logged in.');
+  }
+
+  const { agentId, newPassword } = request.data;
+  if (!agentId || !newPassword) {
+    throw new HttpsError('invalid-argument', 'Agent ID and new password are required.');
+  }
+
+  // Basic password validation
+  if (newPassword.length < 6) {
+    throw new HttpsError('invalid-argument', 'Password must be at least 6 characters.');
+  }
+
+  try {
+    // Verify agent exists in Firestore first (optional but good for consistency)
+    const agentDoc = await admin.firestore().collection('agents').doc(agentId).get();
+    if (!agentDoc.exists) {
+      throw new HttpsError('not-found', 'Agent profile not found.');
+    }
+
+    // Update password in Auth
+    await admin.auth().updateUser(agentId, {
+      password: newPassword
+    });
+
+    console.log(`Password updated for agent ${agentId} by ${request.auth.uid}`);
+    return { success: true, message: 'Password updated successfully.' };
+
+  } catch (error) {
+    console.error("Error updating password:", error);
+    throw new HttpsError('internal', error.message);
+  }
+});
