@@ -18,7 +18,7 @@ import moment from 'moment';
 import 'moment/dist/locale/fr';
 import { calculateVacationStats } from './utils/planningUtils';
 import type { Mission, AgentAssignment, Vacation } from './types/models';
-import dataProvider from './dataProvider';
+import dataProvider from './providers/dataProvider';
 
 moment.locale('fr');
 

@@ -28,8 +28,9 @@ export const ConsigneList = () => (
     </List>
 );
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const transform = (data: any) => {
+import type { Consigne } from '../types/models';
+
+const transform = (data: Partial<Consigne>) => {
     const payload = {
         ...data,
         authorId: 'admin',

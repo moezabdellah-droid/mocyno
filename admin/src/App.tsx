@@ -1,6 +1,6 @@
 import { Admin, Resource } from 'react-admin';
-import { authProvider } from './authProvider';
-import dataProvider from './dataProvider';
+import { authProvider } from './providers/authProvider';
+import dataProvider from './providers/dataProvider';
 import Planning from './pages/Planning';
 import { ConsigneList, ConsigneCreate, ConsigneEdit, ConsigneShow } from './pages/Consignes';
 import { EventList, EventShow } from './pages/Events';
