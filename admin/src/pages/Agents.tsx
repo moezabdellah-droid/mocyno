@@ -86,7 +86,7 @@ const AgentDownloadButtons = () => {
 
             // Safety timeout promise
             const timeoutPromise = new Promise((_, reject) =>
-                setTimeout(() => reject(new Error('Image loading timed out')), 5000)
+                setTimeout(() => reject(new Error('Image loading timed out')), 8000)
             );
 
             const loadProcess = async () => {
@@ -95,11 +95,11 @@ const AgentDownloadButtons = () => {
                 if (record.photoURL && !photoData) {
                     try {
                         // Use the utility function which uses fetch (CORS now supported)
-                        // This avoids using getBlob which requires Buffer polyfill
                         photoData = await imageUrlToPngBase64(record.photoURL);
                         setPhotoBase64(photoData);
                     } catch (err) {
                         console.error("Failed to load agent photo:", err);
+                        // If it fails (CORS or other), we set empty string so we don't retry locally forever
                         setPhotoBase64('');
                     }
                 } else if (!photoData) {
@@ -110,7 +110,23 @@ const AgentDownloadButtons = () => {
                 let logoData = logoBase64;
                 if (!logoData) {
                     try {
-                        logoData = await imageUrlToPngBase64('/mocyno-logo.png');
+                        // Fix: Vite with base='/admin/' creates a mismatch.
+                        // We use the absolute path including base if we are in prod, or simple path.
+                        // Ideally import it, but it's in public. 
+                        // Simplest: Try relative path assuming we are at /admin or root access.
+                        // Logic: If on /admin/, asking for /mocyno-logo.png checks root. 
+                        // If deployed on subpath, 'mocyno-logo.png' might be relative.
+                        // Let's rely on window.location.origin + /admin/ + file
+                        const logoUrl = `${window.location.origin}/admin/mocyno-logo.png`;
+
+                        // Fallback retry with just root if dev
+                        try {
+                            logoData = await imageUrlToPngBase64(logoUrl);
+                        } catch {
+                            console.warn("Failed first logo path, retrying root...");
+                            logoData = await imageUrlToPngBase64(`${window.location.origin}/mocyno-logo.png`);
+                        }
+
                         setLogoBase64(logoData);
                     } catch (err) {
                         console.warn("Failed to load logo:", err);
