@@ -162,26 +162,20 @@ export const AgentBadgePdf = ({ agent, photoBase64, logoBase64 }: AgentPdfProps)
 
                 {/* RECTO (FRONT) */}
                 <View style={styles.badgeWrapper}>
-                    {logoBase64 && (
-                        <View style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            zIndex: -1
-                        }}>
-                            <Image src={logoBase64} style={{
-                                width: 140,
-                                height: 140,
-                                opacity: 0.08
-                            }} />
-                        </View>
-                    )}
-
                     <View style={styles.badgeHeaderRed} />
+
+                    {logoBase64 && (
+                        <Image src={logoBase64} style={{
+                            position: 'absolute',
+                            top: 16, // Just below red bar (12px) + margin
+                            right: 10,
+                            width: 30, // Small logo size
+                            height: 30,
+                            objectFit: 'contain',
+                            opacity: 1, // Normal opacity
+                            zIndex: 10
+                        }} />
+                    )}
                     <View style={styles.badgeFront}>
                         <View style={styles.badgePhotoContainer}>
                             {photoSrc ? (
