@@ -1,9 +1,8 @@
 // @ts-nocheck
 import type { LayoutProps, AppBarProps, UserMenuProps } from 'react-admin';
-import { Layout, AppBar, UserMenu, Logout } from 'react-admin';
+import { Layout, AppBar, UserMenu, Logout, Link } from 'react-admin';
 import { MenuItem, ListItemIcon, ListItemText } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { Link } from 'react-router-dom';
 import React, { type ForwardedRef } from 'react';
 
 // Custom User Menu Item to link to Profile
