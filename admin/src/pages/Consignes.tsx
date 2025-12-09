@@ -1,4 +1,4 @@
-import { Datagrid, List, TextField, DateField, Create, SimpleForm, TextInput, SelectInput, Edit, Show, SimpleShowLayout, RichTextField, required, ReferenceField, ReferenceInput, AutocompleteInput, FormDataConsumer } from 'react-admin';
+import { Datagrid, List, TextField, DateField, Create, SimpleForm, TextInput, SelectInput, Edit, Show, SimpleShowLayout, RichTextField, required, ReferenceField, ReferenceInput, AutocompleteInput, FormDataConsumer, FunctionField } from 'react-admin';
 import { RichTextInput } from 'ra-input-rich-text';
 
 const consigneTypes = [
@@ -12,7 +12,13 @@ export const ConsigneList = () => (
     <List>
         <Datagrid rowClick="show">
             <TextField source="title" label="Titre" />
-            <SelectInput source="type" choices={consigneTypes} label="Type" readOnly />
+            <FunctionField
+                label="Type"
+                render={(record: any) => {
+                    const typeObj = consigneTypes.find(t => t.id === record.type);
+                    return typeObj ? typeObj.name : record.type;
+                }}
+            />
             <ReferenceField source="targetId" reference="sites" link="show" label="Site concerné">
                 <TextField source="name" />
             </ReferenceField>
@@ -61,9 +67,23 @@ export const ConsigneEdit = () => (
         <SimpleForm>
             <TextInput source="title" validate={[required()]} fullWidth />
             <SelectInput source="type" choices={consigneTypes} validate={[required()]} />
-            <ReferenceInput source="targetId" reference="sites" label="Site associé">
-                <AutocompleteInput optionText="name" />
-            </ReferenceInput>
+
+            <FormDataConsumer>
+                {({ formData }) =>
+                    formData.type === 'site' ? (
+                        <ReferenceInput source="targetId" reference="sites" label="Site associé">
+                            <AutocompleteInput optionText="name" />
+                        </ReferenceInput>
+                    ) : (
+                        <TextInput
+                            source="targetId"
+                            label="ID Cible (Métier/Autre)"
+                            helperText="Remplir si Métier ou Autre"
+                        />
+                    )
+                }
+            </FormDataConsumer>
+
             <RichTextInput source="content" validate={[required()]} />
         </SimpleForm>
     </Edit>
