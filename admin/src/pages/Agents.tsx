@@ -144,7 +144,7 @@ const AgentDownloadButtons = () => {
             {ready ? (
                 <>
                     <PDFDownloadLink
-                        document={<AgentBadgePdf agent={record} photoBase64={photoBase64} logoBase64={logoBase64} />}
+                        document={<AgentBadgePdf agent={record as unknown as Agent} photoBase64={photoBase64} logoBase64={logoBase64} />}
                         fileName={`Badge-${record.lastName || 'Agent'}.pdf`}
                     >
                         {({ loading }) => (
@@ -155,7 +155,7 @@ const AgentDownloadButtons = () => {
                     </PDFDownloadLink>
 
                     <PDFDownloadLink
-                        document={<AgentProfilePdf agent={record} photoBase64={photoBase64} />}
+                        document={<AgentProfilePdf agent={record as unknown as Agent} photoBase64={photoBase64} />}
                         fileName={`Fiche-${record.lastName || 'Agent'}.pdf`}
                     >
                         {({ loading }) => (
@@ -175,9 +175,9 @@ const AgentDownloadButtons = () => {
 };
 
 export const AgentList = () => (
-    <List>
+    <List resource="agents">
         <Datagrid rowClick="edit">
-            <FunctionField label="Photo" render={(record: unknown) =>
+            <FunctionField label="Photo" render={(record: Agent) =>
                 record.photoURL ? <img src={record.photoURL} style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }} alt="" /> : null
             } />
             <TextField source="matricule" label="Matricule" />
@@ -185,7 +185,7 @@ export const AgentList = () => (
             <TextField source="lastName" label="Nom" />
             <TextField source="professionalCardNumber" label="Carte Pro" />
             <EmailField source="email" />
-            <FunctionField label="Spécialités" render={(record: unknown) => record.specialties ? record.specialties.join(', ') : ''} />
+            <FunctionField label="Spécialités" render={(record: Agent) => record.specialties ? record.specialties.join(', ') : ''} />
             <TextField source="status" />
             <DateField source="createdAt" label="Créé le" />
         </Datagrid>
@@ -204,7 +204,7 @@ const UserEditActions = () => {
 };
 
 export const AgentEdit = () => (
-    <Edit actions={<UserEditActions />}>
+    <Edit resource="agents" actions={<UserEditActions />}>
         <Title title="Modifier l'Agent" />
         <TabbedForm>
             <FormTab label="Identité">
@@ -270,7 +270,7 @@ export const AgentEdit = () => (
 
                 <TextInput source="professionalCardNumber" label="Numéro de Carte Pro (Ex: CAR-083-2030-03-18-XXXXXXXXXXX)" validate={validateCardPro} fullWidth />
                 <DateInput source="professionalCardObtainedAt" label="Date d'Obtention Carte Pro" fullWidth />
-                <FunctionField label="Date Validité (Calculée)" render={(record: unknown) => {
+                <FunctionField label="Date Validité (Calculée)" render={(record: Agent) => {
                     if (!record.professionalCardObtainedAt) return '-';
                     const date = new Date(record.professionalCardObtainedAt);
                     date.setFullYear(date.getFullYear() + 5);
@@ -322,7 +322,7 @@ export const AgentCreate = () => {
     const notify = useNotify();
     const redirect = useRedirect();
 
-    const save = async (data: unknown) => {
+    const save = async (data: any) => {
         setLoading(true);
         try {
             // Handle Photo Upload Manually first
@@ -345,14 +345,14 @@ export const AgentCreate = () => {
             redirect('/agents');
         } catch (error: unknown) {
             console.error(error);
-            notify(`Erreur: ${error.message}`, { type: 'error' });
+            notify(`Erreur: ${(error as Error).message}`, { type: 'error' });
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <Create>
+        <Create resource="agents">
             <SimpleForm onSubmit={save}>
                 <TextInput source="firstName" label="Prénom" validate={required()} fullWidth />
                 <TextInput source="lastName" label="Nom" validate={required()} fullWidth />

@@ -8,8 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import CircularProgress from '@mui/material/CircularProgress';
-import GridComponent from '@mui/material/Grid';
-const Grid = GridComponent as unknown;
+import { Grid } from '@mui/material';
 import { Title, useGetList, Loading, useNotify } from 'react-admin';
 import DownloadIcon from '@mui/icons-material/Download';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
@@ -22,8 +21,8 @@ import type { Agent, Mission, AgentAssignment, Vacation, PayrollStats } from '..
 import { calculateVacationStats } from '../utils/planningUtils';
 
 const Payroll = () => {
-    const { data: planning, isLoading: loadingPlanning } = useGetList('planning');
-    const { data: agents, isLoading: loadingAgents } = useGetList('agents');
+    const { data: planning, isLoading: loadingPlanning } = useGetList('planning', { pagination: { page: 1, perPage: 1000 } });
+    const { data: agents, isLoading: loadingAgents } = useGetList('agents', { pagination: { page: 1, perPage: 1000 } });
     const notify = useNotify();
     const [sendingEmail, setSendingEmail] = useState<string | null>(null);
 
@@ -126,7 +125,7 @@ const Payroll = () => {
 
             <Grid container spacing={3}>
                 {stats.map(({ agent, totalDone, futureHours, nightHours, sundayHours, holidayHours }: PayrollStats) => (
-                    <Grid item xs={12} md={6} lg={4} key={agent.id}>
+                    <Grid size={{ xs: 12, md: 6, lg: 4 }} key={agent.id}>
                         <Paper elevation={2} sx={{ p: 3, borderRadius: 2, height: '100%' }}>
                             <Box display="flex" alignItems="center" mb={2}>
                                 <Avatar sx={{ bgcolor: '#CD1A20', mr: 2 }}>
@@ -152,7 +151,7 @@ const Payroll = () => {
 
                             <Grid container spacing={2}>
                                 { /* Total & Done */}
-                                <Grid item xs={6}>
+                                <Grid size={6}>
                                     <Box sx={{ p: 1.5, bgcolor: '#f5f5f5', borderRadius: 1, textAlign: 'center' }}>
                                         <Typography variant="caption" color="textSecondary">Effectuées</Typography>
                                         <Typography variant="h5" color="success.main" fontWeight="bold">
@@ -160,7 +159,7 @@ const Payroll = () => {
                                         </Typography>
                                     </Box>
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid size={6}>
                                     <Box sx={{ p: 1.5, bgcolor: '#f5f5f5', borderRadius: 1, textAlign: 'center' }}>
                                         <Typography variant="caption" color="textSecondary">Planifiées (Futur)</Typography>
                                         <Typography variant="h5" color="primary.main" fontWeight="bold">
@@ -170,27 +169,27 @@ const Payroll = () => {
                                 </Grid>
 
                                 { /* Details */}
-                                <Grid item xs={12}>
+                                <Grid size={12}>
                                     <Typography variant="subtitle2" sx={{ mt: 1, mb: 1, fontWeight: 'bold' }}>
                                         Majorations & Détails
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={4}>
+                                <Grid size={4}>
                                     <Box display="flex" flexDirection="column" alignItems="center">
                                         <NightlightRoundIcon color="action" fontSize="small" />
                                         <Typography variant="caption" mt={0.5}>Nuit</Typography>
                                         <Typography fontWeight="bold">{nightHours.toFixed(1)}h</Typography>
                                     </Box>
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid size={4}>
                                     <Box display="flex" flexDirection="column" alignItems="center">
                                         <CalendarTodayIcon color="action" fontSize="small" />
                                         <Typography variant="caption" mt={0.5}>Dimanche</Typography>
                                         <Typography fontWeight="bold">{sundayHours.toFixed(1)}h</Typography>
                                     </Box>
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid size={4}>
                                     <Box display="flex" flexDirection="column" alignItems="center">
                                         <StarIcon color="action" fontSize="small" />
                                         <Typography variant="caption" mt={0.5}>Férié</Typography>
@@ -198,7 +197,7 @@ const Payroll = () => {
                                     </Box>
                                 </Grid>
 
-                                <Grid item xs={12} sx={{ mt: 2 }}>
+                                <Grid size={12} sx={{ mt: 2 }}>
                                     <Button
                                         fullWidth
                                         variant="outlined"

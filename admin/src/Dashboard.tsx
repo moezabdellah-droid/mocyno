@@ -1,5 +1,5 @@
 
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
@@ -7,9 +7,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import Paper from '@mui/material/Paper';
-import GridComponent from '@mui/material/Grid';
-const Grid = GridComponent as unknown;
-import { useGetList, Title } from 'react-admin';
+import { Grid } from '@mui/material';
+import { Title } from 'react-admin';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import GroupIcon from '@mui/icons-material/Group';
@@ -19,11 +18,32 @@ import moment from 'moment';
 import 'moment/dist/locale/fr';
 import { calculateVacationStats } from './utils/planningUtils';
 import type { Mission, AgentAssignment, Vacation } from './types/models';
+import dataProvider from './dataProvider';
 
 moment.locale('fr');
 
 const Dashboard = () => {
-    const { data: planning, isLoading } = useGetList('planning');
+    const [planning, setPlanning] = useState<Mission[] | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Direct call to dataProvider to bypass potential hook issues
+                const { data } = await dataProvider.getList('planning', {
+                    pagination: { page: 1, perPage: 1000 },
+                    sort: { field: 'createdAt', order: 'DESC' },
+                    filter: {}
+                });
+                setPlanning(data as Mission[]);
+            } catch (error) {
+                console.error('Error fetching planning:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, []);
 
     const stats = useMemo(() => {
         if (!planning) return { doneHours: 0, futureHours: 0, agentsCount: 0, sitesCount: 0 };
@@ -34,8 +54,8 @@ const Dashboard = () => {
         const uniqueSites = new Set<string>();
         const now = moment();
 
-        (planning as Mission[]).forEach(mission => {
-            if (mission.siteId) uniqueSites.add(mission.siteId);
+        planning.forEach(mission => {
+            let isMissionActive = false;
 
             if (mission.agentAssignments) {
                 mission.agentAssignments.forEach((assignment: AgentAssignment) => {
@@ -52,9 +72,15 @@ const Dashboard = () => {
                             doneHours += vStats.total;
                         } else {
                             futureHours += vStats.total;
+                            isMissionActive = true;
                         }
                     });
                 });
+            }
+
+            // Only count sites that have active or future missions
+            if (mission.siteId && isMissionActive) {
+                uniqueSites.add(mission.siteId);
             }
         });
 
@@ -66,7 +92,7 @@ const Dashboard = () => {
         };
     }, [planning]);
 
-    if (isLoading) {
+    if (loading) {
         return (
             <Box display="flex" justifyContent="center" alignItems="center" minHeight="50vh">
                 <CircularProgress />
@@ -88,7 +114,7 @@ const Dashboard = () => {
             </Card>
 
             <Grid container spacing={3}>
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                     <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #2e7d32' }}>
                         <CheckCircleIcon sx={{ fontSize: 50, color: '#2e7d32', mr: 2 }} />
                         <Box>
@@ -102,7 +128,7 @@ const Dashboard = () => {
                     </Paper>
                 </Grid>
 
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                     <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #1976d2' }}>
                         <AccessTimeIcon sx={{ fontSize: 50, color: '#1976d2', mr: 2 }} />
                         <Box>
@@ -116,7 +142,7 @@ const Dashboard = () => {
                     </Paper>
                 </Grid>
 
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                     <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #0288d1' }}>
                         <GroupIcon sx={{ fontSize: 50, color: '#0288d1', mr: 2 }} />
                         <Box>
@@ -130,7 +156,7 @@ const Dashboard = () => {
                     </Paper>
                 </Grid>
 
-                <Grid item xs={12} sm={6} md={3}>
+                <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                     <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #ed6c02' }}>
                         <BusinessIcon sx={{ fontSize: 50, color: '#ed6c02', mr: 2 }} />
                         <Box>

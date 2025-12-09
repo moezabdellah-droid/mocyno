@@ -3,7 +3,7 @@ import { Datagrid, List, TextField, DeleteButton, FunctionField, SimpleForm, Tex
 import type { Site } from '../types/models';
 
 export const SiteList = () => (
-    <List>
+    <List resource="sites">
         <Datagrid rowClick="edit">
             <TextField source="name" label="Nom du Site" />
             <TextField source="address" label="Adresse" />
@@ -34,13 +34,13 @@ const SiteForm = () => (
 );
 
 export const SiteCreate = () => (
-    <Create title="Nouveau Site Client">
+    <Create resource="sites" title="Nouveau Site Client">
         <SiteForm />
     </Create>
 );
 
 export const SiteEdit = () => (
-    <Edit title="Modifier Site">
+    <Edit resource="sites" title="Modifier Site">
         <SiteForm />
     </Edit>
 );

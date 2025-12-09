@@ -1,5 +1,6 @@
 import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import moment from 'moment';
+import type { Agent } from '../types/models';
 
 
 const styles = StyleSheet.create({
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
 });
 
 interface AgentPdfProps {
-    agent: unknown;
+    agent: Agent;
     photoBase64?: string | null;
     logoBase64?: string | null;
 }
