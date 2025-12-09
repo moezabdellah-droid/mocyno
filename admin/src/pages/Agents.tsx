@@ -110,26 +110,22 @@ const AgentDownloadButtons = () => {
                 let logoData = logoBase64;
                 if (!logoData) {
                     try {
-                        // Fix: Vite with base='/admin/' creates a mismatch.
-                        // We use the absolute path including base if we are in prod, or simple path.
-                        // Ideally import it, but it's in public. 
-                        // Simplest: Try relative path assuming we are at /admin or root access.
-                        // Logic: If on /admin/, asking for /mocyno-logo.png checks root. 
-                        // If deployed on subpath, 'mocyno-logo.png' might be relative.
-                        // Let's rely on window.location.origin + /admin/ + file
-                        const logoUrl = `${window.location.origin}/admin/mocyno-logo.png`;
+                        // The app is in /admin/, the logo is in root public/
+                        // Try fetching from root first.
+                        // We use a root-relative path which works if served from domain root.
+                        const logoUrl = '/mocyno-logo.png';
 
-                        // Fallback retry with just root if dev
                         try {
                             logoData = await imageUrlToPngBase64(logoUrl);
-                        } catch {
-                            console.warn("Failed first logo path, retrying root...");
-                            logoData = await imageUrlToPngBase64(`${window.location.origin}/mocyno-logo.png`);
+                        } catch (err) {
+                            console.warn("Failed root logo path, retrying relative ../...", err);
+                            // If we are in specific subpath/domain setup, try relative
+                            logoData = await imageUrlToPngBase64('../mocyno-logo.png');
                         }
 
                         setLogoBase64(logoData);
                     } catch (err) {
-                        console.warn("Failed to load logo:", err);
+                        console.error("Failed to load logo (all attempts):", err);
                         setLogoBase64('');
                     }
                 }
