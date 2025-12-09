@@ -140,7 +140,7 @@ const dataProvider: DataProvider = {
         resource: string,
         params: UpdateParams
     ): Promise<UpdateResult<RecordType>> => {
-        const { id, ...rest } = params.data;
+        const { id: _id, ...rest } = params.data;
 
         // Handle file upload
         if (rest.photoURL && typeof rest.photoURL !== 'string') {
