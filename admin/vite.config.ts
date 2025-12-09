@@ -29,6 +29,7 @@ export default defineConfig({
     global: 'globalThis',
   },
   resolve: {
+    dedupe: ['react', 'react-dom', 'react-router', 'react-router-dom', 'react-admin', '@mui/material'],
     alias: {
       buffer: 'buffer',
     },
