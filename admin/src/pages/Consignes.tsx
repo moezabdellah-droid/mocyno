@@ -29,11 +29,18 @@ export const ConsigneList = () => (
 );
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const transform = (data: any) => ({
-    ...data,
-    authorId: 'admin',
-    createdAt: new Date()
-});
+const transform = (data: any) => {
+    const payload = {
+        ...data,
+        authorId: 'admin',
+        createdAt: new Date()
+    };
+    // Fix: Firestore crashes on undefined values
+    if (payload.targetId === undefined) {
+        payload.targetId = null;
+    }
+    return payload;
+};
 
 export const ConsigneCreate = () => (
     <Create resource="consignes" transform={transform}>
