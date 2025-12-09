@@ -15,6 +15,7 @@ import { imageUrlToPngBase64 } from '../utils/imageUtils';
 import { AgentBadgePdf, AgentProfilePdf } from '../components/AgentPdf';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../firebase.config';
+import logoUrl from '../assets/mocyno-logo.png'; // Imported asset
 
 // Basic validation for professional card
 const validateCardPro = (value: string) => {
@@ -110,22 +111,11 @@ const AgentDownloadButtons = () => {
                 let logoData = logoBase64;
                 if (!logoData) {
                     try {
-                        // The app is in /admin/, the logo is in root public/
-                        // Try fetching from root first.
-                        // We use a root-relative path which works if served from domain root.
-                        const logoUrl = '/mocyno-logo.png';
-
-                        try {
-                            logoData = await imageUrlToPngBase64(logoUrl);
-                        } catch (err) {
-                            console.warn("Failed root logo path, retrying relative ../...", err);
-                            // If we are in specific subpath/domain setup, try relative
-                            logoData = await imageUrlToPngBase64('../mocyno-logo.png');
-                        }
-
+                        // Use imported URL which is resolved by Vite at build time
+                        logoData = await imageUrlToPngBase64(logoUrl);
                         setLogoBase64(logoData);
                     } catch (err) {
-                        console.error("Failed to load logo (all attempts):", err);
+                        console.error("Failed to load logo from imported asset:", err);
                         setLogoBase64('');
                     }
                 }
