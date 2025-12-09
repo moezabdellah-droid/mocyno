@@ -167,12 +167,12 @@ export const AgentBadgePdf = ({ agent, photoBase64, logoBase64 }: AgentPdfProps)
                     {logoBase64 && (
                         <Image src={logoBase64} style={{
                             position: 'absolute',
-                            top: 16, // Just below red bar (12px) + margin
-                            right: 10,
-                            width: 30, // Small logo size
-                            height: 30,
+                            top: 14, // Just below red bar
+                            right: 5, // Closer to edge to maximize space
+                            width: 50, // Increased from 30
+                            height: 50, // Increased from 30
                             objectFit: 'contain',
-                            opacity: 1, // Normal opacity
+                            opacity: 1,
                             zIndex: 10
                         }} />
                     )}
