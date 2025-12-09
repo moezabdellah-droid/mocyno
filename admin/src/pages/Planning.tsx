@@ -15,27 +15,27 @@ import { Calendar, Views, momentLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 
 const DnDCalendar = withDragAndDrop(Calendar);
-import type { AgentAssignment, Vacation } from '../types/models';
+import type { AgentAssignment, Vacation, Mission, Site, Agent, CalendarSlotInfo } from '../types/models';
 
 const localizer = momentLocalizer(moment);
 
 import moment from 'moment';
-// @ts-expect-error - moment locale files don't have TypeScript declarations
+
 
 // Custom formats for 24h time
 const formats = {
     timeGutterFormat: 'HH:mm',
-    eventTimeRangeFormat: ({ start, end }: unknown, culture?: string, local?: unknown) =>
+    eventTimeRangeFormat: ({ start, end }: { start: Date, end: Date }, culture?: string, local?: any) =>
         `${local.format(start, 'HH:mm', culture)} - ${local.format(end, 'HH:mm', culture)}`,
-    agendaTimeRangeFormat: ({ start, end }: unknown, culture?: string, local?: unknown) =>
+    agendaTimeRangeFormat: ({ start, end }: { start: Date, end: Date }, culture?: string, local?: any) =>
         `${local.format(start, 'HH:mm', culture)} - ${local.format(end, 'HH:mm', culture)}`,
     dayHeaderFormat: 'dddd DD MMMM'
 };
 
 const Planning = () => {
-    const { data: events, isLoading } = useGetList('planning');
-    const { data: sites } = useGetList('sites');
-    const { data: agents } = useGetList('agents');
+    const { data: events, isLoading } = useGetList<Mission>('planning', { pagination: { page: 1, perPage: 1000 } });
+    const { data: sites } = useGetList<Site>('sites', { pagination: { page: 1, perPage: 1000 } });
+    const { data: agents } = useGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
     const [create] = useCreate();
     const [update] = useUpdate();
     const notify = useNotify();
@@ -81,7 +81,7 @@ const Planning = () => {
 
     // Transform missions to calendar events
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const calendarEvents = (events || []).flatMap((mission: any) => {
+    const calendarEvents = (events || []).flatMap((mission: Mission) => {
         if (!mission.agentAssignments) return [];
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -134,7 +134,7 @@ const Planning = () => {
         setSelectedMissionId(null);
     };
 
-    const handleSelectSlot = useCallback((slotInfo: unknown) => {
+    const handleSelectSlot = useCallback((slotInfo: CalendarSlotInfo) => {
         resetForm();
         setAgentAssignments([{
             agentId: '',
@@ -149,27 +149,27 @@ const Planning = () => {
         setOpenDialog(true);
     }, []);
 
-    const handleEditClick = (mission: unknown) => {
+    const handleEditClick = (mission: Mission) => {
         setEditMode(true);
         setSelectedMissionId(mission.id);
         setMissionData({
             siteId: mission.siteId,
             notes: mission.notes || ''
         });
-        const assignmentsCopy = mission.agentAssignments.map((a: unknown) => ({
+        const assignmentsCopy = mission.agentAssignments.map((a: AgentAssignment) => ({
             ...a,
-            vacations: a.vacations.map((v: unknown) => ({ ...v }))
+            vacations: a.vacations.map((v: Vacation) => ({ ...v }))
         }));
         setAgentAssignments(assignmentsCopy);
         setOpenDialog(true);
     };
 
-    const handleSelectEvent = (event: unknown) => {
+    const handleSelectEvent = (event: any) => {
         handleEditClick(event.resource.mission);
     };
 
     const handleRowClick = (_id: unknown, _resource: unknown, record: unknown): false => {
-        handleEditClick(record);
+        handleEditClick(record as Mission);
         return false;
     };
 
@@ -197,7 +197,7 @@ const Planning = () => {
     const handleAgentChange = (assignmentIdx: number, field: string, value: string) => {
         const updated = [...agentAssignments];
         if (field === 'agentId') {
-            const agent = agents?.find((a: unknown) => a.id === value);
+            const agent = agents?.find((a: Agent) => a.id === value);
             updated[assignmentIdx] = {
                 ...updated[assignmentIdx],
                 agentId: value,
@@ -240,7 +240,7 @@ const Planning = () => {
 
     const handleSaveMission = async () => {
         try {
-            const site = sites?.find((s: unknown) => s.id === missionData.siteId);
+            const site = sites?.find((s: Site) => s.id === missionData.siteId);
             if (!site) {
                 notify('Site introuvable', { type: 'error' });
                 return;
@@ -257,13 +257,13 @@ const Planning = () => {
                 for (const vacation of assignment.vacations) {
                     const { start: vacationStart, end: vacationEnd } = getEventRange(vacation.date, vacation.start, vacation.end);
 
-                    const hasConflict = events?.some((mission: unknown) => {
+                    const hasConflict = events?.some((mission: Mission) => {
                         if (editMode && mission.id === selectedMissionId) return false;
 
                         if (!mission.agentAssignments) return false;
-                        return mission.agentAssignments.some((a: unknown) => {
+                        return mission.agentAssignments.some((a: AgentAssignment) => {
                             if (a.agentId !== assignment.agentId) return false;
-                            return a.vacations.some((v: unknown) => {
+                            return a.vacations.some((v: Vacation) => {
                                 const { start: eventStart, end: eventEnd } = getEventRange(v.date, v.start, v.end);
                                 return (vacationStart < eventEnd && vacationEnd > eventStart);
                             });
@@ -290,7 +290,7 @@ const Planning = () => {
                 await update('planning', {
                     id: selectedMissionId,
                     data: payloadData,
-                    previousData: events?.find((e: unknown) => e.id === selectedMissionId)
+                    previousData: events?.find((e: Mission) => e.id === selectedMissionId)
                 });
                 notify('Mission mise à jour avec succès !');
             } else {
@@ -306,24 +306,24 @@ const Planning = () => {
 
             handleCloseDialog();
         } catch (error: unknown) {
-            notify(`Erreur: ${error.message}`, { type: 'error' });
+            notify(`Erreur: ${(error as Error).message}`, { type: 'error' });
         }
     };
 
     const getAgentsForAssignment = (specialty: string | null) => {
         if (!missionData.siteId || !sites || !agents) return [];
-        const site = sites.find((s: unknown) => s.id === missionData.siteId);
+        const site = sites.find((s: Site) => s.id === missionData.siteId);
 
         let potentialAgents = agents;
 
-        if (site?.requiredSpecialties?.length > 0) {
-            potentialAgents = potentialAgents.filter((agent: unknown) =>
-                agent.specialties?.some((s: string) => site.requiredSpecialties.includes(s))
+        if (site && site.requiredSpecialties && site.requiredSpecialties.length > 0) {
+            potentialAgents = potentialAgents.filter((agent: Agent) =>
+                agent.specialties?.some((s: string) => site.requiredSpecialties!.includes(s))
             );
         }
 
         if (specialty) {
-            return potentialAgents.filter((agent: unknown) =>
+            return potentialAgents.filter((agent: Agent) =>
                 agent.specialties?.includes(specialty)
             );
         }
@@ -342,10 +342,10 @@ const Planning = () => {
         ];
 
         if (!missionData.siteId || !sites) return allSpecialties;
-        const site = sites.find((s: unknown) => s.id === missionData.siteId);
+        const site = sites.find((s: Site) => s.id === missionData.siteId);
 
-        if (site?.requiredSpecialties?.length > 0) {
-            return allSpecialties.filter(s => site.requiredSpecialties.includes(s.id));
+        if (site && site.requiredSpecialties && site.requiredSpecialties.length > 0) {
+            return allSpecialties.filter(s => site.requiredSpecialties!.includes(s.id));
         }
 
         return allSpecialties;
@@ -402,21 +402,21 @@ const Planning = () => {
 
                 <div role="tabpanel" hidden={tabValue !== 1}>
                     {tabValue === 1 && (
-                        <List actions={false} title=" ">
+                        <List resource="planning" actions={false} title=" ">
                             <Datagrid bulkActionButtons={false} rowClick={handleRowClick}>
                                 <RaTextField source="siteName" label="Site" />
 
                                 <FunctionField
                                     label="Période"
-                                    render={(record: unknown) => {
+                                    render={(record: Mission) => {
                                         if (!record.agentAssignments) return '-';
-                                        const allVacations = record.agentAssignments.flatMap((a: unknown) => a.vacations);
+                                        const allVacations = record.agentAssignments.flatMap((a: AgentAssignment) => a.vacations);
                                         if (allVacations.length === 0) return '-';
 
                                         const starts: number[] = [];
                                         const ends: number[] = [];
 
-                                        allVacations.forEach((v: unknown) => {
+                                        allVacations.forEach((v: Vacation) => {
                                             const { start, end } = getEventRange(v.date, v.start, v.end);
                                             starts.push(start.getTime());
                                             ends.push(end.getTime());
@@ -440,11 +440,11 @@ const Planning = () => {
 
                                 <FunctionField
                                     label="Agents & Heures"
-                                    render={(record: unknown) => {
+                                    render={(record: Mission) => {
                                         return (
                                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                                                {record.agentAssignments?.map((assignment: unknown, idx: number) => {
-                                                    const totalMinutes = assignment.vacations.reduce((acc: number, v: unknown) => {
+                                                {record.agentAssignments?.map((assignment: AgentAssignment, idx: number) => {
+                                                    const totalMinutes = assignment.vacations.reduce((acc: number, v: Vacation) => {
                                                         const { start, end } = getEventRange(v.date, v.start, v.end);
                                                         const duration = (end.getTime() - start.getTime()) / (1000 * 60);
                                                         return acc + duration;
@@ -466,12 +466,12 @@ const Planning = () => {
 
                                 <FunctionField
                                     label="Total Mission"
-                                    render={(record: unknown) => {
+                                    render={(record: Mission) => {
                                         if (!record.agentAssignments) return '-';
                                         let totalMinutesMission = 0;
 
-                                        record.agentAssignments.forEach((assignment: unknown) => {
-                                            const agentMins = assignment.vacations.reduce((acc: number, v: unknown) => {
+                                        record.agentAssignments.forEach((assignment: AgentAssignment) => {
+                                            const agentMins = assignment.vacations.reduce((acc: number, v: Vacation) => {
                                                 const { start, end } = getEventRange(v.date, v.start, v.end);
                                                 const duration = (end.getTime() - start.getTime()) / (1000 * 60);
                                                 return acc + duration;
@@ -525,7 +525,7 @@ const Planning = () => {
                         margin="normal"
                         required
                     >
-                        {(sites || []).map((site: unknown) => (
+                        {(sites || []).map((site: Site) => (
                             <MenuItem key={site.id} value={site.id}>
                                 {site.name}
                             </MenuItem>
@@ -575,7 +575,7 @@ const Planning = () => {
                                         required
                                         disabled={!missionData.siteId}
                                     >
-                                        {getAgentsForAssignment(assignment.specialty).map((agent: unknown) => (
+                                        {getAgentsForAssignment(assignment.specialty).map((agent: Agent) => (
                                             <MenuItem key={agent.id} value={agent.id}>
                                                 {agent.firstName} {agent.lastName} ({agent.specialties?.join(', ') || 'N/A'})
                                             </MenuItem>

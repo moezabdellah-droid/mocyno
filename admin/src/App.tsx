@@ -1,4 +1,3 @@
-
 import { Admin, Resource } from 'react-admin';
 import { authProvider } from './authProvider';
 import dataProvider from './dataProvider';
@@ -7,22 +6,14 @@ import { ConsigneList, ConsigneCreate, ConsigneEdit, ConsigneShow } from './page
 import { EventList, EventShow } from './pages/Events';
 import Payroll from './pages/Payroll';
 import { AgentList, AgentCreate, AgentEdit } from './pages/Agents';
-import Profile from './pages/Profile';
 import Dashboard from './Dashboard';
 import { mocynoTheme } from './theme';
-
-import CustomLoginPage from './LoginPage';
-import AppLayout from './AppLayout';
 import { SiteList, SiteCreate, SiteEdit } from './pages/Sites';
-
-
 
 const App = () => (
   <Admin
     authProvider={authProvider}
     dataProvider={dataProvider}
-    loginPage={CustomLoginPage}
-    layout={AppLayout}
     dashboard={Dashboard}
     theme={mocynoTheme}
   >

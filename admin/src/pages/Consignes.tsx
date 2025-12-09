@@ -9,7 +9,7 @@ const consigneTypes = [
 ];
 
 export const ConsigneList = () => (
-    <List>
+    <List resource="consignes">
         <Datagrid rowClick="show">
             <TextField source="title" label="Titre" />
             <FunctionField
@@ -36,7 +36,7 @@ const transform = (data: any) => ({
 });
 
 export const ConsigneCreate = () => (
-    <Create transform={transform}>
+    <Create resource="consignes" transform={transform}>
         <SimpleForm>
             <TextInput source="title" validate={[required()]} label="Titre de la consigne" fullWidth />
             <SelectInput source="type" choices={consigneTypes} validate={[required()]} label="Type de consigne" />
@@ -63,7 +63,7 @@ export const ConsigneCreate = () => (
 );
 
 export const ConsigneEdit = () => (
-    <Edit>
+    <Edit resource="consignes">
         <SimpleForm>
             <TextInput source="title" validate={[required()]} fullWidth />
             <SelectInput source="type" choices={consigneTypes} validate={[required()]} />
@@ -90,7 +90,7 @@ export const ConsigneEdit = () => (
 );
 
 export const ConsigneShow = () => (
-    <Show>
+    <Show resource="consignes">
         <SimpleShowLayout>
             <TextField source="title" variant="h5" />
             <TextField source="type" />

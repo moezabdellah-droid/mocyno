@@ -3,7 +3,7 @@ import { Datagrid, List, TextField, DateField, FunctionField, Show, SimpleShowLa
 import type { Event } from '../types/models';
 
 export const EventList = () => (
-    <List>
+    <List resource="events">
         <Datagrid rowClick="show">
             <TextField source="authorEmail" label="Agent" />
             <DateField source="timestamp" showTime label="Date" />
@@ -13,7 +13,7 @@ export const EventList = () => (
 );
 
 export const EventShow = () => (
-    <Show>
+    <Show resource="events">
         <SimpleShowLayout>
             <TextField source="type" variant="h6" />
             <TextField source="title" variant="h4" />
