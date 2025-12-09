@@ -364,6 +364,7 @@ export const AgentCreate = () => {
                 <TextInput source="firstName" label="Prénom" validate={required()} fullWidth />
                 <TextInput source="lastName" label="Nom" validate={required()} fullWidth />
                 <TextInput source="email" label="Email" validate={[required()]} fullWidth type="email" />
+                <TextInput source="password" label="Mot de passe provisoire" validate={[required()]} fullWidth type="password" />
 
                 <ImageInput source="photoURL" label="Photo d'Identité" accept={{ 'image/*': ['.png', '.jpg', '.jpeg'] }}>
                     <ImageField source="src" title="title" />
