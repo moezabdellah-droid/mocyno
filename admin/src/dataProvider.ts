@@ -1,12 +1,24 @@
 import type {
     DataProvider,
+    GetListParams,
+    GetListResult,
     GetOneParams,
+    GetOneResult,
     GetManyParams,
+    GetManyResult,
+    GetManyReferenceParams,
+    GetManyReferenceResult,
     CreateParams,
+    CreateResult,
     UpdateParams,
+    UpdateResult,
     UpdateManyParams,
+    UpdateManyResult,
     DeleteParams,
-    DeleteManyParams
+    DeleteResult,
+    DeleteManyParams,
+    DeleteManyResult,
+    RaRecord
 } from 'react-admin';
 import {
     collection,
@@ -37,20 +49,26 @@ const convertFileToUrl = async (file: string | FileUpload): Promise<string> => {
 };
 
 const dataProvider: DataProvider = {
-    getList: async (resource: string) => {
+    getList: async <RecordType extends RaRecord = RaRecord>(
+        resource: string,
+        _params: GetListParams
+    ): Promise<GetListResult<RecordType>> => {
         const querySnapshot = await getDocs(collection(db, resource));
         const data = querySnapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
-        }));
+        })) as RecordType[];
 
         return {
-            data: data as unknown,
+            data,
             total: data.length,
         };
     },
 
-    getOne: async (resource: string, params: GetOneParams) => {
+    getOne: async <RecordType extends RaRecord = RaRecord>(
+        resource: string,
+        params: GetOneParams
+    ): Promise<GetOneResult<RecordType>> => {
         const docRef = doc(db, resource, params.id.toString());
         const docSnap = await getDoc(docRef);
 
@@ -59,31 +77,37 @@ const dataProvider: DataProvider = {
                 data: {
                     id: docSnap.id,
                     ...docSnap.data()
-                }
+                } as RecordType
             };
         }
 
         throw new Error(`Document not found: ${resource}/${params.id}`);
     },
 
-    getMany: async (resource: string, params: GetManyParams) => {
+    getMany: async <RecordType extends RaRecord = RaRecord>(
+        resource: string,
+        params: GetManyParams
+    ): Promise<GetManyResult<RecordType>> => {
         const querySnapshot = await getDocs(collection(db, resource));
         const data = querySnapshot.docs
             .filter(doc => params.ids.includes(doc.id))
             .map(doc => ({
                 id: doc.id,
                 ...doc.data()
-            }));
+            })) as RecordType[];
 
         return { data };
     },
 
-    getManyReference: async (resource: string) => {
+    getManyReference: async <RecordType extends RaRecord = RaRecord>(
+        resource: string,
+        _params: GetManyReferenceParams
+    ): Promise<GetManyReferenceResult<RecordType>> => {
         const querySnapshot = await getDocs(collection(db, resource));
         const data = querySnapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
-        }));
+        })) as RecordType[];
 
         return {
             data,
@@ -91,7 +115,10 @@ const dataProvider: DataProvider = {
         };
     },
 
-    create: async (resource: string, params: CreateParams) => {
+    create: async <RecordType extends RaRecord = RaRecord>(
+        resource: string,
+        params: CreateParams
+    ): Promise<CreateResult<RecordType>> => {
         const newItem = { ...params.data };
 
         // Handle file upload for photoURL
@@ -105,12 +132,15 @@ const dataProvider: DataProvider = {
             data: {
                 ...newItem,
                 id: docRef.id
-            }
+            } as RecordType
         };
     },
 
-    update: async (resource: string, params: UpdateParams) => {
-        const { ...rest } = params.data;
+    update: async <RecordType extends RaRecord = RaRecord>(
+        resource: string,
+        params: UpdateParams
+    ): Promise<UpdateResult<RecordType>> => {
+        const { id, ...rest } = params.data;
 
         // Handle file upload
         if (rest.photoURL && typeof rest.photoURL !== 'string') {
@@ -129,11 +159,14 @@ const dataProvider: DataProvider = {
         await updateDoc(docRef, data);
 
         return {
-            data: params.data
+            data: params.data as RecordType
         };
     },
 
-    updateMany: async (resource: string, params: UpdateManyParams) => {
+    updateMany: async (
+        resource: string,
+        params: UpdateManyParams
+    ): Promise<UpdateManyResult> => {
         for (const id of params.ids) {
             const docRef = doc(db, resource, id.toString());
             await updateDoc(docRef, params.data);
@@ -144,16 +177,22 @@ const dataProvider: DataProvider = {
         };
     },
 
-    delete: async (resource: string, params: DeleteParams) => {
+    delete: async <RecordType extends RaRecord = RaRecord>(
+        resource: string,
+        params: DeleteParams
+    ): Promise<DeleteResult<RecordType>> => {
         const docRef = doc(db, resource, params.id.toString());
         await deleteDoc(docRef);
 
         return {
-            data: params.previousData
+            data: params.previousData as RecordType
         };
     },
 
-    deleteMany: async (resource: string, params: DeleteManyParams) => {
+    deleteMany: async (
+        resource: string,
+        params: DeleteManyParams
+    ): Promise<DeleteManyResult> => {
         for (const id of params.ids) {
             const docRef = doc(db, resource, id.toString());
             await deleteDoc(docRef);
@@ -163,6 +202,7 @@ const dataProvider: DataProvider = {
             data: params.ids
         };
     }
-} as unknown;
+};
 
 export default dataProvider;
+

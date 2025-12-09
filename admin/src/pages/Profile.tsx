@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, Button, TextField } from '@mui/material';
 import { Title, useNotify } from 'react-admin';
-import { auth } from '../firebase';
+import { auth } from '../firebase.config';
 import { updatePassword } from 'firebase/auth';
 
 const Profile = () => {
