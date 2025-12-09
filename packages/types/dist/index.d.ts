@@ -3,14 +3,12 @@ export interface Vacation {
     start: string;
     end: string;
 }
-
 export interface AgentAssignment {
     agentId: string;
     agentName: string;
     specialty: string;
     vacations: Vacation[];
 }
-
 export interface Mission {
     id: string;
     siteId: string;
@@ -22,7 +20,6 @@ export interface Mission {
     createdAt: Date | string;
     updatedAt?: Date | string;
 }
-
 export interface Agent {
     id: string;
     firstName: string;
@@ -57,7 +54,6 @@ export interface Agent {
     createdAt?: Date | string;
     updatedAt?: Date | string;
 }
-
 export interface Site {
     id: string;
     name: string;
@@ -67,7 +63,6 @@ export interface Site {
     requiredSpecialties?: string[];
     notes?: string;
 }
-
 export interface Event {
     id: string;
     type: string;
@@ -78,7 +73,6 @@ export interface Event {
     status: string;
     photo?: string;
 }
-
 export interface Consigne {
     id: string;
     title: string;
@@ -90,7 +84,6 @@ export interface Consigne {
     createdAt?: Date | string;
     updatedAt?: Date | string;
 }
-
 export interface PayrollStats {
     agent: Agent;
     totalPlanned: number;
@@ -100,14 +93,12 @@ export interface PayrollStats {
     holidayHours: number;
     futureHours: number;
 }
-
 export interface VacationStats {
     total: number;
     night: number;
     sunday: number;
     holiday: number;
 }
-
 export interface MissionStats {
     totalHours: number;
     doneHours: number;
@@ -115,8 +106,6 @@ export interface MissionStats {
     agentsCount: number;
     sitesCount: number;
 }
-
-// Planning-specific types
 export interface PlanningEvent {
     id: string;
     title: string;
@@ -132,20 +121,17 @@ export interface PlanningEvent {
     color?: string;
     allDay?: boolean;
 }
-
 export interface AgentSchedule {
     agent: Agent;
     events: PlanningEvent[];
     totalHours: number;
 }
-
 export interface CalendarSlotInfo {
     start: Date;
     end: Date;
     action: 'select' | 'click' | 'doubleClick';
     slots: Date[];
 }
-
 export interface DragEventData {
     event: PlanningEvent;
     start: Date;

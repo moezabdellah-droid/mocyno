@@ -14,8 +14,6 @@ import { onAuthStateChanged, type User } from 'firebase/auth';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
-// ... (abbreviated for brevity)
-
 /* Optional CSS utils that can be commented out */
 import '@ionic/react/css/padding.css';
 import '@ionic/react/css/float-elements.css';
@@ -42,6 +40,7 @@ const App: React.FC = () => {
 
   return (
     <IonApp>
+
       <IonReactRouter>
         <IonRouterOutlet>
           <Route exact path="/login">

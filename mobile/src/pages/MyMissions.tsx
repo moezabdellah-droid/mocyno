@@ -5,17 +5,15 @@ import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { onAuthStateChanged, type User } from 'firebase/auth';
 
-interface MissionData {
-    id: string;
-    siteName: string;
-    assignedAgentIds: string[];
-    agentAssignments: any[];
-    [key: string]: any;
+import type { Mission, AgentAssignment, Vacation } from '../types/shared';
+
+interface ExtendedMission extends Mission {
+    currentUserAssignment?: AgentAssignment;
 }
 
 const MyMissions: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
-    const [missions, setMissions] = useState<any[]>([]);
+    const [missions, setMissions] = useState<ExtendedMission[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -39,11 +37,11 @@ const MyMissions: React.FC = () => {
             const missionsData = snapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
-            })) as MissionData[];
+            })) as Mission[];
 
             // Client-side sort by date
             const processedMissions = missionsData.map(mission => {
-                const assignment = mission.agentAssignments?.find((a: any) => a.agentId === user.uid);
+                const assignment = mission.agentAssignments?.find((a: AgentAssignment) => a.agentId === user.uid);
                 return {
                     ...mission,
                     currentUserAssignment: assignment
@@ -70,7 +68,7 @@ const MyMissions: React.FC = () => {
             return new Date(dateStr).toLocaleDateString('fr-FR', {
                 weekday: 'long', day: 'numeric', month: 'long'
             });
-        } catch (e) {
+        } catch {
             return dateStr;
         }
     };
@@ -116,7 +114,7 @@ const MyMissions: React.FC = () => {
 
                                     <IonCardContent>
                                         <IonList lines="none">
-                                            {assignment.vacations?.map((vacation: any, idx: number) => (
+                                            {assignment.vacations?.map((vacation: Vacation, idx: number) => (
                                                 <IonItem key={idx}>
                                                     <IonIcon slot="start" icon={calendarOutline} />
                                                     <IonLabel className="ion-text-wrap">

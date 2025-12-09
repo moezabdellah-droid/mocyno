@@ -17,8 +17,9 @@ const Login: React.FC = () => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             history.replace('/home');
-        } catch (e: any) {
-            setError(e.message);
+        } catch (e: unknown) {
+            const errorMessage = e instanceof Error ? e.message : 'Une erreur est survenue';
+            setError(errorMessage);
         } finally {
             setLoading(false);
         }
