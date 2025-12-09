@@ -1,7 +1,7 @@
 import type { AuthProvider } from 'react-admin';
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged, type User, setPersistence, browserSessionPersistence } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from './firebase';
+import { auth, db } from './firebase.config';
 
 export const authProvider: AuthProvider = {
     login: async ({ username, password }) => {

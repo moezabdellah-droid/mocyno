@@ -18,7 +18,7 @@ import {
     deleteDoc
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from './firebase';
+import { db, storage } from './firebase.config';
 
 interface FileUpload {
     rawFile: File;
