@@ -99,6 +99,7 @@ export interface PayrollStats {
     sundayHours: number;
     holidayHours: number;
     futureHours: number;
+    agentsCount: number;
 }
 
 export interface VacationStats {

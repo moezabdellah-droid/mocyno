@@ -4,14 +4,16 @@ import { book, close } from 'ionicons/icons';
 import { db } from '../firebase';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 
+import type { Consigne } from '../types/shared';
+
 const ConsignesPage: React.FC = () => {
-    const [consignes, setConsignes] = useState<any[]>([]);
-    const [selectedConsigne, setSelectedConsigne] = useState<any>(null);
+    const [consignes, setConsignes] = useState<Consigne[]>([]);
+    const [selectedConsigne, setSelectedConsigne] = useState<Consigne | null>(null);
 
     useEffect(() => {
         const q = query(collection(db, 'consignes'), orderBy('createdAt', 'desc'));
         const unsubscribe = onSnapshot(q, (snapshot) => {
-            const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Consigne[];
             setConsignes(data);
         });
         return unsubscribe;
@@ -50,7 +52,7 @@ const ConsignesPage: React.FC = () => {
                     </IonHeader>
                     <IonContent className="ion-padding">
                         <IonBadge color="primary">{selectedConsigne?.type}</IonBadge>
-                        <div style={{ marginTop: '20px' }} dangerouslySetInnerHTML={{ __html: selectedConsigne?.content }} />
+                        <div style={{ marginTop: '20px' }} dangerouslySetInnerHTML={{ __html: selectedConsigne?.content || '' }} />
                     </IonContent>
                 </IonModal>
             </IonContent>
