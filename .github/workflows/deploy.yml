@@ -46,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: admin-build
-          path: admin/dist/
+          path: public/admin/
 
   deploy:
     name: 🚀 Deploy to Firebase
