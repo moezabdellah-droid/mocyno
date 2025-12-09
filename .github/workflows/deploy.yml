@@ -75,7 +75,6 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SA }}
           channelId: live
           projectId: mocyno
-          target: admin
       
       - name: 🔗 Post-deploy validation
         run: |
