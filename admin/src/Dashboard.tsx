@@ -46,7 +46,15 @@ const Dashboard = () => {
     }, []);
 
     const stats = useMemo(() => {
-        if (!planning) return { doneHours: 0, futureHours: 0, agentsCount: 0, sitesCount: 0 };
+        if (!planning) return {
+            doneHours: 0,
+            futureHours: 0,
+            agentsCount: 0,
+            sitesCount: 0,
+            totalMissions: 0,
+            ongoingMissions: 0,
+            upcomingMissions: 0
+        };
 
         let doneHours = 0;
         let futureHours = 0;
@@ -54,8 +62,14 @@ const Dashboard = () => {
         const uniqueSites = new Set<string>();
         const now = moment();
 
+        let activeMissionsCount = 0;
+        let futureMissionsCount = 0;
+
         planning.forEach(mission => {
             let isMissionActive = false;
+            let isMissionFuture = false;
+            let missionStartTime: moment.Moment | null = null;
+            let missionEndTime: moment.Moment | null = null;
 
             if (mission.agentAssignments) {
                 mission.agentAssignments.forEach((assignment: AgentAssignment) => {
@@ -66,20 +80,34 @@ const Dashboard = () => {
                         const end = moment(`${vacation.date}T${vacation.end}`);
                         if (end.isBefore(start)) end.add(1, 'day');
 
+                        // Track mission timeframe
+                        if (!missionStartTime || start.isBefore(missionStartTime)) missionStartTime = start;
+                        if (!missionEndTime || end.isAfter(missionEndTime)) missionEndTime = end;
+
                         const vStats = calculateVacationStats(start, end);
 
                         if (end.isBefore(now)) {
                             doneHours += vStats.total;
                         } else {
                             futureHours += vStats.total;
-                            isMissionActive = true;
                         }
                     });
                 });
             }
 
-            // Only count sites that have active or future missions
-            if (mission.siteId && isMissionActive) {
+            // Determine Mission Status based on computed start/end times
+            if (missionStartTime && missionEndTime) {
+                if (now.isBetween(missionStartTime, missionEndTime)) {
+                    isMissionActive = true;
+                    activeMissionsCount++;
+                } else if (now.isBefore(missionStartTime)) {
+                    isMissionFuture = true;
+                    futureMissionsCount++;
+                }
+            }
+
+            // Only count sites that have active or future missions for the "Sites programmés" KPI
+            if (mission.siteId && (isMissionActive || isMissionFuture)) {
                 uniqueSites.add(mission.siteId);
             }
         });
@@ -88,7 +116,10 @@ const Dashboard = () => {
             doneHours,
             futureHours,
             agentsCount: uniqueAgents.size,
-            sitesCount: uniqueSites.size
+            sitesCount: uniqueSites.size,
+            totalMissions: planning.length,
+            ongoingMissions: activeMissionsCount,
+            upcomingMissions: futureMissionsCount
         };
     }, [planning]);
 
@@ -113,6 +144,50 @@ const Dashboard = () => {
                 </CardContent>
             </Card>
 
+            <Grid container spacing={3} sx={{ mb: 3 }}>
+                {/* Row 1: Mission Stats */}
+                <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                    <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #9c27b0' }}>
+                        <Typography variant="h3" sx={{ mr: 2 }}>📋</Typography>
+                        <Box>
+                            <Typography variant="h4" fontWeight="bold">
+                                {stats.totalMissions}
+                            </Typography>
+                            <Typography variant="subtitle1" color="textSecondary">
+                                Missions Totales
+                            </Typography>
+                        </Box>
+                    </Paper>
+                </Grid>
+                <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                    <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #ff9800' }}>
+                        <Typography variant="h3" sx={{ mr: 2 }}>🔥</Typography>
+                        <Box>
+                            <Typography variant="h4" fontWeight="bold">
+                                {stats.ongoingMissions}
+                            </Typography>
+                            <Typography variant="subtitle1" color="textSecondary">
+                                Missions En Cours
+                            </Typography>
+                        </Box>
+                    </Paper>
+                </Grid>
+                <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                    <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #03a9f4' }}>
+                        <Typography variant="h3" sx={{ mr: 2 }}>📅</Typography>
+                        <Box>
+                            <Typography variant="h4" fontWeight="bold">
+                                {stats.upcomingMissions}
+                            </Typography>
+                            <Typography variant="subtitle1" color="textSecondary">
+                                Missions À Venir
+                            </Typography>
+                        </Box>
+                    </Paper>
+                </Grid>
+            </Grid>
+
+            {/* Row 2: General Stats */}
             <Grid container spacing={3}>
                 <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                     <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #2e7d32' }}>
@@ -136,7 +211,7 @@ const Dashboard = () => {
                                 {stats.futureHours.toFixed(0)}h
                             </Typography>
                             <Typography variant="subtitle1" color="textSecondary">
-                                Heures Planifiées (Futur)
+                                Heures Planifiées
                             </Typography>
                         </Box>
                     </Paper>
@@ -164,7 +239,7 @@ const Dashboard = () => {
                                 {stats.sitesCount}
                             </Typography>
                             <Typography variant="subtitle1" color="textSecondary">
-                                Sites Programmés
+                                Sites Actifs/Futurs
                             </Typography>
                         </Box>
                     </Paper>
