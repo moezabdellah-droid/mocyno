@@ -8,7 +8,7 @@ import {
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import type { Agent } from '../types/models';
-import { Button, CircularProgress } from '@mui/material';
+import { Button, CircularProgress, TextField } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import GenerateIcon from '@mui/icons-material/Autorenew';
 import { imageUrlToPngBase64 } from '../utils/imageUtils';
@@ -28,6 +28,72 @@ const validateCardPro = (value: string) => {
 // Validation for Dog ID: 250 268 780 869 046 (15 digits usually displayed in groups)
 // Regex: 15 digits, allowing spaces
 const validateDogId = regex(/^\d{3}\s?\d{3}\s?\d{3}\s?\d{3}\s?\d{3}$/, 'Format requis: 250 268 780 869 046 (15 chiffres)');
+
+const AgentPasswordReset = () => {
+    const record = useRecordContext();
+    const notify = useNotify();
+    const [newPassword, setNewPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    if (!record) return null;
+
+    const handlePasswordUpdate = async () => {
+        if (!newPassword || newPassword.length < 6) {
+            notify('Le mot de passe doit contenir au moins 6 caractères.', { type: 'warning' });
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const functions = getFunctions(undefined, 'europe-west1');
+            const updateAgentPassword = httpsCallable(functions, 'updateAgentPassword');
+
+            await updateAgentPassword({
+                agentId: record.id,
+                newPassword: newPassword
+            });
+
+            notify('Mot de passe mis à jour avec succès.', { type: 'success' });
+            setNewPassword(''); // Clear field
+        } catch (error: any) {
+            console.error(error);
+            notify(`Erreur: ${error.message || 'Impossible de mettre à jour le mot de passe'}`, { type: 'error' });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div style={{ maxWidth: 400, marginTop: 10 }}>
+            <h3>Gestion du Mot de Passe</h3>
+            <p style={{ fontSize: '0.9em', color: '#666' }}>
+                Définit un nouveau mot de passe pour cet agent. L'ancien mot de passe sera écrasé.
+            </p>
+            <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                <TextField
+                    // @ts-ignore - MUI TextField, not RA
+                    label="Nouveau Mot de Passe"
+                    type="password"
+                    value={newPassword}
+                    onChange={(e: any) => setNewPassword(e.target.value)}
+                    variant="outlined"
+                    size="small"
+                    style={{ flex: 1 }}
+                    InputLabelProps={{ shrink: true }}
+                />
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handlePasswordUpdate}
+                    disabled={loading || !newPassword}
+                    size="medium"
+                >
+                    {loading ? '...' : 'Modifier'}
+                </Button>
+            </div>
+        </div>
+    );
+};
 
 const GenerateMatriculeButton = () => {
     const record = useRecordContext();
@@ -314,6 +380,10 @@ export const AgentEdit = () => (
                     { id: 'active', name: 'Actif' },
                     { id: 'inactive', name: 'Inactif' },
                 ]} defaultValue="active" fullWidth />
+
+                <div style={{ marginTop: '2rem', borderTop: '1px solid #ccc', paddingTop: '1rem' }}>
+                    <AgentPasswordReset />
+                </div>
             </FormTab>
         </TabbedForm>
     </Edit>
