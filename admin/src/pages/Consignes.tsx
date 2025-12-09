@@ -44,27 +44,29 @@ const transform = (data: any) => {
 
 export const ConsigneCreate = () => (
     <Create resource="consignes" transform={transform}>
-        <SimpleForm>
+        <SimpleForm defaultValues={{ type: 'general' }}>
             <TextInput source="title" validate={[required()]} label="Titre de la consigne" fullWidth />
-            <SelectInput source="type" choices={consigneTypes} validate={[required()]} label="Type de consigne" />
+            <SelectInput source="type" choices={consigneTypes} validate={[required()]} label="Type de consigne" fullWidth />
 
             <FormDataConsumer>
                 {({ formData }) =>
-                    formData.type === 'site' ? (
-                        <ReferenceInput source="targetId" reference="sites" label="Sélectionner le Site">
-                            <AutocompleteInput optionText="name" />
+                    formData?.type === 'site' ? (
+                        <ReferenceInput key="site-input" source="targetId" reference="sites" label="Sélectionner le Site">
+                            <AutocompleteInput optionText="name" fullWidth />
                         </ReferenceInput>
                     ) : (
                         <TextInput
+                            key="text-input"
                             source="targetId"
                             label="ID Cible (Métier/Autre)"
                             helperText="Remplir si Métier ou Autre"
+                            fullWidth
                         />
                     )
                 }
             </FormDataConsumer>
 
-            <RichTextInput source="content" validate={[required()]} label="Contenu détaillé" />
+            <RichTextInput source="content" validate={[required()]} label="Contenu détaillé" fullWidth />
         </SimpleForm>
     </Create>
 );
