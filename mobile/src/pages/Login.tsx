@@ -33,19 +33,19 @@ const Login: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem' }}>
+                <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem' }}>
                     <IonItem>
                         <IonLabel position="floating">Email</IonLabel>
-                        <IonInput value={email} onIonChange={e => setEmail(e.detail.value!)} type="email" />
+                        <IonInput value={email} onIonChange={e => setEmail(e.detail.value!)} type="email" required />
                     </IonItem>
                     <IonItem>
                         <IonLabel position="floating">Password</IonLabel>
-                        <IonInput value={password} onIonChange={e => setPassword(e.detail.value!)} type="password" />
+                        <IonInput value={password} onIonChange={e => setPassword(e.detail.value!)} type="password" required />
                     </IonItem>
-                    <IonButton expand="block" onClick={handleLogin}>
+                    <IonButton expand="block" type="submit">
                         Login
                     </IonButton>
-                </div>
+                </form>
                 <IonLoading isOpen={loading} message={'Logging in...'} />
                 <IonToast isOpen={!!error} message={error || ''} duration={2000} onDidDismiss={() => setError(null)} color="danger" />
             </IonContent>
