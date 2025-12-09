@@ -1,5 +1,5 @@
-import React from 'react';
-import { Admin, Resource, CustomRoutes } from 'react-admin';
+
+import { Admin, Resource } from 'react-admin';
 import { authProvider } from './authProvider';
 import dataProvider from './dataProvider';
 import Planning from './pages/Planning';
@@ -12,7 +12,7 @@ import Dashboard from './Dashboard';
 import { mocynoTheme } from './theme';
 
 import CustomLoginPage from './LoginPage';
-import MyLayout from './MyLayout';
+import AppLayout from './AppLayout';
 import { SiteList, SiteCreate, SiteEdit } from './pages/Sites';
 
 
@@ -22,7 +22,7 @@ const App = () => (
     authProvider={authProvider}
     dataProvider={dataProvider}
     loginPage={CustomLoginPage}
-    layout={MyLayout}
+    layout={AppLayout}
     dashboard={Dashboard}
     theme={mocynoTheme}
   >
