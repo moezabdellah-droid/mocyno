@@ -16,10 +16,11 @@ const ReportsPage: React.FC = () => {
     const takePhoto = async () => {
         try {
             const image = await Camera.getPhoto({
-                quality: 90,
+                quality: 50, // Reduced quality to keep size small (<1MB)
                 allowEditing: false,
                 resultType: CameraResultType.Base64,
-                source: CameraSource.Camera
+                source: CameraSource.Camera,
+                width: 800 // Resize to further reduce size
             });
             setPhoto(`data:image/jpeg;base64,${image.base64String}`);
         } catch (error) {
