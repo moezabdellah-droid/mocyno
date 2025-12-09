@@ -13,6 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { Calendar, Views, momentLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const DnDCalendar = withDragAndDrop(Calendar);
 import type { AgentAssignment, Vacation, Mission, Site, Agent, CalendarSlotInfo } from '../types/models';
