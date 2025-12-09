@@ -14,7 +14,7 @@ import GenerateIcon from '@mui/icons-material/Autorenew';
 import { imageUrlToPngBase64 } from '../utils/imageUtils';
 import { AgentBadgePdf, AgentProfilePdf } from '../components/AgentPdf';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { storage } from '../firebase';
+import { storage } from '../firebase.config';
 
 // Basic validation for professional card
 const validateCardPro = (value: string) => {
