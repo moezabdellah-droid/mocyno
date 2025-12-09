@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -31,6 +32,11 @@ export default defineConfig({
   resolve: {
     dedupe: ['react', 'react-dom', 'react-router', 'react-router-dom', 'react-admin', '@mui/material'],
     alias: {
+      'react': path.resolve(__dirname, 'node_modules/react'),
+      'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
+      'react-router': path.resolve(__dirname, 'node_modules/react-router'),
+      'react-router-dom': path.resolve(__dirname, 'node_modules/react-router-dom'),
+      'react-admin': path.resolve(__dirname, 'node_modules/react-admin'),
       buffer: 'buffer',
     },
   },
