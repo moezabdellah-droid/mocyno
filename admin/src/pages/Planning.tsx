@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import {
     useGetList, useCreate, useUpdate, useNotify, Loading,
     List, Datagrid, TextField as RaTextField, FunctionField, DeleteButton, Title
@@ -36,9 +36,9 @@ const localizer = momentLocalizer(moment);
 const formats = {
     timeGutterFormat: 'HH:mm',
     eventTimeRangeFormat: ({ start, end }: { start: Date, end: Date }, culture?: string, local?: DateLocalizer) =>
-        `${local?.format(start, 'HH:mm', culture)} - ${local?.format(end, 'HH:mm', culture)}`,
+        `${local?.format(start, 'HH:mm', culture)} - ${local?.format(end, 'HH:mm', culture)} `,
     agendaTimeRangeFormat: ({ start, end }: { start: Date, end: Date }, culture?: string, local?: DateLocalizer) =>
-        `${local?.format(start, 'HH:mm', culture)} - ${local?.format(end, 'HH:mm', culture)}`,
+        `${local?.format(start, 'HH:mm', culture)} - ${local?.format(end, 'HH:mm', culture)} `,
     dayHeaderFormat: 'dddd DD MMMM'
 };
 
@@ -222,7 +222,7 @@ const Planning = () => {
             updated[assignmentIdx] = {
                 ...updated[assignmentIdx],
                 agentId: value,
-                agentName: agent ? `${agent.firstName} ${agent.lastName}` : ''
+                agentName: agent ? `${agent.firstName} ${agent.lastName} ` : ''
             };
         } else {
             updated[assignmentIdx] = { ...updated[assignmentIdx], [field]: value };
@@ -292,7 +292,7 @@ const Planning = () => {
                     });
 
                     if (hasConflict) {
-                        notify(`Conflit détecté pour ${assignment.agentName} le ${vacation.date}`, { type: 'warning' });
+                        notify(`Conflit détecté pour ${assignment.agentName} le ${vacation.date} `, { type: 'warning' });
                         return;
                     }
                 }
@@ -327,7 +327,7 @@ const Planning = () => {
 
             handleCloseDialog();
         } catch (error: unknown) {
-            notify(`Erreur: ${(error as Error).message}`, { type: 'error' });
+            notify(`Erreur: ${(error as Error).message} `, { type: 'error' });
         }
     };
 
@@ -453,7 +453,7 @@ const Planning = () => {
                                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                                                 {record.agentAssignments?.map((assignment: AgentAssignment, idx: number) => {
                                                     const { hours, minutes } = calculateAgentDurationInMission(record, assignment.agentId);
-                                                    const timeStr = minutes > 0 ? `${hours}h${minutes}` : `${hours}h`;
+                                                    const timeStr = minutes > 0 ? `${hours}h${minutes} ` : `${hours} h`;
 
                                                     return (
                                                         <Typography key={idx} variant="body2" noWrap>
@@ -473,7 +473,7 @@ const Planning = () => {
 
                                         return (
                                             <Typography variant="body1" fontWeight="bold">
-                                                {minutes > 0 ? `${hours}h${minutes}` : `${hours}h`}
+                                                {minutes > 0 ? `${hours}h${minutes} ` : `${hours} h`}
                                             </Typography>
                                         );
                                     }}
