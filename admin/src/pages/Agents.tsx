@@ -137,27 +137,39 @@ import { useGetOne } from 'react-admin';
 
 const AgentDownloadButtons = () => {
     const { id } = useParams();
-    const { data: record, isLoading } = useGetOne('agents', { id }, { enabled: !!id });
+    // Manual Fetch State
+    const [record, setRecord] = useState<Agent | null>(null);
+    const [loading, setLoading] = useState(true);
 
-    console.log('[DEBUG] AgentDownloadButtons independent fetch:', { id, record, isLoading });
+    useEffect(() => {
+        if (!id) return;
 
-    if (!id) return null;
-    if (isLoading || !record) {
-        return <Button disabled>Chargement...</Button>;
-    }
+        const fetchAgent = async () => {
+            try {
+                // Dynamic import to avoid circular dep issues
+                const { default: dp } = await import('../providers/dataProvider');
+                const { data } = await dp.getOne('agents', { id });
+                if (data) {
+                    setRecord(data as Agent);
+                }
+            } catch (err) {
+                console.error('[ManualFetch] Failed to fetch agent:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchAgent();
+    }, [id]);
+
+    if (loading) return <Button disabled>Chargement...</Button>;
+    if (!record) return <Button disabled color="error">Erreur (Record Null)</Button>;
 
     const photoBase64 = record.photoURL || null;
     const logoBase64 = null;
 
     return (
-        <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-            {/* CONFIG DEBUG ON SCREEN */}
-            <div style={{ color: 'red', fontSize: '10px', maxWidth: '150px' }}>
-                DEBUG: ID={id || 'NULL'} <br />
-                REC={record ? 'YES' : 'NO'} <br />
-                LOAD={isLoading ? 'YES' : 'NO'}
-            </div>
-
+        <div style={{ display: 'flex', gap: 10 }}>
             {/* @ts-ignore */}
             <PDFDownloadLink
                 document={<AgentBadgePdf agent={record as unknown as Agent} photoBase64={photoBase64} logoBase64={logoBase64} />}
