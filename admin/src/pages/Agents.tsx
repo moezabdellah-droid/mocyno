@@ -3,7 +3,8 @@ import {
     List, Datagrid, TextField, EmailField, DateField, Create, Edit, SimpleForm,
     TextInput, required, useNotify, useRedirect, Title, SelectArrayInput,
     FunctionField, SelectInput, TabbedForm, FormTab, DateInput, ImageField, ImageInput, TopToolbar,
-    FormDataConsumer, regex, useRefresh, useRecordContext, useUpdate
+    FormDataConsumer, regex, useRefresh, useRecordContext, useUpdate,
+    Toolbar, SaveButton, DeleteButton
 } from 'react-admin';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { PDFDownloadLink } from '@react-pdf/renderer';
@@ -293,12 +294,19 @@ export const AgentEdit = () => {
         }
     };
 
+    const AgentEditToolbar = () => (
+        <Toolbar>
+            <SaveButton />
+            <DeleteButton resource="agents" />
+        </Toolbar>
+    );
+
     return (
         <div style={{ padding: 20 }}>
             <Title title={`Modifier ${record.firstName} ${record.lastName}`} />
             {/* Wrap in SimpleForm/TabbedForm providing defaultValues from record */}
             {/* We use specific Save mechanism */}
-            <TabbedForm record={record} onSubmit={save} resource="agents">
+            <TabbedForm record={record} onSubmit={save} resource="agents" toolbar={<AgentEditToolbar />}>
                 <FormTab label="Identité">
                     <TextInput source="id" disabled />
                     <TextInput source="matricule" disabled label="Matricule (Auto)" />
