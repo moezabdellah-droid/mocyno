@@ -22,8 +22,8 @@ import { calculateVacationStats } from '../utils/planningUtils';
 
 const Payroll = () => {
     // Robust hooks (replacing manual fetch)
-    const { data: planning, isLoading: loadingPlanning } = useGetList<Mission>('planning', { pagination: { page: 1, perPage: 1000 } });
-    const { data: agents, isLoading: loadingAgents } = useGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
+    const { data: planning, isLoading: loadingPlanning } = useRobustGetList<Mission>('planning', { pagination: { page: 1, perPage: 1000 } });
+    const { data: agents, isLoading: loadingAgents } = useRobustGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
 
     const notify = useNotify();
     const [sendingEmail, setSendingEmail] = useState<string | null>(null);
