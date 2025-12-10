@@ -150,7 +150,14 @@ const AgentDownloadButtons = () => {
     const logoBase64 = null;
 
     return (
-        <div style={{ display: 'flex', gap: 10 }}>
+        <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+            {/* CONFIG DEBUG ON SCREEN */}
+            <div style={{ color: 'red', fontSize: '10px', maxWidth: '150px' }}>
+                DEBUG: ID={id || 'NULL'} <br />
+                REC={record ? 'YES' : 'NO'} <br />
+                LOAD={isLoading ? 'YES' : 'NO'}
+            </div>
+
             {/* @ts-ignore */}
             <PDFDownloadLink
                 document={<AgentBadgePdf agent={record as unknown as Agent} photoBase64={photoBase64} logoBase64={logoBase64} />}
