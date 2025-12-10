@@ -14,6 +14,9 @@ import GenerateIcon from '@mui/icons-material/Autorenew';
 import { AgentBadgePdf, AgentProfilePdf } from '../components/AgentPdf';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../firebase.config';
+import { useParams } from 'react-router-dom';
+import logoUrl from '../assets/mocyno-logo.png';
+import { imageUrlToPngBase64 } from '../utils/imageUtils';
 
 // Basic validation for professional card
 const validateCardPro = (value: string) => {
@@ -132,21 +135,23 @@ const GenerateMatriculeButton = () => {
     );
 };
 
-import { useParams } from 'react-router-dom';
-import { useGetOne } from 'react-admin';
-
 const AgentDownloadButtons = () => {
     const { id } = useParams();
     // Manual Fetch State
     const [record, setRecord] = useState<Agent | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [loadingRecord, setLoadingRecord] = useState(true);
 
+    // Image State
+    const [logoBase64, setLogoBase64] = useState<string | null>(null);
+    const [photoBase64, setPhotoBase64] = useState<string | null>(null);
+    const [loadingImages, setLoadingImages] = useState(false);
+
+    // 1. Fetch Record
     useEffect(() => {
         if (!id) return;
 
         const fetchAgent = async () => {
             try {
-                // Dynamic import to avoid circular dep issues
                 const { default: dp } = await import('../providers/dataProvider');
                 const { data } = await dp.getOne('agents', { id });
                 if (data) {
@@ -155,18 +160,54 @@ const AgentDownloadButtons = () => {
             } catch (err) {
                 console.error('[ManualFetch] Failed to fetch agent:', err);
             } finally {
-                setLoading(false);
+                setLoadingRecord(false);
             }
         };
 
         fetchAgent();
     }, [id]);
 
-    if (loading) return <Button disabled>Chargement...</Button>;
+    // 2. Load Images (Logo & Photo) once record is ready
+    useEffect(() => {
+        if (!record) return;
+
+        const loadImages = async () => {
+            setLoadingImages(true);
+            try {
+                // Load Logo (Static asset)
+                if (!logoBase64) {
+                    const logoData = await imageUrlToPngBase64(logoUrl);
+                    setLogoBase64(logoData);
+                }
+
+                // Load Photo (User uploaded)
+                if (record.photoURL && !photoBase64) {
+                    // Try/Catch specifically for photo to not fail logo if photo fails (CORS etc)
+                    try {
+                        const photoData = await imageUrlToPngBase64(record.photoURL as string);
+                        setPhotoBase64(photoData);
+                    } catch (photoErr) {
+                        console.warn('Failed to load agent photo, falling back to URL or placeholder', photoErr);
+                        // Fallback: use URL directly if React-PDF supports it, else empty
+                        setPhotoBase64(record.photoURL as string);
+                    }
+                }
+            } catch (err) {
+                console.error('Error loading PDF assets:', err);
+            } finally {
+                setLoadingImages(false);
+            }
+        };
+
+        loadImages();
+    }, [record]); // Run when record is fetched
+
+    if (loadingRecord) return <Button disabled>Chargement...</Button>;
     if (!record) return <Button disabled color="error">Erreur (Record Null)</Button>;
 
-    const photoBase64 = record.photoURL || null;
-    const logoBase64 = null;
+    // We allow rendering buttons even if images are loading, but PDF generation might wait or use placeholders.
+    // Ideally disable buttons while loading images to ensure they are included.
+    const isReady = !loadingImages && logoBase64 !== null;
 
     return (
         <div style={{ display: 'flex', gap: 10 }}>
@@ -176,8 +217,8 @@ const AgentDownloadButtons = () => {
                 fileName={`Badge-${record.lastName || 'Agent'}.pdf`}
             >
                 {({ loading }: any) => (
-                    <Button variant="contained" color="primary" startIcon={<DownloadIcon />} disabled={loading}>
-                        {loading ? '...' : 'Badge'}
+                    <Button variant="contained" color="primary" startIcon={<DownloadIcon />} disabled={loading || !isReady}>
+                        {loading || !isReady ? 'Chargement...' : 'Badge'}
                     </Button>
                 )}
             </PDFDownloadLink>
@@ -188,8 +229,8 @@ const AgentDownloadButtons = () => {
                 fileName={`Fiche-${record.lastName || 'Agent'}.pdf`}
             >
                 {({ loading }: any) => (
-                    <Button variant="contained" color="secondary" startIcon={<DownloadIcon />} disabled={loading}>
-                        {loading ? '...' : 'Fiche'}
+                    <Button variant="contained" color="secondary" startIcon={<DownloadIcon />} disabled={loading || !isReady}>
+                        {loading || !isReady ? 'Chargement...' : 'Fiche'}
                     </Button>
                 )}
             </PDFDownloadLink>
