@@ -1,5 +1,5 @@
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -43,13 +43,37 @@ const Payroll = () => {
         }
     };
 
+    const [manualEvents, setManualEvents] = useState<Mission[]>([]);
+    const [manualAgents, setManualAgents] = useState<Agent[]>([]);
+
+    useEffect(() => {
+        // Fallback fetch if hooks fail (React 19 compat)
+        const fetchData = async () => {
+            try {
+                import('../providers/dataProvider').then(async ({ default: dp }) => {
+                    const planningResult = await dp.getList('planning', { pagination: { page: 1, perPage: 1000 }, sort: { field: 'createdAt', order: 'DESC' }, filter: {} });
+                    if (planningResult.data && planningResult.data.length > 0) setManualEvents(planningResult.data as Mission[]);
+
+                    const agentsResult = await dp.getList('agents', { pagination: { page: 1, perPage: 1000 }, sort: { field: 'lastName', order: 'ASC' }, filter: {} });
+                    if (agentsResult.data && agentsResult.data.length > 0) setManualAgents(agentsResult.data as Agent[]);
+                });
+            } catch (e) {
+                console.error('Payroll manual fetch error', e);
+            }
+        };
+        fetchData();
+    }, []);
+
+    const effectiveEvents = planning && planning.length > 0 ? planning : manualEvents;
+    const effectiveAgents = agents && agents.length > 0 ? agents : manualAgents;
+
     const stats = useMemo(() => {
-        if (!agents || !planning) return [];
+        if (!effectiveAgents || !effectiveEvents) return [];
 
         const agentStats: Record<string, PayrollStats> = {};
 
         // Initialize agents
-        agents.filter((a: Agent) => a.role !== 'admin').forEach((agent: Agent) => {
+        effectiveAgents.filter((a: Agent) => a.role !== 'admin').forEach((agent: Agent) => {
             agentStats[agent.id] = {
                 agent,
                 totalPlanned: 0,
@@ -63,7 +87,7 @@ const Payroll = () => {
 
         const now = moment();
 
-        planning.forEach((mission: Mission) => {
+        effectiveEvents.forEach((mission: Mission) => {
             if (!mission.agentAssignments) return;
 
             mission.agentAssignments.forEach((assignment: AgentAssignment) => {
@@ -101,7 +125,7 @@ const Payroll = () => {
         });
 
         return Object.values(agentStats);
-    }, [agents, planning]);
+    }, [effectiveAgents, effectiveEvents]);
 
     if (loadingAgents || loadingPlanning) return <Loading />;
 
