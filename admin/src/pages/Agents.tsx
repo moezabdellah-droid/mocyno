@@ -132,38 +132,43 @@ const GenerateMatriculeButton = () => {
     );
 };
 
-const AgentDownloadButtons = () => {
-    const record = useRecordContext();
-    console.log('[DEBUG] AgentDownloadButtons rendering, record:', record);
+import { useParams } from 'react-router-dom';
+import { useGetOne } from 'react-admin';
 
-    if (!record) {
-        console.log('[DEBUG] No record found in context');
-        return <span>Chargement record...</span>;
+const AgentDownloadButtons = () => {
+    const { id } = useParams();
+    const { data: record, isLoading } = useGetOne('agents', { id }, { enabled: !!id });
+
+    console.log('[DEBUG] AgentDownloadButtons independent fetch:', { id, record, isLoading });
+
+    if (!id) return null;
+    if (isLoading || !record) {
+        return <Button disabled>Chargement...</Button>;
     }
 
-    const photoBase64 = record?.photoURL || null;
+    const photoBase64 = record.photoURL || null;
     const logoBase64 = null;
 
     return (
         <div style={{ display: 'flex', gap: 10 }}>
-            <Button variant="outlined" onClick={() => console.log('Debug button clicked')}>DEBUG BTN</Button>
-
+            {/* @ts-ignore */}
             <PDFDownloadLink
                 document={<AgentBadgePdf agent={record as unknown as Agent} photoBase64={photoBase64} logoBase64={logoBase64} />}
                 fileName={`Badge-${record.lastName || 'Agent'}.pdf`}
             >
-                {({ loading }) => (
+                {({ loading }: any) => (
                     <Button variant="contained" color="primary" startIcon={<DownloadIcon />} disabled={loading}>
                         {loading ? '...' : 'Badge'}
                     </Button>
                 )}
             </PDFDownloadLink>
 
+            {/* @ts-ignore */}
             <PDFDownloadLink
                 document={<AgentProfilePdf agent={record as unknown as Agent} photoBase64={photoBase64} />}
                 fileName={`Fiche-${record.lastName || 'Agent'}.pdf`}
             >
-                {({ loading }) => (
+                {({ loading }: any) => (
                     <Button variant="contained" color="secondary" startIcon={<DownloadIcon />} disabled={loading}>
                         {loading ? '...' : 'Fiche'}
                     </Button>
