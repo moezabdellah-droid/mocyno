@@ -31,12 +31,19 @@ const validateCardPro = (value: string) => {
 const validateDogId = regex(/^\d{3}\s?\d{3}\s?\d{3}\s?\d{3}\s?\d{3}$/, 'Format requis: 250 268 780 869 046 (15 chiffres)');
 
 const AgentPasswordReset = () => {
+    const { id } = useParams();
     const record = useRecordContext();
     const notify = useNotify();
     const [newPassword, setNewPassword] = useState('');
     const [loading, setLoading] = useState(false);
 
-    if (!record) return null;
+    // Use record ID or URL param ID (robust fallback)
+    const agentId = record?.id || id;
+
+    if (!agentId) {
+        // Debug info if ID is seemingly lost
+        return <div style={{ color: 'red', marginTop: 10 }}>Erreur: Impossible de récupérer l'ID de l'agent.</div>;
+    }
 
     const handlePasswordUpdate = async () => {
         if (!newPassword || newPassword.length < 6) {
@@ -50,7 +57,7 @@ const AgentPasswordReset = () => {
             const updateAgentPassword = httpsCallable(functions, 'updateAgentPassword');
 
             await updateAgentPassword({
-                agentId: record.id,
+                agentId: agentId,
                 newPassword: newPassword
             });
 
