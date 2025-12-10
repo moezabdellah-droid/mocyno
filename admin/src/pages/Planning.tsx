@@ -47,9 +47,6 @@ const Planning = () => {
     const { data: sites } = useGetList<Site>('sites', { pagination: { page: 1, perPage: 1000 } });
     const { data: agents } = useGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
 
-    console.log('DEBUG: Planning Events Raw:', events);
-    console.log('DEBUG: Agents List:', agents);
-
     const [create] = useCreate();
     const [update] = useUpdate();
     const notify = useNotify();
@@ -62,25 +59,22 @@ const Planning = () => {
     useEffect(() => {
         // Direct fetch debug & fallback
         const fetchData = async () => {
-            console.log('DEBUG: Starting Manual Fetch...');
             try {
                 // Fetch Planning
                 import('../providers/dataProvider').then(async ({ default: dp }) => {
                     const planningResult = await dp.getList('planning', { pagination: { page: 1, perPage: 1000 }, sort: { field: 'createdAt', order: 'DESC' }, filter: {} });
-                    console.log('DEBUG: Manual Fetch Planning Result:', planningResult);
                     if (planningResult.data && planningResult.data.length > 0) {
                         setManualEvents(planningResult.data as Mission[]);
                     }
 
                     // Fetch Agents
                     const agentsResult = await dp.getList('agents', { pagination: { page: 1, perPage: 1000 }, sort: { field: 'lastName', order: 'ASC' }, filter: {} });
-                    console.log('DEBUG: Manual Fetch Agents Result:', agentsResult);
                     if (agentsResult.data && agentsResult.data.length > 0) {
                         setManualAgents(agentsResult.data as Agent[]);
                     }
                 });
             } catch (e) {
-                console.error('DEBUG: Manual Fetch Error', e);
+                console.error('Manual Fetch Error', e);
             }
         };
         fetchData();
@@ -91,7 +85,6 @@ const Planning = () => {
     const effectiveAgents = agents && agents.length > 0 ? agents : manualAgents;
 
     const { events: calendarEvents } = usePlanningEvents(effectiveEvents);
-    console.log('DEBUG: Calendar Events Formatted:', calendarEvents);
 
     // Dialog State
     const [openDialog, setOpenDialog] = useState(false);
