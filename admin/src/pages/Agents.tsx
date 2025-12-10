@@ -264,8 +264,7 @@ const UserEditActions = () => {
     if (!record) return null;
     return (
         <TopToolbar>
-            <AgentBadgePdf agent={record as unknown as Agent} />
-            <AgentProfilePdf agent={record as unknown as Agent} />
+            <AgentDownloadButtons />
         </TopToolbar>
     );
 };
