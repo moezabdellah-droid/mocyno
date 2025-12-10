@@ -136,7 +136,7 @@ const Dashboard = () => {
             <Title title="Tableau de Bord" />
 
             <Card sx={{ mb: 3 }}>
-                <CardHeader title="Bienvenue sur Mo'Cyno Admin" />
+                <CardHeader title="Bienvenue sur l'administration Mo'Cyno" subheader="Version 1.1.0-PATCH-REACT19 (Fixes Applied)" />
                 <CardContent>
                     <Typography color="textSecondary">
                         Voici un aperçu de l'activité de votre agence.
