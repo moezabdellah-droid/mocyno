@@ -3,12 +3,12 @@ import {
     List, Datagrid, TextField, EmailField, DateField, Create, Edit, SimpleForm,
     TextInput, required, useNotify, useRedirect, Title, SelectArrayInput,
     FunctionField, SelectInput, TabbedForm, FormTab, DateInput, ImageField, ImageInput, TopToolbar,
-    FormDataConsumer, regex, useRefresh, useRecordContext
+    FormDataConsumer, regex, useRefresh, useRecordContext, useUpdate
 } from 'react-admin';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import type { Agent } from '../types/models';
-import { Button, TextField as MuiTextField } from '@mui/material';
+import { Button, TextField as MuiTextField, Box, CircularProgress, Typography } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import GenerateIcon from '@mui/icons-material/Autorenew';
 import { AgentBadgePdf, AgentProfilePdf } from '../components/AgentPdf';
