@@ -50,7 +50,7 @@ const Planning = () => {
         end: moment().endOf('month').toISOString()
     });
 
-    const { data: events, isLoading: isLoadingEvents } = useGetList<Mission>('planning', {
+    const { data: events, isLoading: isLoadingEvents } = useRobustGetList<Mission>('planning', {
         pagination: { page: 1, perPage: 1000 },
         filter: {
             'agentAssignments.vacations.date': {
@@ -61,8 +61,8 @@ const Planning = () => {
     });
 
     // Robust hooks for resources
-    const { data: sites } = useGetList<Site>('sites', { pagination: { page: 1, perPage: 1000 } });
-    const { data: agents } = useGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
+    const { data: sites } = useRobustGetList<Site>('sites', { pagination: { page: 1, perPage: 1000 } });
+    const { data: agents } = useRobustGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
 
     const [create] = useCreate();
     const [update] = useUpdate();

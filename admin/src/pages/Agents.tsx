@@ -142,7 +142,7 @@ const GenerateMatriculeButton = () => {
     );
 };
 
-import { useGetOne } from 'react-admin';
+import { useRobustGetOne } from '../hooks/useRobustGetOne';
 
 // ... (other components if needed)
 
@@ -150,7 +150,7 @@ const AgentDownloadButtons = () => {
     const { id } = useParams();
 
     // Robust Fetch (replacing component-level manual fetch)
-    const { data: record, isLoading: loadingRecord } = useGetOne<Agent>('agents', { id: id! });
+    const { data: record, isLoading: loadingRecord } = useRobustGetOne<Agent>('agents', { id: id! });
 
     // Image State
     const [logoBase64, setLogoBase64] = useState<string | null>(null);
