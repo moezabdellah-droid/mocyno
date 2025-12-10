@@ -374,7 +374,6 @@ export const AgentEdit = () => (
                 </div>
             </FormTab>
 
-            {/* 
             <FormTab label="Compte">
                 <SelectInput source="status" label="Statut Compte" choices={[
                     { id: 'active', name: 'Actif' },
@@ -384,8 +383,7 @@ export const AgentEdit = () => (
                 <div style={{ marginTop: '2rem', borderTop: '1px solid #ccc', paddingTop: '1rem' }}>
                     <AgentPasswordReset />
                 </div>
-            </FormTab> 
-            */}
+            </FormTab>
         </TabbedForm>
     </Edit >
 );

@@ -15,6 +15,9 @@ import { Calendar, Views, momentLocalizer, type DateLocalizer } from 'react-big-
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
+import 'moment/locale/fr';
+
+moment.locale('fr');
 import type { AgentAssignment, Vacation, Mission, Site, Agent, CalendarSlotInfo, PlanningEvent } from '../types/models';
 import {
     usePlanningEvents,
