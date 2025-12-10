@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
     List, Datagrid, TextField, EmailField, DateField, Create, Edit, SimpleForm,
     TextInput, required, useNotify, useRedirect, Title, SelectArrayInput,
@@ -8,14 +8,12 @@ import {
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import type { Agent } from '../types/models';
-import { Button, CircularProgress, TextField as MuiTextField } from '@mui/material';
+import { Button, TextField as MuiTextField } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import GenerateIcon from '@mui/icons-material/Autorenew';
-import { imageUrlToPngBase64 } from '../utils/imageUtils';
 import { AgentBadgePdf, AgentProfilePdf } from '../components/AgentPdf';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../firebase.config';
-import logoUrl from '../assets/mocyno-logo.png'; // Imported asset
 
 // Basic validation for professional card
 const validateCardPro = (value: string) => {
@@ -136,107 +134,36 @@ const GenerateMatriculeButton = () => {
 
 const AgentDownloadButtons = () => {
     const record = useRecordContext();
-    const [photoBase64, setPhotoBase64] = useState<string | null>(null);
-    const [logoBase64, setLogoBase64] = useState<string | null>(null);
-    const [loadingImages, setLoadingImages] = useState(false);
-
-    useEffect(() => {
-        const loadImages = async () => {
-            if (!record) return;
-
-            // Avoid re-loading if already set
-            if (photoBase64 !== null && logoBase64 !== null) return;
-            if (loadingImages) return;
-
-            setLoadingImages(true);
-
-            // Safety timeout promise
-            const timeoutPromise = new Promise((_, reject) =>
-                setTimeout(() => reject(new Error('Image loading timed out')), 8000)
-            );
-
-            const loadProcess = async () => {
-                // 1. Load Agent Photo
-                let photoData = photoBase64;
-                if (record.photoURL && !photoData) {
-                    try {
-                        // Use the utility function which uses fetch (CORS now supported)
-                        photoData = await imageUrlToPngBase64(record.photoURL);
-                        setPhotoBase64(photoData);
-                    } catch (err) {
-                        console.error("Failed to load agent photo:", err);
-                        // If it fails (CORS or other), we set empty string so we don't retry locally forever
-                        setPhotoBase64('');
-                    }
-                } else if (!photoData) {
-                    setPhotoBase64(''); // No URL, validly empty
-                }
-
-                // 2. Load Logo
-                let logoData = logoBase64;
-                if (!logoData) {
-                    try {
-                        // Use imported URL which is resolved by Vite at build time
-                        logoData = await imageUrlToPngBase64(logoUrl);
-                        setLogoBase64(logoData);
-                    } catch (err) {
-                        console.error("Failed to load logo from imported asset:", err);
-                        setLogoBase64('');
-                    }
-                }
-            };
-
-            try {
-                // Race between loading and timeout
-                await Promise.race([loadProcess(), timeoutPromise]);
-            } catch (error) {
-                console.error("Error or timeout in loadImages:", error);
-                // Ensure values are set to strings so UI unblocks
-                setPhotoBase64(prev => prev ?? '');
-                setLogoBase64(prev => prev ?? '');
-            } finally {
-                setLoadingImages(false);
-            }
-        };
-
-        loadImages();
-    }, [record, photoBase64, logoBase64, loadingImages]);
+    // Simplified: No async image pre-loading for now to ensure buttons appear.
+    // Images will be loaded by the PDF renderer if possible, or skipped.
+    const photoBase64 = record?.photoURL || null;
+    const logoBase64 = null; // Skip logo for now to prevent hang
 
     if (!record) return null;
 
-    const ready = !loadingImages && (logoBase64 !== null);
-
     return (
         <div style={{ display: 'flex', gap: 10 }}>
-            {ready ? (
-                <>
-                    <PDFDownloadLink
-                        document={<AgentBadgePdf agent={record as unknown as Agent} photoBase64={photoBase64} logoBase64={logoBase64} />}
-                        fileName={`Badge-${record.lastName || 'Agent'}.pdf`}
-                    >
-                        {({ loading }) => (
-                            <Button variant="contained" color="primary" startIcon={<DownloadIcon />} disabled={loading}>
-                                {loading ? <CircularProgress size={24} color="inherit" /> : 'Badge Agent'}
-                            </Button>
-                        )}
-                    </PDFDownloadLink>
+            <PDFDownloadLink
+                document={<AgentBadgePdf agent={record as unknown as Agent} photoBase64={photoBase64} logoBase64={logoBase64} />}
+                fileName={`Badge-${record.lastName || 'Agent'}.pdf`}
+            >
+                {({ loading }) => (
+                    <Button variant="contained" color="primary" startIcon={<DownloadIcon />} disabled={loading}>
+                        {loading ? '...' : 'Badge'}
+                    </Button>
+                )}
+            </PDFDownloadLink>
 
-                    <PDFDownloadLink
-                        document={<AgentProfilePdf agent={record as unknown as Agent} photoBase64={photoBase64} />}
-                        fileName={`Fiche-${record.lastName || 'Agent'}.pdf`}
-                    >
-                        {({ loading }) => (
-                            <Button variant="contained" color="secondary" startIcon={<DownloadIcon />} disabled={loading}>
-                                {loading ? <CircularProgress size={24} color="inherit" /> : 'Fiche Renseignements'}
-                            </Button>
-                        )}
-                    </PDFDownloadLink>
-                </>
-            ) : (
-                <Button variant="contained" disabled startIcon={<DownloadIcon />}>
-                    Chargement Images...
-                </Button>
-            )}
+            <PDFDownloadLink
+                document={<AgentProfilePdf agent={record as unknown as Agent} photoBase64={photoBase64} />}
+                fileName={`Fiche-${record.lastName || 'Agent'}.pdf`}
+            >
+                {({ loading }) => (
+                    <Button variant="contained" color="secondary" startIcon={<DownloadIcon />} disabled={loading}>
+                        {loading ? '...' : 'Fiche'}
+                    </Button>
+                )}
+            </PDFDownloadLink>
         </div>
     );
 };
@@ -260,8 +187,6 @@ export const AgentList = () => (
 );
 
 const UserEditActions = () => {
-    const record = useRecordContext();
-    if (!record) return null;
     return (
         <TopToolbar>
             <AgentDownloadButtons />
