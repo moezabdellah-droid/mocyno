@@ -8,7 +8,7 @@ import {
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import type { Agent } from '../types/models';
-import { Button, CircularProgress, TextField } from '@mui/material';
+import { Button, CircularProgress, TextField as MuiTextField } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import GenerateIcon from '@mui/icons-material/Autorenew';
 import { imageUrlToPngBase64 } from '../utils/imageUtils';
@@ -70,8 +70,7 @@ const AgentPasswordReset = () => {
                 Définit un nouveau mot de passe pour cet agent. L'ancien mot de passe sera écrasé.
             </p>
             <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                <TextField
-                    // @ts-ignore - MUI TextField, not RA
+                <MuiTextField
                     label="Nouveau Mot de Passe"
                     type="password"
                     value={newPassword}
