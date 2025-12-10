@@ -19,9 +19,8 @@ import 'moment/locale/fr';
 
 moment.locale('fr');
 import type { AgentAssignment, Vacation, Mission, Site, Agent, CalendarSlotInfo, PlanningEvent } from '../types/models';
-import {
-    usePlanningEvents,
-} from '../hooks/usePlanningEvents';
+import { usePlanningEvents } from '../hooks/usePlanningEvents';
+import { useRobustGetList } from '../hooks/useRobustGetList';
 
 import {
     getEventRange,
