@@ -298,7 +298,7 @@ export const AgentEdit = () => {
             <Title title={`Modifier ${record.firstName} ${record.lastName}`} />
             {/* Wrap in SimpleForm/TabbedForm providing defaultValues from record */}
             {/* We use specific Save mechanism */}
-            <TabbedForm record={record} onSubmit={save}>
+            <TabbedForm record={record} onSubmit={save} resource="agents">
                 <FormTab label="Identité">
                     <TextInput source="id" disabled />
                     <TextInput source="matricule" disabled label="Matricule (Auto)" />
