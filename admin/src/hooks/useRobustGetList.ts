@@ -26,8 +26,9 @@ export const useRobustGetList = <RecordType = any>(
     }, [resource, paramsStr]);
 
     useEffect(() => {
-        // Trigger fallback if error exists OR (not loading AND no data)
-        const shouldFallback = error || (!isLoading && !data);
+        // Trigger fallback if error exists OR (not loading AND (no data OR empty data))
+        // React 19 issue: Hook might return empty array silently. We double-check with direct provider.
+        const shouldFallback = error || (!isLoading && (!data || data.length === 0));
         const hasFallbackData = fallbackData.length > 0;
 
         if (shouldFallback && !hasFallbackData && !fallbackTriggered.current) {
