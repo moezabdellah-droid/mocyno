@@ -142,37 +142,20 @@ const GenerateMatriculeButton = () => {
     );
 };
 
+import { useRobustGetOne } from '../hooks/useRobustGetOne';
+
+// ... (other components if needed)
+
 const AgentDownloadButtons = () => {
     const { id } = useParams();
-    // Manual Fetch State
-    const [record, setRecord] = useState<Agent | null>(null);
-    const [loadingRecord, setLoadingRecord] = useState(true);
+
+    // Robust Fetch (replacing component-level manual fetch)
+    const { data: record, isLoading: loadingRecord } = useRobustGetOne<Agent>('agents', { id: id! });
 
     // Image State
     const [logoBase64, setLogoBase64] = useState<string | null>(null);
     const [photoBase64, setPhotoBase64] = useState<string | null>(null);
     const [loadingImages, setLoadingImages] = useState(false);
-
-    // 1. Fetch Record
-    useEffect(() => {
-        if (!id) return;
-
-        const fetchAgent = async () => {
-            try {
-                const { default: dp } = await import('../providers/dataProvider');
-                const { data } = await dp.getOne('agents', { id });
-                if (data) {
-                    setRecord(data as Agent);
-                }
-            } catch (err) {
-                console.error('[ManualFetch] Failed to fetch agent:', err);
-            } finally {
-                setLoadingRecord(false);
-            }
-        };
-
-        fetchAgent();
-    }, [id]);
 
     // 2. Load Images (Logo & Photo) once record is ready
     useEffect(() => {
@@ -194,7 +177,8 @@ const AgentDownloadButtons = () => {
                         const photoData = await imageUrlToPngBase64(record.photoURL as string);
                         setPhotoBase64(photoData);
                     } catch (photoErr) {
-                        console.warn('Failed to load agent photo, falling back to URL or placeholder', photoErr);
+                        // Suppress warn if preferred, or keep as subtle
+                        console.warn('Failed to load agent photo, using fallback');
                         // Fallback: use URL directly if React-PDF supports it, else empty
                         setPhotoBase64(record.photoURL as string);
                     }
