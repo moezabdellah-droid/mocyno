@@ -1,18 +1,21 @@
+
 import { useGetOne, useNotify } from 'react-admin';
+import type { RaRecord } from 'react-admin';
 import { useEffect, useState, useRef } from 'react';
 import dataProvider from '../providers/dataProvider';
 
-export interface RobustGetOneResult<RecordType = any> {
+export interface RobustGetOneResult<RecordType extends RaRecord = any> {
     data?: RecordType;
     isLoading: boolean;
-    error?: any;
+    error?: unknown;
 }
 
-export const useRobustGetOne = <RecordType = any>(
+export const useRobustGetOne = <RecordType extends RaRecord = any>(
     resource: string,
-    params: any
+    params: { id: string; meta?: any }
 ): RobustGetOneResult<RecordType> => {
-    const { data, isLoading, error } = useGetOne<RecordType>(resource, params);
+    // Cast to verify constraint or use any for hook
+    const { data, isLoading, error } = useGetOne<RecordType>(resource, params as any);
     const [fallbackData, setFallbackData] = useState<RecordType | undefined>(undefined);
     const notify = useNotify();
 
@@ -32,7 +35,7 @@ export const useRobustGetOne = <RecordType = any>(
         if (shouldFallback && !fallbackData && !fallbackTriggered.current) {
             fallbackTriggered.current = true;
 
-            dataProvider.getOne(resource, params)
+            dataProvider.getOne(resource, params as any)
                 .then(({ data: resultData }) => {
                     setFallbackData(resultData as RecordType);
                 })
