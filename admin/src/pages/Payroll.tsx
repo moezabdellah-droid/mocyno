@@ -18,6 +18,7 @@ import { getFunctions, httpsCallable } from 'firebase/functions';
 import moment from 'moment';
 import type { Agent, Mission, AgentAssignment, Vacation, PayrollStats } from '../types/models';
 import { calculateVacationStats } from '../utils/planningUtils';
+import { useRobustGetList } from '../hooks/useRobustGetList';
 
 
 const Payroll = () => {
