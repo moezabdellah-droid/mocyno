@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import {
-    useCreate, useUpdate, useNotify, Loading,
+    useCreate, useUpdate, useNotify, Loading, useGetList,
     List, Datagrid, TextField as RaTextField, FunctionField, DeleteButton, Title
 } from 'react-admin';
 import {
@@ -22,7 +22,7 @@ import type { AgentAssignment, Vacation, Mission, Site, Agent, CalendarSlotInfo,
 import {
     usePlanningEvents,
 } from '../hooks/usePlanningEvents';
-import { useRobustGetList } from '../hooks/useRobustGetList';
+
 import {
     getEventRange,
     calculateMissionPeriod,
@@ -50,7 +50,7 @@ const Planning = () => {
         end: moment().endOf('month').toISOString()
     });
 
-    const { data: events, isLoading: isLoadingEvents } = useRobustGetList<Mission>('planning', {
+    const { data: events, isLoading: isLoadingEvents } = useGetList<Mission>('planning', {
         pagination: { page: 1, perPage: 1000 },
         filter: {
             'agentAssignments.vacations.date': {
@@ -61,8 +61,8 @@ const Planning = () => {
     });
 
     // Robust hooks for resources
-    const { data: sites } = useRobustGetList<Site>('sites', { pagination: { page: 1, perPage: 1000 } });
-    const { data: agents } = useRobustGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
+    const { data: sites } = useGetList<Site>('sites', { pagination: { page: 1, perPage: 1000 } });
+    const { data: agents } = useGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
 
     const [create] = useCreate();
     const [update] = useUpdate();

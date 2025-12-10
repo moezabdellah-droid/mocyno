@@ -16,25 +16,31 @@ export const useRobustGetOne = <RecordType = any>(
     const [fallbackData, setFallbackData] = useState<RecordType | undefined>(undefined);
     const notify = useNotify();
 
-    // Use useRef for tracking
     const fallbackTriggered = useRef(false);
 
+    // Reset trigger if ID changes
+    const id = params?.id;
     useEffect(() => {
-        if ((error || (data === undefined && !isLoading)) && !fallbackData && !fallbackTriggered.current) {
+        fallbackTriggered.current = false;
+    }, [resource, id]);
+
+    useEffect(() => {
+        const shouldFallback = error || (!isLoading && !data);
+
+        if (shouldFallback && !fallbackData && !fallbackTriggered.current) {
             fallbackTriggered.current = true;
 
             dataProvider.getOne(resource, params)
-                .then(({ data }) => {
-                    setFallbackData(data as RecordType);
+                .then(({ data: resultData }) => {
+                    setFallbackData(resultData as RecordType);
                 })
                 .catch(err => {
-                    console.error(`[useRobustGetOne] Fallback failed for ${resource}/${params.id}`, err);
-                    notify('Erreur chargement donnée', { type: 'error' });
+                    console.error(`[useRobustGetOne] Fallback failed for ${resource}/${id}`, err);
+                    notify('Erreur chargement donnée (Fallback)', { type: 'warning' });
                 });
         }
-    }, [error, data, isLoading, resource, params.id, fallbackData, notify]);
+    }, [error, data, isLoading, resource, id, fallbackData, notify, params]);
 
-    // Ensure we return RecordType (or undefined if loading), forcing cast if needed or ensuring logic
     const effectiveData = data || fallbackData;
 
     return {

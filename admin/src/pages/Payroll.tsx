@@ -8,7 +8,7 @@ import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Grid } from '@mui/material';
-import { Title, Loading, useNotify } from 'react-admin';
+import { useGetList, Title, Loading, useNotify } from 'react-admin';
 import DownloadIcon from '@mui/icons-material/Download';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
@@ -18,12 +18,12 @@ import { getFunctions, httpsCallable } from 'firebase/functions';
 import moment from 'moment';
 import type { Agent, Mission, AgentAssignment, Vacation, PayrollStats } from '../types/models';
 import { calculateVacationStats } from '../utils/planningUtils';
-import { useRobustGetList } from '../hooks/useRobustGetList';
+
 
 const Payroll = () => {
     // Robust hooks (replacing manual fetch)
-    const { data: planning, isLoading: loadingPlanning } = useRobustGetList<Mission>('planning', { pagination: { page: 1, perPage: 1000 } });
-    const { data: agents, isLoading: loadingAgents } = useRobustGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
+    const { data: planning, isLoading: loadingPlanning } = useGetList<Mission>('planning', { pagination: { page: 1, perPage: 1000 } });
+    const { data: agents, isLoading: loadingAgents } = useGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
 
     const notify = useNotify();
     const [sendingEmail, setSendingEmail] = useState<string | null>(null);
