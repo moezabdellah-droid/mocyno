@@ -387,7 +387,6 @@ export const AgentEdit = () => (
             </FormTab> 
             */}
         </TabbedForm>
-    </TabbedForm>
     </Edit >
 );
 
