@@ -209,8 +209,6 @@ const AgentDownloadButtons = () => {
     return (
         <div style={{ display: 'flex', gap: 10 }}>
             {ready ? (
-                <span>Downloads Disabled for Debug</span>
-                /*
                 <>
                     <PDFDownloadLink
                         document={<AgentBadgePdf agent={record as unknown as Agent} photoBase64={photoBase64} logoBase64={logoBase64} />}
@@ -234,7 +232,6 @@ const AgentDownloadButtons = () => {
                         )}
                     </PDFDownloadLink>
                 </>
-                */
             ) : (
                 <Button variant="contained" disabled startIcon={<DownloadIcon />}>
                     Chargement Images...
@@ -377,6 +374,7 @@ export const AgentEdit = () => (
                 </div>
             </FormTab>
 
+            {/* 
             <FormTab label="Compte">
                 <SelectInput source="status" label="Statut Compte" choices={[
                     { id: 'active', name: 'Actif' },
@@ -386,9 +384,11 @@ export const AgentEdit = () => (
                 <div style={{ marginTop: '2rem', borderTop: '1px solid #ccc', paddingTop: '1rem' }}>
                     <AgentPasswordReset />
                 </div>
-            </FormTab>
+            </FormTab> 
+            */}
         </TabbedForm>
-    </Edit>
+    </TabbedForm>
+    </Edit >
 );
 
 export const AgentCreate = () => {
