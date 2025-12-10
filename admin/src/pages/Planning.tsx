@@ -46,11 +46,16 @@ const Planning = () => {
     const { data: events, isLoading: isLoadingEvents } = useGetList<Mission>('planning', { pagination: { page: 1, perPage: 1000 } });
     const { data: sites } = useGetList<Site>('sites', { pagination: { page: 1, perPage: 1000 } });
     const { data: agents } = useGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
+
+    console.log('DEBUG: Planning Events Raw:', events);
+    console.log('DEBUG: Agents List:', agents);
+
     const [create] = useCreate();
     const [update] = useUpdate();
     const notify = useNotify();
 
     const { events: calendarEvents } = usePlanningEvents(events);
+    console.log('DEBUG: Calendar Events Formatted:', calendarEvents);
 
     // Dialog State
     const [openDialog, setOpenDialog] = useState(false);
