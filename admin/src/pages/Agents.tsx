@@ -134,15 +134,20 @@ const GenerateMatriculeButton = () => {
 
 const AgentDownloadButtons = () => {
     const record = useRecordContext();
-    // Simplified: No async image pre-loading for now to ensure buttons appear.
-    // Images will be loaded by the PDF renderer if possible, or skipped.
-    const photoBase64 = record?.photoURL || null;
-    const logoBase64 = null; // Skip logo for now to prevent hang
+    console.log('[DEBUG] AgentDownloadButtons rendering, record:', record);
 
-    if (!record) return null;
+    if (!record) {
+        console.log('[DEBUG] No record found in context');
+        return <span>Chargement record...</span>;
+    }
+
+    const photoBase64 = record?.photoURL || null;
+    const logoBase64 = null;
 
     return (
         <div style={{ display: 'flex', gap: 10 }}>
+            <Button variant="outlined" onClick={() => console.log('Debug button clicked')}>DEBUG BTN</Button>
+
             <PDFDownloadLink
                 document={<AgentBadgePdf agent={record as unknown as Agent} photoBase64={photoBase64} logoBase64={logoBase64} />}
                 fileName={`Badge-${record.lastName || 'Agent'}.pdf`}
