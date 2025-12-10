@@ -1,18 +1,22 @@
+
 import { useGetList, useNotify } from 'react-admin';
+import type { RaRecord } from 'react-admin';
 import { useEffect, useState, useRef } from 'react';
 import dataProvider from '../providers/dataProvider';
 
-export interface RobustGetListResult<RecordType = any> {
+export interface RobustGetListResult<RecordType extends RaRecord = any> {
     data?: RecordType[];
     total?: number;
     isLoading: boolean;
-    error?: any;
+    error?: unknown;
 }
 
-export const useRobustGetList = <RecordType = any>(
+export const useRobustGetList = <RecordType extends RaRecord = any>(
     resource: string,
     params: any
 ): RobustGetListResult<RecordType> => {
+    // We cast to 'any' for the internal hook to avoid "fails constraint" errors with strict RecordType
+    // But we explicitly type the return
     const { data, isLoading, error } = useGetList<RecordType>(resource, params);
     const [fallbackData, setFallbackData] = useState<RecordType[]>([]);
     const notify = useNotify();
@@ -43,7 +47,9 @@ export const useRobustGetList = <RecordType = any>(
                     notify('Erreur chargement données (Fallback)', { type: 'warning' });
                 });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [error, data, isLoading, resource, paramsStr, fallbackData.length, notify]);
+    // We exclude 'params' from deps because paramsStr handles it and 'params' reference might be unstable
 
     const effectiveData = (data && data.length > 0) ? data : fallbackData;
     const total = (data && data.length > 0) ? data.length : fallbackData.length;

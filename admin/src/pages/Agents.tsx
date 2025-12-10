@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import {
-    List, Datagrid, TextField, EmailField, DateField, Create, Edit, SimpleForm,
+    List, Datagrid, TextField, EmailField, DateField, Create, SimpleForm,
     TextInput, required, useNotify, useRedirect, Title, SelectArrayInput,
-    FunctionField, SelectInput, TabbedForm, FormTab, DateInput, ImageField, ImageInput, TopToolbar,
+    FunctionField, SelectInput, TabbedForm, FormTab, DateInput, ImageField, ImageInput,
     FormDataConsumer, regex, useRefresh, useRecordContext, useUpdate,
     Toolbar, SaveButton, DeleteButton
 } from 'react-admin';
@@ -64,9 +64,10 @@ const AgentPasswordReset = () => {
 
             notify('Mot de passe mis à jour avec succès.', { type: 'success' });
             setNewPassword(''); // Clear field
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error(error);
-            notify(`Erreur: ${error.message || 'Impossible de mettre à jour le mot de passe'}`, { type: 'error' });
+            const errMsg = error instanceof Error ? error.message : 'Impossible de mettre à jour le mot de passe';
+            notify(`Erreur: ${errMsg}`, { type: 'error' });
         } finally {
             setLoading(false);
         }
@@ -83,7 +84,7 @@ const AgentPasswordReset = () => {
                     label="Nouveau Mot de Passe"
                     type="password"
                     value={newPassword}
-                    onChange={(e: any) => setNewPassword(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewPassword(e.target.value)}
                     variant="outlined"
                     size="small"
                     style={{ flex: 1 }}
@@ -177,10 +178,8 @@ const AgentDownloadButtons = () => {
                     try {
                         const photoData = await imageUrlToPngBase64(record.photoURL as string);
                         setPhotoBase64(photoData);
-                    } catch (photoErr) {
-                        // Suppress warn if preferred, or keep as subtle
+                    } catch (_) {
                         console.warn('Failed to load agent photo, using fallback');
-                        // Fallback: use URL directly if React-PDF supports it, else empty
                         setPhotoBase64(record.photoURL as string);
                     }
                 }
@@ -192,7 +191,7 @@ const AgentDownloadButtons = () => {
         };
 
         loadImages();
-    }, [record]); // Run when record is fetched
+    }, [record, logoBase64, photoBase64]); // Run when record is fetched
 
     if (loadingRecord) return <Button disabled>Chargement...</Button>;
     if (!record) return <Button disabled color="error">Erreur (Record Null)</Button>;
@@ -208,7 +207,7 @@ const AgentDownloadButtons = () => {
                 document={<AgentBadgePdf agent={record as unknown as Agent} photoBase64={photoBase64} logoBase64={logoBase64} />}
                 fileName={`Badge-${record.lastName || 'Agent'}.pdf`}
             >
-                {({ loading }: any) => (
+                {({ loading }: { loading: boolean }) => (
                     <Button variant="contained" color="primary" startIcon={<DownloadIcon />} disabled={loading || !isReady}>
                         {loading || !isReady ? 'Chargement...' : 'Badge'}
                     </Button>
@@ -220,7 +219,7 @@ const AgentDownloadButtons = () => {
                 document={<AgentProfilePdf agent={record as unknown as Agent} photoBase64={photoBase64} />}
                 fileName={`Fiche-${record.lastName || 'Agent'}.pdf`}
             >
-                {({ loading }: any) => (
+                {({ loading }: { loading: boolean }) => (
                     <Button variant="contained" color="secondary" startIcon={<DownloadIcon />} disabled={loading || !isReady}>
                         {loading || !isReady ? 'Chargement...' : 'Fiche'}
                     </Button>
@@ -248,15 +247,18 @@ export const AgentList = () => (
     </List>
 );
 
-const UserEditActions = () => {
-    return (
-        <TopToolbar>
-            <AgentDownloadButtons />
-        </TopToolbar>
-    );
-};
-
 // Custom Robust Edit Component
+
+// Define Toolbar outside to avoid re-creation on render.
+// DeleteButton needs 'resource' prop or context. Since we are in TabbedForm which provides ResourceContext,
+// but DeleteButton explicitly asked for it in the error, we keep resource="agents".
+const AgentEditToolbar = () => (
+    <Toolbar>
+        <SaveButton />
+        <DeleteButton resource="agents" />
+    </Toolbar>
+);
+
 export const AgentEdit = () => {
     const { id } = useParams();
     const notify = useNotify();
@@ -264,7 +266,7 @@ export const AgentEdit = () => {
     const [update] = useUpdate();
 
     // Use Robust GetOne
-    const { data: record, isLoading, error } = useRobustGetOne<Agent>('agents', { id });
+    const { data: record, isLoading, error } = useRobustGetOne<Agent>('agents', { id: id || '' });
 
     if (isLoading) {
         return (
@@ -294,12 +296,7 @@ export const AgentEdit = () => {
         }
     };
 
-    const AgentEditToolbar = () => (
-        <Toolbar>
-            <SaveButton />
-            <DeleteButton resource="agents" />
-        </Toolbar>
-    );
+
 
     return (
         <div style={{ padding: 20 }}>

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import {
-    useCreate, useUpdate, useNotify, Loading, useGetList,
+    useCreate, useUpdate, useNotify, Loading,
     List, Datagrid, TextField as RaTextField, FunctionField, DeleteButton, Title
 } from 'react-admin';
 import {
@@ -15,6 +15,7 @@ import { Calendar, Views, momentLocalizer, type DateLocalizer } from 'react-big-
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
+// @ts-ignore
 import 'moment/locale/fr';
 
 moment.locale('fr');

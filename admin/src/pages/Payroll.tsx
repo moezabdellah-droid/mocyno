@@ -8,7 +8,7 @@ import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Grid } from '@mui/material';
-import { useGetList, Title, Loading, useNotify } from 'react-admin';
+import { Title, Loading, useNotify } from 'react-admin';
 import DownloadIcon from '@mui/icons-material/Download';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';

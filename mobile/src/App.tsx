@@ -36,12 +36,12 @@ const App: React.FC = () => {
     return unsubscribe;
   }, []);
 
-  if (loading) return null;
+  if (loading) return <div style={{ padding: 20, textAlign: 'center' }}>Loading Firebase...</div>;
 
   return (
     <IonApp>
 
-      <IonReactRouter>
+      <IonReactRouter basename="/mobile">
         <IonRouterOutlet>
           <Route exact path="/login">
             {user ? <Redirect to="/home" /> : <Login />}
