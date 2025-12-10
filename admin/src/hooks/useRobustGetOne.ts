@@ -25,6 +25,8 @@ export const useRobustGetOne = <RecordType = any>(
     }, [resource, id]);
 
     useEffect(() => {
+        // Trigger fallback if error exists OR (not loading AND (no data OR empty object?))
+        // React 19 / getOne: if data is undefined/null
         const shouldFallback = error || (!isLoading && !data);
 
         if (shouldFallback && !fallbackData && !fallbackTriggered.current) {

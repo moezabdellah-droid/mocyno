@@ -255,123 +255,164 @@ const UserEditActions = () => {
     );
 };
 
-export const AgentEdit = () => (
-    <Edit resource="agents" actions={<UserEditActions />}>
-        <Title title="Modifier l'Agent" />
-        <TabbedForm>
-            <FormTab label="Identité">
-                <TextInput source="id" disabled />
-                <TextInput source="matricule" disabled label="Matricule (Auto)" />
-                <GenerateMatriculeButton />
-                <TextInput source="email" disabled label="Email (Non modifiable)" fullWidth />
+// Custom Robust Edit Component
+export const AgentEdit = () => {
+    const { id } = useParams();
+    const notify = useNotify();
+    const redirect = useRedirect();
+    const [update] = useUpdate();
 
-                <ImageInput source="photoURL" label="Photo d'Identité" accept={{ 'image/*': ['.png', '.jpg', '.jpeg'] }}>
-                    <ImageField source="src" title="title" />
-                </ImageInput>
+    // Use Robust GetOne
+    const { data: record, isLoading, error } = useRobustGetOne<Agent>('agents', { id });
 
-                <TextInput source="firstName" label="Prénom" validate={required()} fullWidth />
-                <TextInput source="lastName" label="Nom" validate={required()} fullWidth />
+    if (isLoading) {
+        return (
+            <Box display="flex" justifyContent="center" alignItems="center" height="200px">
+                <CircularProgress />
+            </Box>
+        );
+    }
 
-                <DateInput source="birthDate" label="Date de Naissance" fullWidth />
-                <TextInput source="birthPlace" label="Lieu de Naissance" fullWidth />
-                <TextInput source="nationality" label="Nationalité" fullWidth />
+    if (error || !record) {
+        return (
+            <Box p={3}>
+                <Typography color="error" variant="h6">Impossible de charger les données de l'agent.</Typography>
+                <Button onClick={() => window.location.reload()}>Réessayer</Button>
+            </Box>
+        );
+    }
 
-                <SelectInput source="gender" label="Genre" choices={[
-                    { id: 'M', name: 'Masculin' },
-                    { id: 'F', name: 'Féminin' },
-                ]} fullWidth />
+    const save = async (data: Partial<Agent>) => {
+        try {
+            await update('agents', { id: record.id, data, previousData: record });
+            notify('Agent mis à jour avec succès');
+            redirect('/agents');
+        } catch (err) {
+            console.error(err);
+            notify('Erreur lors de la mise à jour', { type: 'error' });
+        }
+    };
 
-                <SelectInput source="bloodGroup" label="Groupe Sanguin" choices={[
-                    { id: 'A+', name: 'A+' }, { id: 'A-', name: 'A-' },
-                    { id: 'B+', name: 'B+' }, { id: 'B-', name: 'B-' },
-                    { id: 'AB+', name: 'AB+' }, { id: 'AB-', name: 'AB-' },
-                    { id: 'O+', name: 'O+' }, { id: 'O-', name: 'O-' },
-                ]} fullWidth />
-            </FormTab>
+    return (
+        <div style={{ padding: 20 }}>
+            <Title title={`Modifier ${record.firstName} ${record.lastName}`} />
+            {/* Wrap in SimpleForm/TabbedForm providing defaultValues from record */}
+            {/* We use specific Save mechanism */}
+            <TabbedForm record={record} onSubmit={save}>
+                <FormTab label="Identité">
+                    <TextInput source="id" disabled />
+                    <TextInput source="matricule" disabled label="Matricule (Auto)" />
+                    <GenerateMatriculeButton />
+                    <TextInput source="email" disabled label="Email (Non modifiable)" fullWidth />
 
-            <FormTab label="Coordonnées">
-                <TextInput source="address" label="Adresse Postale" fullWidth multiline />
-                <TextInput source="zipCode" label="Code Postal" fullWidth />
-                <TextInput source="city" label="Ville" fullWidth />
-                <TextInput source="phone" label="Téléphone" fullWidth />
-            </FormTab>
+                    <ImageInput source="photoURL" label="Photo d'Identité" accept={{ 'image/*': ['.png', '.jpg', '.jpeg'] }}>
+                        <ImageField source="src" title="title" />
+                    </ImageInput>
 
-            <FormTab label="Professionnel">
-                <SelectArrayInput source="specialties" label="Spécialités" choices={[
-                    { id: 'ADS', name: 'Agent de Sécurité (ADS)' },
-                    { id: 'SSIAP1', name: 'SSIAP 1' },
-                    { id: 'SSIAP2', name: 'SSIAP 2' },
-                    { id: 'CYNO', name: 'Agent Cynophile' },
-                    { id: 'RONDIER', name: 'Rondier' },
-                    { id: 'VIDEO', name: 'Opérateur Vidéo' },
-                ]} fullWidth />
+                    <TextInput source="firstName" label="Prénom" validate={required()} fullWidth />
+                    <TextInput source="lastName" label="Nom" validate={required()} fullWidth />
 
-                <FormDataConsumer>
-                    {({ formData, ...rest }) =>
-                        formData.specialties && formData.specialties.includes('CYNO') &&
-                        <TextInput
-                            source="dogIds"
-                            label="Numéro(s) d'identification Chien (250...)"
-                            validate={validateDogId}
-                            fullWidth
-                            helperText="15 chiffres (Ex: 250 268 780 869 046)"
-                            {...rest}
-                        />
-                    }
-                </FormDataConsumer>
+                    <DateInput source="birthDate" label="Date de Naissance" fullWidth />
+                    <TextInput source="birthPlace" label="Lieu de Naissance" fullWidth />
+                    <TextInput source="nationality" label="Nationalité" fullWidth />
 
-                <TextInput source="professionalCardNumber" label="Numéro de Carte Pro (Ex: CAR-083-2030-03-18-XXXXXXXXXXX)" validate={validateCardPro} fullWidth />
-                <DateInput source="professionalCardObtainedAt" label="Date d'Obtention Carte Pro" fullWidth />
-                <FunctionField label="Date Validité (Calculée)" render={(record: Agent) => {
-                    if (!record.professionalCardObtainedAt) return '-';
-                    const date = new Date(record.professionalCardObtainedAt);
-                    date.setFullYear(date.getFullYear() + 5);
-                    return date.toLocaleDateString();
-                }} />
+                    <SelectInput source="gender" label="Genre" choices={[
+                        { id: 'M', name: 'Masculin' },
+                        { id: 'F', name: 'Féminin' },
+                    ]} fullWidth />
 
-                <TextInput source="sstNumber" label="Numéro SST" fullWidth />
-                <DateInput source="sstObtainedAt" label="Date Obtention SST" fullWidth />
-                <DateInput source="sstExpiresAt" label="Date Expiration SST" fullWidth />
+                    <SelectInput source="bloodGroup" label="Groupe Sanguin" choices={[
+                        { id: 'A+', name: 'A+' }, { id: 'A-', name: 'A-' },
+                        { id: 'B+', name: 'B+' }, { id: 'B-', name: 'B-' },
+                        { id: 'AB+', name: 'AB+' }, { id: 'AB-', name: 'AB-' },
+                        { id: 'O+', name: 'O+' }, { id: 'O-', name: 'O-' },
+                    ]} fullWidth />
+                </FormTab>
 
-                <SelectInput source="contractNature" label="Nature du Contrat" choices={[
-                    { id: 'CDI', name: 'CDI' },
-                    { id: 'CDD', name: 'CDD' },
-                    { id: 'SAISONNIER', name: 'Saisonnier' },
-                    { id: 'EXTRA', name: 'Extra / Vacation' },
-                    { id: 'INTERIM', name: 'Intérim' },
-                ]} fullWidth />
+                <FormTab label="Coordonnées">
+                    <TextInput source="address" label="Adresse Postale" fullWidth multiline />
+                    <TextInput source="zipCode" label="Code Postal" fullWidth />
+                    <TextInput source="city" label="Ville" fullWidth />
+                    <TextInput source="phone" label="Téléphone" fullWidth />
+                </FormTab>
 
-                <SelectInput source="contractType" label="Type de Contrat" choices={[
-                    { id: 'FULL_TIME', name: 'Temps Plein (35h)' },
-                    { id: 'PART_TIME', name: 'Temps Partiel' },
-                ]} fullWidth />
-            </FormTab>
+                <FormTab label="Professionnel">
+                    <SelectArrayInput source="specialties" label="Spécialités" choices={[
+                        { id: 'ADS', name: 'Agent de Sécurité (ADS)' },
+                        { id: 'SSIAP1', name: 'SSIAP 1' },
+                        { id: 'SSIAP2', name: 'SSIAP 2' },
+                        { id: 'CYNO', name: 'Agent Cynophile' },
+                        { id: 'RONDIER', name: 'Rondier' },
+                        { id: 'VIDEO', name: 'Opérateur Vidéo' },
+                    ]} fullWidth />
 
-            <FormTab label="Administratif & Documents">
-                <TextInput source="socialSecurityNumber" label="Numéro de Sécurité Sociale" fullWidth />
-                <TextInput source="bankName" label="Nom de la Banque" fullWidth />
-                <TextInput source="iban" label="IBAN" fullWidth />
-                <TextInput source="bic" label="BIC" fullWidth />
+                    <FormDataConsumer>
+                        {({ formData, ...rest }) =>
+                            formData.specialties && formData.specialties.includes('CYNO') &&
+                            <TextInput
+                                source="dogIds"
+                                label="Numéro(s) d'identification Chien (250...)"
+                                validate={validateDogId}
+                                fullWidth
+                                helperText="15 chiffres (Ex: 250 268 780 869 046)"
+                                {...rest}
+                            />
+                        }
+                    </FormDataConsumer>
 
-                <div style={{ marginTop: 20 }}>
-                    <h3>Téléchargements</h3>
-                    <AgentDownloadButtons />
-                </div>
-            </FormTab>
+                    <TextInput source="professionalCardNumber" label="Numéro de Carte Pro (Ex: CAR-083-2030-03-18-XXXXXXXXXXX)" validate={validateCardPro} fullWidth />
+                    <DateInput source="professionalCardObtainedAt" label="Date d'Obtention Carte Pro" fullWidth />
+                    <FunctionField label="Date Validité (Calculée)" render={(record: Agent) => {
+                        if (!record.professionalCardObtainedAt) return '-';
+                        const date = new Date(record.professionalCardObtainedAt);
+                        date.setFullYear(date.getFullYear() + 5);
+                        return date.toLocaleDateString();
+                    }} />
 
-            <FormTab label="Compte">
-                <SelectInput source="status" label="Statut Compte" choices={[
-                    { id: 'active', name: 'Actif' },
-                    { id: 'inactive', name: 'Inactif' },
-                ]} defaultValue="active" fullWidth />
+                    <TextInput source="sstNumber" label="Numéro SST" fullWidth />
+                    <DateInput source="sstObtainedAt" label="Date Obtention SST" fullWidth />
+                    <DateInput source="sstExpiresAt" label="Date Expiration SST" fullWidth />
 
-                <div style={{ marginTop: '2rem', borderTop: '1px solid #ccc', paddingTop: '1rem' }}>
-                    <AgentPasswordReset />
-                </div>
-            </FormTab>
-        </TabbedForm>
-    </Edit >
-);
+                    <SelectInput source="contractNature" label="Nature du Contrat" choices={[
+                        { id: 'CDI', name: 'CDI' },
+                        { id: 'CDD', name: 'CDD' },
+                        { id: 'SAISONNIER', name: 'Saisonnier' },
+                        { id: 'EXTRA', name: 'Extra / Vacation' },
+                        { id: 'INTERIM', name: 'Intérim' },
+                    ]} fullWidth />
+
+                    <SelectInput source="contractType" label="Type de Contrat" choices={[
+                        { id: 'FULL_TIME', name: 'Temps Plein (35h)' },
+                        { id: 'PART_TIME', name: 'Temps Partiel' },
+                    ]} fullWidth />
+                </FormTab>
+
+                <FormTab label="Administratif & Documents">
+                    <TextInput source="socialSecurityNumber" label="Numéro de Sécurité Sociale" fullWidth />
+                    <TextInput source="bankName" label="Nom de la Banque" fullWidth />
+                    <TextInput source="iban" label="IBAN" fullWidth />
+                    <TextInput source="bic" label="BIC" fullWidth />
+
+                    <div style={{ marginTop: 20 }}>
+                        <h3>Téléchargements</h3>
+                        <AgentDownloadButtons />
+                    </div>
+                </FormTab>
+
+                <FormTab label="Compte">
+                    <SelectInput source="status" label="Statut Compte" choices={[
+                        { id: 'active', name: 'Actif' },
+                        { id: 'inactive', name: 'Inactif' },
+                    ]} defaultValue="active" fullWidth />
+
+                    <div style={{ marginTop: '2rem', borderTop: '1px solid #ccc', paddingTop: '1rem' }}>
+                        <AgentPasswordReset />
+                    </div>
+                </FormTab>
+            </TabbedForm>
+        </div>
+    );
+};
 
 export const AgentCreate = () => {
     const [, setLoading] = useState(false);
