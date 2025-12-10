@@ -28,7 +28,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: 🔍 TypeScript Check Admin
-        run: cd admin && pnpm tsc --noEmit || true
+        run: cd admin && pnpm tsc --noEmit
 
       - name: 🔍 TypeScript Check Mobile
         run: cd mobile && pnpm tsc --noEmit

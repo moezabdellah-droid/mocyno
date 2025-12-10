@@ -1,5 +1,4 @@
-
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -9,7 +8,7 @@ import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Grid } from '@mui/material';
-import { Title, useGetList, Loading, useNotify } from 'react-admin';
+import { Title, Loading, useNotify } from 'react-admin';
 import DownloadIcon from '@mui/icons-material/Download';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
@@ -19,10 +18,13 @@ import { getFunctions, httpsCallable } from 'firebase/functions';
 import moment from 'moment';
 import type { Agent, Mission, AgentAssignment, Vacation, PayrollStats } from '../types/models';
 import { calculateVacationStats } from '../utils/planningUtils';
+import { useRobustGetList } from '../hooks/useRobustGetList';
 
 const Payroll = () => {
-    const { data: planning, isLoading: loadingPlanning } = useGetList('planning', { pagination: { page: 1, perPage: 1000 } });
-    const { data: agents, isLoading: loadingAgents } = useGetList('agents', { pagination: { page: 1, perPage: 1000 } });
+    // Robust hooks (replacing manual fetch)
+    const { data: planning, isLoading: loadingPlanning } = useRobustGetList<Mission>('planning', { pagination: { page: 1, perPage: 1000 } });
+    const { data: agents, isLoading: loadingAgents } = useRobustGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
+
     const notify = useNotify();
     const [sendingEmail, setSendingEmail] = useState<string | null>(null);
 
@@ -43,32 +45,14 @@ const Payroll = () => {
         }
     };
 
-    const [manualEvents, setManualEvents] = useState<Mission[]>([]);
-    const [manualAgents, setManualAgents] = useState<Agent[]>([]);
+    // Manual Fetch removed in favor of useRobustGetList
 
-    useEffect(() => {
-        // Fallback fetch if hooks fail (React 19 compat)
-        const fetchData = async () => {
-            try {
-                import('../providers/dataProvider').then(async ({ default: dp }) => {
-                    const planningResult = await dp.getList('planning', { pagination: { page: 1, perPage: 1000 }, sort: { field: 'createdAt', order: 'DESC' }, filter: {} });
-                    if (planningResult.data && planningResult.data.length > 0) setManualEvents(planningResult.data as Mission[]);
-
-                    const agentsResult = await dp.getList('agents', { pagination: { page: 1, perPage: 1000 }, sort: { field: 'lastName', order: 'ASC' }, filter: {} });
-                    if (agentsResult.data && agentsResult.data.length > 0) setManualAgents(agentsResult.data as Agent[]);
-                });
-            } catch (e) {
-                console.error('Payroll manual fetch error', e);
-            }
-        };
-        fetchData();
-    }, []);
-
-    const effectiveEvents = planning && planning.length > 0 ? planning : manualEvents;
-    const effectiveAgents = agents && agents.length > 0 ? agents : manualAgents;
+    // Memoize the arrays to stabilize dependencies
+    const effectiveEvents = useMemo(() => planning || [], [planning]);
+    const effectiveAgents = useMemo(() => agents || [], [agents]);
 
     const stats = useMemo(() => {
-        if (!effectiveAgents || !effectiveEvents) return [];
+        if (!effectiveAgents.length || !effectiveEvents.length) return [];
 
         const agentStats: Record<string, PayrollStats> = {};
 

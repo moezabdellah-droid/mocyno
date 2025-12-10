@@ -53,10 +53,8 @@ const dataProvider: DataProvider = {
         resource: string,
         _params: GetListParams
     ): Promise<GetListResult<RecordType>> => {
-        console.log(`[DataProvider] getList called for resource: ${resource}`, _params);
         try {
             const querySnapshot = await getDocs(collection(db, resource));
-            console.log(`[DataProvider] getList ${resource} found ${querySnapshot.size} docs`);
             const data = querySnapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()

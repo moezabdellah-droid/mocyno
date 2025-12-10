@@ -1,6 +1,6 @@
-import { useMemo, useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import {
-    useGetList, useCreate, useUpdate, useNotify, Loading,
+    useCreate, useUpdate, useNotify, Loading,
     List, Datagrid, TextField as RaTextField, FunctionField, DeleteButton, Title
 } from 'react-admin';
 import {
@@ -22,6 +22,7 @@ import type { AgentAssignment, Vacation, Mission, Site, Agent, CalendarSlotInfo,
 import {
     usePlanningEvents,
 } from '../hooks/usePlanningEvents';
+import { useRobustGetList } from '../hooks/useRobustGetList';
 import {
     getEventRange,
     calculateMissionPeriod,
@@ -43,48 +44,31 @@ const formats = {
 };
 
 const Planning = () => {
-    const { data: events, isLoading: isLoadingEvents } = useGetList<Mission>('planning', { pagination: { page: 1, perPage: 1000 } });
-    const { data: sites } = useGetList<Site>('sites', { pagination: { page: 1, perPage: 1000 } });
-    const { data: agents } = useGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
+    // Date Range Filter logic (Current Month default)
+    const [dateRange] = useState({
+        start: moment().startOf('month').toISOString(),
+        end: moment().endOf('month').toISOString()
+    });
+
+    const { data: events, isLoading: isLoadingEvents } = useRobustGetList<Mission>('planning', {
+        pagination: { page: 1, perPage: 1000 },
+        filter: {
+            'agentAssignments.vacations.date': {
+                $gte: dateRange.start,
+                $lte: dateRange.end
+            }
+        }
+    });
+
+    // Robust hooks for resources
+    const { data: sites } = useRobustGetList<Site>('sites', { pagination: { page: 1, perPage: 1000 } });
+    const { data: agents } = useRobustGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
 
     const [create] = useCreate();
     const [update] = useUpdate();
     const notify = useNotify();
 
-    // ERROR FLAGGING: useGetList seems to fail with React 19 in production.
-    // FALLBACK: Manual fetch via dataProvider.
-    const [manualEvents, setManualEvents] = useState<Mission[]>([]);
-    const [manualAgents, setManualAgents] = useState<Agent[]>([]);
-
-    useEffect(() => {
-        // Direct fetch debug & fallback
-        const fetchData = async () => {
-            try {
-                // Fetch Planning
-                import('../providers/dataProvider').then(async ({ default: dp }) => {
-                    const planningResult = await dp.getList('planning', { pagination: { page: 1, perPage: 1000 }, sort: { field: 'createdAt', order: 'DESC' }, filter: {} });
-                    if (planningResult.data && planningResult.data.length > 0) {
-                        setManualEvents(planningResult.data as Mission[]);
-                    }
-
-                    // Fetch Agents
-                    const agentsResult = await dp.getList('agents', { pagination: { page: 1, perPage: 1000 }, sort: { field: 'lastName', order: 'ASC' }, filter: {} });
-                    if (agentsResult.data && agentsResult.data.length > 0) {
-                        setManualAgents(agentsResult.data as Agent[]);
-                    }
-                });
-            } catch (e) {
-                console.error('Manual Fetch Error', e);
-            }
-        };
-        fetchData();
-    }, []);
-
-    // Use Manual data if Hook data is empty (Fallback strategy)
-    const effectiveEvents = events && events.length > 0 ? events : manualEvents;
-    const effectiveAgents = agents && agents.length > 0 ? agents : manualAgents;
-
-    const { events: calendarEvents } = usePlanningEvents(effectiveEvents);
+    const { events: calendarEvents } = usePlanningEvents(events || []);
 
     // Dialog State
     const [openDialog, setOpenDialog] = useState(false);
