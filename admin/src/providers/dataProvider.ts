@@ -36,7 +36,7 @@ import {
     type QueryConstraint
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../firebase.config';
+import { db, storage, app } from '../firebase.config';
 
 interface FileUpload {
     rawFile: File;
@@ -278,7 +278,9 @@ const dataProvider: DataProvider = {
         resource: string,
         params: CreateParams
     ): Promise<CreateResult<RecordType>> => {
-        console.log(`[DataProvider] create ${resource}`, params);
+        console.group(`[DataProvider] create ${resource}`);
+        console.log('Firebase Config:', app.options); // Verify Project ID
+        console.log('Params:', params);
 
         let newItem = { ...params.data };
 
@@ -289,24 +291,35 @@ const dataProvider: DataProvider = {
 
         // Recursive cleanup to remove undefined values
         newItem = sanitizePayload(newItem);
+        console.log('Sanitized Payload:', newItem);
 
-        const docRef = await addDoc(collection(db, resource), newItem);
+        try {
+            const docRef = await addDoc(collection(db, resource), newItem);
+            console.log('Document written with ID: ', docRef.id);
 
-        const result = {
-            data: {
-                ...newItem,
-                id: docRef.id
-            } as RecordType
-        };
-        console.log(`[DataProvider] create ${resource} result:`, result);
-        return result;
+            const result = {
+                data: {
+                    ...newItem,
+                    id: docRef.id
+                } as RecordType
+            };
+            console.log('Result returned to React-Admin:', result);
+            console.groupEnd();
+            return result;
+        } catch (e) {
+            console.error('Error adding document: ', e);
+            console.groupEnd();
+            throw e;
+        }
     },
 
     update: async <RecordType extends RaRecord = RaRecord>(
         resource: string,
         params: UpdateParams
     ): Promise<UpdateResult<RecordType>> => {
-        console.log(`[DataProvider] update ${resource}`, params);
+        console.group(`[DataProvider] update ${resource}`);
+        console.log('Firebase Config:', app.options); // Verify Project ID
+        console.log('Params:', params);
 
         const { id: _id, ...rest } = params.data;
 
@@ -317,15 +330,24 @@ const dataProvider: DataProvider = {
 
         // Recursive cleanup to remove undefined values
         const data = sanitizePayload(rest);
+        console.log('Sanitized Payload (for update):', data);
 
-        const docRef = doc(db, resource, params.id.toString());
-        await updateDoc(docRef, data);
+        try {
+            const docRef = doc(db, resource, params.id.toString());
+            await updateDoc(docRef, data);
+            console.log('Document updated successfully:', params.id);
 
-        const result = {
-            data: { ...params.data, id: params.id } as RecordType
-        };
-        console.log(`[DataProvider] update ${resource} result:`, result);
-        return result;
+            const result = {
+                data: { ...params.data, id: params.id } as RecordType
+            };
+            console.log('Result returned to React-Admin:', result);
+            console.groupEnd();
+            return result;
+        } catch (e) {
+            console.error('Error updating document: ', e);
+            console.groupEnd();
+            throw e;
+        }
     },
 
     updateMany: async (
