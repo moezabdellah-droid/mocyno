@@ -3,6 +3,7 @@ import { useGetList, useNotify } from 'react-admin';
 import type { RaRecord } from 'react-admin';
 import { useEffect, useState, useRef } from 'react';
 import dataProvider from '../providers/dataProvider';
+import { auth } from '../firebase.config';
 
 export interface RobustGetListResult<RecordType extends RaRecord = any> {
     data?: RecordType[];
