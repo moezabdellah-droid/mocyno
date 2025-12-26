@@ -27,8 +27,13 @@ import {
     getEventRange,
     calculateMissionPeriod,
     calculateAgentDurationInMission,
-    calculateMissionDuration
-} from '../utils/planningDurations';
+import {
+        calculateMissionDuration,
+        calculateMissionPeriod,
+        calculateAgentDurationInMission,
+        getEventRange
+    } from '../utils/planningDurations';
+import rawDataProvider from '../providers/dataProvider'; // DIRECT IMPORT
 
 const DnDCalendar = withDragAndDrop<PlanningEvent>(Calendar);
 const localizer = momentLocalizer(moment);
@@ -290,8 +295,10 @@ const Planning = () => {
             // console.group('[Planning] Date Diagnostic'); ...
 
             if (editMode && selectedMissionId) {
-                console.log('[Planning] Calling update (DIRECT DP)...');
-                await dataProvider.update('planning', {
+                console.log('[Planning] Calling update (DIRECT IMPORT)...');
+                console.log('Hook DataProvider Keys:', Object.keys(dataProvider));
+
+                await rawDataProvider.update('planning', {
                     id: selectedMissionId,
                     data: payloadData,
                     previousData: events?.find((e: Mission) => e.id === selectedMissionId)
@@ -299,8 +306,10 @@ const Planning = () => {
                 console.log('[Planning] Update success');
                 notify('Mission mise à jour avec succès !', { type: 'success' });
             } else {
-                console.log('[Planning] Calling create (DIRECT DP)...');
-                await dataProvider.create('planning', {
+                console.log('[Planning] Calling create (DIRECT IMPORT)...');
+                console.log('Hook DataProvider Keys:', Object.keys(dataProvider));
+
+                await rawDataProvider.create('planning', {
                     data: {
                         ...payloadData,
                         status: 'scheduled',
