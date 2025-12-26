@@ -286,7 +286,21 @@ const Planning = () => {
                 updatedAt: new Date()
             };
 
-            console.log('[Planning] Saving payload:', payloadData);
+            // DIAGNOSTIC DATE FORMATS
+            console.group('[Planning] Date Diagnostic');
+            agentAssignments.forEach((assign, i) => {
+                assign.vacations.forEach((vac, j) => {
+                    console.log(`Agent ${i} Vacation ${j}:`, {
+                        dateStr: vac.date,
+                        startStr: vac.start,
+                        endStr: vac.end,
+                        typeOfDate: typeof vac.date,
+                        validMoment: moment(vac.date).isValid()
+                    });
+                });
+            });
+            console.log('Payload Data (Before Provider):', payloadData);
+            console.groupEnd();
 
             if (editMode && selectedMissionId) {
                 console.log('[Planning] Calling update...');
