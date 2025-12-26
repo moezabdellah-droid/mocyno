@@ -1,23 +1,34 @@
-
-import { useGetOne, useNotify } from 'react-admin';
-import type { RaRecord } from 'react-admin';
+import { useGetOne, useNotify, useDataProvider } from 'react-admin';
+import type { RaRecord, GetOneParams } from 'react-admin';
 import { useEffect, useState, useRef } from 'react';
-import dataProvider from '../providers/dataProvider';
 
-export interface RobustGetOneResult<RecordType extends RaRecord = any> {
+export interface RobustGetOneResult<RecordType extends RaRecord = RaRecord> {
     data?: RecordType;
     isLoading: boolean;
     error?: unknown;
 }
 
-export const useRobustGetOne = <RecordType extends RaRecord = any>(
+export const useRobustGetOne = <RecordType extends RaRecord = RaRecord>(
     resource: string,
-    params: { id: string; meta?: any }
+    params: GetOneParams
 ): RobustGetOneResult<RecordType> => {
     // Cast to verify constraint or use any for hook
-    const { data, isLoading, error } = useGetOne<RecordType>(resource, params as any);
+    const { data, isLoading, error } = useGetOne<RecordType>(resource, params);
     const [fallbackData, setFallbackData] = useState<RecordType | undefined>(undefined);
     const notify = useNotify();
+    const dataProvider = useDataProvider();
+
+    // Debug logging for dataProvider
+    useEffect(() => {
+        if (dataProvider && !fallbackTriggered.current) { // Log once
+            console.log('[useRobustGetOne] dataProvider instance:', dataProvider);
+            if (typeof dataProvider.getOne === 'function') {
+                // console.log('[useRobustGetOne] dataProvider.getOne source:', dataProvider.getOne.toString());
+            } else {
+                console.error('[useRobustGetOne] CRITICAL: dataProvider.getOne is NOT a function!', dataProvider.getOne);
+            }
+        }
+    }, [dataProvider]);
 
     const fallbackTriggered = useRef(false);
 
@@ -35,8 +46,11 @@ export const useRobustGetOne = <RecordType extends RaRecord = any>(
         if (shouldFallback && !fallbackData && !fallbackTriggered.current) {
             fallbackTriggered.current = true;
 
-            dataProvider.getOne(resource, params as any)
+            console.log(`[useRobustGetOne] Triggering fallback for ${resource}/${id}`);
+
+            dataProvider.getOne(resource, params)
                 .then(({ data: resultData }) => {
+                    console.log(`[useRobustGetOne] Fallback success:`, resultData);
                     setFallbackData(resultData as RecordType);
                 })
                 .catch(err => {
@@ -44,7 +58,7 @@ export const useRobustGetOne = <RecordType extends RaRecord = any>(
                     notify('Erreur chargement donnée (Fallback)', { type: 'warning' });
                 });
         }
-    }, [error, data, isLoading, resource, id, fallbackData, notify, params]);
+    }, [error, data, isLoading, resource, id, fallbackData, notify, params, dataProvider]);
 
     const effectiveData = data || fallbackData;
 

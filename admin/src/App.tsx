@@ -17,9 +17,10 @@ const App = () => (
       get: (target, prop) => {
         const value = target[prop as keyof typeof target];
         if (typeof value === 'function') {
-          return async (...args: any[]) => {
+          return async (...args: unknown[]) => {
             console.log(`[Proxy] Calling ${String(prop)} with:`, args);
             try {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const result = await value.apply(target, args as any);
               console.log(`[Proxy] ${String(prop)} returned:`, result);
               if (result === null || result === undefined) {

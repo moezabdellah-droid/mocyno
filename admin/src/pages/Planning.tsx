@@ -27,12 +27,8 @@ import {
     getEventRange,
     calculateMissionPeriod,
     calculateAgentDurationInMission,
-import {
-        calculateMissionDuration,
-        calculateMissionPeriod,
-        calculateAgentDurationInMission,
-        getEventRange
-    } from '../utils/planningDurations';
+    calculateMissionDuration
+} from '../utils/planningDurations';
 import rawDataProvider from '../providers/dataProvider'; // DIRECT IMPORT
 
 const DnDCalendar = withDragAndDrop<PlanningEvent>(Calendar);

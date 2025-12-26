@@ -1,20 +1,20 @@
 
 import { useGetList, useNotify } from 'react-admin';
-import type { RaRecord } from 'react-admin';
+import type { RaRecord, GetListParams } from 'react-admin';
 import { useEffect, useState, useRef } from 'react';
 import dataProvider from '../providers/dataProvider';
 import { auth } from '../firebase.config';
 
-export interface RobustGetListResult<RecordType extends RaRecord = any> {
+export interface RobustGetListResult<RecordType extends RaRecord = RaRecord> {
     data?: RecordType[];
     total?: number;
     isLoading: boolean;
     error?: unknown;
 }
 
-export const useRobustGetList = <RecordType extends RaRecord = any>(
+export const useRobustGetList = <RecordType extends RaRecord = RaRecord>(
     resource: string,
-    params: any
+    params: GetListParams
 ): RobustGetListResult<RecordType> => {
     // We cast to 'any' for the internal hook to avoid "fails constraint" errors with strict RecordType
     // But we explicitly type the return
