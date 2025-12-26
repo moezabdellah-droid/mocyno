@@ -27,7 +27,13 @@ import {
     getDoc,
     addDoc,
     updateDoc,
-    deleteDoc
+    deleteDoc,
+    query,
+    where,
+    orderBy,
+    limit,
+    documentId,
+    type QueryConstraint
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../firebase.config';
@@ -48,22 +54,87 @@ const convertFileToUrl = async (file: string | FileUpload): Promise<string> => {
     return downloadURL;
 };
 
+// Helper for building Firestore queries from React Admin params
+const buildQuery = (resource: string, params: GetListParams) => {
+    const { filter, pagination, sort } = params;
+    // Provide defaults to avoid "Property does not exist on type ... | undefined"
+    const { perPage } = pagination || { page: 1, perPage: 10 };
+    const { field, order } = sort || { field: 'id', order: 'ASC' };
+
+    const constraints: QueryConstraint[] = [];
+
+    // 1. FILTERING (WHERE)
+    if (filter) {
+        Object.keys(filter).forEach(key => {
+            const value = filter[key];
+
+            // Specific case: Date Filter (for Planning) - checks object structure
+            if (typeof value === 'object' && value !== null && (value.$gte || value.$lte)) {
+                // Note: Deep field filtering like 'agentAssignments.vacations.date' doesn't work well 
+                // without specific data structures in Firestore. 
+                // We skip it here to fallback to client-side or specific implementation, 
+                // OR we implement it if the field is simpler.
+                // For now, we only support simple field inequalities if key doesn't contain dots
+                if (!key.includes('.')) {
+                    if (value.$gte) constraints.push(where(key, '>=', value.$gte));
+                    if (value.$lte) constraints.push(where(key, '<=', value.$lte));
+                }
+            }
+            // Specific case: Array (e.g. 'ids')
+            else if (Array.isArray(value)) {
+                if (value.length > 0) {
+                    constraints.push(where(key, 'in', value.slice(0, 10))); // Firestore 'in' limit is 10
+                }
+            }
+            // Full text search hack (requires 'q' filter to be passed as such)
+            // Not implemented for generic fields.
+
+            // Standard Equality
+            else if (value !== undefined && value !== null && typeof value !== 'object') {
+                constraints.push(where(key, '==', value));
+            }
+        });
+    }
+
+    // 2. SORTING (ORDER BY)
+    if (field && field !== 'id') {
+        constraints.push(orderBy(field, order.toLowerCase() as 'asc' | 'desc'));
+    }
+
+    // 3. PAGINATION (LIMIT)
+    // Basic implementation: reduce load size. 
+    // Real cursor-based pagination would require 'startAfter'.
+    if (perPage) {
+        constraints.push(limit(perPage));
+    }
+
+    return query(collection(db, resource), ...constraints);
+};
+
 const dataProvider: DataProvider = {
     getList: async <RecordType extends RaRecord = RaRecord>(
         resource: string,
-        _params: GetListParams
+        params: GetListParams
     ): Promise<GetListResult<RecordType>> => {
+        console.log(`[DataProvider] getList ${resource}`, params);
         try {
-            const querySnapshot = await getDocs(collection(db, resource));
+            const q = buildQuery(resource, params);
+            const querySnapshot = await getDocs(q);
             const data = querySnapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
             })) as RecordType[];
 
-            return {
+            // Estimer le total (Hack)
+            const currentPerPage = params.pagination?.perPage || 10;
+            const total = data.length === currentPerPage ? data.length * 2 : data.length;
+
+            const result = {
                 data,
-                total: data.length,
+                total,
             };
+            console.log(`[DataProvider] getList ${resource} result:`, result);
+            return result;
         } catch (error) {
             console.error(`[DataProvider] getList ${resource} failed:`, error);
             throw error;
@@ -74,56 +145,119 @@ const dataProvider: DataProvider = {
         resource: string,
         params: GetOneParams
     ): Promise<GetOneResult<RecordType>> => {
-        const docRef = doc(db, resource, params.id.toString());
-        const docSnap = await getDoc(docRef);
+        console.log(`%c[DataProvider] getOne ENTER ${resource}`, 'color: green; font-weight: bold;', params);
 
-        if (docSnap.exists()) {
-            return {
-                data: {
-                    id: docSnap.id,
-                    ...docSnap.data()
-                } as RecordType
-            };
+        if (!params || !params.id) {
+            console.error(`[DataProvider] getOne ERROR: Missing ID for ${resource}`);
+            throw new Error(`[DataProvider] Missing ID for ${resource}`);
         }
 
-        throw new Error(`Document not found: ${resource}/${params.id}`);
+        const idString = params.id.toString();
+
+        try {
+            console.log(`[DataProvider] getOne fetching doc: ${resource}/${idString}`);
+            const docRef = doc(db, resource, idString);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                if (!data) {
+                    console.error(`[DataProvider] getOne ERROR: Document exists but data is empty! ${resource}/${idString}`);
+                    throw new Error(`Document data is empty: ${resource}/${idString}`);
+                }
+
+                const result = {
+                    data: {
+                        id: docSnap.id,
+                        ...data
+                    } as RecordType
+                };
+                console.log(`[DataProvider] getOne SUCCESS ${resource}:`, result);
+                return result;
+            }
+
+            console.warn(`[DataProvider] getOne WARNING: Not found ${resource}/${idString}`);
+            // React Admin expects a rejected promise for 404, usually.
+            // But some implementations return { data: null } which crashes it.
+            // We MUST throw an error.
+            throw new Error(`Document not found: ${resource}/${idString}`);
+        } catch (error) {
+            console.error(`[DataProvider] getOne EXCEPTION ${resource}/${idString}:`, error);
+            throw error;
+        }
     },
 
     getMany: async <RecordType extends RaRecord = RaRecord>(
         resource: string,
         params: GetManyParams
     ): Promise<GetManyResult<RecordType>> => {
-        const querySnapshot = await getDocs(collection(db, resource));
-        const data = querySnapshot.docs
-            .filter(doc => params.ids.includes(doc.id))
-            .map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            })) as RecordType[];
+        console.log(`[DataProvider] getMany ${resource}`, params);
+        const { ids } = params;
+        const data: RecordType[] = [];
 
-        return { data };
+        // Firestore 'in' limitation: max 10 values
+        const chunkSize = 10;
+        const chunks = [];
+        for (let i = 0; i < ids.length; i += chunkSize) {
+            chunks.push(ids.slice(i, i + chunkSize));
+        }
+
+        for (const chunk of chunks) {
+            const q = query(
+                collection(db, resource),
+                where(documentId(), 'in', chunk.map(id => id.toString()))
+            );
+            const snapshot = await getDocs(q);
+            snapshot.docs.forEach(doc => {
+                data.push({
+                    id: doc.id,
+                    ...doc.data()
+                } as RecordType);
+            });
+        }
+
+        const result = { data };
+        console.log(`[DataProvider] getMany ${resource} result:`, result);
+        return result;
     },
 
     getManyReference: async <RecordType extends RaRecord = RaRecord>(
         resource: string,
-        _params: GetManyReferenceParams
+        params: GetManyReferenceParams
     ): Promise<GetManyReferenceResult<RecordType>> => {
-        const querySnapshot = await getDocs(collection(db, resource));
+        console.log(`[DataProvider] getManyReference ${resource}`, params);
+        const { target, id, filter, pagination } = params;
+
+        // Combine the reference filter with existing filters
+        const combinedParams = {
+            ...params,
+            filter: { ...filter, [target]: id }
+        };
+
+        // Reuse buildQuery to handle pagination, sort, and the new filter
+        const q = buildQuery(resource, combinedParams);
+        const querySnapshot = await getDocs(q);
         const data = querySnapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
         })) as RecordType[];
 
-        return {
+        const currentPerPage = pagination?.perPage || 10;
+        const total = data.length === currentPerPage ? data.length * 2 : data.length;
+
+        const result = {
             data,
-            total: data.length
+            total
         };
+        console.log(`[DataProvider] getManyReference ${resource} result:`, result);
+        return result;
     },
 
     create: async <RecordType extends RaRecord = RaRecord>(
         resource: string,
         params: CreateParams
     ): Promise<CreateResult<RecordType>> => {
+        console.log(`[DataProvider] create ${resource}`, params);
         const newItem = { ...params.data };
 
         // Handle file upload for photoURL
@@ -133,18 +267,21 @@ const dataProvider: DataProvider = {
 
         const docRef = await addDoc(collection(db, resource), newItem);
 
-        return {
+        const result = {
             data: {
                 ...newItem,
                 id: docRef.id
             } as RecordType
         };
+        console.log(`[DataProvider] create ${resource} result:`, result);
+        return result;
     },
 
     update: async <RecordType extends RaRecord = RaRecord>(
         resource: string,
         params: UpdateParams
     ): Promise<UpdateResult<RecordType>> => {
+        console.log(`[DataProvider] update ${resource}`, params);
         const { id: _id, ...rest } = params.data;
 
         // Handle file upload
@@ -163,51 +300,61 @@ const dataProvider: DataProvider = {
         const docRef = doc(db, resource, params.id.toString());
         await updateDoc(docRef, data);
 
-        return {
-            data: params.data as RecordType
+        const result = {
+            data: { ...params.data, id: params.id } as RecordType
         };
+        console.log(`[DataProvider] update ${resource} result:`, result);
+        return result;
     },
 
     updateMany: async (
         resource: string,
         params: UpdateManyParams
     ): Promise<UpdateManyResult> => {
+        console.log(`[DataProvider] updateMany ${resource}`, params);
         for (const id of params.ids) {
             const docRef = doc(db, resource, id.toString());
             await updateDoc(docRef, params.data);
         }
 
-        return {
+        const result = {
             data: params.ids
         };
+        console.log(`[DataProvider] updateMany ${resource} result:`, result);
+        return result;
     },
 
     delete: async <RecordType extends RaRecord = RaRecord>(
         resource: string,
         params: DeleteParams
     ): Promise<DeleteResult<RecordType>> => {
+        console.log(`[DataProvider] delete ${resource}`, params);
         const docRef = doc(db, resource, params.id.toString());
         await deleteDoc(docRef);
 
-        return {
+        const result = {
             data: params.previousData as RecordType
         };
+        console.log(`[DataProvider] delete ${resource} result:`, result);
+        return result;
     },
 
     deleteMany: async (
         resource: string,
         params: DeleteManyParams
     ): Promise<DeleteManyResult> => {
+        console.log(`[DataProvider] deleteMany ${resource}`, params);
         for (const id of params.ids) {
             const docRef = doc(db, resource, id.toString());
             await deleteDoc(docRef);
         }
 
-        return {
+        const result = {
             data: params.ids
         };
+        console.log(`[DataProvider] deleteMany ${resource} result:`, result);
+        return result;
     }
 };
 
 export default dataProvider;
-
