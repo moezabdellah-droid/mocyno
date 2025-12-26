@@ -37,6 +37,7 @@ const App = () => (
     })}
     dashboard={Dashboard}
     theme={mocynoTheme}
+    requireAuth
   >
     <Resource
       name="planning"

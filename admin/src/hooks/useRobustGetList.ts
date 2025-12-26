@@ -35,8 +35,8 @@ export const useRobustGetList = <RecordType extends RaRecord = any>(
         // React 19 issue: Hook might return empty array silently. We double-check with direct provider.
 
         // CRITICAL: Skip if not authenticated yet to avoid "Missing or insufficient permissions" console spam
-        const isAuthReady = !!localStorage.getItem('ra-auth-state') || !!auth.currentUser;
-        if (!isAuthReady) return;
+        // We check auth.currentUser directly and listen for changes
+        if (!auth.currentUser) return;
 
         const shouldFallback = error || (!isLoading && (!data || data.length === 0));
         const hasFallbackData = fallbackData.length > 0;
@@ -54,7 +54,7 @@ export const useRobustGetList = <RecordType extends RaRecord = any>(
                 });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [error, data, isLoading, resource, paramsStr, fallbackData.length, notify]);
+    }, [error, data, isLoading, resource, paramsStr, fallbackData.length, notify, auth.currentUser]);
     // We exclude 'params' from deps because paramsStr handles it and 'params' reference might be unstable
 
     const effectiveData = (data && data.length > 0) ? data : fallbackData;
