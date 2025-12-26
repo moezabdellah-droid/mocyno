@@ -6,7 +6,7 @@
 User-agent: *
 Allow: /
 
-# Pages sans valeur SEO (exclues de l'index)
+# Pages techniques / légales (non indexables)
 Disallow: /merci.html
 Disallow: /404.html
 Disallow: /cookies.html
