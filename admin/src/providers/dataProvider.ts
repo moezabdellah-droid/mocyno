@@ -278,10 +278,10 @@ const dataProvider: DataProvider = {
         resource: string,
         params: CreateParams
     ): Promise<CreateResult<RecordType>> => {
-        console.group(`[DataProvider] create ${resource}`);
-        console.log('Firebase Config (Project):', app.options.projectId);
-        console.log('Emulator Enabled:', import.meta.env.VITE_USE_FIREBASE_EMULATORS);
-        console.log('Params:', params);
+        console.log(`[DP-DEBUG] create ${resource} START`);
+        console.log('[DP-DEBUG] Firebase Config (Project):', app.options.projectId);
+        console.log('[DP-DEBUG] Emulator Enabled:', import.meta.env.VITE_USE_FIREBASE_EMULATORS);
+        console.log('[DP-DEBUG] Params:', params);
 
         let newItem = { ...params.data };
 
@@ -299,7 +299,7 @@ const dataProvider: DataProvider = {
             console.log(`[DP] Target Collection Path: ${collectionRef.path}`);
 
             const docRef = await addDoc(collectionRef, newItem);
-            console.log(`[DP] wrote docId=${docRef.id} path=${docRef.path}`);
+            console.log(`[DP-DEBUG] wrote docId=${docRef.id} path=${docRef.path}`);
 
             const result = {
                 data: {
@@ -307,12 +307,12 @@ const dataProvider: DataProvider = {
                     id: docRef.id
                 } as RecordType
             };
-            console.log('Result returned to React-Admin:', result);
-            console.groupEnd();
+            console.log('[DP-DEBUG] Result returned to React-Admin:', result);
+            console.log(`[DP-DEBUG] create ${resource} END`);
             return result;
         } catch (e) {
-            console.error('Error adding document: ', e);
-            console.groupEnd();
+            console.error('[DP-DEBUG] Error adding document: ', e);
+            console.log(`[DP-DEBUG] create ${resource} ERROR`);
             throw e;
         }
     },
@@ -321,9 +321,9 @@ const dataProvider: DataProvider = {
         resource: string,
         params: UpdateParams
     ): Promise<UpdateResult<RecordType>> => {
-        console.group(`[DataProvider] update ${resource}`);
-        console.log('Firebase Config:', app.options); // Verify Project ID
-        console.log('Params:', params);
+        console.log(`[DP-DEBUG] update ${resource} START`);
+        console.log('[DP-DEBUG] Firebase Config:', app.options); // Verify Project ID
+        console.log('[DP-DEBUG] Params:', params);
 
         const { id: _id, ...rest } = params.data;
 
@@ -341,17 +341,17 @@ const dataProvider: DataProvider = {
             console.log(`[DP] Target Doc Path: ${docRef.path}`);
 
             await updateDoc(docRef, data);
-            console.log(`[DP] updated docId=${docRef.id} path=${docRef.path}`);
+            console.log(`[DP-DEBUG] updated docId=${docRef.id} path=${docRef.path}`);
 
             const result = {
                 data: { ...params.data, id: params.id } as RecordType
             };
-            console.log('Result returned to React-Admin:', result);
-            console.groupEnd();
+            console.log('[DP-DEBUG] Result returned to React-Admin:', result);
+            console.log(`[DP-DEBUG] update ${resource} END`);
             return result;
         } catch (e) {
-            console.error('Error updating document: ', e);
-            console.groupEnd();
+            console.error('[DP-DEBUG] Error updating document: ', e);
+            console.log(`[DP-DEBUG] update ${resource} ERROR`);
             throw e;
         }
     },
