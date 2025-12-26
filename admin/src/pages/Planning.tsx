@@ -286,42 +286,37 @@ const Planning = () => {
                 updatedAt: new Date()
             };
 
-            // DIAGNOSTIC DATE FORMATS
-            console.group('[Planning] Date Diagnostic');
-            agentAssignments.forEach((assign, i) => {
-                assign.vacations.forEach((vac, j) => {
-                    console.log(`Agent ${i} Vacation ${j}:`, {
-                        dateStr: vac.date,
-                        startStr: vac.start,
-                        endStr: vac.end,
-                        typeOfDate: typeof vac.date,
-                        validMoment: moment(vac.date).isValid()
-                    });
-                });
-            });
-            console.log('Payload Data (Before Provider):', payloadData);
-            console.groupEnd();
+            // DIAGNOSTIC DATE FORMATS REMOVED FOR CLEANUP
+            // console.group('[Planning] Date Diagnostic'); ...
 
             if (editMode && selectedMissionId) {
-                console.log('[Planning] Calling update...');
-                await update('planning', {
-                    id: selectedMissionId,
-                    data: payloadData,
-                    previousData: events?.find((e: Mission) => e.id === selectedMissionId)
-                });
+                console.log('[Planning] Calling update (pessimistic)...');
+                await update(
+                    'planning',
+                    {
+                        id: selectedMissionId,
+                        data: payloadData,
+                        previousData: events?.find((e: Mission) => e.id === selectedMissionId)
+                    },
+                    { mutationMode: 'pessimistic' }
+                );
                 console.log('[Planning] Update success');
-                notify('Mission mise à jour avec succès !');
+                notify('Mission mise à jour avec succès !', { type: 'success' });
             } else {
-                console.log('[Planning] Calling create...');
-                await create('planning', {
-                    data: {
-                        ...payloadData,
-                        status: 'scheduled',
-                        createdAt: new Date()
-                    }
-                });
+                console.log('[Planning] Calling create (pessimistic)...');
+                await create(
+                    'planning',
+                    {
+                        data: {
+                            ...payloadData,
+                            status: 'scheduled',
+                            createdAt: new Date()
+                        }
+                    },
+                    { mutationMode: 'pessimistic' }
+                );
                 console.log('[Planning] Create success');
-                notify('Mission créée avec succès !');
+                notify('Mission créée avec succès !', { type: 'success' });
             }
 
             handleCloseDialog();
