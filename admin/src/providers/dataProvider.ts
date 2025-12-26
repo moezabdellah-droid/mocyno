@@ -279,7 +279,8 @@ const dataProvider: DataProvider = {
         params: CreateParams
     ): Promise<CreateResult<RecordType>> => {
         console.group(`[DataProvider] create ${resource}`);
-        console.log('Firebase Config:', app.options); // Verify Project ID
+        console.log('Firebase Config (Project):', app.options.projectId);
+        console.log('Emulator Enabled:', import.meta.env.VITE_USE_FIREBASE_EMULATORS);
         console.log('Params:', params);
 
         let newItem = { ...params.data };
@@ -294,8 +295,11 @@ const dataProvider: DataProvider = {
         console.log('Sanitized Payload:', newItem);
 
         try {
-            const docRef = await addDoc(collection(db, resource), newItem);
-            console.log('Document written with ID: ', docRef.id);
+            const collectionRef = collection(db, resource);
+            console.log(`[DP] Target Collection Path: ${collectionRef.path}`);
+
+            const docRef = await addDoc(collectionRef, newItem);
+            console.log(`[DP] wrote docId=${docRef.id} path=${docRef.path}`);
 
             const result = {
                 data: {
@@ -334,8 +338,10 @@ const dataProvider: DataProvider = {
 
         try {
             const docRef = doc(db, resource, params.id.toString());
+            console.log(`[DP] Target Doc Path: ${docRef.path}`);
+
             await updateDoc(docRef, data);
-            console.log('Document updated successfully:', params.id);
+            console.log(`[DP] updated docId=${docRef.id} path=${docRef.path}`);
 
             const result = {
                 data: { ...params.data, id: params.id } as RecordType
