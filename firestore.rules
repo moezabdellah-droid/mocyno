@@ -2,78 +2,68 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    // Helper functions
+    // Auth Helpers
     function isAuthenticated() {
       return request.auth != null;
     }
-
+    
+    // Récupérer le rôle depuis le document agent de l'utilisateur
     function getUserData() {
-      return get(/databases/$(database)/documents/agents/$(request.auth.uid)).data;
+      let path = /databases/$(database)/documents/agents/$(request.auth.uid);
+      return exists(path) ? get(path).data : {};
     }
     
     function hasRole(role) {
-      return isAuthenticated() && getUserData().role == role;
+      let data = getUserData();
+      return isAuthenticated() && (data != null && data.role == role);
     }
     
-    function isAdmin() {
-      return hasRole('admin');
-    }
-    
-    function isManager() {
-      return hasRole('manager');
-    }
-    
-    function isAdminOrManager() {
-      return isAuthenticated() && (getUserData().role == 'admin' || getUserData().role == 'manager');
+    // Rôles
+    function isAdmin() { return hasRole('admin'); }
+    function isManager() { return hasRole('manager'); }
+    function isAdminOrManager() { 
+      // Optimisation: lire une seule fois si possible, mais ici logique 'OR'
+      return isAdmin() || isManager(); 
     }
 
-    // Agents Collection
-    // Admins can manage everything.
-    // Managers can read all agents but not modify admins (logic simplified here for Firestore, UI handles specifics)
-    // Agents can only read their own profile.
-    match /agents/{userId} {
-      allow read: if isAuthenticated(); // Broad read for now to allow viewing colleagues, or restrict to Admin/Manager + Self
-      allow create: if isAdminOrManager();
-      allow update: if isAdminOrManager() || (isAuthenticated() && request.auth.uid == userId); // Agents can update self (e.g. photo)
-      allow delete: if isAdmin();
-    }
+    // --- COLLECTIONS ---
 
-    // Consignes
-    // Read: All authenticated
-    // Write: All authenticated (Temporary for debugging)
+    // 1. CONSIGNES (CORRECTIF)
     match /consignes/{consigneId} {
       allow read: if isAuthenticated();
-      allow write: if isAuthenticated();
-    }
-    
-    // Planning
-    // Read: All authenticated
-    // Write: Admin/Manager only
-    match /planning/{shiftId} {
-      allow read: if isAuthenticated();
+      // UPDATE: Seuls Admin et Manager peuvent écrire
       allow write: if isAdminOrManager();
     }
 
-    // Sites
-    // Read: All authenticated
-    // Write: Admin/Manager only
+    // 2. AGENTS
+    match /agents/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isAdminOrManager();
+      allow update: if isAdminOrManager() || (isAuthenticated() && request.auth.uid == userId);
+      allow delete: if isAdmin();
+    }
+    
+    // 3. PLANNING
+    match /planning/{shiftId} {
+      allow read: if isAuthenticated(); // Tout agent peut voir le planning
+      allow write: if isAdminOrManager();
+    }
+
+    // 4. EVENTS (Main Courante)
+    match /events/{eventId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated(); // Tout agent peut créer un rapport
+      allow update: if isAdminOrManager(); // Modification restreinte
+      allow delete: if isAdminOrManager();
+    }
+
+    // 5. SITES
     match /sites/{siteId} {
       allow read: if isAuthenticated();
       allow write: if isAdminOrManager();
     }
 
-    // Main Courante / Reports (Events)
-    // Read: All authenticated
-    // Create: All authenticated (Agents create reports)
-    // Update/Delete: Admin/Manager only (prevent tampering)
-    match /events/{eventId} {
-      allow read: if isAuthenticated();
-      allow create: if isAuthenticated();
-      allow update: if isAdminOrManager();
-      allow delete: if isAdminOrManager();
-    }
-
-    // Default deny
+    // Default
     match /{document=**} {
       allow read, write: if false;
     }

@@ -13,7 +13,28 @@ import { SiteList, SiteCreate, SiteEdit } from './pages/Sites';
 const App = () => (
   <Admin
     authProvider={authProvider}
-    dataProvider={dataProvider}
+    dataProvider={new Proxy(dataProvider, {
+      get: (target, prop) => {
+        const value = target[prop as keyof typeof target];
+        if (typeof value === 'function') {
+          return async (...args: any[]) => {
+            console.log(`[Proxy] Calling ${String(prop)} with:`, args);
+            try {
+              const result = await value.apply(target, args as any);
+              console.log(`[Proxy] ${String(prop)} returned:`, result);
+              if (result === null || result === undefined) {
+                console.error(`[Proxy] VIOLATION: ${String(prop)} returned null/undefined!`);
+              }
+              return result;
+            } catch (error) {
+              console.error(`[Proxy] ${String(prop)} threw:`, error);
+              throw error;
+            }
+          };
+        }
+        return value;
+      }
+    })}
     dashboard={Dashboard}
     theme={mocynoTheme}
   >
