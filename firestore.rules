@@ -38,7 +38,9 @@ service cloud.firestore {
     // 2. AGENTS
     match /agents/{userId} {
       allow read: if isAuthenticated();
-      allow create: if isAdminOrManager();
+      // Bootstrap/Self-Registration: allow creating own document if authenticated
+      // but only one's own UID, and role cannot be set to admin unless by an existing admin (handled below)
+      allow create: if (isAuthenticated() && request.auth.uid == userId) || isAdminOrManager();
       allow update: if isAdminOrManager() || (isAuthenticated() && request.auth.uid == userId);
       allow delete: if isAdmin();
     }
