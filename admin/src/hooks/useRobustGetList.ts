@@ -32,6 +32,11 @@ export const useRobustGetList = <RecordType extends RaRecord = any>(
     useEffect(() => {
         // Trigger fallback if error exists OR (not loading AND (no data OR empty data))
         // React 19 issue: Hook might return empty array silently. We double-check with direct provider.
+
+        // CRITICAL: Skip if not authenticated yet to avoid "Missing or insufficient permissions" console spam
+        const isAuthReady = !!localStorage.getItem('ra-auth-state') || !!auth.currentUser;
+        if (!isAuthReady) return;
+
         const shouldFallback = error || (!isLoading && (!data || data.length === 0));
         const hasFallbackData = fallbackData.length > 0;
 

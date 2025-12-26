@@ -54,6 +54,27 @@ const convertFileToUrl = async (file: string | FileUpload): Promise<string> => {
     return downloadURL;
 };
 
+/**
+ * Recursive cleanup of payload to remove undefined values.
+ * Firestore throws errors on undefined (but accepts null).
+ */
+const sanitizePayload = (obj: any): any => {
+    if (Array.isArray(obj)) {
+        return obj.map(sanitizePayload);
+    }
+    if (obj !== null && typeof obj === 'object' && !(obj instanceof Date)) {
+        const newObj: any = {};
+        Object.keys(obj).forEach(key => {
+            const val = obj[key];
+            if (val !== undefined) {
+                newObj[key] = sanitizePayload(val);
+            }
+        });
+        return newObj;
+    }
+    return obj;
+};
+
 // Helper for building Firestore queries from React Admin params
 const buildQuery = (resource: string, params: GetListParams) => {
     const { filter, pagination, sort } = params;
@@ -258,12 +279,16 @@ const dataProvider: DataProvider = {
         params: CreateParams
     ): Promise<CreateResult<RecordType>> => {
         console.log(`[DataProvider] create ${resource}`, params);
-        const newItem = { ...params.data };
+
+        let newItem = { ...params.data };
 
         // Handle file upload for photoURL
         if (newItem.photoURL) {
             newItem.photoURL = await convertFileToUrl(newItem.photoURL);
         }
+
+        // Recursive cleanup to remove undefined values
+        newItem = sanitizePayload(newItem);
 
         const docRef = await addDoc(collection(db, resource), newItem);
 
@@ -282,6 +307,7 @@ const dataProvider: DataProvider = {
         params: UpdateParams
     ): Promise<UpdateResult<RecordType>> => {
         console.log(`[DataProvider] update ${resource}`, params);
+
         const { id: _id, ...rest } = params.data;
 
         // Handle file upload
@@ -289,13 +315,8 @@ const dataProvider: DataProvider = {
             rest.photoURL = await convertFileToUrl(rest.photoURL);
         }
 
-        // Remove undefined values
-        const data: Record<string, unknown> = {};
-        Object.keys(rest).forEach(key => {
-            if (rest[key] !== undefined) {
-                data[key] = rest[key];
-            }
-        });
+        // Recursive cleanup to remove undefined values
+        const data = sanitizePayload(rest);
 
         const docRef = doc(db, resource, params.id.toString());
         await updateDoc(docRef, data);
