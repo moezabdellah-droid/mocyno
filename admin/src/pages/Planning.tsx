@@ -237,9 +237,11 @@ const Planning = () => {
     };
 
     const handleSaveMission = async () => {
+        console.log('[Planning] handleSaveMission ENTER', { editMode, selectedMissionId, missionData, agentAssignments });
         try {
             const site = sites?.find((s: Site) => s.id === missionData.siteId);
             if (!site) {
+                console.warn('[Planning] Save FAILED: Site not found', missionData.siteId);
                 notify('Site introuvable', { type: 'error' });
                 return;
             }
@@ -284,14 +286,19 @@ const Planning = () => {
                 updatedAt: new Date()
             };
 
+            console.log('[Planning] Saving payload:', payloadData);
+
             if (editMode && selectedMissionId) {
+                console.log('[Planning] Calling update...');
                 await update('planning', {
                     id: selectedMissionId,
                     data: payloadData,
                     previousData: events?.find((e: Mission) => e.id === selectedMissionId)
                 });
+                console.log('[Planning] Update success');
                 notify('Mission mise à jour avec succès !');
             } else {
+                console.log('[Planning] Calling create...');
                 await create('planning', {
                     data: {
                         ...payloadData,
@@ -299,6 +306,7 @@ const Planning = () => {
                         createdAt: new Date()
                     }
                 });
+                console.log('[Planning] Create success');
                 notify('Mission créée avec succès !');
             }
 
