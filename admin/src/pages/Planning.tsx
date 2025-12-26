@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import {
-    useCreate, useUpdate, useNotify, Loading,
+    useNotify, Loading, useDataProvider, useRefresh,
     List, Datagrid, TextField as RaTextField, FunctionField, DeleteButton, Title
 } from 'react-admin';
 import {
@@ -64,8 +64,8 @@ const Planning = () => {
     const { data: sites } = useRobustGetList<Site>('sites', { pagination: { page: 1, perPage: 1000 } });
     const { data: agents } = useRobustGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
 
-    const [create] = useCreate();
-    const [update] = useUpdate();
+    const dataProvider = useDataProvider();
+    const refresh = useRefresh();
     const notify = useNotify();
 
     const { events: calendarEvents } = usePlanningEvents(events || []);
@@ -290,34 +290,28 @@ const Planning = () => {
             // console.group('[Planning] Date Diagnostic'); ...
 
             if (editMode && selectedMissionId) {
-                console.log('[Planning] Calling update (pessimistic)...');
-                await update(
-                    'planning',
-                    {
-                        id: selectedMissionId,
-                        data: payloadData,
-                        previousData: events?.find((e: Mission) => e.id === selectedMissionId)
-                    },
-                    { mutationMode: 'pessimistic' }
-                );
+                console.log('[Planning] Calling update (DIRECT DP)...');
+                await dataProvider.update('planning', {
+                    id: selectedMissionId,
+                    data: payloadData,
+                    previousData: events?.find((e: Mission) => e.id === selectedMissionId)
+                });
                 console.log('[Planning] Update success');
                 notify('Mission mise à jour avec succès !', { type: 'success' });
             } else {
-                console.log('[Planning] Calling create (pessimistic)...');
-                await create(
-                    'planning',
-                    {
-                        data: {
-                            ...payloadData,
-                            status: 'scheduled',
-                            createdAt: new Date()
-                        }
-                    },
-                    { mutationMode: 'pessimistic' }
-                );
+                console.log('[Planning] Calling create (DIRECT DP)...');
+                await dataProvider.create('planning', {
+                    data: {
+                        ...payloadData,
+                        status: 'scheduled',
+                        createdAt: new Date()
+                    }
+                });
                 console.log('[Planning] Create success');
                 notify('Mission créée avec succès !', { type: 'success' });
             }
+
+            refresh(); // Force refresh list
 
             handleCloseDialog();
         } catch (error: unknown) {
