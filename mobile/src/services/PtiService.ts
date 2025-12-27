@@ -89,25 +89,46 @@ export class PtiService {
         const user = auth.currentUser;
         if (!user) return;
 
+        let location = null;
         try {
-            // Get current location immediately
-            const position = await Geolocation.getCurrentPosition();
+            // Updated options for robustness
+            const position = await Geolocation.getCurrentPosition({
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 30000 // Accept positions up to 30s old to avoid timeouts
+            });
+            location = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+        } catch (error) {
+            console.error("SOS Location Error (sending without location):", error);
+            // Attempt to use valid last known position if available?
+            // For now, proceed with null location so alert still goes out
+        }
 
+        try {
             await addDoc(collection(db, 'events'), {
                 type: 'SOS',
                 authorId: user.uid,
-                location: {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                },
+                authorEmail: user.email,
+                location: location,
                 timestamp: serverTimestamp(),
                 status: 'OPEN',
                 priority: 'CRITICAL'
             });
 
-            console.log("SOS SENT!");
+            console.log("SOS FIRESTORE DOC CREATED!");
+
+            // SYSTEME SMS
+            // Note: This relies on the device handling the sms: protocol.
+            const phoneNumber = "+33666035116";
+            const message = `SOS ALERT! Agent: ${user.email} - Location: ${location ? `${location.lat},${location.lng}` : 'Unknown'}`;
+            window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
+
         } catch (error) {
             console.error("Error sending SOS:", error);
+            throw error; // Re-throw so UI knows it failed
         }
     }
 
