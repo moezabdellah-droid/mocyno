@@ -75,7 +75,8 @@ export const authProvider: AuthProvider = {
     getPermissions: async () => {
         const user = auth.currentUser;
         if (!user) {
-            return Promise.reject(new Error('Utilisateur non connecté'));
+            console.log('[authProvider] getPermissions: No user');
+            return Promise.resolve('agent');
         }
 
         try {
@@ -83,9 +84,12 @@ export const authProvider: AuthProvider = {
 
             if (userDoc.exists()) {
                 const userData = userDoc.data();
-                return Promise.resolve(userData.role || 'agent');
+                const role = userData.role || 'agent';
+                console.log('[authProvider] getPermissions: Resolved role:', role);
+                return Promise.resolve(role);
             }
 
+            console.log('[authProvider] getPermissions: No agent doc, default to agent');
             return Promise.resolve('agent');
         } catch (error) {
             console.error('Error fetching permissions:', error);
