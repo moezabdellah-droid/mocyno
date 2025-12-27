@@ -64,6 +64,7 @@ const sanitizePayload = (obj: any): any => {
         return obj.map(sanitizePayload);
     }
     if (obj !== null && typeof obj === 'object' && !(obj instanceof Date)) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const newObj: any = {};
         Object.keys(obj).forEach(key => {
             const val = obj[key];
