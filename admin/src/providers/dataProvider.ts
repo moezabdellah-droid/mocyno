@@ -36,7 +36,7 @@ import {
     type QueryConstraint
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage, app } from '../firebase.config';
+import { db, storage } from '../firebase.config';
 
 interface FileUpload {
     rawFile: File;
@@ -280,10 +280,8 @@ const dataProvider: DataProvider = {
         resource: string,
         params: CreateParams
     ): Promise<CreateResult<RecordType>> => {
-        console.log(`[DP-DEBUG] create ${resource} START`);
-        console.log('[DP-DEBUG] Firebase Config (Project):', app.options.projectId);
-        console.log('[DP-DEBUG] Emulator Enabled:', import.meta.env.VITE_USE_FIREBASE_EMULATORS);
-        console.log('[DP-DEBUG] Params:', params);
+        // console.log('[DP-DEBUG] Firebase Config (Project):', app.options.projectId);
+        // console.log('[DP-DEBUG] Params:', params);
 
         let newItem = { ...params.data };
 
@@ -298,10 +296,10 @@ const dataProvider: DataProvider = {
 
         try {
             const collectionRef = collection(db, resource);
-            console.log(`[DP] Target Collection Path: ${collectionRef.path}`);
+            // console.log(`[DP] Target Collection Path: ${collectionRef.path}`);
 
             const docRef = await addDoc(collectionRef, newItem);
-            console.log(`[DP-DEBUG] wrote docId=${docRef.id} path=${docRef.path}`);
+            // console.log(`[DP-DEBUG] wrote docId=${docRef.id}`);
 
             const result = {
                 data: {
@@ -323,9 +321,7 @@ const dataProvider: DataProvider = {
         resource: string,
         params: UpdateParams
     ): Promise<UpdateResult<RecordType>> => {
-        console.log(`[DP-DEBUG] update ${resource} START`);
-        console.log('[DP-DEBUG] Firebase Config:', app.options); // Verify Project ID
-        console.log('[DP-DEBUG] Params:', params);
+        // console.log(`[DP-DEBUG] update ${resource} START`);
 
         const { id: _id, ...rest } = params.data;
 
@@ -340,10 +336,10 @@ const dataProvider: DataProvider = {
 
         try {
             const docRef = doc(db, resource, params.id.toString());
-            console.log(`[DP] Target Doc Path: ${docRef.path}`);
+            // console.log(`[DP] Target Doc Path: ${docRef.path}`);
 
             await updateDoc(docRef, data);
-            console.log(`[DP-DEBUG] updated docId=${docRef.id} path=${docRef.path}`);
+            // console.log(`[DP-DEBUG] updated docId=${docRef.id}`);
 
             const result = {
                 data: { ...params.data, id: params.id } as RecordType

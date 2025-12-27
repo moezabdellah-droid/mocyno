@@ -65,7 +65,7 @@ const Planning = () => {
     const { data: sites } = useRobustGetList<Site>('sites', { pagination: { page: 1, perPage: 1000 } });
     const { data: agents } = useRobustGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
 
-    const dataProvider = useDataProvider();
+    // const dataProvider = useDataProvider();
     const refresh = useRefresh();
     const notify = useNotify();
 
@@ -238,7 +238,6 @@ const Planning = () => {
     };
 
     const handleSaveMission = async () => {
-        console.log('[Planning] handleSaveMission ENTER', { editMode, selectedMissionId, missionData, agentAssignments });
         try {
             const site = sites?.find((s: Site) => s.id === missionData.siteId);
             if (!site) {
@@ -291,8 +290,6 @@ const Planning = () => {
             // console.group('[Planning] Date Diagnostic'); ...
 
             if (editMode && selectedMissionId) {
-                console.log('[Planning] Calling update (DIRECT IMPORT)...');
-                console.log('Hook DataProvider Keys:', Object.keys(dataProvider));
 
                 await rawDataProvider.update('planning', {
                     id: selectedMissionId,
@@ -302,8 +299,6 @@ const Planning = () => {
                 console.log('[Planning] Update success');
                 notify('Mission mise à jour avec succès !', { type: 'success' });
             } else {
-                console.log('[Planning] Calling create (DIRECT IMPORT)...');
-                console.log('Hook DataProvider Keys:', Object.keys(dataProvider));
 
                 await rawDataProvider.create('planning', {
                     data: {
