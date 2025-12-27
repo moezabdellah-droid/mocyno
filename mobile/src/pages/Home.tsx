@@ -8,8 +8,16 @@ import { PtiService } from '../services/PtiService';
 import type { Agent } from '../types/shared';
 
 const Home: React.FC = () => {
-    const [isServiceRunning, setIsServiceRunning] = useState(false);
+    // Initialize from localStorage
+    const [isServiceRunning, setIsServiceRunning] = useState(() => {
+        return localStorage.getItem('isServiceRunning') === 'true';
+    });
     const [agentInfo, setAgentInfo] = useState<Agent | null>(null);
+
+    // Persist state changes
+    React.useEffect(() => {
+        localStorage.setItem('isServiceRunning', isServiceRunning.toString());
+    }, [isServiceRunning]);
 
     React.useEffect(() => {
         const fetchAgentInfo = async () => {
