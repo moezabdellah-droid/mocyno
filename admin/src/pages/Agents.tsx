@@ -144,15 +144,12 @@ const GenerateMatriculeButton = () => {
     );
 };
 
-import { useRobustGetOne } from '../hooks/useRobustGetOne';
+
 
 // ... (other components if needed)
 
 const AgentDownloadButtons = () => {
-    const { id } = useParams();
-
-    // Robust Fetch (replacing component-level manual fetch)
-    const { data: record, isLoading: loadingRecord } = useRobustGetOne<Agent>('agents', { id: id! });
+    const record = useRecordContext<Agent>();
 
     // Image State
     const [logoBase64, setLogoBase64] = useState<string | null>(null);
@@ -191,20 +188,17 @@ const AgentDownloadButtons = () => {
         };
 
         loadImages();
-    }, [record, logoBase64, photoBase64]); // Run when record is fetched
+    }, [record, logoBase64, photoBase64]);
 
-    if (loadingRecord) return <Button disabled>Chargement...</Button>;
-    if (!record) return <Button disabled color="error">Erreur (Record Null)</Button>;
+    if (!record) return <Button disabled>Chargement...</Button>;
 
-    // We allow rendering buttons even if images are loading, but PDF generation might wait or use placeholders.
-    // Ideally disable buttons while loading images to ensure they are included.
     const isReady = !loadingImages && logoBase64 !== null;
 
     return (
         <div style={{ display: 'flex', gap: 10 }}>
             {/* PDFDownloadLink children prop type mismatch suppression not needed */}
             <PDFDownloadLink
-                document={<AgentBadgePdf agent={record as unknown as Agent} photoBase64={photoBase64} logoBase64={logoBase64} />}
+                document={<AgentBadgePdf agent={record} photoBase64={photoBase64} logoBase64={logoBase64} />}
                 fileName={`Badge-${record.lastName || 'Agent'}.pdf`}
             >
                 {({ loading }: { loading: boolean }) => (
@@ -216,7 +210,7 @@ const AgentDownloadButtons = () => {
 
             {/* PDFDownloadLink children prop type mismatch suppression not needed */}
             <PDFDownloadLink
-                document={<AgentProfilePdf agent={record as unknown as Agent} photoBase64={photoBase64} />}
+                document={<AgentProfilePdf agent={record} photoBase64={photoBase64} />}
                 fileName={`Fiche-${record.lastName || 'Agent'}.pdf`}
             >
                 {({ loading }: { loading: boolean }) => (
