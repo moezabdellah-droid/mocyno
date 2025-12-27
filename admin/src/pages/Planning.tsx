@@ -15,7 +15,7 @@ import { Calendar, Views, momentLocalizer, type DateLocalizer } from 'react-big-
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
-// @ts-ignore
+// @ts-expect-error
 import 'moment/locale/fr';
 
 moment.locale('fr');

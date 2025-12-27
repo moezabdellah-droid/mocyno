@@ -178,7 +178,7 @@ const AgentDownloadButtons = () => {
                     try {
                         const photoData = await imageUrlToPngBase64(record.photoURL as string);
                         setPhotoBase64(photoData);
-                    } catch (_) {
+                    } catch {
                         console.warn('Failed to load agent photo, using fallback');
                         setPhotoBase64(record.photoURL as string);
                     }
@@ -202,7 +202,7 @@ const AgentDownloadButtons = () => {
 
     return (
         <div style={{ display: 'flex', gap: 10 }}>
-            {/* @ts-ignore */}
+            {/* @ts-expect-error */}
             <PDFDownloadLink
                 document={<AgentBadgePdf agent={record as unknown as Agent} photoBase64={photoBase64} logoBase64={logoBase64} />}
                 fileName={`Badge-${record.lastName || 'Agent'}.pdf`}
@@ -214,7 +214,7 @@ const AgentDownloadButtons = () => {
                 )}
             </PDFDownloadLink>
 
-            {/* @ts-ignore */}
+            {/* @ts-expect-error */}
             <PDFDownloadLink
                 document={<AgentProfilePdf agent={record as unknown as Agent} photoBase64={photoBase64} />}
                 fileName={`Fiche-${record.lastName || 'Agent'}.pdf`}
