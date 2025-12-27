@@ -1,5 +1,6 @@
 
 import { useMemo, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
@@ -147,102 +148,116 @@ const Dashboard = () => {
             <Grid container spacing={3} sx={{ mb: 3 }}>
                 {/* Row 1: Mission Stats */}
                 <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-                    <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #9c27b0' }}>
-                        <Typography variant="h3" sx={{ mr: 2 }}>📋</Typography>
-                        <Box>
-                            <Typography variant="h4" fontWeight="bold">
-                                {stats.totalMissions}
-                            </Typography>
-                            <Typography variant="subtitle1" color="textSecondary">
-                                Missions Totales
-                            </Typography>
-                        </Box>
-                    </Paper>
+                    <Link to="/planning?view=list" style={{ textDecoration: 'none' }}>
+                        <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #9c27b0' }}>
+                            <Typography variant="h3" sx={{ mr: 2 }}>📋</Typography>
+                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                <Typography variant="h4" fontWeight="bold">
+                                    {stats.totalMissions}
+                                </Typography>
+                                <Typography variant="subtitle1" color="textSecondary">
+                                    Missions Totales
+                                </Typography>
+                            </Box>
+                        </Paper>
+                    </Link>
                 </Grid>
                 <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-                    <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #ff9800' }}>
-                        <Typography variant="h3" sx={{ mr: 2 }}>🔥</Typography>
-                        <Box>
-                            <Typography variant="h4" fontWeight="bold">
-                                {stats.ongoingMissions}
-                            </Typography>
-                            <Typography variant="subtitle1" color="textSecondary">
-                                Missions En Cours
-                            </Typography>
-                        </Box>
-                    </Paper>
+                    <Link to="/planning?view=list&filter={}" style={{ textDecoration: 'none' }}>
+                        <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #ff9800' }}>
+                            <Typography variant="h3" sx={{ mr: 2 }}>🔥</Typography>
+                            <Box>
+                                <Typography variant="h4" fontWeight="bold">
+                                    {stats.ongoingMissions}
+                                </Typography>
+                                <Typography variant="subtitle1" color="textSecondary">
+                                    Missions En Cours
+                                </Typography>
+                            </Box>
+                        </Paper>
+                    </Link>
                 </Grid>
                 <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-                    <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #03a9f4' }}>
-                        <Typography variant="h3" sx={{ mr: 2 }}>📅</Typography>
-                        <Box>
-                            <Typography variant="h4" fontWeight="bold">
-                                {stats.upcomingMissions}
-                            </Typography>
-                            <Typography variant="subtitle1" color="textSecondary">
-                                Missions À Venir
-                            </Typography>
-                        </Box>
-                    </Paper>
+                    <Link to="/planning?view=list" style={{ textDecoration: 'none' }}>
+                        <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #03a9f4' }}>
+                            <Typography variant="h3" sx={{ mr: 2 }}>📅</Typography>
+                            <Box>
+                                <Typography variant="h4" fontWeight="bold">
+                                    {stats.upcomingMissions}
+                                </Typography>
+                                <Typography variant="subtitle1" color="textSecondary">
+                                    Missions À Venir
+                                </Typography>
+                            </Box>
+                        </Paper>
+                    </Link>
                 </Grid>
             </Grid>
 
             {/* Row 2: General Stats */}
             <Grid container spacing={3}>
                 <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-                    <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #2e7d32' }}>
-                        <CheckCircleIcon sx={{ fontSize: 50, color: '#2e7d32', mr: 2 }} />
-                        <Box>
-                            <Typography variant="h4" fontWeight="bold">
-                                {stats.doneHours.toFixed(0)}h
-                            </Typography>
-                            <Typography variant="subtitle1" color="textSecondary">
-                                Heures Effectuées
-                            </Typography>
-                        </Box>
-                    </Paper>
+                    <Link to="/planning?view=list" style={{ textDecoration: 'none' }}>
+                        <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #2e7d32' }}>
+                            <CheckCircleIcon sx={{ fontSize: 50, color: '#2e7d32', mr: 2 }} />
+                            <Box>
+                                <Typography variant="h4" fontWeight="bold">
+                                    {stats.doneHours.toFixed(0)}h
+                                </Typography>
+                                <Typography variant="subtitle1" color="textSecondary">
+                                    Heures Effectuées
+                                </Typography>
+                            </Box>
+                        </Paper>
+                    </Link>
                 </Grid>
 
                 <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-                    <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #1976d2' }}>
-                        <AccessTimeIcon sx={{ fontSize: 50, color: '#1976d2', mr: 2 }} />
-                        <Box>
-                            <Typography variant="h4" fontWeight="bold">
-                                {stats.futureHours.toFixed(0)}h
-                            </Typography>
-                            <Typography variant="subtitle1" color="textSecondary">
-                                Heures Planifiées
-                            </Typography>
-                        </Box>
-                    </Paper>
+                    <Link to="/planning?view=calendar" style={{ textDecoration: 'none' }}>
+                        <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #1976d2' }}>
+                            <AccessTimeIcon sx={{ fontSize: 50, color: '#1976d2', mr: 2 }} />
+                            <Box>
+                                <Typography variant="h4" fontWeight="bold">
+                                    {stats.futureHours.toFixed(0)}h
+                                </Typography>
+                                <Typography variant="subtitle1" color="textSecondary">
+                                    Heures Planifiées
+                                </Typography>
+                            </Box>
+                        </Paper>
+                    </Link>
                 </Grid>
 
                 <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-                    <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #0288d1' }}>
-                        <GroupIcon sx={{ fontSize: 50, color: '#0288d1', mr: 2 }} />
-                        <Box>
-                            <Typography variant="h4" fontWeight="bold">
-                                {stats.agentsCount}
-                            </Typography>
-                            <Typography variant="subtitle1" color="textSecondary">
-                                Agents Mobilisés
-                            </Typography>
-                        </Box>
-                    </Paper>
+                    <Link to="/agents" style={{ textDecoration: 'none' }}>
+                        <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #0288d1' }}>
+                            <GroupIcon sx={{ fontSize: 50, color: '#0288d1', mr: 2 }} />
+                            <Box>
+                                <Typography variant="h4" fontWeight="bold">
+                                    {stats.agentsCount}
+                                </Typography>
+                                <Typography variant="subtitle1" color="textSecondary">
+                                    Agents Mobilisés
+                                </Typography>
+                            </Box>
+                        </Paper>
+                    </Link>
                 </Grid>
 
                 <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-                    <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #ed6c02' }}>
-                        <BusinessIcon sx={{ fontSize: 50, color: '#ed6c02', mr: 2 }} />
-                        <Box>
-                            <Typography variant="h4" fontWeight="bold">
-                                {stats.sitesCount}
-                            </Typography>
-                            <Typography variant="subtitle1" color="textSecondary">
-                                Sites Actifs/Futurs
-                            </Typography>
-                        </Box>
-                    </Paper>
+                    <Link to="/sites" style={{ textDecoration: 'none' }}>
+                        <Paper elevation={3} sx={{ p: 3, display: 'flex', alignItems: 'center', height: '100%', borderLeft: '5px solid #ed6c02' }}>
+                            <BusinessIcon sx={{ fontSize: 50, color: '#ed6c02', mr: 2 }} />
+                            <Box>
+                                <Typography variant="h4" fontWeight="bold">
+                                    {stats.sitesCount}
+                                </Typography>
+                                <Typography variant="subtitle1" color="textSecondary">
+                                    Sites Actifs/Futurs
+                                </Typography>
+                            </Box>
+                        </Paper>
+                    </Link>
                 </Grid>
             </Grid>
         </Box>

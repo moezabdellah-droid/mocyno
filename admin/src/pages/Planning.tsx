@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
-    useNotify, Loading, useDataProvider, useRefresh,
+    useNotify, Loading, useRefresh,
     List, Datagrid, TextField as RaTextField, FunctionField, DeleteButton, Title
 } from 'react-admin';
 import {
@@ -92,10 +93,12 @@ const Planning = () => {
         }]
     }]);
 
-    const [tabValue, setTabValue] = useState(0);
+    // Tab logic handled by URL params
+    const [searchParams, setSearchParams] = useSearchParams();
+    const tabValue = searchParams.get('view') === 'list' ? 1 : 0;
 
     const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
-        setTabValue(newValue);
+        setSearchParams({ ...Object.fromEntries(searchParams), view: newValue === 1 ? 'list' : 'calendar' });
     };
 
     const onEventResize = useCallback(
