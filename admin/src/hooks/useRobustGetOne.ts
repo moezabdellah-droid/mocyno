@@ -2,13 +2,15 @@ import { useGetOne, useNotify, useDataProvider } from 'react-admin';
 import type { RaRecord, GetOneParams } from 'react-admin';
 import { useEffect, useState, useRef } from 'react';
 
-export interface RobustGetOneResult<RecordType extends RaRecord = RaRecord> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface RobustGetOneResult<RecordType extends RaRecord = any> {
     data?: RecordType;
     isLoading: boolean;
     error?: unknown;
 }
 
-export const useRobustGetOne = <RecordType extends RaRecord = RaRecord>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const useRobustGetOne = <RecordType extends RaRecord = any>(
     resource: string,
     params: GetOneParams
 ): RobustGetOneResult<RecordType> => {

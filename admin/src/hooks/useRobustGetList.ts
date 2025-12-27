@@ -5,14 +5,16 @@ import { useEffect, useState, useRef } from 'react';
 import dataProvider from '../providers/dataProvider';
 import { auth } from '../firebase.config';
 
-export interface RobustGetListResult<RecordType extends RaRecord = RaRecord> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface RobustGetListResult<RecordType extends RaRecord = any> {
     data?: RecordType[];
     total?: number;
     isLoading: boolean;
     error?: unknown;
 }
 
-export const useRobustGetList = <RecordType extends RaRecord = RaRecord>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const useRobustGetList = <RecordType extends RaRecord = any>(
     resource: string,
     params: GetListParams
 ): RobustGetListResult<RecordType> => {
