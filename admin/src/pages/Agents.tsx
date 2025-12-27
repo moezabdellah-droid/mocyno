@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import {
     List, Datagrid, TextField, EmailField, DateField, Create, SimpleForm,
-    TextInput, required, useNotify, useRedirect, Title, SelectArrayInput,
+    TextInput, required, useNotify, useRedirect, SelectArrayInput,
     FunctionField, SelectInput, TabbedForm, FormTab, DateInput, ImageField, ImageInput,
-    FormDataConsumer, regex, useRefresh, useRecordContext, useUpdate,
-    Toolbar, SaveButton, DeleteButton
+    FormDataConsumer, regex, useRefresh, useRecordContext,
+    Toolbar, SaveButton, DeleteButton, Edit
 } from 'react-admin';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import type { Agent } from '../types/models';
-import { Button, TextField as MuiTextField, Box, CircularProgress, Typography } from '@mui/material';
+import { Button, TextField as MuiTextField } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import GenerateIcon from '@mui/icons-material/Autorenew';
 import { AgentBadgePdf, AgentProfilePdf } from '../components/AgentPdf';
@@ -252,58 +252,18 @@ export const AgentList = () => (
 // Define Toolbar outside to avoid re-creation on render.
 // DeleteButton needs 'resource' prop or context. Since we are in TabbedForm which provides ResourceContext,
 // but DeleteButton explicitly asked for it in the error, we keep resource="agents".
+// Custom Toolbar for Edit
 const AgentEditToolbar = () => (
     <Toolbar>
         <SaveButton />
-        <DeleteButton resource="agents" />
+        <DeleteButton />
     </Toolbar>
 );
 
 export const AgentEdit = () => {
-    const { id } = useParams();
-    const notify = useNotify();
-    const redirect = useRedirect();
-    const [update] = useUpdate();
-
-    // Use Robust GetOne
-    const { data: record, isLoading, error } = useRobustGetOne<Agent>('agents', { id: id || '' });
-
-    if (isLoading) {
-        return (
-            <Box display="flex" justifyContent="center" alignItems="center" height="200px">
-                <CircularProgress />
-            </Box>
-        );
-    }
-
-    if (error || !record) {
-        return (
-            <Box p={3}>
-                <Typography color="error" variant="h6">Impossible de charger les données de l'agent.</Typography>
-                <Button onClick={() => window.location.reload()}>Réessayer</Button>
-            </Box>
-        );
-    }
-
-    const save = async (data: Partial<Agent>) => {
-        try {
-            await update('agents', { id: record.id, data, previousData: record });
-            notify('Agent mis à jour avec succès');
-            redirect('/agents');
-        } catch (err) {
-            console.error(err);
-            notify('Erreur lors de la mise à jour', { type: 'error' });
-        }
-    };
-
-
-
     return (
-        <div style={{ padding: 20 }}>
-            <Title title={`Modifier ${record.firstName} ${record.lastName}`} />
-            {/* Wrap in SimpleForm/TabbedForm providing defaultValues from record */}
-            {/* We use specific Save mechanism */}
-            <TabbedForm record={record} onSubmit={save} resource="agents" toolbar={<AgentEditToolbar />}>
+        <Edit mutationMode="pessimistic">
+            <TabbedForm toolbar={<AgentEditToolbar />}>
                 <FormTab label="Identité">
                     <TextInput source="id" disabled />
                     <TextInput source="matricule" disabled label="Matricule (Auto)" />
@@ -415,7 +375,7 @@ export const AgentEdit = () => {
                     </div>
                 </FormTab>
             </TabbedForm>
-        </div>
+        </Edit>
     );
 };
 
