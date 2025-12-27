@@ -202,7 +202,7 @@ const AgentDownloadButtons = () => {
 
     return (
         <div style={{ display: 'flex', gap: 10 }}>
-            {/* @ts-expect-error: PDFDownloadLink children prop type mismatch in library definition */}
+            {/* PDFDownloadLink children prop type mismatch suppression not needed */}
             <PDFDownloadLink
                 document={<AgentBadgePdf agent={record as unknown as Agent} photoBase64={photoBase64} logoBase64={logoBase64} />}
                 fileName={`Badge-${record.lastName || 'Agent'}.pdf`}
@@ -214,7 +214,7 @@ const AgentDownloadButtons = () => {
                 )}
             </PDFDownloadLink>
 
-            {/* @ts-expect-error: PDFDownloadLink children prop type mismatch in library definition */}
+            {/* PDFDownloadLink children prop type mismatch suppression not needed */}
             <PDFDownloadLink
                 document={<AgentProfilePdf agent={record as unknown as Agent} photoBase64={photoBase64} />}
                 fileName={`Fiche-${record.lastName || 'Agent'}.pdf`}
