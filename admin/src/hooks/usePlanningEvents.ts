@@ -8,10 +8,17 @@ interface UsePlanningEventsResult {
 
 export const usePlanningEvents = (missions: Mission[] | undefined): UsePlanningEventsResult => {
     const events = useMemo(() => {
-        if (!missions) return [];
+        if (!missions) {
+            console.log('[usePlanningEvents] No missions provided');
+            return [];
+        }
+        console.log('[usePlanningEvents] Processing missions:', missions.length);
 
         return missions.flatMap((mission: Mission) => {
-            if (!mission.agentAssignments) return [];
+            if (!mission.agentAssignments) {
+                console.warn('[usePlanningEvents] Mission missing agentAssignments:', mission.id);
+                return [];
+            }
 
             return mission.agentAssignments.flatMap((assignment: AgentAssignment, assignmentIdx: number) => {
                 return assignment.vacations.map((v: Vacation, vacIdx: number) => {
