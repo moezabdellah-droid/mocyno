@@ -231,7 +231,7 @@ const AgentDownloadButtons = () => {
 
 export const AgentList = () => (
     <List resource="agents">
-        <Datagrid rowClick="edit">
+        <Datagrid rowClick="edit" bulkActionButtons={false}>
             <FunctionField label="Photo" render={(record: Agent) =>
                 record.photoURL ? <img src={record.photoURL} style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }} alt="" /> : null
             } />
