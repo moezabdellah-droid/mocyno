@@ -58,6 +58,7 @@ const convertFileToUrl = async (file: string | FileUpload): Promise<string> => {
  * Recursive cleanup of payload to remove undefined values.
  * Firestore throws errors on undefined (but accepts null).
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const sanitizePayload = (obj: any): any => {
     if (Array.isArray(obj)) {
         return obj.map(sanitizePayload);
