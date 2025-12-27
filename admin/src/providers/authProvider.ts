@@ -32,13 +32,34 @@ export const authProvider: AuthProvider = {
     login: async ({ username, password }) => {
         try {
             await setPersistence(auth, browserSessionPersistence);
-            await signInWithEmailAndPassword(auth, username, password);
+            const userCredential = await signInWithEmailAndPassword(auth, username, password);
+            const user = userCredential.user;
+
+            // Check Role immediately
+            const userDoc = await getDoc(doc(db, 'agents', user.uid));
+            if (userDoc.exists()) {
+                const userData = userDoc.data();
+                const role = userData.role || 'agent';
+
+                if (role !== 'admin' && role !== 'manager') {
+                    await signOut(auth);
+                    throw new Error('Accès refusé. Réservé aux administrateurs.');
+                }
+            } else {
+                // No agent doc? Block access just in case
+                await signOut(auth);
+                throw new Error('Compte agent introuvable.');
+            }
+
             return Promise.resolve();
         } catch (error) {
-            const authError = error as AuthError;
-            const message = getAuthErrorMessage(authError);
-            console.error('Login error:', authError.code);
-            return Promise.reject(new Error(message));
+            const authError = error as AuthError | Error;
+            // If it's our custom error, preserve message
+            if (authError instanceof Error && !('code' in authError)) {
+                return Promise.reject(authError);
+            }
+            // Firebase Auth Errors
+            return Promise.reject(new Error(getAuthErrorMessage(authError as AuthError)));
         }
     },
 
@@ -61,9 +82,13 @@ export const authProvider: AuthProvider = {
 
     checkAuth: () => {
         return new Promise((resolve, reject) => {
-            const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
+            const unsubscribe = onAuthStateChanged(auth, async (user: User | null) => {
                 unsubscribe();
                 if (user) {
+                    // Double check role here? 
+                    // To avoid spamming Firestore reads on every nav, we rely on getPermissions or component-level checks.
+                    // However, to be strict, we can just resolve. 
+                    // If getPermissions fails, the user will be kicked out anyway.
                     resolve();
                 } else {
                     reject(new Error('Non authentifié'));
@@ -75,8 +100,7 @@ export const authProvider: AuthProvider = {
     getPermissions: async () => {
         const user = auth.currentUser;
         if (!user) {
-            console.log('[authProvider] getPermissions: No user');
-            return Promise.resolve('agent');
+            return Promise.reject(new Error('Utilisateur non connecté'));
         }
 
         try {
@@ -85,15 +109,18 @@ export const authProvider: AuthProvider = {
             if (userDoc.exists()) {
                 const userData = userDoc.data();
                 const role = userData.role || 'agent';
-                console.log('[authProvider] getPermissions: Resolved role:', role);
-                return Promise.resolve(role);
+                console.log('[authProvider] Resolved role:', role); // Keep log for diagnostics
+
+                if (role === 'admin' || role === 'manager') {
+                    return Promise.resolve(role);
+                }
             }
 
-            console.log('[authProvider] getPermissions: No agent doc, default to agent');
-            return Promise.resolve('agent');
+            // Rejecting here will cause React Admin to redirect to Login
+            return Promise.reject(new Error('Accès non autorisé'));
         } catch (error) {
             console.error('Error fetching permissions:', error);
-            return Promise.resolve('agent');
+            return Promise.reject(new Error('Erreur de vérification des droits'));
         }
     },
 
