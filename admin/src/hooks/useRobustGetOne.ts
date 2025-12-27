@@ -20,6 +20,8 @@ export const useRobustGetOne = <RecordType extends RaRecord = any>(
     const notify = useNotify();
     const dataProvider = useDataProvider();
 
+    const fallbackTriggered = useRef(false);
+
     // Debug logging for dataProvider
     useEffect(() => {
         if (dataProvider && !fallbackTriggered.current) { // Log once
@@ -32,7 +34,7 @@ export const useRobustGetOne = <RecordType extends RaRecord = any>(
         }
     }, [dataProvider]);
 
-    const fallbackTriggered = useRef(false);
+
 
     // Reset trigger if ID changes
     const id = params?.id;
