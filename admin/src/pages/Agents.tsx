@@ -260,9 +260,10 @@ const AgentEditToolbar = () => (
     </Toolbar>
 );
 
-export const AgentEdit = () => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const AgentEdit = (props: any) => {
     return (
-        <Edit mutationMode="pessimistic">
+        <Edit {...props} resource="agents" mutationMode="pessimistic">
             <TabbedForm toolbar={<AgentEditToolbar />}>
                 <FormTab label="Identité">
                     <TextInput source="id" disabled />
