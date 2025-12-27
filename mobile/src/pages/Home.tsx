@@ -2,11 +2,31 @@ import React, { useState } from 'react';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonFabButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonGrid, IonRow, IonCol } from '@ionic/react';
 import { warning, power, body, logOut, book, camera, scan, calendarOutline } from 'ionicons/icons';
 import { signOut } from 'firebase/auth';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
+import { doc, getDoc } from 'firebase/firestore';
 import { PtiService } from '../services/PtiService';
+import type { Agent } from '../types/shared';
 
 const Home: React.FC = () => {
     const [isServiceRunning, setIsServiceRunning] = useState(false);
+    const [agentInfo, setAgentInfo] = useState<Agent | null>(null);
+
+    React.useEffect(() => {
+        const fetchAgentInfo = async () => {
+            if (auth.currentUser) {
+                try {
+                    const docRef = doc(db, 'agents', auth.currentUser.uid);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        setAgentInfo(docSnap.data() as Agent);
+                    }
+                } catch (error) {
+                    console.error("Error fetching agent info:", error);
+                }
+            }
+        };
+        fetchAgentInfo();
+    }, []);
 
     const toggleService = async () => {
         if (isServiceRunning) {
@@ -27,7 +47,16 @@ const Home: React.FC = () => {
         <IonPage>
             <IonHeader>
                 <IonToolbar color="dark">
-                    <IonTitle>Mo'Cyno Agent</IonTitle>
+                    <IonTitle>
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            <span>Mo'Cyno Agent</span>
+                            {agentInfo && (
+                                <span style={{ fontSize: '0.8rem', fontWeight: 'normal', opacity: 0.8 }}>
+                                    {agentInfo.firstName} {agentInfo.lastName} ({agentInfo.matricule || 'Sans matricule'})
+                                </span>
+                            )}
+                        </div>
+                    </IonTitle>
                     <IonButton slot="end" fill="clear" onClick={() => signOut(auth)}>
                         <IonIcon icon={logOut} />
                     </IonButton>
