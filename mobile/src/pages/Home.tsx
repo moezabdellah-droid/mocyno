@@ -14,15 +14,22 @@ const Home: React.FC = () => {
 
     // Subscribe to Agent Data (Real-time sync for Service Status)
     React.useEffect(() => {
-        if (!auth.currentUser) return;
+        const user = auth.currentUser;
+        if (!user) return;
 
-        const unsubscribe = onSnapshot(doc(db, 'agents', auth.currentUser.uid), (docSnap) => {
+        const unsubscribe = onSnapshot(doc(db, 'agents', user.uid), (docSnap) => {
             if (docSnap.exists()) {
                 const data = docSnap.data() as Agent;
                 setAgentInfo(data);
+
                 // Sync service status from backend
                 if (data.isServiceRunning !== undefined) {
                     setIsServiceRunning(data.isServiceRunning);
+
+                    // Auto-resume service if backend says true
+                    if (data.isServiceRunning) {
+                        PtiService.resumeService().catch(console.error);
+                    }
                 }
             }
         });

@@ -48,6 +48,13 @@ export class PtiService {
         console.log("PTI Service Started");
     }
 
+    // Resume service without enforcing new start event if possible, or just re-start
+    static async resumeService() {
+        if (this.isServiceActive) return;
+        console.log("Resuming PTI Service from persistence...");
+        await this.startService();
+    }
+
     static async stopService() {
         if (this.watchId) {
             await Geolocation.clearWatch({ id: this.watchId });
