@@ -56,6 +56,7 @@ export interface Agent {
     dogIds?: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    isServiceRunning?: boolean;
 }
 
 export interface Site {

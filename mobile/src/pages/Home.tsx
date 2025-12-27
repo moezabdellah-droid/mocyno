@@ -3,46 +3,40 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonFab
 import { warning, power, body, logOut, book, camera, scan, calendarOutline } from 'ionicons/icons';
 import { signOut } from 'firebase/auth';
 import { auth, db } from '../firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 import { PtiService } from '../services/PtiService';
 import type { Agent } from '../types/shared';
 
 const Home: React.FC = () => {
-    // Initialize from localStorage
-    const [isServiceRunning, setIsServiceRunning] = useState(() => {
-        return localStorage.getItem('isServiceRunning') === 'true';
-    });
+    // Initialize state
+    const [isServiceRunning, setIsServiceRunning] = useState(false);
     const [agentInfo, setAgentInfo] = useState<Agent | null>(null);
 
-    // Persist state changes
+    // Subscribe to Agent Data (Real-time sync for Service Status)
     React.useEffect(() => {
-        localStorage.setItem('isServiceRunning', isServiceRunning.toString());
-    }, [isServiceRunning]);
+        if (!auth.currentUser) return;
 
-    React.useEffect(() => {
-        const fetchAgentInfo = async () => {
-            if (auth.currentUser) {
-                try {
-                    const docRef = doc(db, 'agents', auth.currentUser.uid);
-                    const docSnap = await getDoc(docRef);
-                    if (docSnap.exists()) {
-                        setAgentInfo(docSnap.data() as Agent);
-                    }
-                } catch (error) {
-                    console.error("Error fetching agent info:", error);
+        const unsubscribe = onSnapshot(doc(db, 'agents', auth.currentUser.uid), (docSnap) => {
+            if (docSnap.exists()) {
+                const data = docSnap.data() as Agent;
+                setAgentInfo(data);
+                // Sync service status from backend
+                if (data.isServiceRunning !== undefined) {
+                    setIsServiceRunning(data.isServiceRunning);
                 }
             }
-        };
-        fetchAgentInfo();
+        });
+
+        return () => unsubscribe();
     }, []);
 
     const toggleService = async () => {
         if (isServiceRunning) {
             await PtiService.stopService();
-            setIsServiceRunning(false);
+            // isServiceRunning will be updated by onSnapshot
         } else {
             await PtiService.startService();
-            setIsServiceRunning(true);
+            // isServiceRunning will be updated by onSnapshot
         }
     };
 

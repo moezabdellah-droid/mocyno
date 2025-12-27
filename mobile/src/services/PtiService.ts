@@ -10,6 +10,9 @@ export class PtiService {
     static async startService() {
         if (this.isServiceActive) return;
 
+        const user = auth.currentUser;
+        if (!user) throw new Error("User not authenticated");
+
         // Request permissions
         const permission = await Geolocation.checkPermissions();
         if (permission.location !== 'granted') {
@@ -17,6 +20,16 @@ export class PtiService {
         }
 
         this.isServiceActive = true;
+
+        // Persist State to Firestore
+        try {
+            await updateDoc(doc(db, 'agents', user.uid), {
+                isServiceRunning: true,
+                updatedAt: serverTimestamp()
+            });
+        } catch (e) {
+            console.error("Failed to persist service state:", e);
+        }
 
         // Start tracking
         this.watchId = await Geolocation.watchPosition({
@@ -41,6 +54,19 @@ export class PtiService {
             this.watchId = null;
         }
         this.isServiceActive = false;
+
+        const user = auth.currentUser;
+        if (user) {
+            // Persist State to Firestore
+            try {
+                await updateDoc(doc(db, 'agents', user.uid), {
+                    isServiceRunning: false,
+                    updatedAt: serverTimestamp()
+                });
+            } catch (e) {
+                console.error("Failed to persist service state:", e);
+            }
+        }
 
         // Log Service Stop
         await this.logEvent('SERVICE_STOP');
