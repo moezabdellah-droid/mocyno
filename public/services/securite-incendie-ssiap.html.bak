@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-WH9T9G58');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Sécurité incendie (SSIAP) — MO'CYNO</title>
+  <meta name="description" content="Prévention, PC sécurité et équipes SSIAP 1/2/3 en région PACA.">
+  <meta name="robots" content="index,follow">
+
+  <link rel="canonical" href="https://mocyno.com/services/securite-incendie-ssiap.html">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <link rel="preload" as="image" href="/hero-mocyno.jpg">
+  <link rel="preload" as="style" href="/styles.css">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sécurité incendie (SSIAP) — MO'CYNO">
+  <meta property="og:description" content="Prévention, PC sécurité et équipes SSIAP 1/2/3 en région PACA.">
+  <meta property="og:url" content="https://mocyno.com/services/securite-incendie-ssiap.html">
+  <meta property="og:image" content="/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#022C51">
+
+  <link rel="alternate" hreflang="fr" href="https://mocyno.com/services/securite-incendie-ssiap.html">
+  <link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/securite-incendie-ssiap.html">
+  <link rel="alternate" hreflang="x-default" href="https://mocyno.com/services/securite-incendie-ssiap.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Sécurité incendie SSIAP",
+    "provider": {
+      "@type": "Organization",
+      "name": "MO'CYNO",
+      "url": "https://mocyno.com"
+    },
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": "Provence-Alpes-Côte d'Azur"
+    },
+    "description": "Prévention incendie, PC sécurité, équipes SSIAP 1/2/3, levée de doute et évacuation en région PACA.",
+    "url": "https://mocyno.com/services/securite-incendie-ssiap.html",
+    "telephone": "+33 6 66 03 51 16"
+  }
+  </script>
+
+  <link rel="stylesheet" href="/styles.css?v=hero-fix-1">
+  <link rel="stylesheet" href="/styles-compat-patch.css?v=hero-fix-1">
+
+  <script defer src="/consent-ga.js"></script>
+  <meta name="ga-measurement-id" content="G-E5JX7DYYYN">
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WH9T9G58" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <header class="site-header" role="banner">
+    <div class="container nav">
+      <a class="logo" href="/">
+        <picture>
+          <source srcset="/mocyno-logo.webp" type="image/webp">
+          <img src="/mocyno-logo.webp" alt="Logo MO'Cyno" width="36" height="36" style="border-radius:8px">
+        </picture>
+        <span>MO'CYNO</span>
+      </a>
+      <button class="menu-toggle" aria-label="Ouvrir ou fermer le menu" onclick="document.querySelector('.nav .links').classList.toggle('open');
+      document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
+      <nav class="links" role="navigation" aria-label="Navigation principale">
+        <a href="/services/">Services</a>
+        <a href="/#expertises">Expertises</a>
+        <a href="/#zones">Zones</a>
+        <a href="/#references">Références</a>
+        <a href="/blog/" style="font-weight:700">Blog</a>
+        <a class="btn primary" href="/contact.html">Devis & Contact</a>
+        <a aria-label="English" hreflang="en" href="/en/">EN</a>
+      </nav>
+    </div>
+    <div class="nav-overlay"
+      onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')"
+      tabindex="0" aria-label="Fermer le menu"></div>
+  </header>
+
+  <main role="main" style="max-width:900px;margin:40px auto;padding:0 16px">
+    <h1>Sécurité incendie — SSIAP</h1>
+    <div class="image-wrapper">
+      <img src="/assets/ssiap.png" alt="Agent SSIAP vérifiant une alarme incendie" class="main-img" width="800"
+        height="450">
+
+    </div>
+    <p>
+      MO'CYNO met à votre disposition des <strong>équipes SSIAP 1/2/3</strong> pour assurer la <strong>sécurité
+        incendie</strong>
+      de vos établissements recevant du public (ERP), sites industriels, parkings, centres commerciaux ou bâtiments
+      tertiaires.
+      Nos agents SSIAP veillent au bon fonctionnement des équipements de sécurité, à la prévention des risques et à
+      l’application des consignes incendie.
+    </p>
+    <p>
+      En poste au <strong>Poste de Commandement (PC) Sécurité</strong> ou en ronde, ils réalisent des contrôles
+      réguliers : issues de secours,
+      éclairage de sécurité, désenfumage, extincteurs, alarmes techniques… En cas d’alarme ou de départ de feu, ils
+      procèdent à la <strong>levée de doute</strong>,
+      déclenchent la procédure adaptée, assistent l’évacuation du public et coordonnent l’intervention des secours.
+    </p>
+    <p>
+      Nos équipes SSIAP interviennent en région <strong>PACA</strong>, notamment à Toulon, Saint-Tropez, Cannes et Nice.
+      Nous dimensionnons le dispositif selon la classification de votre site, vos horaires et vos contraintes
+      d’exploitation.
+      Pour sécuriser durablement vos locaux et répondre à vos obligations réglementaires,
+      <a href="/contact.html">demandez une étude SSIAP auprès de MO'CYNO</a>.
+    </p>
+
+    <nav style="margin-top:24px">
+      <a href="/services/" aria-label="Retour à tous les services">← Tous nos services</a>
+    </nav>
+    <section class="cta container section" style="text-align:center;margin-top:32px;">
+      <h2>Un besoin ?</h2>
+      <p>Réponse sous 24 h ouvrées.</p>
+      <p><a class="btn primary" href="/contact.html">Contact &amp; Devis</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff;margin-top:40px">
+    <div style="max-width:1200px;margin:0 auto;padding:32px 16px;display:grid;gap:12px">
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+        <div>© 2025 MO'CYNO — SASU — SIRET 990 179 566 00015 — NAF 80.10Z</div>
+        <nav style="display:flex;gap:16px" role="navigation" aria-label="Navigation secondaire">
+          <a href="/a-propos.html" style="color:#fff">À propos</a>
+          <a href="/mentions-legales.html" style="color:#fff">Mentions légales</a>
+          <a href="/politique-confidentialite.html" style="color:#fff">Confidentialité</a>
+          <a href="/cookies.html" style="color:#fff">Cookies</a>
+          <a href="/sitemap.xml" style="color:#fff">Sitemap</a>
+        </nav>
+      </div>
+      <div style="font-size:12px;opacity:0.9">31 Rue Chevalier Paul, 83000 Toulon, France</div>
+      <div style="font-size:12px;opacity:0.85">
+        Autorisation d'exercer CNAPS : AUT-83-2124-09-09-20250998415.
+        L’autorisation d’exercer ne confère aucun caractère officiel à l’entreprise ni ne l’agrée. (Art. L612-14 CSI)
+      </div>
+    </div>
+  </footer>
+
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/693452a684fc15197fdfc2a0/1jbq65n5t';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
+  <!--End of Tawk.to Script-->
+</body>
+
+</html>

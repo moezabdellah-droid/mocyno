@@ -2,16 +2,12 @@
 <html lang="fr">
 
 <head>
-    <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-WH9T9G58');</script>
-    <!-- End Google Tag Manager -->
+      <!-- Google Tag Manager (deferred) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+  </script>
+  <script defer src="https://www.googletagmanager.com/gtm.js?id=GTM-WH9T9G58"></script>
+  <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Blog Sécurité Privée & Actus MO'CYNO — Var</title>
@@ -20,7 +16,8 @@
     <link rel="canonical" href="https://mocyno.com/blog/">
     <link rel="icon" href="/favicon.ico">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="preload" href="/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/styles.css"></noscript>
 
     <meta name="geo.region" content="FR-PAC" />
     <meta name="geo.placename" content="Toulon" />
@@ -50,21 +47,21 @@
                 </picture>
                 <span>MO'CYNO</span>
             </a>
-            <button class="menu-toggle" aria-label="Ouvrir ou fermer le menu"
-                onclick="document.querySelector('.nav .links').classList.toggle('open');document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
+            <button class="menu-toggle" aria-label="Ouvrir ou fermer le menu" onclick="document.querySelector('.nav .links').classList.toggle('open');
+      document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
             <nav class="links" role="navigation" aria-label="Navigation principale">
                 <a href="/services/">Services</a>
                 <a href="/#expertises">Expertises</a>
                 <a href="/#zones">Zones</a>
                 <a href="/#references">Références</a>
-                <a href="/blog/" aria-current="page" style="font-weight:700">Blog</a>
+                <a href="/blog/" style="font-weight:700">Blog</a>
                 <a class="btn primary" href="/contact.html">Devis & Contact</a>
                 <a aria-label="English" hreflang="en" href="/en/">EN</a>
             </nav>
         </div>
-        <div class="nav-overlay" tabindex="0"
-            onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')">
-        </div>
+        <div class="nav-overlay"
+            onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')"
+            tabindex="0" aria-label="Fermer le menu"></div>
     </header>
 
     <main role="main" style="padding-top:40px; padding-bottom:60px;">
@@ -79,27 +76,51 @@
             </div>
 
             <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap:32px;">
-                <!-- Article Auto - Sécurité Ports -->
+                <!-- Article 1 - Saint-Tropez Domaines -->
                 <article class="card" style="padding:0; overflow:hidden; display:flex; flex-direction:column;">
                     <div style="height:200px; overflow:hidden;">
-                        <img src="/assets/blog-port-hiver.png" alt="Sécurité des ports de plaisance en hiver"
-                            width="800" height="450" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
+                        <img src="/assets/blog-saint-tropez-luxe.png" alt="Domaine privé Saint-Tropez" width="800"
+                            height="450" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
                     </div>
                     <div style="padding:24px; flex:1; display:flex; flex-direction:column;">
                         <div style="margin-bottom:12px;">
-                            <span class="badge">Sécurité Portuaire</span>
+                            <span class="badge">Sécurité Luxe</span>
                         </div>
                         <h2 style="font-size:20px; line-height:1.4; margin-bottom:12px;">
-                            <a href="/blog/s-curit-des-ports-de-plaisance-en-hiver.html"
-                                style="color:var(--navy); text-decoration:none;">Sécurité des ports de plaisance en
-                                hiver</a>
+                            <a href="/blog/securite-domaine-prive-saint-tropez.html"
+                                style="color:var(--navy); text-decoration:none;">Sécurité des Domaines Privés à
+                                Saint-Tropez : Protéger les grands parcs</a>
                         </h2>
                         <p class="small" style="margin-bottom:20px; flex:1;">
-                            Protéger les infrastructures portuaires et les navires Durant la basse saison : les enjeux
-                            de la surveillance hivernale.
+                            Domaine des Parcs, Salins, Ramatuelle... Comment protéger efficacement des hectares de parc
+                            contre les intrusions ? L'alliance indispensable du maître-chien et de la technologie.
                         </p>
-                        <a href="/blog/s-curit-des-ports-de-plaisance-en-hiver.html"
+                        <a href="/blog/securite-domaine-prive-saint-tropez.html"
                             style="font-weight:600; color:var(--red);">Lire l'article →</a>
+                    </div>
+                </article>
+
+                <!-- Article 2 - Cannes Congrès -->
+                <article class="card" style="padding:0; overflow:hidden; display:flex; flex-direction:column;">
+                    <div style="height:200px; overflow:hidden;">
+                        <img src="/assets/blog-cannes-congress.png" alt="Sécurité Congrès Cannes" width="800"
+                            height="450" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div style="padding:24px; flex:1; display:flex; flex-direction:column;">
+                        <div style="margin-bottom:12px;">
+                            <span class="badge">Sécurité B2B</span>
+                        </div>
+                        <h2 style="font-size:20px; line-height:1.4; margin-bottom:12px;">
+                            <a href="/blog/securite-congres-cannes.html"
+                                style="color:var(--navy); text-decoration:none;">Sécurité des Congrès à Cannes : Le
+                                guide organisateur</a>
+                        </h2>
+                        <p class="small" style="margin-bottom:20px; flex:1;">
+                            Du MIPIM au Festival, la sécurité est un enjeu d'image majeur. Filtrage, accueil VIP,
+                            protection des villas corporate : ce qu'il faut prévoir.
+                        </p>
+                        <a href="/blog/securite-congres-cannes.html" style="font-weight:600; color:var(--red);">Lire
+                            l'article →</a>
                     </div>
                 </article>
 

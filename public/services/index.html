@@ -2,15 +2,11 @@
 <html lang="fr">
 
 <head>
-  <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-WH9T9G58');</script>
+  <!-- Google Tag Manager (deferred) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+  </script>
+  <script defer src="https://www.googletagmanager.com/gtm.js?id=GTM-WH9T9G58"></script>
   <!-- End Google Tag Manager -->
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -25,8 +21,15 @@
   <link rel="canonical" href="https://mocyno.com/services/">
   <link rel="icon" href="/favicon.ico">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/styles.css?v=hero-fix-1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="preload" href="/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="/styles.css">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  </noscript>
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Services — MO'CYNO">
@@ -96,15 +99,27 @@
         </picture>
         <span>MO'CYNO</span>
       </a>
-      <button class="menu-toggle" aria-label="Ouvrir ou fermer le menu"
-        onclick="document.querySelector('.nav .links').classList.toggle('open');document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
+      <button class="menu-toggle" aria-label="Ouvrir ou fermer le menu" onclick="document.querySelector('.nav .links').classList.toggle('open');
+      document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
       <nav class="links" role="navigation" aria-label="Navigation principale">
-        <a href="/services/">Services</a>
+        <div class="dropdown-container">
+          <a href="/services/" class="dropdown-trigger">Services ▾</a>
+          <div class="dropdown-menu">
+            <a href="/services/securite-cynophile.html">Sécurité Cynophile</a>
+            <a href="/services/surveillance-humaine.html">Surveillance Humaine</a>
+            <a href="/services/marinas-ports/">Marinas & Ports</a>
+            <a href="/services/chantiers/">Sécurité Chantiers BTP</a>
+            <a href="/services/residentiel/">Résidentiel & Villas</a>
+            <a href="/services/hotellerie/">Hôtellerie</a>
+            <a href="/services/evenementiel-premium/">Événementiel Premium</a>
+          </div>
+        </div>
         <a href="/#expertises">Expertises</a>
         <a href="/#zones">Zones</a>
         <a href="/#references">Références</a>
-        <a class="btn primary" href="/contact.html">Devis & Contact</a>
-        <a aria-label="English" hreflang="en" href="/en/">EN</a>
+        <a href="/blog/" style="font-weight:700">Blog</a>
+        <a class="btn primary" href="/contact.html">Devis &amp; Contact</a>
+        <a class="lang-switch" aria-label="English" hreflang="en" href="/en/">EN</a>
       </nav>
     </div>
     <div class="nav-overlay"
@@ -123,7 +138,7 @@
         style="margin: 24px 0 32px 0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
         <img src="/assets/services-banner.png"
           alt="Panorama Services Sécurité MO'CYNO : Maître-chien, Surveillance site, Ronde de nuit, Vidéo-protection"
-          style="width: 100%; height: auto; display: block;" width="1200" height="400">
+          style="width: 100%; height: auto; display: block;" width="1200" height="400" loading="lazy">
       </div>
       <p>
         MO'CYNO propose un panel complet de <strong>services de sécurité privée en région PACA</strong> :
@@ -193,6 +208,50 @@
               <h3>Protection du luxe</h3>
               <p>Dispositifs discrets et haut de gamme pour boutiques, villas et événements prestige.</p>
               <a href="/services/protection-luxe.html">En savoir plus</a>
+            </article>
+          </div>
+
+          <!-- NOUVEAU : Marinas -->
+          <div class="swiper-slide">
+            <article class="card">
+              <div class="icon" aria-hidden="true">⚓</div>
+              <h3>Marinas & Ports</h3>
+              <p>Sécurité maritime renforcée pour ports de plaisance et accès pontons. Protection 24/7 de vos navires et
+                équipements.</p>
+              <a href="/services/marinas-ports/">En savoir plus</a>
+            </article>
+          </div>
+
+          <!-- NOUVEAU : Chantiers -->
+          <div class="swiper-slide">
+            <article class="card">
+              <div class="icon" aria-hidden="true">🏗️</div>
+              <h3>Sécurité Chantiers BTP</h3>
+              <p>Surveillance de chantiers, échafaudages et zones de travaux. Lutte contre le vol de matériaux et le
+                vandalisme.</p>
+              <a href="/services/chantiers/">En savoir plus</a>
+            </article>
+          </div>
+
+          <!-- NOUVEAU : Hôtellerie -->
+          <div class="swiper-slide">
+            <article class="card">
+              <div class="icon" aria-hidden="true">🏨</div>
+              <h3>Hôtellerie</h3>
+              <p>Accueil sécurisé, rondes de nuit et gestion des flux visiteurs pour hôtels, palaces et résidences de
+                tourisme.</p>
+              <a href="/services/hotellerie/">En savoir plus</a>
+            </article>
+          </div>
+
+          <!-- NOUVEAU : Résidentiel -->
+          <div class="swiper-slide">
+            <article class="card">
+              <div class="icon" aria-hidden="true">🏡</div>
+              <h3>Résidentiel & Villas</h3>
+              <p>Gardiennage statique ou mobile pour villas, copropriétés et domaines privés fermés sur la Côte d'Azur.
+              </p>
+              <a href="/services/residentiel/">En savoir plus</a>
             </article>
           </div>
 

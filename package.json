@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/moezabdellah-droid/mocyno#readme",
   "dependencies": {
-    "@google/generative-ai": "^0.24.1"
+    "@google/generative-ai": "^0.24.1",
+    "glob": "^13.0.0"
   },
   "pnpm": {}
 }

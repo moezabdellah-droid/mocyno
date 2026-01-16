@@ -2,15 +2,11 @@
 <html lang="en">
 
 <head>
-  <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-WH9T9G58');</script>
+    <!-- Google Tag Manager (deferred) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+  </script>
+  <script defer src="https://www.googletagmanager.com/gtm.js?id=GTM-WH9T9G58"></script>
   <!-- End Google Tag Manager -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,11 +15,33 @@
   <meta name="description"
     content="MO'CYNO: private security, K9 units, fire safety (SSIAP) and event security in the PACA region. Fast quote, 24/7 responsive team.">
 
+
+  <!-- Geo Tags & Local SEO -->
+  <meta name="geo.region" content="FR-PAC" />
+  <meta name="geo.placename" content="Toulon" />
+  <meta name="geo.position" content="43.124228;5.928" />
+  <meta name="ICBM" content="43.124228, 5.928" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mocyno.com/en/">
+  <meta property="og:title" content="Private Security Agency French Riviera & K9 — MO'CYNO">
+  <meta property="og:description"
+    content="MO'CYNO: Private security and K9 agency based in Toulon. K9 units, Fire Safety, Security Guarding and Events. 24/7 Intervention in the French Riviera.">
+  <meta property="og:image" content="https://mocyno.com/hero-mocyno.webp">
+  <meta property="og:locale" content="en_GB">
+
+
   <link rel="canonical" href="https://mocyno.com/en/">
+  <link rel="alternate" hreflang="fr" href="https://mocyno.com/" />
+  <link rel="alternate" hreflang="en" href="https://mocyno.com/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://mocyno.com/" />
   <link rel="icon" href="/favicon.ico">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="preload" href="/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/styles.css"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"></noscript>
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website">
@@ -40,29 +58,46 @@
 
   <!-- Structured data: LocalBusiness / SecurityService -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": ["Organization", "LocalBusiness", "SecurityService"],
-    "name": "MO'CYNO",
-    "url": "https://mocyno.com/en/",
-    "logo": "https://mocyno.com/mocyno-logo.png",
-    "description": "MO'CYNO: private security, K9 units, fire safety (SSIAP) and event security in the PACA region.",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "31 Rue Chevalier Paul",
-      "postalCode": "83000",
-      "addressLocality": "Toulon",
-      "addressCountry": "FR"
-    },
-    "areaServed": [
-      { "@type": "City", "name": "Toulon" },
-      { "@type": "City", "name": "Saint-Tropez" },
-      { "@type": "City", "name": "Cannes" },
-      { "@type": "City", "name": "Nice" },
-      { "@type": "AdministrativeArea", "name": "Provence-Alpes-Côte d'Azur" }
-    ]
-  }
-  </script>
+{
+  "@context": "https://schema.org",
+  "@type": "SecurityService",
+  "name": "MO'CYNO",
+  "url": "https://mocyno.com/en/",
+  "image": "https://mocyno.com/mocyno-logo.webp",
+  "telephone": "+33 6 66 03 51 16",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "31 Rue Chevalier Paul",
+    "addressLocality": "Toulon",
+    "postalCode": "83000",
+    "addressCountry": "FR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 43.1205466,
+    "longitude": 5.9398099
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "00:00",
+      "closes": "23:59"
+    }
+  ],
+  "areaServed": [
+    { "@type": "AdministrativeArea", "name": "Provence-Alpes-Côte d’Azur" },
+    { "@type": "AdministrativeArea", "name": "Var" },
+    { "@type": "City", "name": "Toulon" },
+    { "@type": "City", "name": "Saint-Tropez" },
+    { "@type": "City", "name": "Cannes" },
+    { "@type": "City", "name": "Nice" }
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/company/mocyno"
+  ]
+}
+</script>
 
   <!-- Structured data: FAQPage -->
   <script type="application/ld+json">
@@ -117,36 +152,40 @@
           "@type": "Answer",
           "text": "Yes. We design a tailored security plan for your event (welcome, access control, screening, patrols, first aid support) based on your venue, schedule and audience."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the emergency response time for an alarm in the Var?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our 24/7 security control room triggers immediate intervention by a mobile patrol or K9 unit upon alarm. In Toulon, Hyères and the Gulf of Saint-Tropez, we guarantee rapid arrival to secure the premises."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you ensure confidentiality for luxury villa security?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Discretion is absolute. Our close protection and guarding agents are trained in luxury standards and sign a strict confidentiality charter to protect the privacy of your residences and VIP events."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you offer geolocated patrol reports?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. We use electronic patrol monitoring technology (PTI/DATI). You receive real-time timestamped and geolocated intervention reports, ensuring total transparency of our security services."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the security quote free and non-binding?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Request your free quote for manned guarding, K9 or fire safety. We perform a complimentary security audit if necessary to precisely assess your needs in the Var."
+        }
       }
-    }, {
-      "@type": "Question",
-      "name": "What is the emergency response time for an alarm in the Var?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Our 24/7 security control room triggers immediate intervention by a mobile patrol or K9 unit upon alarm. In Toulon, Hyères and the Gulf of Saint-Tropez, we guarantee rapid arrival to secure the premises."
-      }
-    }, {
-      "@type": "Question",
-      "name": "Do you ensure confidentiality for luxury villa security?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Discretion is absolute. Our close protection and guarding agents are trained in luxury standards and sign a strict confidentiality charter to protect the privacy of your residences and VIP events."
-      }
-    }, {
-      "@type": "Question",
-      "name": "Do you offer geolocated patrol reports?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. We use electronic patrol monitoring technology (PTI/DATI). You receive real-time timestamped and geolocated intervention reports, ensuring total transparency of our security services."
-      }
-    }, {
-      "@type": "Question",
-      "name": "Is the security quote free and non-binding?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Absolutely. Request your free quote for manned guarding, K9 or fire safety. We perform a complimentary security audit if necessary to precisely assess your needs in the Var."
-      }
-    }]
+    ]
   }
   </script>
 </head>
@@ -176,7 +215,6 @@
         <a href="/en/#zones">Areas</a>
         <a href="/en/#references">References</a>
         <a href="/blog/" style="font-weight:700">Blog</a>
-        <a href="/en/about.html">About</a>
         <a class="btn primary" href="/en/contact.html">Quote &amp; Contact</a>
         <a class="lang-switch" aria-label="Français" hreflang="fr" href="/">FR</a>
       </nav>
@@ -208,7 +246,7 @@
           <source srcset="/hero-mocyno.webp" type="image/webp">
           <source srcset="/hero-mocyno.jpg" type="image/jpeg">
           <img class="hero-image" src="/hero-mocyno.webp" width="1200" height="800" loading="eager" decoding="async"
-            alt="MO'Cyno K9 security officer on duty">
+            alt="MO'Cyno K9 security officer on duty" fetchpriority="high">
         </picture>
       </div>
     </section>

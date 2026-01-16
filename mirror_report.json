@@ -1,0 +1,135 @@
+{
+  "timestamp": "2026-01-12T18:53:58.728Z",
+  "total_pairs": 16,
+  "critical_issues": 0,
+  "details": [
+    {
+      "pair": {
+        "fr": "https://mocyno.com/",
+        "en": "https://mocyno.com/en/"
+      },
+      "status": "PERFECT",
+      "issues": []
+    },
+    {
+      "pair": {
+        "fr": "https://mocyno.com/services/",
+        "en": "https://mocyno.com/en/services/"
+      },
+      "status": "PERFECT",
+      "issues": []
+    },
+    {
+      "pair": {
+        "fr": "https://mocyno.com/services/surveillance-humaine.html",
+        "en": "https://mocyno.com/en/services/surveillance-humaine.html"
+      },
+      "status": "PERFECT",
+      "issues": []
+    },
+    {
+      "pair": {
+        "fr": "https://mocyno.com/services/securite-cynophile.html",
+        "en": "https://mocyno.com/en/services/securite-cynophile.html"
+      },
+      "status": "PERFECT",
+      "issues": []
+    },
+    {
+      "pair": {
+        "fr": "https://mocyno.com/services/securite-incendie-ssiap.html",
+        "en": "https://mocyno.com/en/services/securite-incendie-ssiap.html"
+      },
+      "status": "PERFECT",
+      "issues": []
+    },
+    {
+      "pair": {
+        "fr": "https://mocyno.com/services/securite-evenementielle.html",
+        "en": "https://mocyno.com/en/services/securite-evenementielle.html"
+      },
+      "status": "PERFECT",
+      "issues": []
+    },
+    {
+      "pair": {
+        "fr": "https://mocyno.com/services/protection-luxe.html",
+        "en": "https://mocyno.com/en/services/protection-luxe.html"
+      },
+      "status": "PERFECT",
+      "issues": []
+    },
+    {
+      "pair": {
+        "fr": "https://mocyno.com/services/marinas-ports/",
+        "en": "https://mocyno.com/en/services/marinas-ports/"
+      },
+      "status": "PERFECT",
+      "issues": []
+    },
+    {
+      "pair": {
+        "fr": "https://mocyno.com/contact.html",
+        "en": "https://mocyno.com/en/contact.html"
+      },
+      "status": "PERFECT",
+      "issues": []
+    },
+    {
+      "pair": {
+        "fr": "https://mocyno.com/zones/saint-tropez.html",
+        "en": "https://mocyno.com/en/zones/saint-tropez.html"
+      },
+      "status": "PERFECT",
+      "issues": []
+    },
+    {
+      "pair": {
+        "fr": "https://mocyno.com/zones/ramatuelle.html",
+        "en": "https://mocyno.com/en/zones/ramatuelle.html"
+      },
+      "status": "PERFECT",
+      "issues": []
+    },
+    {
+      "pair": {
+        "fr": "https://mocyno.com/zones/cannes.html",
+        "en": "https://mocyno.com/en/zones/cannes.html"
+      },
+      "status": "PERFECT",
+      "issues": []
+    },
+    {
+      "pair": {
+        "fr": "https://mocyno.com/zones/nice.html",
+        "en": "https://mocyno.com/en/zones/nice.html"
+      },
+      "status": "PERFECT",
+      "issues": []
+    },
+    {
+      "pair": {
+        "fr": "https://mocyno.com/zones/toulon.html",
+        "en": "https://mocyno.com/en/zones/toulon.html"
+      },
+      "status": "PERFECT",
+      "issues": []
+    },
+    {
+      "pair": {
+        "fr": "https://mocyno.com/zones/frejus.html",
+        "en": "https://mocyno.com/en/zones/frejus.html"
+      },
+      "status": "PERFECT",
+      "issues": []
+    },
+    {
+      "pair": {
+        "fr": "https://mocyno.com/zones/sainte-maxime.html",
+        "en": "https://mocyno.com/en/zones/sainte-maxime.html"
+      },
+      "status": "PERFECT",
+      "issues": []
+    }
+  ]
+}
