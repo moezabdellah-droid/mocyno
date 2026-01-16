@@ -21,7 +21,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
   <link rel="preload" as="image" href="/hero-mocyno.jpg">
-  <link rel="preload" as="style" href="/styles.css">
+  <link rel="preload" as="style" href="/styles.css?v=2.0">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Sécurité incendie (SSIAP) — MO'CYNO">
@@ -55,8 +55,8 @@
   }
   </script>
 
-  <link rel="preload" href="/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="/styles.css"></noscript>
+  <link rel="preload" href="/styles.css?v=2.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/styles.css?v=2.0"></noscript>
   <link rel="stylesheet" href="/styles-compat-patch.css?v=hero-fix-1">
 
   <script defer src="/consent-ga.js"></script>
@@ -81,7 +81,20 @@
       <button class="menu-toggle" aria-label="Ouvrir ou fermer le menu" onclick="document.querySelector('.nav .links').classList.toggle('open');
       document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
       <nav class="links" role="navigation" aria-label="Navigation principale">
-        <a href="/services/">Services</a>
+                <div class="services-nav">
+          <a href="/services/" class="services-trigger">Services</a>
+          <div class="services-menu">
+            <ul class="services-list">
+              <li><a href="/services/securite-cynophile.html">Sécurité Cynophile</a></li>
+              <li><a href="/services/surveillance-humaine.html">Surveillance Humaine</a></li>
+              <li><a href="/services/marinas-ports/">Marinas & Ports</a></li>
+              <li><a href="/services/chantiers/">Sécurité Chantiers BTP</a></li>
+              <li><a href="/services/residentiel/">Résidentiel & Villas</a></li>
+              <li><a href="/services/hotellerie/">Hôtellerie</a></li>
+              <li><a href="/services/evenementiel-premium/">Événementiel Premium</a></li>
+            </ul>
+          </div>
+        </div>
         <a href="/#expertises">Expertises</a>
         <a href="/#zones">Zones</a>
         <a href="/#references">Références</a>
