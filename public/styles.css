@@ -838,18 +838,30 @@ form.grid-2 {
   /* Space for shadow and hover lift */
 }
 
-/* === SOUS-MENU SERVICES ÉPURÉ ===
-   Minimaliste, proportions parfaites, sans icônes */
+/* === SOUS-MENU SERVICES CLEAN (FIXED) === */
 .services-nav {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  /* Fix alignment */
+  align-items: center;
+  height: 100%;
+  vertical-align: middle;
+  /* Fix baseline shift */
+  flex-shrink: 0;
+  /* Fix flex crush */
 }
 
 .services-trigger {
-  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
   cursor: pointer;
   position: relative;
-  transition: color 0.2s ease;
+  font-weight: 500;
+  /* Match other links */
+  line-height: 1;
+  /* Fix height calculations */
+  transition: color 0.15s ease;
 }
 
 .services-trigger:hover {
@@ -859,18 +871,19 @@ form.grid-2 {
 .services-menu {
   position: absolute;
   top: 100%;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  /* Center align */
   min-width: 260px;
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  margin-top: 8px;
+  margin-top: 4px;
+  /* Slight gap */
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-8px);
-  transition: all 0.25s ease-out;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1001;
   overflow: hidden;
 }
@@ -878,51 +891,92 @@ form.grid-2 {
 .services-nav:hover .services-menu {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateX(-50%) translateY(0);
 }
 
 .services-list {
   list-style: none;
-  padding: 12px 0;
+  padding: 8px 0;
   margin: 0;
 }
 
 .services-list li {
   margin: 0;
+  display: block;
 }
 
 .services-list a {
   display: block;
-  padding: 12px 20px;
+  padding: 10px 20px;
   color: #0f3552;
   text-decoration: none;
   font-size: 15px;
   font-weight: 500;
-  border-bottom: 1px solid #f1f5f9;
-  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+  /* Prepare hovering line */
+  transition: all 0.15s ease;
 }
 
 .services-list a:hover {
   background: #f8fafc;
   color: #cd1a20;
-  padding-left: 28px;
-  box-shadow: inset 3px 0 0 #cd1a20;
+  padding-left: 24px;
+  /* Animated padding */
+  border-left-color: #cd1a20;
+  /* Red accent line */
 }
 
-.services-list a:last-child {
-  border-bottom: none;
-}
+/* Mobile : List indented */
+@media (max-width: 920px) {
+  .services-nav {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
 
-/* Mobile : légèrement plus compact */
-@media (max-width: 768px) {
+  .services-trigger {
+    width: 100%;
+    justify-content: space-between;
+    padding: 0;
+    /* Inherit nav link spacing */
+  }
+
+  /* Chevron for mobile indication */
+  .services-trigger::after {
+    content: '›';
+    font-size: 18px;
+    transform: rotate(90deg);
+    margin-right: 8px;
+    color: #94a3b8;
+  }
+
   .services-menu {
-    min-width: 240px;
-    left: -20px;
-    right: -20px;
+    position: static;
+    transform: none;
+    min-width: 0;
+    width: 100%;
+    opacity: 1;
+    visibility: visible;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 4px 0 0 0;
   }
 
   .services-list a {
-    padding: 10px 16px;
+    padding: 8px 0 8px 16px;
+    /* Indent 16px */
     font-size: 14px;
+    border-left: 2px solid #e2e8f0;
+    color: #334155;
+  }
+
+  .services-list a:hover {
+    padding-left: 16px;
+    /* No extra slide on mobile */
+    background: transparent;
+    color: #cd1a20;
+    border-left-color: #cd1a20;
   }
 }
