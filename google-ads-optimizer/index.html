@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Outil d'audit et d'optimisation Google Ads pour MO'CYNO - Sécurité Cynophile">
+  <title>Google Ads Optimizer - MO'CYNO</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-icon">📊</div>
+          <div>
+            <div>Google Ads Optimizer</div>
+            <div style="font-size: var(--font-size-sm); font-weight: 400; color: var(--color-gray-600);">
+              MO'CYNO - Sécurité Cynophile
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="section">
+      <div class="section-header">
+        <h1 class="section-title">Optimisez Votre Campagne Google Ads</h1>
+        <p class="section-subtitle">
+          Audit complet, recommandations actionnables et outils d'optimisation pour maximiser vos résultats
+        </p>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="grid grid-3">
+        <div class="card" style="cursor: pointer;" onclick="runAuditAndShow()">
+          <div class="card-header">
+            <div class="card-icon danger">
+              🔍
+            </div>
+            <h3 class="card-title">Audit Campagne</h3>
+          </div>
+          <div class="card-body">
+            <p>Analysez votre campagne actuelle et identifiez les problèmes critiques qui empêchent les impressions et
+              clics.</p>
+            <button class="btn btn-primary btn-lg" style="width: 100%; margin-top: var(--spacing-md);">
+              Lancer l'Audit
+            </button>
+          </div>
+        </div>
+
+        <div class="card" style="cursor: pointer;" onclick="runKeywordAnalysisAndShow()">
+          <div class="card-header">
+            <div class="card-icon success">
+              🔑
+            </div>
+            <h3 class="card-title">Mots-Clés</h3>
+          </div>
+          <div class="card-body">
+            <p>Analysez vos mots-clés actuels et obtenez des suggestions optimisées avec volumes et CPC estimés.</p>
+            <button class="btn btn-success btn-lg" style="width: 100%; margin-top: var(--spacing-md);">
+              Analyser
+            </button>
+          </div>
+        </div>
+
+        <div class="card" style="cursor: pointer;" onclick="runAdGeneratorAndShow()">
+          <div class="card-header">
+            <div class="card-icon primary">
+              📝
+            </div>
+            <h3 class="card-title">Annonces</h3>
+          </div>
+          <div class="card-body">
+            <p>Générez des annonces optimisées avec titres, descriptions et extensions prêts à copier.</p>
+            <button class="btn btn-primary btn-lg" style="width: 100%; margin-top: var(--spacing-md);">
+              Générer
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation -->
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#home" class="nav-link" onclick="location.reload(); return false;">
+            🏠 Accueil
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#audit" class="nav-link" onclick="runAuditAndShow(); return false;">
+            🔍 Audit
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#keywords" class="nav-link" onclick="runKeywordAnalysisAndShow(); return false;">
+            🔑 Mots-Clés
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#ads" class="nav-link" onclick="runAdGeneratorAndShow(); return false;">
+            📝 Annonces
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#budget" class="nav-link" onclick="runBudgetCalculatorAndShow(); return false;">
+            💰 Budget
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#conversion" class="nav-link" onclick="showSection('conversion'); return false;">
+            📈 Conversion
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Audit Section -->
+    <section id="audit-section" class="section hidden">
+      <div class="section-header">
+        <h2 class="section-title">🔍 Audit de Campagne</h2>
+        <p class="section-subtitle">Diagnostic complet de votre campagne Google Ads</p>
+      </div>
+
+      <div id="audit-results"></div>
+
+      <div id="recommendations" style="margin-top: var(--spacing-2xl);">
+        <h3 style="text-align: center; margin-bottom: var(--spacing-xl);">📋 Recommandations Priorisées</h3>
+        <div id="recommendations-list"></div>
+      </div>
+    </section>
+
+    <!-- Keywords Section -->
+    <section id="keywords-section" class="section hidden">
+      <div class="section-header">
+        <h2 class="section-title">🔑 Optimisation des Mots-Clés</h2>
+        <p class="section-subtitle">Analyse et suggestions pour maximiser votre visibilité</p>
+      </div>
+
+      <div id="keyword-analysis"></div>
+      <div id="keyword-suggestions" style="margin-top: var(--spacing-2xl);"></div>
+      <div id="negative-keywords" style="margin-top: var(--spacing-2xl);"></div>
+    </section>
+
+    <!-- Ads Section -->
+    <section id="ads-section" class="section hidden">
+      <div class="section-header">
+        <h2 class="section-title">📝 Générateur d'Annonces</h2>
+        <p class="section-subtitle">Annonces optimisées prêtes à l'emploi</p>
+      </div>
+
+      <div id="ad-generator"></div>
+    </section>
+
+    <!-- Budget Section -->
+    <section id="budget-section" class="section hidden">
+      <div class="section-header">
+        <h2 class="section-title">💰 Budget & Enchères</h2>
+        <p class="section-subtitle">Optimisez vos investissements publicitaires</p>
+      </div>
+
+      <div id="budget-calculator"></div>
+    </section>
+
+    <!-- Conversion Section -->
+    <section id="conversion-section" class="section hidden">
+      <div class="section-header">
+        <h2 class="section-title">📈 Suivi de Conversion</h2>
+        <p class="section-subtitle">Guide de configuration du tracking</p>
+      </div>
+
+      <div class="card fade-in">
+        <div class="card-header">
+          <div class="card-icon warning">
+            ⚙️
+          </div>
+          <div>
+            <h3 class="card-title">Configuration du Suivi de Conversion</h3>
+            <p style="margin: 0; color: var(--color-gray-600);">Étapes pour configurer le tracking</p>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="alert alert-danger">
+            <div class="alert-content">
+              <div class="alert-title">🚨 Problème Critique Identifié</div>
+              <p style="margin: 0;">Votre campagne cible des "Leads" mais aucun suivi de conversion n'est configuré.
+                Sans cela, Google ne peut pas optimiser et vous ne pouvez pas mesurer votre ROI.</p>
+            </div>
+          </div>
+
+          <h4 style="margin-top: var(--spacing-xl);">📝 Types de Conversion à Configurer</h4>
+
+          <div class="grid grid-2">
+            <div class="card" style="border-left: 4px solid var(--color-primary);">
+              <h5 style="color: var(--color-primary);">📧 Envoi de Formulaire</h5>
+              <p><strong>Priorité:</strong> Critique</p>
+              <p>Trackez les soumissions de votre formulaire de contact ou devis.</p>
+              <details style="margin-top: var(--spacing-md);">
+                <summary style="cursor: pointer; font-weight: 600; color: var(--color-primary);">Voir les étapes
+                </summary>
+                <ol style="margin-top: var(--spacing-sm); padding-left: var(--spacing-xl);">
+                  <li>Aller dans Google Ads > Outils > Conversions</li>
+                  <li>Cliquer sur "+ Nouvelle action de conversion"</li>
+                  <li>Sélectionner "Site Web"</li>
+                  <li>Choisir "Envoi de formulaire"</li>
+                  <li>Copier le code de suivi</li>
+                  <li>Installer le code sur votre page de confirmation</li>
+                </ol>
+              </details>
+            </div>
+
+            <div class="card" style="border-left: 4px solid var(--color-success);">
+              <h5 style="color: var(--color-success);">📞 Appels Téléphoniques</h5>
+              <p><strong>Priorité:</strong> Critique</p>
+              <p>Trackez les clics sur votre numéro de téléphone.</p>
+              <details style="margin-top: var(--spacing-md);">
+                <summary style="cursor: pointer; font-weight: 600; color: var(--color-success);">Voir les étapes
+                </summary>
+                <ol style="margin-top: var(--spacing-sm); padding-left: var(--spacing-xl);">
+                  <li>Aller dans Google Ads > Outils > Conversions</li>
+                  <li>Cliquer sur "+ Nouvelle action de conversion"</li>
+                  <li>Sélectionner "Appels téléphoniques"</li>
+                  <li>Choisir "Clics sur un numéro sur votre site Web"</li>
+                  <li>Installer le code de transfert d'appel</li>
+                </ol>
+              </details>
+            </div>
+          </div>
+
+          <div class="alert alert-info" style="margin-top: var(--spacing-xl);">
+            <div class="alert-content">
+              <div class="alert-title">💡 Conseil Pro</div>
+              <p style="margin: 0;">Une fois le suivi configuré, attendez d'avoir au moins 30 conversions sur 30 jours
+                avant de passer à la stratégie "Maximiser les conversions". En attendant, utilisez "CPC manuel" ou
+                "Maximiser les clics".</p>
+            </div>
+          </div>
+
+          <h4 style="margin-top: var(--spacing-xl);">🔧 Installation avec Google Tag Manager (Recommandé)</h4>
+
+          <div class="card" style="background: var(--color-gray-50);">
+            <p><strong>Avantages:</strong> Plus facile à gérer, pas besoin de modifier le code du site à chaque fois.
+            </p>
+
+            <details style="margin-top: var(--spacing-md);">
+              <summary style="cursor: pointer; font-weight: 600; color: var(--color-primary);">Voir le guide complet
+              </summary>
+              <ol style="margin-top: var(--spacing-sm); padding-left: var(--spacing-xl);">
+                <li>Créer un compte Google Tag Manager (gratuit)</li>
+                <li>Installer le code GTM sur toutes les pages de votre site</li>
+                <li>Dans GTM, créer une balise "Google Ads Conversion Tracking"</li>
+                <li>Configurer le déclencheur (ex: page de remerciement, clic sur bouton)</li>
+                <li>Publier le conteneur GTM</li>
+                <li>Tester avec l'outil de prévisualisation GTM</li>
+              </ol>
+            </details>
+          </div>
+
+          <div style="margin-top: var(--spacing-xl);">
+            <a href="https://support.google.com/google-ads/answer/6331314" target="_blank" class="btn btn-primary">
+              📚 Documentation Officielle Google
+            </a>
+            <a href="https://tagmanager.google.com/" target="_blank" class="btn btn-outline"
+              style="margin-left: var(--spacing-md);">
+              🔧 Accéder à Tag Manager
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">Google Ads Optimizer</div>
+        <p class="footer-text">Outil d'audit et d'optimisation pour MO'CYNO - Sécurité Cynophile</p>
+        <p class="footer-text">
+          <a href="https://www.mocyno.com" target="_blank" class="footer-link">www.mocyno.com</a>
+        </p>
+        <p style="font-size: var(--font-size-sm); color: var(--color-gray-500);">
+          © 2026 - Tous droits réservés
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/audit.js"></script>
+  <script src="js/keywords.js"></script>
+  <script src="js/adcopy.js"></script>
+  <script src="js/budget.js"></script>
+
+  <script>
+    // Navigation entre sections
+    function showSection(sectionName) {
+      // Cacher toutes les sections
+      const sections = ['audit', 'keywords', 'ads', 'budget', 'conversion'];
+      sections.forEach(section => {
+        const element = document.getElementById(`${section}-section`);
+        if (element) {
+          element.classList.add('hidden');
+        }
+      });
+
+      // Afficher la section demandée
+      const targetSection = document.getElementById(`${sectionName}-section`);
+      if (targetSection) {
+        targetSection.classList.remove('hidden');
+        targetSection.classList.add('fade-in');
+      }
+
+      // Mettre à jour la navigation active
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+
+      // Trouver et activer le lien correspondant
+      const activeLink = document.querySelector(`a[href="#${sectionName}"]`);
+      if (activeLink) {
+        activeLink.classList.add('active');
+      }
+
+      // Scroll vers le haut de la section
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Wrapper pour runAudit qui affiche aussi la section
+    window.runAuditAndShow = function () {
+      showSection('audit');
+      setTimeout(() => {
+        if (typeof runAudit === 'function') {
+          runAudit();
+        }
+      }, 100);
+    };
+
+    // Wrapper pour runKeywordAnalysis qui affiche aussi la section
+    window.runKeywordAnalysisAndShow = function () {
+      showSection('keywords');
+      setTimeout(() => {
+        if (typeof runKeywordAnalysis === 'function') {
+          runKeywordAnalysis();
+        }
+      }, 100);
+    };
+
+    // Wrapper pour runAdGenerator qui affiche aussi la section
+    window.runAdGeneratorAndShow = function () {
+      showSection('ads');
+      setTimeout(() => {
+        if (typeof runAdGenerator === 'function') {
+          runAdGenerator();
+        }
+      }, 100);
+    };
+
+    // Wrapper pour runBudgetCalculator qui affiche aussi la section
+    window.runBudgetCalculatorAndShow = function () {
+      showSection('budget');
+      setTimeout(() => {
+        if (typeof runBudgetCalculator === 'function') {
+          runBudgetCalculator();
+        }
+      }, 100);
+    };
+
+    // Initialisation au chargement de la page
+    document.addEventListener('DOMContentLoaded', function () {
+      console.log('Google Ads Optimizer chargé avec succès!');
+
+      // Message de bienvenue
+      setTimeout(() => {
+        showNotification('Bienvenue sur Google Ads Optimizer ! Cliquez sur "Lancer l\'Audit" pour commencer.', 'info');
+      }, 1000);
+    });
+  </script>
+</body>
+
+</html>

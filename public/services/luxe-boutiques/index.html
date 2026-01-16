@@ -2,13 +2,12 @@
 <html lang="fr">
 
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WH9T9G58');</script>
-<!-- End Google Tag Manager -->
+      <!-- Google Tag Manager (deferred) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+  </script>
+  <script defer src="https://www.googletagmanager.com/gtm.js?id=GTM-WH9T9G58"></script>
+  <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,41 +30,42 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link rel="alternate" hreflang="fr" href="https://mocyno.com/services/luxe-boutiques/" />
     <link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/luxury-boutiques/" />
     <link rel="alternate" hreflang="x-default" href="https://mocyno.com/services/luxe-boutiques/" />
-    <link rel="stylesheet" href="/styles.css?v=hero-fix-1" />
+    <link rel="preload" href="/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/styles.css"></noscript>
     <link rel="stylesheet" href="/styles-compat-patch.css?v=hero-fix-1" />
     <script defer src="/consent-ga.js"></script>
     <meta name="ga-measurement-id" content="G-E5JX7DYYYN" />
 </head>
 
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WH9T9G58"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WH9T9G58" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <header class="site-header" role="banner">
         <div class="container nav">
             <a class="logo" href="/">
                 <picture>
-                    <source srcset="/mocyno-logo.webp" type="image/webp" />
-                    <img src="/mocyno-logo.webp" alt="Logo MO'Cyno" width="36" height="36" style="border-radius:8px" />
+                    <source srcset="/mocyno-logo.webp" type="image/webp">
+                    <img src="/mocyno-logo.webp" alt="Logo MO'Cyno" width="36" height="36" style="border-radius:8px">
                 </picture>
                 <span>MO'CYNO</span>
             </a>
-            <button class="menu-toggle" aria-label="Ouvrir ou fermer le menu"
-                onclick="document.querySelector('.nav .links').classList.toggle('open');document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
+            <button class="menu-toggle" aria-label="Ouvrir ou fermer le menu" onclick="document.querySelector('.nav .links').classList.toggle('open');
+      document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
             <nav class="links" role="navigation" aria-label="Navigation principale">
-                <a href="/services/">Services</a>
-                <a href="/#expertises">Expertises</a>
-                <a href="/#zones">Zones</a>
-                <a href="/#references">Références</a>
-                <a href="/blog/" style="font-weight:700">Blog</a>
-                <a class="btn primary" href="/contact.html">Devis & Contact</a>
-                <a aria-label="English" hreflang="en" href="/en/">EN</a>
-            </nav>
+        <a href="/services/">Services</a>
+        <a href="/#expertises">Expertises</a>
+        <a href="/#zones">Zones</a>
+        <a href="/#references">Références</a>
+        <a href="/blog/" style="font-weight:700">Blog</a>
+        <a class="btn primary" href="/contact.html">Devis &amp; Contact</a>
+        <a class="lang-switch" aria-label="English" hreflang="en" href="/en/">EN</a>
+      </nav>
         </div>
-        <div class="nav-overlay" tabindex="0" aria-label="Fermer le menu"
-            onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')">
-        </div>
+        <div class="nav-overlay"
+            onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')"
+            tabindex="0" aria-label="Fermer le menu"></div>
     </header>
 
     <main role="main" style="max-width:900px;margin:40px auto;padding:0 16px">
@@ -77,7 +77,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="image-wrapper">
             <img src="/assets/luxe.png" alt="Agent de sécurité devant boutique de luxe" class="main-img" width="800"
-                height="450">
+                height="450" loading="lazy">
 
         </div>
 
@@ -167,21 +167,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </div>
     </footer>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/693452a684fc15197fdfc2a0/1jbq65n5t';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/693452a684fc15197fdfc2a0/1jbq65n5t';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
 </body>
 
 </html>
-
-

@@ -192,6 +192,14 @@
     <loc>https://mocyno.com/blog/ssiap-hotel-paca.html</loc>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://mocyno.com/blog/securite-domaine-prive-saint-tropez.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/blog/securite-congres-cannes.html</loc>
+    <priority>0.7</priority>
+  </url>
 
   <!-- LEGAL & OTHER -->
   <url>
@@ -241,5 +249,106 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/politique-confidentialite.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/privacy.html"/>
     <priority>0.3</priority>
+  </url>
+  <!-- ZONES - LOCAL SEO (FR) -->
+  <url>
+    <loc>https://mocyno.com/zones/saint-tropez.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/zones/saint-tropez.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/zones/saint-tropez.html"/>
+    <lastmod>2025-01-12</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/zones/ramatuelle.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/zones/ramatuelle.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/zones/ramatuelle.html"/>
+    <lastmod>2025-01-12</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/zones/cannes.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/zones/cannes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/zones/cannes.html"/>
+    <lastmod>2025-01-12</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/zones/nice.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/zones/nice.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/zones/nice.html"/>
+    <lastmod>2025-01-12</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/zones/toulon.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/zones/toulon.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/zones/toulon.html"/>
+    <lastmod>2025-01-12</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/zones/frejus.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/zones/frejus.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/zones/frejus.html"/>
+    <lastmod>2025-01-12</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/zones/sainte-maxime.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/zones/sainte-maxime.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/zones/sainte-maxime.html"/>
+    <lastmod>2025-01-12</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ZONES - LOCAL SEO (EN) -->
+  <url>
+    <loc>https://mocyno.com/en/zones/saint-tropez.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/zones/saint-tropez.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/zones/saint-tropez.html"/>
+    <lastmod>2025-01-12</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/zones/ramatuelle.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/zones/ramatuelle.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/zones/ramatuelle.html"/>
+    <lastmod>2025-01-12</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/zones/cannes.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/zones/cannes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/zones/cannes.html"/>
+    <lastmod>2025-01-12</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/zones/nice.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/zones/nice.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/zones/nice.html"/>
+    <lastmod>2025-01-12</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/zones/toulon.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/zones/toulon.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/zones/toulon.html"/>
+    <lastmod>2025-01-12</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/zones/frejus.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/zones/frejus.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/zones/frejus.html"/>
+    <lastmod>2025-01-12</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/zones/sainte-maxime.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mocyno.com/zones/sainte-maxime.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mocyno.com/en/zones/sainte-maxime.html"/>
+    <lastmod>2025-01-12</lastmod>
+    <priority>0.7</priority>
   </url>
 </urlset>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-WH9T9G58');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Security Services (PACA) — MO'CYNO</title>
+  <meta name="description"
+    content="Private security services in the French Riviera: manned guarding, K9 units, fire safety (SSIAP), event security and luxury security across the PACA region.">
+  <meta name="robots" content="index,follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mocyno.com/en/services/">
+  <meta property="og:title" content="Security Services (PACA) — MO'CYNO">
+  <meta property="og:description"
+    content="Private security services in the French Riviera: manned guarding, K9 units, fire safety (SSIAP), and luxury security.">
+  <meta property="og:image" content="https://mocyno.com/assets/services-banner.png">
+  <meta property="og:locale" content="en_GB">
+
+  <link rel="canonical" href="https://mocyno.com/en/services/">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css?v=hero-fix-1">
+
+  <!-- Swiper CSS for carousel -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Services — MO'CYNO">
+  <meta property="og:description"
+    content="Manned guarding, K9 units, fire safety (SSIAP), event security and luxury security in the French Riviera.">
+  <meta property="og:url" content="https://mocyno.com/en/services/">
+  <meta property="og:image" content="/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#022C51">
+
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/">
+  <link rel="alternate" hreflang="fr" href="https://mocyno.com/services/">
+  <link rel="alternate" hreflang="x-default" href="https://mocyno.com/en/services/">
+
+  <!-- Structured data: Service -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Service",
+    "provider":{"@type":"Organization","name":"MO'CYNO","url":"https://mocyno.com"},
+    "areaServed":"FR-PACA",
+    "serviceType":["Manned guarding","K9 security","Fire safety (SSIAP)","Event security","Luxury security"],
+    "telephone":"+33 6 66 03 51 16",
+    "url":"https://mocyno.com/en/services/"
+  }
+  </script>
+
+  <!-- Consent / GA4 -->
+  <script defer src="/consent-ga.js"></script>
+  <meta name="ga-measurement-id" content="G-E5JX7DYYYN">
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+
+  <style>
+    [id] {
+      scroll-margin-top: 100px;
+    }
+
+    /* make cards fill slide height */
+    .swiper-slide .card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WH9T9G58" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="logo" href="/en/">
+        <picture>
+          <source srcset="/mocyno-logo.webp" type="image/webp">
+          <img src="/mocyno-logo.webp" alt="Logo MO'Cyno" width="36" height="36" style="border-radius:8px">
+        </picture>
+        <span>MO'CYNO</span>
+      </a>
+      <button class="menu-toggle" onclick="document.querySelector('.nav .links').classList.toggle('open');
+               document.querySelector('.nav-overlay').classList.toggle('show')">
+        Menu
+      </button>
+      <nav class="links">
+        <a href="/en/services/">Services</a>
+        <a href="/en/#expertises">Expertise</a>
+        <a href="/en/#zones">Areas</a>
+        <a href="/en/#references">References</a>
+        <a href="/blog/" style="font-weight:700">Blog</a>
+        <a class="btn primary" href="/en/contact.html">Quote &amp; Contact</a>
+        <a class="lang-switch" aria-label="Français" hreflang="fr" href="/">FR</a>
+      </nav>
+    </div>
+    <div class="nav-overlay" onclick="document.querySelector('.nav .links').classList.remove('open');
+                this.classList.remove('show')"></div>
+  </header>
+
+  <main class="container">
+    <p class="small"><a href="/en/" aria-label="Back to home">← Back to home</a></p>
+
+    <section class="section" id="expertises">
+      <p class="kicker">Services</p>
+      <h1>Our Security Services</h1>
+
+      <!-- SERVICES BANNER V4.4 -->
+      <div class="hero-banner"
+        style="margin: 24px 0 32px 0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+        <img src="/assets/services-banner.png"
+          alt="MO'CYNO Security Services Panorama: K9 Units, Site Surveillance, Night Patrolling, CCTV Monitoring"
+          style="width: 100%; height: auto; display: block;" width="1200" height="400">
+      </div>
+      <p>
+        MO'CYNO delivers a full range of <strong>private security services</strong> in the French Riviera:
+        <strong>manned guarding</strong>, <strong>K9 dog-handler units</strong>, <strong>fire safety (SSIAP)</strong>,
+        <strong>event security</strong> and <strong>luxury security</strong> for high-end sites.
+        All deployments are tailored to your risks, schedules and image requirements.
+      </p>
+
+      <!-- CAROUSEL -->
+      <div class="swiper myServicesSwiper" style="margin-top:20px;padding:20px 0">
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide">
+            <a class="card" href="/en/services/surveillance-humaine.html">
+              <div class="icon">🛡️</div>
+              <h3>Manned Guarding</h3>
+              <p>Qualified officers for industrial sites, shops, construction sites and residences.</p>
+            </a>
+          </div>
+
+          <div class="swiper-slide">
+            <a class="card" href="/en/services/securite-cynophile.html">
+              <div class="icon">🐕</div>
+              <h3>K9 Security Units</h3>
+              <p>Dog-handler teams for strong deterrence, perimeter patrols and access control.</p>
+            </a>
+          </div>
+
+          <div class="swiper-slide">
+            <a class="card" href="/en/services/securite-incendie-ssiap.html">
+              <div class="icon">🔥</div>
+              <h3>Fire Safety (SSIAP)</h3>
+              <p>SSIAP 1/2/3 officers for prevention, control room duties and evacuation support.</p>
+            </a>
+          </div>
+
+          <div class="swiper-slide">
+            <a class="card" href="/en/services/securite-evenementielle.html">
+              <div class="icon">🎪</div>
+              <h3>Event Security</h3>
+              <p>Access control, screening and tailored security plans for public and private events.</p>
+            </a>
+          </div>
+
+          <div class="swiper-slide">
+            <a class="card" href="/en/services/protection-luxe.html">
+              <div class="icon">💎</div>
+              <h3>Luxury Security</h3>
+              <p>Discreet, high-end protection for luxury boutiques, villas and VIP events.</p>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Navigation arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+
+        <!-- Pagination dots -->
+        <div class="swiper-pagination"></div>
+      </div>
+      <!-- END CAROUSEL -->
+
+    </section>
+  </main>
+
+  <footer class="site-footer" style="background:#0f3552;color:#fff">
+    <div style="max-width:1200px;margin:0 auto;padding:32px 16px;display:grid;gap:12px">
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+        <div>© 2025 MO'CYNO — SASU — SIRET 990 179 566 00015 — NAF 80.10Z</div>
+        <nav style="display:flex;gap:16px">
+          <a href="/en/about.html" style="color:#fff">About</a>
+          <a href="/en/legal.html" style="color:#fff">Legal</a>
+          <a href="/en/privacy.html" style="color:#fff">Privacy</a>
+          <a href="/en/cookies.html" style="color:#fff">Cookies</a>
+          <a href="/sitemap.xml" style="color:#fff">Sitemap</a>
+        </nav>
+      </div>
+      <div style="font-size:12px;opacity:.9">31 Rue Chevalier Paul, 83000 Toulon, France</div>
+      <div style="font-size:12px;opacity:.85">
+        CNAPS license: AUT-83-2124-09-09-20250998415. This authorization does not confer any official status nor
+        approval (CSI L612-14).
+      </div>
+    </div>
+  </footer>
+
+  <!-- Swiper initialization -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      new Swiper(".myServicesSwiper", {
+        slidesPerView: 1,
+        spaceBetween: 16,
+        loop: false,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+          640: { slidesPerView: 1.2 },
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+          1280: { slidesPerView: 4 }
+        }
+      });
+    });
+  </script>
+
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/693452a684fc15197fdfc2a0/1jbq65n5t';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
+  <!--End of Tawk.to Script-->
+</body>
+
+</html>

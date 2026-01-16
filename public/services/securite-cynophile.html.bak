@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-WH9T9G58');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Sécurité Cynophile (Maître-Chien K9) Var & 83 — MO'CYNO</title>
+  <meta name="description"
+    content="Service de sécurité cynophile (Maître-chien K9) dans le Var. Dissuasion anti-intrusion pour chantiers, parkings et événements sensibles par MO'CYNO.">
+  <meta name="robots" content="index,follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="service">
+  <meta property="og:url" content="https://mocyno.com/services/securite-cynophile.html">
+  <meta property="og:title" content="Sécurité Cynophile (Maître-Chien K9) Var & 83 — MO'CYNO">
+  <meta property="og:description"
+    content="Service de sécurité cynophile (Maître-chien K9) dans le Var. Protection chantiers et villas.">
+  <meta property="og:image" content="https://mocyno.com/assets/surveillance.png">
+  <meta property="og:locale" content="fr_FR">
+
+  <link rel="canonical" href="https://mocyno.com/services/securite-cynophile.html">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <link rel="preload" as="image" href="/hero-mocyno.jpg">
+  <link rel="preload" as="style" href="/styles.css">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sécurité cynophile (K9) — MO'CYNO">
+  <meta property="og:description" content="Maîtres-chiens pour dissuasion, rondes et contrôle d’accès en PACA.">
+  <meta property="og:url" content="https://mocyno.com/services/securite-cynophile.html">
+  <meta property="og:image" content="/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#022C51">
+
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="fr" href="https://mocyno.com/services/securite-cynophile.html">
+  <link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/securite-cynophile.html">
+  <link rel="alternate" hreflang="x-default" href="https://mocyno.com/services/securite-cynophile.html">
+
+  <!-- Schema.org Organization -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"MO'CYNO",
+    "url":"https://mocyno.com",
+    "logo":"https://mocyno.com/mocyno-logo.png",
+    "sameAs":["https://www.linkedin.com/company/mocyno"],
+    "address":{"@type":"PostalAddress","addressCountry":"FR"},
+    "email":"contact@mocyno.com",
+    "telephone":"+33 6 66 03 51 16"
+  }
+  </script>
+
+  <link rel="stylesheet" href="/styles.css?v=hero-fix-1">
+  <link rel="stylesheet" href="/styles-compat-patch.css?v=hero-fix-1">
+
+  <!-- GA consent -->
+  <script defer src="/consent-ga.js"></script>
+  <meta name="ga-measurement-id" content="G-E5JX7DYYYN">
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WH9T9G58" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <header class="site-header" role="banner">
+    <div class="container nav">
+      <a class="logo" href="/">
+        <picture>
+          <source srcset="/mocyno-logo.webp" type="image/webp">
+          <img src="/mocyno-logo.webp" alt="Logo MO'Cyno" width="36" height="36" style="border-radius:8px">
+        </picture>
+        <span>MO'CYNO</span>
+      </a>
+      <button class="menu-toggle" aria-label="Ouvrir ou fermer le menu" onclick="document.querySelector('.nav .links').classList.toggle('open');
+      document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
+      <nav class="links" role="navigation" aria-label="Navigation principale">
+        <a href="/services/">Services</a>
+        <a href="/#expertises">Expertises</a>
+        <a href="/#zones">Zones</a>
+        <a href="/#references">Références</a>
+        <a href="/blog/" style="font-weight:700">Blog</a>
+        <a class="btn primary" href="/contact.html">Devis & Contact</a>
+        <a aria-label="English" hreflang="en" href="/en/">EN</a>
+      </nav>
+    </div>
+    <div class="nav-overlay"
+      onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')"
+      tabindex="0" aria-label="Fermer le menu"></div>
+  </header>
+
+  <main role="main" style="max-width:900px;margin:40px auto;padding:0 16px">
+    <h1>Sécurité cynophile — Maître-chien (K9)</h1>
+    <p>
+      Les <strong>équipes cynophiles (K9) MO'CYNO</strong> associent un maître-chien diplômé et un chien entraîné pour
+      offrir un très haut niveau de dissuasion. Ce binôme est particulièrement adapté aux <strong>sites
+        sensibles</strong>,
+      aux <strong>chantiers isolés</strong>, aux <strong>parkings étendus</strong> ou aux événements nécessitant une
+      mobile, lors de rondes ou d’interventions sur alarme.
+    </p>
+
+    <div class="image-wrapper">
+      <img src="/hero-mocyno.webp" alt="Maître-chien en intervention" class="main-img" width="800" height="450"
+        loading="lazy">
+
+    </div>
+
+    <p>
+      Le chien détecte rapidement les présences, déplacements suspects et tentatives d’intrusion, là où la visibilité
+      humaine est limitée. Le maître-chien conduit des <strong>rondes de sécurité</strong>, contrôle les accès,
+      effectue des <strong>levées de doute</strong> et applique des consignes strictes, dans le respect du cadre légal
+      de la <strong>sécurité cynophile</strong>.
+    </p>
+    <p>
+      En région <strong>PACA</strong> et plus spécifiquement dans le <strong>Var (83)</strong>, nos équipes K9
+      interviennent sur tous types de missions :
+    </p>
+    <ul style="margin-bottom:1.5rem">
+      <li><strong>Surveillance de villas et domaines privés</strong> : Saint-Tropez, Gassin, Ramatuelle.</li>
+      <li><strong>Gardiennage de chantiers BTP</strong> : Fréjus, Toulon, Hyères (lutte contre le vol de matériaux).
+      </li>
+      <li><strong>Sécurité événementielle</strong> : Festivals, concerts, parkings éphémères.</li>
+      <li><strong>Sécurité industrielle</strong> : Zones d'activités, entrepôts logistiques, parcs automobiles.</li>
+    </ul>
+    <p>
+      En complément d’une <a href="/services/surveillance-humaine.html">surveillance humaine classique</a>, la
+      cynophilie apporte un fort
+      effet dissuasif et une meilleure couverture du terrain. Pour étudier un dispositif cynophile sur mesure pour votre
+      site,
+      <a href="/contact.html">contactez MO'CYNO</a>.
+    </p>
+    <nav style="margin-top:24px">
+      <a href="/services/" aria-label="Retour à tous les services">← Tous nos services</a>
+    </nav>
+    <section class="cta container section" style="text-align:center;margin-top:32px;">
+      <h2>Un besoin ?</h2>
+      <p>Réponse sous 24 h ouvrées.</p>
+      <p><a class="btn primary" href="/contact.html">Contact &amp; Devis</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff;margin-top:40px">
+    <div style="max-width:1200px;margin:0 auto;padding:32px 16px;display:grid;gap:12px">
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+        <div>© 2025 MO'CYNO — SASU — SIRET 990 179 566 00015 — NAF 80.10Z</div>
+        <nav style="display:flex;gap:16px" role="navigation" aria-label="Navigation secondaire">
+          <a href="/a-propos.html" style="color:#fff">À propos</a>
+          <a href="/mentions-legales.html" style="color:#fff">Mentions légales</a>
+          <a href="/politique-confidentialite.html" style="color:#fff">Confidentialité</a>
+          <a href="/cookies.html" style="color:#fff">Cookies</a>
+          <a href="/sitemap.xml" style="color:#fff">Sitemap</a>
+        </nav>
+      </div>
+      <div style="font-size:12px;opacity:.9">31 Rue Chevalier Paul, 83000 Toulon, France</div>
+      <div style="font-size:12px;opacity:.85">
+        Autorisation d'exercer CNAPS : AUT-83-2124-09-09-20250998415.
+        L’autorisation d’exercer ne confère aucun caractère officiel à l’entreprise ni ne l’agrée. (Art. L612-14 CSI)
+      </div>
+    </div>
+  </footer>
+
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/693452a684fc15197fdfc2a0/1jbq65n5t';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
+  <!--End of Tawk.to Script-->
+</body>
+
+</html>

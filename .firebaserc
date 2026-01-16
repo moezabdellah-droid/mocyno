@@ -1,6 +1,7 @@
 {
   "projects": {
-    "default": "mocyno"
+    "default": "mocyno",
+    "prod": "mocyno"
   },
   "targets": {},
   "etags": {}
