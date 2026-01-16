@@ -30,9 +30,9 @@
     <link rel="alternate" hreflang="fr" href="https://mocyno.com/services/chantiers/" />
     <link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/construction-sites/" />
     <link rel="alternate" hreflang="x-default" href="https://mocyno.com/services/chantiers/" />
-    <link rel="preload" href="/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/styles.css?v=2.0" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-        <link rel="stylesheet" href="/styles.css">
+        <link rel="stylesheet" href="/styles.css?v=2.0">
     </noscript>
     <link rel="stylesheet" href="/styles-compat-patch.css?v=hero-fix-1" />
     <script defer src="/consent-ga.js"></script>
@@ -56,7 +56,20 @@
             <button class="menu-toggle" aria-label="Ouvrir ou fermer le menu" onclick="document.querySelector('.nav .links').classList.toggle('open');
       document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
             <nav class="links" role="navigation" aria-label="Navigation principale">
-                <a href="/services/">Services</a>
+                        <div class="services-nav">
+          <a href="/services/" class="services-trigger">Services</a>
+          <div class="services-menu">
+            <ul class="services-list">
+              <li><a href="/services/securite-cynophile.html">Sécurité Cynophile</a></li>
+              <li><a href="/services/surveillance-humaine.html">Surveillance Humaine</a></li>
+              <li><a href="/services/marinas-ports/">Marinas & Ports</a></li>
+              <li><a href="/services/chantiers/">Sécurité Chantiers BTP</a></li>
+              <li><a href="/services/residentiel/">Résidentiel & Villas</a></li>
+              <li><a href="/services/hotellerie/">Hôtellerie</a></li>
+              <li><a href="/services/evenementiel-premium/">Événementiel Premium</a></li>
+            </ul>
+          </div>
+        </div>
                 <a href="/#expertises">Expertises</a>
                 <a href="/#zones">Zones</a>
                 <a href="/#references">Références</a>
@@ -72,7 +85,20 @@
 
     <main role="main" style="max-width:900px;margin:40px auto;padding:0 16px">
         <nav aria-label="Fil d'ariane" style="font-size:0.9em;opacity:0.8;margin-bottom:16px;">
-            <a href="/">Accueil</a> &gt; <a href="/services/">Services</a> &gt; <span>Chantiers & BTP</span>
+            <a href="/">Accueil</a> &gt;         <div class="services-nav">
+          <a href="/services/" class="services-trigger">Services</a>
+          <div class="services-menu">
+            <ul class="services-list">
+              <li><a href="/services/securite-cynophile.html">Sécurité Cynophile</a></li>
+              <li><a href="/services/surveillance-humaine.html">Surveillance Humaine</a></li>
+              <li><a href="/services/marinas-ports/">Marinas & Ports</a></li>
+              <li><a href="/services/chantiers/">Sécurité Chantiers BTP</a></li>
+              <li><a href="/services/residentiel/">Résidentiel & Villas</a></li>
+              <li><a href="/services/hotellerie/">Hôtellerie</a></li>
+              <li><a href="/services/evenementiel-premium/">Événementiel Premium</a></li>
+            </ul>
+          </div>
+        </div> &gt; <span>Chantiers & BTP</span>
         </nav>
 
         <h1>Sécurité des Chantiers & Sites de Construction</h1>
