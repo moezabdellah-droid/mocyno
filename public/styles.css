@@ -851,10 +851,10 @@ form.grid-2 {
 .dropdown-menu {
   display: none; /* Caché par défaut */
   position: absolute;
-  top: 100%; /* Juste sous le lien */
-  left: -20px;
+  top: 110%; /* Juste sous le lien + petit décalage */
+  left: 0;
   background-color: #ffffff;
-  min-width: 240px;
+  min-width: 280px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   border-radius: 12px;
   padding: 8px 0;
@@ -893,11 +893,15 @@ form.grid-2 {
 @media (max-width: 920px) {
   .dropdown-menu {
     position: static;
+    display: block; /* Toujours visible sur mobile */
     box-shadow: none;
-    border: none;
-    background: rgba(0,0,0,0.02);
-    padding-left: 16px;
-    display: block; /* Toujours visible sur mobile si le menu est ouvert */
+    background: transparent;
+    padding-left: 0;
+    margin-top: 8px;
+  }
+  .dropdown-menu a {
+    padding: 8px 0 8px 16px; /* Indenté comme sous-liste */
+    font-size: 14px;
   }
 }
 
