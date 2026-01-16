@@ -838,17 +838,13 @@ form.grid-2 {
   /* Space for shadow and hover lift */
 }
 
-/* === SOUS-MENU SERVICES CLEAN (FIXED) === */
+/* === SOUS-MENU SERVICES CLEAN (FINAL FIX) === */
 .services-nav {
   position: relative;
-  display: inline-flex;
-  /* Fix alignment */
+  display: inline-flex !important;
   align-items: center;
   height: 100%;
   vertical-align: middle;
-  /* Fix baseline shift */
-  flex-shrink: 0;
-  /* Fix flex crush */
 }
 
 .services-trigger {
@@ -858,9 +854,9 @@ form.grid-2 {
   cursor: pointer;
   position: relative;
   font-weight: 500;
-  /* Match other links */
-  line-height: 1;
-  /* Fix height calculations */
+  line-height: normal;
+  text-decoration: none !important;
+  color: #0f3552;
   transition: color 0.15s ease;
 }
 
@@ -868,24 +864,22 @@ form.grid-2 {
   color: #cd1a20;
 }
 
+/* Force Absolute on Desktop */
 .services-menu {
-  position: absolute;
+  position: absolute !important;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%) translateY(-8px);
-  /* Center align */
+  transform: translateX(-50%) translateY(-10px);
   min-width: 260px;
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  margin-top: 4px;
-  /* Slight gap */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   opacity: 0;
   visibility: hidden;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 1001;
-  overflow: hidden;
+  transition: all 0.2s ease;
+  z-index: 2000 !important;
+  display: block;
 }
 
 .services-nav:hover .services-menu {
@@ -895,25 +889,26 @@ form.grid-2 {
 }
 
 .services-list {
-  list-style: none;
+  list-style: none !important;
   padding: 8px 0;
-  margin: 0;
+  margin: 0 !important;
 }
 
 .services-list li {
-  margin: 0;
+  margin: 0 !important;
   display: block;
+  list-style: none !important;
+  /* Double safety */
 }
 
 .services-list a {
   display: block;
   padding: 10px 20px;
   color: #0f3552;
-  text-decoration: none;
+  text-decoration: none !important;
   font-size: 15px;
   font-weight: 500;
   border-left: 3px solid transparent;
-  /* Prepare hovering line */
   transition: all 0.15s ease;
 }
 
@@ -921,62 +916,41 @@ form.grid-2 {
   background: #f8fafc;
   color: #cd1a20;
   padding-left: 24px;
-  /* Animated padding */
   border-left-color: #cd1a20;
-  /* Red accent line */
 }
 
-/* Mobile : List indented */
+/* Mobile Overrides */
 @media (max-width: 920px) {
   .services-nav {
-    display: block;
+    display: block !important;
     width: 100%;
-    height: auto;
   }
 
   .services-trigger {
     width: 100%;
     justify-content: space-between;
-    padding: 0;
-    /* Inherit nav link spacing */
   }
 
-  /* Chevron for mobile indication */
   .services-trigger::after {
     content: '›';
     font-size: 18px;
     transform: rotate(90deg);
-    margin-right: 8px;
     color: #94a3b8;
   }
 
   .services-menu {
-    position: static;
-    transform: none;
-    min-width: 0;
-    width: 100%;
-    opacity: 1;
-    visibility: visible;
+    position: static !important;
+    transform: none !important;
     box-shadow: none;
     border: none;
-    background: transparent;
+    opacity: 1;
+    visibility: visible;
     padding: 0;
-    margin: 4px 0 0 0;
+    margin-top: 5px;
   }
 
   .services-list a {
     padding: 8px 0 8px 16px;
-    /* Indent 16px */
-    font-size: 14px;
     border-left: 2px solid #e2e8f0;
-    color: #334155;
-  }
-
-  .services-list a:hover {
-    padding-left: 16px;
-    /* No extra slide on mobile */
-    background: transparent;
-    color: #cd1a20;
-    border-left-color: #cd1a20;
   }
 }
