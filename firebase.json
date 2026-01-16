@@ -1,7 +1,7 @@
 {
   "hosting": {
     "public": "public",
-    "cleanUrls": true,
+    "cleanUrls": false,
     "trailingSlash": false,
     "ignore": [
       "firebase.json",
@@ -23,6 +23,102 @@
           "functionId": "contactForm",
           "region": "europe-west1"
         }
+      },
+      {
+        "source": "/contact",
+        "destination": "/contact.html"
+      },
+      {
+        "source": "/a-propos",
+        "destination": "/a-propos.html"
+      },
+      {
+        "source": "/mentions-legales",
+        "destination": "/mentions-legales.html"
+      },
+      {
+        "source": "/politique-confidentialite",
+        "destination": "/politique-confidentialite.html"
+      },
+      {
+        "source": "/cookies",
+        "destination": "/cookies.html"
+      },
+      {
+        "source": "/en/contact",
+        "destination": "/en/contact.html"
+      },
+      {
+        "source": "/en/about",
+        "destination": "/en/about.html"
+      },
+      {
+        "source": "/en/legal",
+        "destination": "/en/legal.html"
+      },
+      {
+        "source": "/en/privacy",
+        "destination": "/en/privacy.html"
+      },
+      {
+        "source": "/en/cookies",
+        "destination": "/en/cookies.html"
+      },
+      {
+        "source": "/zones/saint-tropez",
+        "destination": "/zones/saint-tropez.html"
+      },
+      {
+        "source": "/zones/cannes",
+        "destination": "/zones/cannes.html"
+      },
+      {
+        "source": "/zones/nice",
+        "destination": "/zones/nice.html"
+      },
+      {
+        "source": "/zones/toulon",
+        "destination": "/zones/toulon.html"
+      },
+      {
+        "source": "/zones/ramatuelle",
+        "destination": "/zones/ramatuelle.html"
+      },
+      {
+        "source": "/zones/frejus",
+        "destination": "/zones/frejus.html"
+      },
+      {
+        "source": "/zones/sainte-maxime",
+        "destination": "/zones/sainte-maxime.html"
+      },
+      {
+        "source": "/en/zones/saint-tropez",
+        "destination": "/en/zones/saint-tropez.html"
+      },
+      {
+        "source": "/en/zones/cannes",
+        "destination": "/en/zones/cannes.html"
+      },
+      {
+        "source": "/en/zones/nice",
+        "destination": "/en/zones/nice.html"
+      },
+      {
+        "source": "/en/zones/toulon",
+        "destination": "/en/zones/toulon.html"
+      },
+      {
+        "source": "/en/zones/ramatuelle",
+        "destination": "/en/zones/ramatuelle.html"
+      },
+      {
+        "source": "/en/zones/frejus",
+        "destination": "/en/zones/frejus.html"
+      },
+      {
+        "source": "/en/zones/sainte-maxime",
+        "destination": "/en/zones/sainte-maxime.html"
       }
     ],
     "headers": [
