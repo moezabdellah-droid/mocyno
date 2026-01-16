@@ -838,202 +838,91 @@ form.grid-2 {
   /* Space for shadow and hover lift */
 }
 
-/* --- PREMIUM SERVICES MENU (MO'CYNO CUSTOM) --- */
-.mocyno-services-menu {
-  display: inline-block;
+/* === SOUS-MENU SERVICES ÉPURÉ ===
+   Minimaliste, proportions parfaites, sans icônes */
+.services-nav {
   position: relative;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+  display: inline-block;
 }
 
 .services-trigger {
+  padding: 12px 20px;
   cursor: pointer;
-  padding-bottom: 24px;
-  /* Zone tampon safe */
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+  transition: color 0.2s ease;
 }
 
-.services-dropdown {
+.services-trigger:hover {
+  color: #cd1a20;
+}
+
+.services-menu {
   position: absolute;
   top: 100%;
-  left: -20px;
-  width: 580px;
-  /* Largeur confortable pour 2 colonnes */
-  background: rgba(255, 255, 255, 0.95);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 20px;
-  box-shadow:
-    0 20px 40px -5px rgba(2, 44, 81, 0.15),
-    0 8px 16px -8px rgba(0, 0, 0, 0.05);
-  /* Double ombre premium */
-  padding: 16px;
-  z-index: 1002;
-
-  /* Animation État Initial */
+  left: 0;
+  right: 0;
+  min-width: 260px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  margin-top: 8px;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(12px) scale(0.98);
-  transition:
-    opacity 0.2s ease,
-    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0s linear 0.2s;
-  pointer-events: none;
-}
-
-/* Affichage au survol */
-.mocyno-services-menu:hover .services-dropdown,
-.mocyno-services-menu:focus-within .services-dropdown {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
-  pointer-events: auto;
-  transition-delay: 0s;
-}
-
-/* Grille Interne */
-.services-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-/* Items (Links) */
-.service-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 12px 16px;
-  text-decoration: none !important;
-  color: var(--deepNavy) !important;
-  border-radius: 12px;
-  transition: background 0.2s ease, transform 0.2s ease;
-  position: relative;
+  transform: translateY(-8px);
+  transition: all 0.25s ease-out;
+  z-index: 1001;
   overflow: hidden;
 }
 
-.service-item span {
-  font-weight: 500;
+.services-nav:hover .services-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.services-list {
+  list-style: none;
+  padding: 12px 0;
+  margin: 0;
+}
+
+.services-list li {
+  margin: 0;
+}
+
+.services-list a {
+  display: block;
+  padding: 12px 20px;
+  color: #0f3552;
+  text-decoration: none;
   font-size: 15px;
-  letter-spacing: -0.01em;
+  font-weight: 500;
+  border-bottom: 1px solid #f1f5f9;
+  transition: all 0.2s ease;
 }
 
-/* Icones SVG */
-.service-icon {
-  width: 36px;
-  height: 36px;
-  background: #f0f4f8;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--navy);
-  transition: background 0.2s ease, color 0.2s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+.services-list a:hover {
+  background: #f8fafc;
+  color: #cd1a20;
+  padding-left: 28px;
+  box-shadow: inset 3px 0 0 #cd1a20;
 }
 
-.service-icon svg {
-  width: 20px;
-  height: 20px;
-  stroke-width: 2;
+.services-list a:last-child {
+  border-bottom: none;
 }
 
-/* Hover Effects */
-.service-item:hover {
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-  transform: translateX(4px);
-  /* Slide droite léger */
-}
-
-.service-item:hover .service-icon {
-  background: var(--red);
-  color: #fff;
-  transform: scale(1.1) rotate(-3deg);
-}
-
-/* Tablette (Intermédiaire) */
-@media (max-width: 1024px) {
-  .services-dropdown {
-    width: 480px;
-    left: -100px;
-    /* Centrage approximatif */
-  }
-}
-
-/* Mobile (Version Empilée) */
-@media (max-width: 920px) {
-  .mocyno-services-menu {
-    display: block;
-    width: 100%;
+/* Mobile : légèrement plus compact */
+@media (max-width: 768px) {
+  .services-menu {
+    min-width: 240px;
+    left: -20px;
+    right: -20px;
   }
 
-  .services-trigger {
-    width: 100%;
-    padding-bottom: 0;
-    justify-content: space-between;
-  }
-
-  /* Le chevron mobile */
-  .services-trigger::after {
-    content: '›';
-    font-size: 20px;
-    transform: rotate(90deg);
-    margin-right: 8px;
-    color: var(--muted);
-  }
-
-  .services-dropdown {
-    position: static;
-    width: 100%;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    box-shadow: none;
-    border: none;
-    background: transparent;
-    padding: 8px 0 0 0;
-    pointer-events: auto;
-    backdrop-filter: none;
-  }
-
-  .services-grid {
-    grid-template-columns: 1fr;
-    /* Liste verticale */
-    gap: 4px;
-    border-left: 2px solid rgba(0, 0, 0, 0.05);
-    /* Ligne de fil conducteur */
-    margin-left: 8px;
-    padding-left: 8px;
-  }
-
-  .service-item {
-    background: transparent !important;
-    box-shadow: none !important;
-    transform: none !important;
-    padding: 10px 12px;
-  }
-
-  .service-item:active {
-    background: rgba(0, 0, 0, 0.03) !important;
-  }
-
-  .service-icon {
-    width: 32px;
-    height: 32px;
-    background: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-  }
-
-  .service-item:hover .service-icon {
-    transform: none;
-    /* Pas de rotation sur mobile */
-  }
-
-  .service-icon svg {
-    width: 18px;
-    height: 18px;
+  .services-list a {
+    padding: 10px 16px;
+    font-size: 14px;
   }
 }
