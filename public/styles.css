@@ -954,3 +954,82 @@ form.grid-2 {
     border-left: 2px solid #e2e8f0;
   }
 }
+/* CRO Elements - Added for Google Ads Performance */
+.floating-cta {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  background: var(--red);
+  color: #fff !important;
+  padding: 16px 24px;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(205, 26, 32, 0.4);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  animation: pulse-red 2s infinite;
+  border: 2px solid #fff;
+  transition: transform 0.2s ease;
+}
+
+.floating-cta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(205, 26, 32, 0.6);
+  text-decoration: none;
+}
+
+@keyframes pulse-red {
+  0% { box-shadow: 0 0 0 0 rgba(205, 26, 32, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(205, 26, 32, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(205, 26, 32, 0); }
+}
+
+.lead-form-hero {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--red);
+  padding: 24px;
+  border-radius: 12px;
+  margin: 32px 0;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+.lead-form-hero h3 {
+  margin-top: 0;
+  color: var(--navy);
+  font-size: 18px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lead-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.lead-form-hero button {
+  width: 100%;
+  margin-top: 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+@media (max-width: 600px) {
+  .floating-cta {
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+  
+  .lead-form-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,41 +1,34 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-    <!-- Google Tag Manager (deferred) -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-  </script>
-  <script defer src="https://www.googletagmanager.com/gtm.js?id=GTM-WH9T9G58"></script>
-  <!-- End Google Tag Manager -->
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Contact & Quote — MO'CYNO</title>
+  <!-- Google Tag Manager head --> <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s), j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-WH9T9G58');</script> <!-- End Google Tag Manager -->
+<meta charset="utf-8" />
+  
+  
   <meta name="description"
     content="Request a quote for private security services in the French Riviera: manned guarding, K9 units, SSIAP fire safety, event security.">
   <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://mocyno.com/en/contact.html">
-  <link rel="alternate" hreflang="fr" href="https://mocyno.com/contact.html" />
-  <link rel="alternate" hreflang="en" href="https://mocyno.com/en/contact.html" />
-  <link rel="alternate" hreflang="x-default" href="https://mocyno.com/contact.html" />
+  <link rel="canonical" href="https://mocyno.com/en/contact/">
+  <link rel="alternate" hreflang="fr" href="https://mocyno.com/contact/" />
+  <link rel="alternate" hreflang="en" href="https://mocyno.com/en/contact/" />
+  <link rel="alternate" hreflang="x-default" href="https://mocyno.com/contact/" />
   <link rel="icon" href="/favicon.ico">
   <link rel="preload" href="/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="/styles.css"></noscript>
-
   <!-- GA4 via consent management -->
   <meta name="ga-measurement-id" content="G-E5JX7DYYYN">
   <script defer src="/consent-ga.js"></script>
-
   <!-- Google Ads gtag for conversions -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     window.gtag = window.gtag || gtag;
-
     // Google Ads configuration
     gtag('config', 'AW-1067390390');
   </script>
-
   <!-- Conversion Google Ads : CONTACT (1) -->
   <script>
     function sendContactConversion(callback) {
@@ -61,14 +54,12 @@
       }
     }
   </script>
-
 </head>
-
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WH9T9G58" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WH9T9G58" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+
   <header class="site-header">
     <div class="container nav">
       <a class="logo" href="/en/">
@@ -88,37 +79,31 @@
         <a href="/en/#zones">Areas</a>
         <a href="/en/#references">References</a>
         <a href="/blog/" style="font-weight:700">Blog</a>
-        <a class="btn primary" href="/en/contact.html">Quote &amp; Contact</a>
+        <a class="btn primary" href="/en/contact/">Quote &amp; Contact</a>
         <a class="lang-switch" aria-label="Français" hreflang="fr" href="/">FR</a>
       </nav>
     </div>
     <div class="nav-overlay" onclick="document.querySelector('.nav .links').classList.remove('open');
                 this.classList.remove('show')"></div>
   </header>
-
   <main class="container" style="max-width:900px">
     <section class="section" style="padding-top:32px">
       <h1>Contact & Quote</h1>
       <p class="small">Describe your needs. We will get back to you within 24 business hours.</p>
-
       <!-- No inline onsubmit: handled by JS below (conversion + localStorage) -->
       <form id="contactForm" action="/api/contact" method="POST">
         <!-- Honeypot anti-bot -->
         <input type="text" name="website" style="position:absolute;left:-9999px;opacity:0" tabindex="-1"
           autocomplete="off">
-
         <label for="name">Full name / Company
           <input id="name" name="name" autocomplete="name" required>
         </label>
-
         <label for="email">Email
           <input id="email" name="email" type="email" autocomplete="email" required>
         </label>
-
         <label for="phone">Phone
           <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required>
         </label>
-
         <label for="service">Service
           <select id="service" name="service">
             <option>Manned guarding</option>
@@ -128,16 +113,12 @@
             <option>Other / Consulting</option>
           </select>
         </label>
-
         <label for="message" style="grid-column:1/-1">Message
           <textarea id="message" name="message" rows="6" required></textarea>
         </label>
-
         <button class="btn primary" type="submit">Send</button>
       </form>
-
       <hr>
-
       <p class="small" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
         📞 <a href="tel:+33666035116">+33 6 66 03 51 16</a> ·
         ✉️ <a href="mailto:contact@mocyno.com">contact@mocyno.com</a> ·
@@ -152,7 +133,6 @@
       </p>
     </section>
   </main>
-
   <footer class="site-footer" style="background:#0f3552;color:#fff">
     <div class="container footer-grid">
       <div class="footer-left">
@@ -163,39 +143,32 @@
           <span>CNAPS license: AUT-83-2124-09-09-20250998415.</span>
         </div>
       </div>
-
       <nav class="footer-links">
-
-        <a href="/en/legal.html">Legal</a>
-        <a href="/en/privacy.html">Privacy</a>
-        <a href="/en/cookies.html">Cookies</a>
+        <a href="/en/legal/">Legal</a>
+        <a href="/en/privacy/">Privacy</a>
+        <a href="/en/cookies/">Cookies</a>
         <a href="/sitemap.xml">Sitemap</a>
       </nav>
     </div>
   </footer>
-
   <!-- Script: mark EN contact + send Google Ads conversion before real submit -->
   <script>
     (function () {
       var form = document.getElementById('contactForm');
       if (!form) return;
-
       form.addEventListener('submit', function (event) {
         // Avoid double conversion
         if (form.dataset.conversionSent === '1') {
           return;
         }
-
         event.preventDefault();
         form.dataset.conversionSent = '1';
-
         // Mark last contact language as EN (same logic as previous markEnContact)
         try {
           localStorage.setItem('last_contact_lang', 'en');
         } catch (e) {
           // ignore if storage is blocked
         }
-
         // Send Google Ads conversion, then actually submit
         sendContactConversion(function () {
           form.submit();
@@ -203,7 +176,6 @@
       });
     })();
   </script>
-
   <!--Start of Tawk.to Script-->
   <script type="text/javascript">
     var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
@@ -218,5 +190,4 @@
   </script>
   <!--End of Tawk.to Script-->
 </body>
-
 </html>
