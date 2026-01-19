@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-    <!-- Google Tag Manager (deferred) -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-  </script>
-  <script defer src="https://www.googletagmanager.com/gtm.js?id=GTM-WH9T9G58"></script>
-  <!-- End Google Tag Manager -->
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Contact & Devis — MO'CYNO</title>
+  <!-- Google Tag Manager head --> <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s), j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-WH9T9G58');</script> <!-- End Google Tag Manager -->
+<meta charset="utf-8" />
+  
+  
   <meta name="description"
     content="Demandez un devis pour une solution de sécurité privée en PACA : surveillance humaine, cynophile, SSIAP, événementiel.">
   <meta name="robots" content="index,follow">
@@ -21,16 +18,13 @@
   <link rel="icon" href="/favicon.ico">
   <link rel="preload" href="/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="/styles.css"></noscript>
-
   <!-- GA4 via gestion du consentement (Consent Mode v2) -->
   <meta name="ga-measurement-id" content="G-E5JX7DYYYN">
   <script defer src="/consent-ga.js"></script>
 </head>
-
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WH9T9G58" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WH9T9G58" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
   <header class="site-header" role="banner">
@@ -58,29 +52,23 @@
       onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')"
       tabindex="0" aria-label="Fermer le menu"></div>
   </header>
-
   <main class="container" style="max-width:900px">
     <section class="section" style="padding-top:32px">
       <h1>Devis & Contact</h1>
       <p class="small">Décrivez votre besoin, nous revenons vers vous rapidement (24 h ouvrées).</p>
-
       <form id="contactForm" class="contact-form" action="/api/contact" method="POST" aria-label="Formulaire de contact">
         <!-- Honeypot anti-bot (doit rester vide) -->
         <input type="text" name="website" style="position:absolute;left:-9999px;opacity:0" tabindex="-1"
           autocomplete="off" aria-hidden="true">
-
         <label for="name">Nom / Entreprise
           <input id="name" name="name" autocomplete="name" required>
         </label>
-
         <label for="email">Email
           <input id="email" name="email" type="email" autocomplete="email" required>
         </label>
-
         <label for="phone">Téléphone
           <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required>
         </label>
-
         <label for="service">Service
           <select id="service" name="service">
             <option>Surveillance humaine</option>
@@ -90,16 +78,12 @@
             <option>Autre / Conseil</option>
           </select>
         </label>
-
         <label for="message" style="grid-column:1/-1">Message
           <textarea id="message" name="message" rows="6" required></textarea>
         </label>
-
         <button class="btn primary" type="submit">Envoyer</button>
       </form>
-
       <hr>
-
       <p class="small" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
         📞 <a href="tel:+33666035116">+33 6 66 03 51 16</a> ·
         ✉️ <a href="mailto:contact@mocyno.com">contact@mocyno.com</a> ·
@@ -118,7 +102,6 @@
       </p>
     </section>
   </main>
-
   <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
     <div class="container footer-grid">
       <div class="footer-left">
@@ -129,7 +112,6 @@
           <span>Autorisation d'exercer CNAPS : AUT-83-2124-09-09-20250998415.</span>
         </div>
       </div>
-
       <nav class="footer-links" role="navigation" aria-label="Navigation secondaire">
         <a href="/a-propos/">À propos</a>
         <a href="/mentions-legales/">Mentions légales</a>
@@ -139,7 +121,6 @@
       </nav>
     </div>
   </footer>
-
   <!--Start of Tawk.to Script-->
   <script type="text/javascript">
     var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
@@ -154,5 +135,4 @@
   </script>
   <!--End of Tawk.to Script-->
 </body>
-
 </html>
