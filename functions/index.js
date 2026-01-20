@@ -632,7 +632,7 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
     // 1. Send Admin Notification (to Mo'Cyno Team)
     const adminEmail = await resend.emails.send({
       from: "Mo'Cyno Contact <no-reply@mocyno.com>",
-      to: ["contact@mocyno.com", "abdellahmoez@gmail.com"],
+      to: ["contact@mocyno.com", "abdellahmoez@gmail.com", "moezabdellah@mocyno.com"],
       replyTo: emailStr,
       subject: `Nouveau Contact Site : ${nameStr} (${serviceStr || "Général"})`,
       html: `
