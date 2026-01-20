@@ -954,6 +954,7 @@ form.grid-2 {
     border-left: 2px solid #e2e8f0;
   }
 }
+
 /* CRO Elements - Added for Google Ads Performance */
 .floating-cta {
   position: fixed;
@@ -983,9 +984,17 @@ form.grid-2 {
 }
 
 @keyframes pulse-red {
-  0% { box-shadow: 0 0 0 0 rgba(205, 26, 32, 0.7); }
-  70% { box-shadow: 0 0 0 10px rgba(205, 26, 32, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(205, 26, 32, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(205, 26, 32, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(205, 26, 32, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(205, 26, 32, 0);
+  }
 }
 
 .lead-form-hero {
@@ -1028,19 +1037,21 @@ form.grid-2 {
     padding: 12px 18px;
     font-size: 14px;
   }
-  
+
   .lead-form-grid {
     grid-template-columns: 1fr;
   }
 }
 
-/* === MENU ZONES (COPIE SERVICES) === */
+/* === MENU ZONES (IDENTIQUE SERVICES) === */
 .zones-nav {
   position: relative;
   display: inline-flex !important;
   align-items: center;
   height: 100%;
   vertical-align: middle;
+  flex-shrink: 0;
+  /* ZÉRO décalage */
 }
 
 .zones-trigger {
@@ -1051,29 +1062,36 @@ form.grid-2 {
   position: relative;
   font-weight: 500;
   line-height: normal;
+  /* Alignement parfait */
   text-decoration: none !important;
   color: #0f3552;
   transition: color 0.15s ease;
+  /* Timing identique Services */
+  white-space: nowrap;
+  /* Pas de wrap */
 }
 
 .zones-trigger:hover {
   color: #cd1a20;
 }
 
-/* Force Absolute on Desktop */
+/* POSITION IDENTIQUE SERVICES */
 .zones-menu {
   position: absolute !important;
   top: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(-10px);
   min-width: 260px;
+  /* Exact Services */
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  /* Identique */
   opacity: 0;
   visibility: hidden;
   transition: all 0.2s ease;
+  /* Timing Services */
   z-index: 2000 !important;
   display: block;
 }
@@ -1087,34 +1105,36 @@ form.grid-2 {
 .zones-list {
   list-style: none !important;
   padding: 8px 0;
+  /* Exact */
   margin: 0 !important;
 }
 
 .zones-list li {
   margin: 0 !important;
-  display: block;
-  list-style: none !important;
 }
 
 .zones-list a {
   display: block;
   padding: 10px 20px;
+  /* Exact Services */
   color: #0f3552;
   text-decoration: none !important;
   font-size: 15px;
   font-weight: 500;
   border-left: 3px solid transparent;
   transition: all 0.15s ease;
+  /* Hover timing */
 }
 
 .zones-list a:hover {
   background: #f8fafc;
   color: #cd1a20;
   padding-left: 24px;
+  /* Slide gauche identique */
   border-left-color: #cd1a20;
 }
 
-/* Mobile Overrides */
+/* MOBILE IDENTIQUE SERVICES */
 @media (max-width: 920px) {
   .zones-nav {
     display: block !important;
@@ -1149,4 +1169,3 @@ form.grid-2 {
     border-left: 2px solid #e2e8f0;
   }
 }
-
