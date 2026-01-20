@@ -1033,3 +1033,120 @@ form.grid-2 {
     grid-template-columns: 1fr;
   }
 }
+
+/* === MENU ZONES (COPIE SERVICES) === */
+.zones-nav {
+  position: relative;
+  display: inline-flex !important;
+  align-items: center;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.zones-trigger {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  position: relative;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none !important;
+  color: #0f3552;
+  transition: color 0.15s ease;
+}
+
+.zones-trigger:hover {
+  color: #cd1a20;
+}
+
+/* Force Absolute on Desktop */
+.zones-menu {
+  position: absolute !important;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  min-width: 260px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  z-index: 2000 !important;
+  display: block;
+}
+
+.zones-nav:hover .zones-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.zones-list {
+  list-style: none !important;
+  padding: 8px 0;
+  margin: 0 !important;
+}
+
+.zones-list li {
+  margin: 0 !important;
+  display: block;
+  list-style: none !important;
+}
+
+.zones-list a {
+  display: block;
+  padding: 10px 20px;
+  color: #0f3552;
+  text-decoration: none !important;
+  font-size: 15px;
+  font-weight: 500;
+  border-left: 3px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.zones-list a:hover {
+  background: #f8fafc;
+  color: #cd1a20;
+  padding-left: 24px;
+  border-left-color: #cd1a20;
+}
+
+/* Mobile Overrides */
+@media (max-width: 920px) {
+  .zones-nav {
+    display: block !important;
+    width: 100%;
+  }
+
+  .zones-trigger {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .zones-trigger::after {
+    content: '›';
+    font-size: 18px;
+    transform: rotate(90deg);
+    color: #94a3b8;
+  }
+
+  .zones-menu {
+    position: static !important;
+    transform: none !important;
+    box-shadow: none;
+    border: none;
+    opacity: 1;
+    visibility: visible;
+    padding: 0;
+    margin-top: 5px;
+  }
+
+  .zones-list a {
+    padding: 8px 0 8px 16px;
+    border-left: 2px solid #e2e8f0;
+  }
+}
+
