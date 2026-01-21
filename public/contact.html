@@ -1,36 +1,29 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Contact & Devis — MO'CYNO</title>
-    <!-- SAFE GTM - No insertBefore dependency -->
-  <script>
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-  var scriptTag = document.createElement('script');
-  scriptTag.async = true;
-  scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-WH9T9G58';
-  document.head.appendChild(scriptTag);
-  </script>
-<meta charset="utf-8" />
-  <meta name="description"
-    content="Demandez un devis pour une solution de sécurité privée en PACA : surveillance humaine, cynophile, SSIAP, événementiel.">
-  <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://mocyno.com/contact/">
-  <link rel="alternate" hreflang="fr" href="https://mocyno.com/contact/" />
-  <link rel="alternate" hreflang="en" href="https://mocyno.com/en/contact/" />
-  <link rel="alternate" hreflang="x-default" href="https://mocyno.com/contact/" />
-  <link rel="icon" href="/favicon.ico">
-  <link rel="preload" href="/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="/styles.css"></noscript>
-  <!-- GA4 via gestion du consentement (Consent Mode v2) -->
-  <meta name="ga-measurement-id" content="G-E5JX7DYYYN">
+  <link rel="stylesheet" href="/styles.css?v=2.5">
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-N4MSSMV3');</script>
+  <!-- End Google Tag Manager -->
+  <meta name="ga-measurement-id" content="G-Q5ZHXE665Z">
   <script defer src="/consent-ga.js"></script>
 </head>
+
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WH9T9G58" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4MSSMV3" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
   <header class="site-header" role="banner">
@@ -45,9 +38,34 @@
       <button class="menu-toggle" aria-label="Ouvrir ou fermer le menu" onclick="document.querySelector('.nav .links').classList.toggle('open');
       document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
       <nav class="links" role="navigation" aria-label="Navigation principale">
-        <a href="/services/">Services</a>
+        <div class="services-nav">
+          <a href="/services/" class="services-trigger">Services</a>
+          <div class="services-menu">
+            <ul class="services-list">
+              <li><a href="/services/securite-cynophile.html">Sécurité Cynophile</a></li>
+              <li><a href="/services/surveillance-humaine.html">Surveillance Humaine</a></li>
+              <li><a href="/services/marinas-ports/">Marinas & Ports</a></li>
+              <li><a href="/services/chantiers/">Sécurité Chantiers BTP</a></li>
+              <li><a href="/services/residentiel/">Résidentiel & Villas</a></li>
+              <li><a href="/services/hotellerie/">Hôtellerie</a></li>
+              <li><a href="/services/evenementiel-premium/">Événementiel Premium</a></li>
+            </ul>
+          </div>
+        </div>
         <a href="/#expertises">Expertises</a>
-        <a href="/#zones">Zones</a>
+        <div class="zones-nav">
+          <a href="/zones/" class="zones-trigger">Zones</a>
+          <div class="zones-menu">
+            <ul class="zones-list">
+              <li><a href="/zones/saint-tropez.html">Saint-Tropez</a></li>
+              <li><a href="/zones/cannes.html">Cannes</a></li>
+              <li><a href="/zones/nice.html">Nice</a></li>
+              <li><a href="/zones/toulon.html">Toulon</a></li>
+              <li><a href="/zones/frejus.html">Fréjus</a></li>
+              <li><a href="/zones/sainte-maxime.html">Sainte-Maxime</a></li>
+            </ul>
+          </div>
+        </div>
         <a href="/#references">Références</a>
         <a href="/blog/" style="font-weight:700">Blog</a>
         <a class="btn primary" href="/contact/">Devis & Contact</a>
@@ -62,7 +80,8 @@
     <section class="section" style="padding-top:32px">
       <h1>Devis & Contact</h1>
       <p class="small">Décrivez votre besoin, nous revenons vers vous rapidement (24 h ouvrées).</p>
-      <form id="contactForm" class="contact-form" action="/api/contact" method="POST" aria-label="Formulaire de contact">
+      <form id="contactForm" class="contact-form" action="/api/contact" method="POST"
+        aria-label="Formulaire de contact">
         <!-- Honeypot anti-bot (doit rester vide) -->
         <input type="text" name="website" style="position:absolute;left:-9999px;opacity:0" tabindex="-1"
           autocomplete="off" aria-hidden="true">
@@ -97,13 +116,18 @@
           Rue Chevalier Paul, 83000 Toulon</a> ·
         💬 <a href="https://wa.me/message/53TDACISLGDRJ1" target="_blank" rel="noopener"
           style="display:inline-flex;align-items:center;text-decoration:none;">
-          <img src="/whatsapp.png" alt="WhatsApp" width="20" height="20"
-            style="margin-right:6px;vertical-align:middle;" loading="lazy"> WhatsApp
+          <img src="/whatsapp.png" alt="WhatsApp" width="20" height="20" style="margin-right:6px;vertical-align:middle;"
+            loading="lazy"> WhatsApp
         </a> ·
         🔗 <a href="https://www.linkedin.com/company/mocyno/" target="_blank" rel="noopener"
           style="display:inline-flex;align-items:center;text-decoration:none;">
-          <img src="/linkedin.png" alt="LinkedIn" width="20" height="20"
-            style="margin-right:6px;vertical-align:middle;" loading="lazy"> LinkedIn
+          <img src="/linkedin.png" alt="LinkedIn" width="20" height="20" style="margin-right:6px;vertical-align:middle;"
+            loading="lazy"> LinkedIn
+        </a> ·
+        📸 <a href="https://www.instagram.com/mocyno_officiel/" target="_blank" rel="noopener"
+          style="display:inline-flex;align-items:center;text-decoration:none;">
+          <img src="/instagram.png" alt="Instagram" width="20" height="20"
+            style="margin-right:6px;vertical-align:middle;" loading="lazy"> Instagram
         </a>
       </p>
     </section>
@@ -141,4 +165,5 @@
   </script>
   <!--End of Tawk.to Script-->
 </body>
+
 </html>
