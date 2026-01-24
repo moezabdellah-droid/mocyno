@@ -1,0 +1,631 @@
+======================================================================
+PRE-PHASE 3 CONSISTENCY AUDIT
+======================================================================
+
+OK - Baselines loaded successfully
+
+Found 95 HTML files to audit
+
+
+======================================================================
+AUDIT REPORT
+======================================================================
+
+Total pages scanned: 95
+  FR pages: 68
+  EN pages: 27
+
+Fully compliant: 34
+With divergence: 61
+
+======================================================================
+DIVERGENCES DETECTED
+======================================================================
+
+File: public\404.html
+Language: FR
+  HEADER:
+    - Missing key: logo_href
+    - Missing key: nav_items
+    - Missing key: services_submenu
+    - Missing key: zones_submenu
+    - Missing key: lang_switch
+    - Missing key: cta_button
+  FOOTER:
+    - Missing key: footer_links
+    - Missing key: has_cnaps
+    - Missing key: cnaps_text
+
+File: public\a-propos.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\blog\gardiennage-chantier-toulon.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\blog\index.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\blog\securite-congres-cannes.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\blog\securite-domaine-prive-saint-tropez.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\blog\securite-mariage-var.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\blog\securite-villa-saint-tropez.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\blog\ssiap-hotel-paca.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\contact.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\cookies.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\en\about.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/a-propos/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/a-propos/', 'hreflang': 'fr-FR'}'
+
+File: public\en\blog\index.html
+Language: EN
+  HEADER:
+    - logo_href: '/en/' != '/fr/'
+    - nav_items[0]: {'text': 'Expertise', 'href': '/en/#expertises', 'classes': ''} != {'text': 'Expertises', 'href': '/#expertises', 'classes': ''}
+    - nav_items[1]: {'text': 'References', 'href': '/en/#references', 'classes': ''} != {'text': 'RÚfÚrences', 'href': '/#references', 'classes': ''}
+    - nav_items[2]: {'text': 'Blog', 'href': '/en/blog/', 'classes': ''} != {'text': 'Blog', 'href': '/fr/blog/', 'classes': ''}
+    - nav_items[3]: {'text': 'Quote & Contact', 'href': '/en/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'}
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'EN', 'href': '/en/', 'classes': 'lang-switch'}
+    - services_submenu[0]: {'text': 'K9 Security', 'href': '/en/services/securite-cynophile/'} != {'text': 'SÚcuritÚ Cynophile', 'href': '/fr/services/securite-cynophile/'}
+    - services_submenu[1]: {'text': 'Manned Guarding', 'href': '/en/services/surveillance-humaine/'} != {'text': 'Surveillance Humaine', 'href': '/fr/services/surveillance-humaine/'}
+    - services_submenu[2]: {'text': 'Marinas & Ports', 'href': '/en/services/marinas-ports/'} != {'text': 'Marinas & Ports', 'href': '/fr/services/marinas-ports/'}
+    - services_submenu[3]: {'text': 'Construction Sites', 'href': '/en/services/construction-sites/'} != {'text': 'SÚcuritÚ Chantiers BTP', 'href': '/fr/services/chantiers/'}
+    - services_submenu[4]: {'text': 'Residential & Villas', 'href': '/en/services/residential/'} != {'text': 'RÚsidentiel & Villas', 'href': '/fr/services/residentiel/'}
+    - services_submenu[5]: {'text': 'Hospitality', 'href': '/en/services/hospitality/'} != {'text': 'H¶tellerie', 'href': '/fr/services/hotellerie/'}
+    - services_submenu[6]: {'text': 'Event Security', 'href': '/en/services/premium-events/'} != {'text': '╔vÚnementiel Premium', 'href': '/fr/services/evenementiel-premium/'}
+    - zones_submenu[0]: {'text': 'Saint-Tropez', 'href': '/en/zones/saint-tropez/'} != {'text': 'Saint-Tropez', 'href': '/fr/zones/saint-tropez/'}
+    - zones_submenu[1]: {'text': 'Cannes', 'href': '/en/zones/cannes/'} != {'text': 'Cannes', 'href': '/fr/zones/cannes/'}
+    - zones_submenu[2]: {'text': 'Nice', 'href': '/en/zones/nice/'} != {'text': 'Nice', 'href': '/fr/zones/nice/'}
+    - zones_submenu[3]: {'text': 'Toulon', 'href': '/en/zones/toulon/'} != {'text': 'Toulon', 'href': '/fr/zones/toulon/'}
+    - zones_submenu[4]: {'text': 'Frejus', 'href': '/en/zones/frejus/'} != {'text': 'FrÚjus', 'href': '/fr/zones/frejus/'}
+    - zones_submenu[5]: {'text': 'Sainte-Maxime', 'href': '/en/zones/sainte-maxime/'} != {'text': 'Sainte-Maxime', 'href': '/fr/zones/sainte-maxime/'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'EN', 'href': '/en/', 'hreflang': 'en-GB'}'
+    - cta_button: '{'text': 'Quote & Contact', 'href': '/en/contact/'}' != '{'text': 'Devis & Contact', 'href': '/fr/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': 'About', 'href': '/en/about/'} != {'text': '└ propos', 'href': '/fr/a-propos/'}
+    - footer_links[1]: {'text': 'Legal', 'href': '/en/legal/'} != {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'}
+    - footer_links[2]: {'text': 'Privacy', 'href': '/en/privacy/'} != {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/en/cookies/'} != {'text': 'Cookies', 'href': '/fr/cookies/'}
+
+File: public\en\contact.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/contact/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/contact/', 'hreflang': 'fr-FR'}'
+
+File: public\en\cookies.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/cookies/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/cookies/', 'hreflang': 'fr-FR'}'
+
+File: public\en\legal.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/mentions-legales/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/mentions-legales/', 'hreflang': 'fr-FR'}'
+
+File: public\en\merci_en.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/merci/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/merci/', 'hreflang': 'fr-FR'}'
+
+File: public\en\privacy.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/politique-confidentialite/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/politique-confidentialite/', 'hreflang': 'fr-FR'}'
+
+File: public\en\services\construction-sites\index.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/services/chantiers/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/services/chantiers/', 'hreflang': 'fr-FR'}'
+
+File: public\en\services\hospitality\index.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/services/hotellerie/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/services/hotellerie/', 'hreflang': 'fr-FR'}'
+
+File: public\en\services\index.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/services/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/services/', 'hreflang': 'fr-FR'}'
+
+File: public\en\services\luxury-boutiques\index.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/services/luxe-boutiques/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/services/luxe-boutiques/', 'hreflang': 'fr-FR'}'
+
+File: public\en\services\marinas-ports\index.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/services/marinas-ports/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/services/marinas-ports/', 'hreflang': 'fr-FR'}'
+
+File: public\en\services\premium-events\index.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/services/evenementiel-premium/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/services/evenementiel-premium/', 'hreflang': 'fr-FR'}'
+
+File: public\en\services\protection-luxe.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/services/protection-luxe/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/services/protection-luxe/', 'hreflang': 'fr-FR'}'
+
+File: public\en\services\residential\index.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/services/residentiel/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/services/residentiel/', 'hreflang': 'fr-FR'}'
+
+File: public\en\services\securite-cynophile.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/services/securite-cynophile/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/services/securite-cynophile/', 'hreflang': 'fr-FR'}'
+
+File: public\en\services\securite-evenementielle.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/services/securite-evenementielle/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/services/securite-evenementielle/', 'hreflang': 'fr-FR'}'
+
+File: public\en\services\securite-incendie-ssiap.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/services/securite-incendie-ssiap/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/services/securite-incendie-ssiap/', 'hreflang': 'fr-FR'}'
+
+File: public\en\services\surveillance-humaine.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/services/surveillance-humaine/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/services/surveillance-humaine/', 'hreflang': 'fr-FR'}'
+
+File: public\en\zones\cannes.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/zones/cannes/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/zones/cannes/', 'hreflang': 'fr-FR'}'
+
+File: public\en\zones\frejus.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/zones/frejus/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/zones/frejus/', 'hreflang': 'fr-FR'}'
+
+File: public\en\zones\nice.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/zones/nice/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/zones/nice/', 'hreflang': 'fr-FR'}'
+
+File: public\en\zones\ramatuelle.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/zones/ramatuelle/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/zones/ramatuelle/', 'hreflang': 'fr-FR'}'
+
+File: public\en\zones\saint-tropez.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/zones/saint-tropez/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/zones/saint-tropez/', 'hreflang': 'fr-FR'}'
+
+File: public\en\zones\sainte-maxime.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/zones/sainte-maxime/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/zones/sainte-maxime/', 'hreflang': 'fr-FR'}'
+
+File: public\en\zones\toulon.html
+Language: EN
+  HEADER:
+    - nav_items[4]: {'text': 'FR', 'href': '/fr/', 'classes': 'lang-switch'} != {'text': 'FR', 'href': '/fr/zones/toulon/', 'classes': 'lang-switch'}
+    - lang_switch: '{'text': 'FR', 'href': '/fr/', 'hreflang': 'fr-FR'}' != '{'text': 'FR', 'href': '/fr/zones/toulon/', 'hreflang': 'fr-FR'}'
+
+File: public\fr\404.html
+Language: FR
+  HEADER:
+    - Missing key: logo_href
+    - Missing key: nav_items
+    - Missing key: services_submenu
+    - Missing key: zones_submenu
+    - Missing key: lang_switch
+    - Missing key: cta_button
+  FOOTER:
+    - Missing key: footer_links
+    - Missing key: has_cnaps
+    - Missing key: cnaps_text
+
+File: public\index.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\mentions-legales.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\merci.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\politique-confidentialite.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\services\chantiers\index.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\services\evenementiel-premium\index.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\services\hotellerie\index.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\services\index.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\services\luxe-boutiques\index.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\services\marinas-ports\index.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\services\protection-luxe.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\services\residentiel\index.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\services\securite-cynophile.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\services\securite-evenementielle.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\services\securite-incendie-ssiap.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\services\surveillance-humaine.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\zones\cannes.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\zones\frejus.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\zones\nice.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\zones\ramatuelle.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\zones\saint-tropez.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\zones\sainte-maxime.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+File: public\zones\toulon.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+======================================================================
+VERDICT: WARNING - DIVERGENCES FOUND - FIX REQUIRED BEFORE PHASE 3
+======================================================================

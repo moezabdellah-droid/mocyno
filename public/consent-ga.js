@@ -145,10 +145,6 @@
     box.style.maxWidth = '980px';
     box.style.margin = '0 auto';
 
-    // Dans la fonction buildBanner(), après la ligne 127
-    box.setAttribute('aria-labelledby', 'consent-title');
-    box.setAttribute('aria-describedby', 'consent-desc');
-
     var title = DOC.createElement('div');
     title.id = 'consent-title';
     title.style.fontWeight = '700';
@@ -159,13 +155,17 @@
     txt.id = 'consent-desc';
     txt.style.fontSize = '14px';
     txt.style.lineHeight = '1.45';
-    txt.innerHTML = en
+    txt.textContent = en
       ? "We use analytics cookies (GA4) only after your consent. You can revoke anytime."
-      : "Nous utilisons des cookies d’analyse (GA4) uniquement après votre consentement. Vous pouvez le révoquer à tout moment.";
+      : "Nous utilisons des cookies d'analyse (GA4) uniquement après votre consentement. Vous pouvez le révoquer à tout moment.";
 
     var textContainer = DOC.createElement('div');
     textContainer.appendChild(title);
     textContainer.appendChild(txt);
+
+    // Set ARIA attributes after elements are created
+    box.setAttribute('aria-labelledby', 'consent-title');
+    box.setAttribute('aria-describedby', 'consent-desc');
 
     var actions = DOC.createElement('div');
     actions.style.display = 'flex';
@@ -215,7 +215,7 @@
     actions.appendChild(acceptBtn);
     actions.appendChild(refuseBtn);
     actions.appendChild(policyLink);
-    box.appendChild(txt);
+    box.appendChild(textContainer);
     box.appendChild(actions);
     DOC.body.appendChild(box);
   }

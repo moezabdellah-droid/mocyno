@@ -1,0 +1,7 @@
+Excluded Pages Report:
+https://mocyno.com/404/ (System Page)
+https://mocyno.com/merci/ (System Page)
+https://mocyno.com/admin/ (System Page)
+https://mocyno.com/en/merci_en/ (System Page)
+https://mocyno.com/fr/404/ (System Page)
+https://mocyno.com/fr/merci/ (System Page)

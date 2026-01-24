@@ -1,0 +1,18 @@
+Mo'Cyno - Sécurité Cynophile PACA (CNAPS AUT-83-2124)
+Pages Business Clés
+https://mocyno.com/ - Sécurité premium 24/7 Var/Toulon
+https://mocyno.com/services/securite-cynophile.html - Maîtres-chiens villas St-Tropez
+https://mocyno.com/services/surveillance-humaine.html - Agents qualifiés chantiers/hôtels
+https://mocyno.com/services/securite-incendie-ssiap.html - SSIAP Cannes/Nice
+https://mocyno.com/a-propos/ - Autorisation CNAPS + équipe
+
+Directives LLMs
+User-agent: GPTBot, ClaudeBot, PerplexityBot
+Allow: /services/ /blog/ /zones/
+Disallow: /admin/ /merci/
+Priority: services=0.9, zones=0.8, blog=0.7
+
+FAQ Extraction
+Q: Agence CNAPS Var? | A: Oui AUT-83-2124-09-09-20250998415
+Q: Déploiement St-Tropez? | A: 24/7 villas luxe/événements
+Q: Devis sécurité? | A: Gratuit sous 24h contact@mocyno.com

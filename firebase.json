@@ -1,7 +1,7 @@
 {
   "hosting": {
     "public": "public",
-    "cleanUrls": false,
+    "cleanUrls": true,
     "trailingSlash": true,
     "ignore": [
       "firebase.json",
@@ -10,161 +10,237 @@
     ],
     "redirects": [
       {
-        "source": "/contact.html",
-        "destination": "/contact/",
+        "source": "/",
+        "destination": "/fr/",
         "type": 301
       },
       {
-        "source": "/a-propos.html",
-        "destination": "/a-propos/",
+        "source": "/a-propos",
+        "destination": "/fr/a-propos/",
         "type": 301
       },
       {
-        "source": "/mentions-legales.html",
-        "destination": "/mentions-legales/",
+        "source": "/blog",
+        "destination": "/fr/blog/",
         "type": 301
       },
       {
-        "source": "/politique-confidentialite.html",
-        "destination": "/politique-confidentialite/",
+        "source": "/blog/gardiennage-chantier-toulon",
+        "destination": "/fr/blog/gardiennage-chantier-toulon/",
         "type": 301
       },
       {
-        "source": "/cookies.html",
-        "destination": "/cookies/",
+        "source": "/blog/gardiennage-chantier-toulon.html",
+        "destination": "/fr/blog/gardiennage-chantier-toulon/",
         "type": 301
       },
       {
-        "source": "/en/contact.html",
-        "destination": "/en/contact/",
+        "source": "/blog/securite-congres-cannes",
+        "destination": "/fr/blog/securite-congres-cannes/",
         "type": 301
       },
       {
-        "source": "/en/about.html",
-        "destination": "/en/about/",
+        "source": "/blog/securite-congres-cannes.html",
+        "destination": "/fr/blog/securite-congres-cannes/",
         "type": 301
       },
       {
-        "source": "/en/legal.html",
-        "destination": "/en/legal/",
+        "source": "/blog/securite-domaine-prive-saint-tropez",
+        "destination": "/fr/blog/securite-domaine-prive-saint-tropez/",
         "type": 301
       },
       {
-        "source": "/en/privacy.html",
-        "destination": "/en/privacy/",
+        "source": "/blog/securite-domaine-prive-saint-tropez.html",
+        "destination": "/fr/blog/securite-domaine-prive-saint-tropez/",
         "type": 301
       },
       {
-        "source": "/en/cookies.html",
-        "destination": "/en/cookies/",
+        "source": "/blog/securite-mariage-var",
+        "destination": "/fr/blog/securite-mariage-var/",
         "type": 301
       },
       {
-        "source": "/zones/saint-tropez.html",
-        "destination": "/zones/saint-tropez/",
+        "source": "/blog/securite-mariage-var.html",
+        "destination": "/fr/blog/securite-mariage-var/",
         "type": 301
       },
       {
-        "source": "/zones/ramatuelle.html",
-        "destination": "/zones/ramatuelle/",
+        "source": "/blog/securite-villa-saint-tropez",
+        "destination": "/fr/blog/securite-villa-saint-tropez/",
         "type": 301
       },
       {
-        "source": "/zones/cannes.html",
-        "destination": "/zones/cannes/",
+        "source": "/blog/securite-villa-saint-tropez.html",
+        "destination": "/fr/blog/securite-villa-saint-tropez/",
         "type": 301
       },
       {
-        "source": "/zones/nice.html",
-        "destination": "/zones/nice/",
+        "source": "/blog/ssiap-hotel-paca",
+        "destination": "/fr/blog/ssiap-hotel-paca/",
         "type": 301
       },
       {
-        "source": "/zones/toulon.html",
-        "destination": "/zones/toulon/",
+        "source": "/blog/ssiap-hotel-paca.html",
+        "destination": "/fr/blog/ssiap-hotel-paca/",
         "type": 301
       },
       {
-        "source": "/zones/frejus.html",
-        "destination": "/zones/frejus/",
+        "source": "/contact",
+        "destination": "/fr/contact/",
         "type": 301
       },
       {
-        "source": "/zones/sainte-maxime.html",
-        "destination": "/zones/sainte-maxime/",
+        "source": "/mobile",
+        "destination": "/fr/",
         "type": 301
       },
       {
-        "source": "/en/zones/saint-tropez.html",
-        "destination": "/en/zones/saint-tropez/",
+        "source": "/services",
+        "destination": "/fr/services/",
         "type": 301
       },
       {
-        "source": "/en/zones/ramatuelle.html",
-        "destination": "/en/zones/ramatuelle/",
+        "source": "/services/chantiers",
+        "destination": "/fr/services/chantiers/",
         "type": 301
       },
       {
-        "source": "/en/zones/cannes.html",
-        "destination": "/en/zones/cannes/",
+        "source": "/services/evenementiel-premium",
+        "destination": "/fr/services/evenementiel-premium/",
         "type": 301
       },
       {
-        "source": "/en/zones/nice.html",
-        "destination": "/en/zones/nice/",
+        "source": "/services/hotellerie",
+        "destination": "/fr/services/hotellerie/",
         "type": 301
       },
       {
-        "source": "/en/zones/toulon.html",
-        "destination": "/en/zones/toulon/",
-        "type": 301
-      },
-      {
-        "source": "/en/zones/frejus.html",
-        "destination": "/en/zones/frejus/",
-        "type": 301
-      },
-      {
-        "source": "/en/zones/sainte-maxime.html",
-        "destination": "/en/zones/sainte-maxime/",
-        "type": 301
-      },
-      {
-        "source": "/services/securite-incendie-ssiap",
-        "destination": "/services/securite-incendie-ssiap.html",
-        "type": 301
-      },
-      {
-        "source": "/services/surveillance-humaine",
-        "destination": "/services/surveillance-humaine.html",
+        "source": "/services/marinas-ports",
+        "destination": "/fr/services/marinas-ports/",
         "type": 301
       },
       {
         "source": "/services/protection-luxe",
-        "destination": "/services/protection-luxe.html",
+        "destination": "/fr/services/protection-luxe/",
+        "type": 301
+      },
+      {
+        "source": "/services/protection-luxe.html",
+        "destination": "/fr/services/protection-luxe/",
+        "type": 301
+      },
+      {
+        "source": "/services/residentiel",
+        "destination": "/fr/services/residentiel/",
+        "type": 301
+      },
+      {
+        "source": "/services/securite-cynophile",
+        "destination": "/fr/services/securite-cynophile/",
+        "type": 301
+      },
+      {
+        "source": "/services/securite-cynophile.html",
+        "destination": "/fr/services/securite-cynophile/",
         "type": 301
       },
       {
         "source": "/services/securite-evenementielle",
-        "destination": "/services/securite-evenementielle.html",
+        "destination": "/fr/services/securite-evenementielle/",
         "type": 301
       },
       {
-        "source": "/mentions-legales",
-        "destination": "/mentions-legales/",
+        "source": "/services/securite-evenementielle.html",
+        "destination": "/fr/services/securite-evenementielle/",
         "type": 301
       },
       {
-        "source": "/en/legal",
-        "destination": "/en/legal/",
+        "source": "/services/surveillance-humaine",
+        "destination": "/fr/services/surveillance-humaine/",
+        "type": 301
+      },
+      {
+        "source": "/services/surveillance-humaine.html",
+        "destination": "/fr/services/surveillance-humaine/",
+        "type": 301
+      },
+      {
+        "source": "/zones",
+        "destination": "/fr/zones/",
+        "type": 301
+      },
+      {
+        "source": "/zones/cannes",
+        "destination": "/fr/zones/cannes/",
+        "type": 301
+      },
+      {
+        "source": "/zones/cannes.html",
+        "destination": "/fr/zones/cannes/",
+        "type": 301
+      },
+      {
+        "source": "/zones/frejus",
+        "destination": "/fr/zones/frejus/",
+        "type": 301
+      },
+      {
+        "source": "/zones/frejus.html",
+        "destination": "/fr/zones/frejus/",
+        "type": 301
+      },
+      {
+        "source": "/zones/nice",
+        "destination": "/fr/zones/nice/",
+        "type": 301
+      },
+      {
+        "source": "/zones/nice.html",
+        "destination": "/fr/zones/nice/",
+        "type": 301
+      },
+      {
+        "source": "/zones/ramatuelle",
+        "destination": "/fr/zones/ramatuelle/",
+        "type": 301
+      },
+      {
+        "source": "/zones/ramatuelle.html",
+        "destination": "/fr/zones/ramatuelle/",
+        "type": 301
+      },
+      {
+        "source": "/zones/saint-tropez",
+        "destination": "/fr/zones/saint-tropez/",
+        "type": 301
+      },
+      {
+        "source": "/zones/saint-tropez.html",
+        "destination": "/fr/zones/saint-tropez/",
+        "type": 301
+      },
+      {
+        "source": "/zones/sainte-maxime",
+        "destination": "/fr/zones/sainte-maxime/",
+        "type": 301
+      },
+      {
+        "source": "/zones/sainte-maxime.html",
+        "destination": "/fr/zones/sainte-maxime/",
+        "type": 301
+      },
+      {
+        "source": "/zones/toulon",
+        "destination": "/fr/zones/toulon/",
+        "type": 301
+      },
+      {
+        "source": "/zones/toulon.html",
+        "destination": "/fr/zones/toulon/",
         "type": 301
       }
     ],
     "rewrites": [
-      {
-        "source": "/mobile/**",
-        "destination": "/mobile/index.html"
-      },
       {
         "source": "/admin/**",
         "destination": "/admin/index.html"
@@ -175,102 +251,6 @@
           "functionId": "contactForm",
           "region": "europe-west1"
         }
-      },
-      {
-        "source": "/contact/",
-        "destination": "/contact.html"
-      },
-      {
-        "source": "/a-propos/",
-        "destination": "/a-propos.html"
-      },
-      {
-        "source": "/mentions-legales/",
-        "destination": "/mentions-legales.html"
-      },
-      {
-        "source": "/politique-confidentialite/",
-        "destination": "/politique-confidentialite.html"
-      },
-      {
-        "source": "/cookies/",
-        "destination": "/cookies.html"
-      },
-      {
-        "source": "/en/contact/",
-        "destination": "/en/contact.html"
-      },
-      {
-        "source": "/en/about/",
-        "destination": "/en/about.html"
-      },
-      {
-        "source": "/en/legal/",
-        "destination": "/en/legal.html"
-      },
-      {
-        "source": "/en/privacy/",
-        "destination": "/en/privacy.html"
-      },
-      {
-        "source": "/en/cookies/",
-        "destination": "/en/cookies.html"
-      },
-      {
-        "source": "/zones/saint-tropez/",
-        "destination": "/zones/saint-tropez.html"
-      },
-      {
-        "source": "/zones/cannes/",
-        "destination": "/zones/cannes.html"
-      },
-      {
-        "source": "/zones/nice/",
-        "destination": "/zones/nice.html"
-      },
-      {
-        "source": "/zones/toulon/",
-        "destination": "/zones/toulon.html"
-      },
-      {
-        "source": "/zones/ramatuelle/",
-        "destination": "/zones/ramatuelle.html"
-      },
-      {
-        "source": "/zones/frejus/",
-        "destination": "/zones/frejus.html"
-      },
-      {
-        "source": "/zones/sainte-maxime/",
-        "destination": "/zones/sainte-maxime.html"
-      },
-      {
-        "source": "/en/zones/saint-tropez/",
-        "destination": "/en/zones/saint-tropez.html"
-      },
-      {
-        "source": "/en/zones/cannes/",
-        "destination": "/en/zones/cannes.html"
-      },
-      {
-        "source": "/en/zones/nice/",
-        "destination": "/en/zones/nice.html"
-      },
-      {
-        "source": "/en/zones/toulon/",
-        "destination": "/en/zones/toulon.html"
-      },
-      {
-        "source": "/en/zones/ramatuelle/",
-        "destination": "/en/zones/ramatuelle.html"
-      },
-      {
-        "source": "/en/zones/frejus/",
-        "destination": "/en/zones/frejus.html"
-      },
-      {
-        "source": "/en/zones/sainte-maxime/",
-        "destination": "/en/zones/sainte-maxime.html"
       }
     ],
     "headers": [
@@ -296,11 +276,29 @@
         ]
       },
       {
-        "source": "**/*.@(jpg|jpeg|gif|png|webp|svg|css|js)",
+        "source": "**/*.html",
         "headers": [
           {
             "key": "Cache-Control",
-            "value": "max-age=2592000"
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(css|js)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public,max-age=31536000,immutable"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(jpg|jpeg|gif|png|webp|svg|ico|avif)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public,max-age=31536000,immutable"
           }
         ]
       }

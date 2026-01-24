@@ -1,0 +1,182 @@
+======================================================================
+SEO META Tags Validation - SEO 2026 Compliance
+======================================================================
+Scanning: C:\Users\abdel\Desktop\Mocyno3\mocyno2\public
+
+Found 96 HTML files
+
+
+======================================================================
+VALIDATION RESULTS
+======================================================================
+
+VALIDATION FAILED
+Non-compliant pages: 50/96
+
+FAILED FILES:
+
+X public\admin\index.html
+      <meta name="description">: 0 (expected: 1)
+      <meta property="og:description">: 0 (expected: 1)
+
+X public\blog\gardiennage-chantier-toulon.html
+      <meta property="og:description">: 0 (expected: 1)
+
+X public\blog\securite-mariage-var.html
+      <meta property="og:description">: 0 (expected: 1)
+
+X public\blog\ssiap-hotel-paca.html
+      <meta property="og:description">: 0 (expected: 1)
+
+X public\contact.html
+      <meta property="og:description">: 0 (expected: 1)
+
+X public\en\about.html
+      <meta name="description">: 2 (expected: 1)
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\blog\index.html
+      <meta name="description">: 2 (expected: 1)
+
+X public\en\contact.html
+      <meta name="description">: 2 (expected: 1)
+
+X public\en\cookies.html
+      <meta name="description">: 2 (expected: 1)
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\index.html
+      <meta name="description">: 2 (expected: 1)
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\legal.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\merci_en.html
+      <meta name="description">: 2 (expected: 1)
+
+X public\en\privacy.html
+      <meta name="description">: 2 (expected: 1)
+
+X public\en\services\construction-sites\index.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\services\hospitality\index.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\services\index.html
+      <meta property="og:description">: 3 (expected: 1)
+
+X public\en\services\luxury-boutiques\index.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\services\marinas-ports\index.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\services\premium-events\index.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\services\protection-luxe.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\services\residential\index.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\services\securite-cynophile.html
+      <meta property="og:description">: 3 (expected: 1)
+
+X public\en\services\securite-incendie-ssiap.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\zones\cannes.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\zones\frejus.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\zones\nice.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\zones\ramatuelle.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\zones\saint-tropez.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\zones\sainte-maxime.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\en\zones\toulon.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\fr\a-propos.html
+      <meta name="description">: 2 (expected: 1)
+
+X public\fr\blog\gardiennage-chantier-toulon.html
+      <meta name="description">: 2 (expected: 1)
+
+X public\fr\blog\index.html
+      <meta name="description">: 2 (expected: 1)
+
+X public\fr\blog\securite-domaine-prive-saint-tropez.html
+      <meta name="description">: 2 (expected: 1)
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\fr\blog\securite-mariage-var.html
+      <meta name="description">: 2 (expected: 1)
+
+X public\fr\blog\securite-villa-saint-tropez.html
+      <meta name="description">: 2 (expected: 1)
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\fr\blog\ssiap-hotel-paca.html
+      <meta name="description">: 2 (expected: 1)
+
+X public\fr\contact.html
+      <meta name="description">: 2 (expected: 1)
+
+X public\fr\index.html
+      <meta name="description">: 2 (expected: 1)
+      <meta property="og:description">: 3 (expected: 1)
+
+X public\fr\services\index.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\fr\services\residentiel\index.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\fr\services\securite-evenementielle.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\fr\services\surveillance-humaine.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\fr\zones\frejus.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\fr\zones\ramatuelle.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\fr\zones\sainte-maxime.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\fr\zones\toulon.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\index.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\merci.html
+      <meta property="og:description">: 0 (expected: 1)
+
+X public\services\securite-cynophile.html
+      <meta property="og:description">: 2 (expected: 1)
+
+FIX REQUIRED:
+Each page MUST have exactly:
+  - 1 <title>
+  - 1 <meta name="description">
+  - 1 <meta property="og:description">
+
+All tags must be within <head> section.
+

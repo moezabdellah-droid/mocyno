@@ -1,0 +1,116 @@
+Starting Comprehensive Audit...
+Scanned 95 files. Found issues in 34 files.
+
+[en\about.html]
+  - Broken Link: /hero-mocyno.jpg (Target not found. Checked: ['hero-mocyno.jpg', 'hero-mocyno.jpg.html', 'hero-mocyno.jpg\\index.html'])
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\contact.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\cookies.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\index.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\legal.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\merci_en.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+  - Broken Link: /fr/merci_en/ (Target not found. Checked: ['fr\\merci_en', 'fr\\merci_en.html', 'fr\\merci_en\\index.html'])
+
+[en\privacy.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\services\index.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\services\protection-luxe.html]
+  - Broken Link: /hero-mocyno.jpg (Target not found. Checked: ['hero-mocyno.jpg', 'hero-mocyno.jpg.html', 'hero-mocyno.jpg\\index.html'])
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\services\securite-cynophile.html]
+  - Broken Link: /hero-mocyno.jpg (Target not found. Checked: ['hero-mocyno.jpg', 'hero-mocyno.jpg.html', 'hero-mocyno.jpg\\index.html'])
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\services\securite-evenementielle.html]
+  - Broken Link: /hero-mocyno.jpg (Target not found. Checked: ['hero-mocyno.jpg', 'hero-mocyno.jpg.html', 'hero-mocyno.jpg\\index.html'])
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\services\securite-incendie-ssiap.html]
+  - Broken Link: /hero-mocyno.jpg (Target not found. Checked: ['hero-mocyno.jpg', 'hero-mocyno.jpg.html', 'hero-mocyno.jpg\\index.html'])
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\services\surveillance-humaine.html]
+  - Broken Link: /hero-mocyno.jpg (Target not found. Checked: ['hero-mocyno.jpg', 'hero-mocyno.jpg.html', 'hero-mocyno.jpg\\index.html'])
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\services\construction-sites\index.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+  - Broken Link: /fr/services/construction-sites/ (Target not found. Checked: ['fr\\services\\construction-sites', 'fr\\services\\construction-sites.html', 'fr\\services\\construction-sites\\index.html'])
+
+[en\services\hospitality\index.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+  - Broken Link: /fr/services/hospitality/ (Target not found. Checked: ['fr\\services\\hospitality', 'fr\\services\\hospitality.html', 'fr\\services\\hospitality\\index.html'])
+
+[en\services\luxury-boutiques\index.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+  - Broken Link: /fr/services/luxury-boutiques/ (Target not found. Checked: ['fr\\services\\luxury-boutiques', 'fr\\services\\luxury-boutiques.html', 'fr\\services\\luxury-boutiques\\index.html'])
+
+[en\services\marinas-ports\index.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\services\premium-events\index.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+  - Broken Link: /fr/services/premium-events/ (Target not found. Checked: ['fr\\services\\premium-events', 'fr\\services\\premium-events.html', 'fr\\services\\premium-events\\index.html'])
+
+[en\services\residential\index.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+  - Broken Link: /fr/services/residential/ (Target not found. Checked: ['fr\\services\\residential', 'fr\\services\\residential.html', 'fr\\services\\residential\\index.html'])
+
+[en\zones\cannes.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\zones\frejus.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\zones\nice.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\zones\ramatuelle.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\zones\saint-tropez.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\zones\sainte-maxime.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[en\zones\toulon.html]
+  - Broken Link: /en/blog/ (Target not found. Checked: ['en\\blog', 'en\\blog.html', 'en\\blog\\index.html'])
+
+[fr\services\protection-luxe.html]
+  - Broken Link: /hero-mocyno.jpg (Target not found. Checked: ['hero-mocyno.jpg', 'hero-mocyno.jpg.html', 'hero-mocyno.jpg\\index.html'])
+
+[fr\services\securite-cynophile.html]
+  - Broken Link: /hero-mocyno.jpg (Target not found. Checked: ['hero-mocyno.jpg', 'hero-mocyno.jpg.html', 'hero-mocyno.jpg\\index.html'])
+
+[fr\services\securite-evenementielle.html]
+  - Broken Link: /hero-mocyno.jpg (Target not found. Checked: ['hero-mocyno.jpg', 'hero-mocyno.jpg.html', 'hero-mocyno.jpg\\index.html'])
+
+[fr\services\securite-incendie-ssiap.html]
+  - Broken Link: /hero-mocyno.jpg (Target not found. Checked: ['hero-mocyno.jpg', 'hero-mocyno.jpg.html', 'hero-mocyno.jpg\\index.html'])
+
+[services\protection-luxe.html]
+  - Broken Link: /hero-mocyno.jpg (Target not found. Checked: ['hero-mocyno.jpg', 'hero-mocyno.jpg.html', 'hero-mocyno.jpg\\index.html'])
+
+[services\securite-cynophile.html]
+  - Broken Link: /hero-mocyno.jpg (Target not found. Checked: ['hero-mocyno.jpg', 'hero-mocyno.jpg.html', 'hero-mocyno.jpg\\index.html'])
+
+[services\securite-evenementielle.html]
+  - Broken Link: /hero-mocyno.jpg (Target not found. Checked: ['hero-mocyno.jpg', 'hero-mocyno.jpg.html', 'hero-mocyno.jpg\\index.html'])
+
+[services\securite-incendie-ssiap.html]
+  - Broken Link: /hero-mocyno.jpg (Target not found. Checked: ['hero-mocyno.jpg', 'hero-mocyno.jpg.html', 'hero-mocyno.jpg\\index.html'])

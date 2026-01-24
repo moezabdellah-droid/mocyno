@@ -1,0 +1,56 @@
+======================================================================
+SEO META Tags Validation - SEO 2026 Compliance
+======================================================================
+Scanning: C:\Users\abdel\Desktop\Mocyno3\mocyno2\public
+
+Found 96 HTML files
+
+
+======================================================================
+VALIDATION RESULTS
+======================================================================
+
+VALIDATION FAILED
+Non-compliant pages: 10/96
+
+FAILED FILES:
+
+X public\admin\index.html
+      <meta name="description">: 0 (expected: 1)
+      <meta property="og:description">: 0 (expected: 1)
+
+X public\blog\gardiennage-chantier-toulon.html
+      <meta property="og:description">: 0 (expected: 1)
+
+X public\blog\securite-mariage-var.html
+      <meta property="og:description">: 0 (expected: 1)
+
+X public\blog\ssiap-hotel-paca.html
+      <meta property="og:description">: 0 (expected: 1)
+
+X public\contact.html
+      <meta property="og:description">: 0 (expected: 1)
+
+X public\en\blog\index.html
+      <meta name="description">: 2 (expected: 1)
+
+X public\fr\blog\index.html
+      <meta name="description">: 2 (expected: 1)
+
+X public\fr\blog\securite-domaine-prive-saint-tropez.html
+      <meta name="description">: 2 (expected: 1)
+
+X public\fr\services\securite-evenementielle.html
+      <meta property="og:description">: 2 (expected: 1)
+
+X public\merci.html
+      <meta property="og:description">: 0 (expected: 1)
+
+FIX REQUIRED:
+Each page MUST have exactly:
+  - 1 <title>
+  - 1 <meta name="description">
+  - 1 <meta property="og:description">
+
+All tags must be within <head> section.
+
