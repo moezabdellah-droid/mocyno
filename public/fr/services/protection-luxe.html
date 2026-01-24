@@ -241,18 +241,42 @@
       </nav>
     </div>
   </footer>
-  <!--Start of Tawk.to Script-->
-  <script type="text/javascript">
-    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-    (function () {
+  <!--Start of Tawk.to Script (Optimized Lazy Load)-->
+<script type="text/javascript">
+  // Lazy load Tawk.to after 3s OR on user scroll/interaction
+  (function() {
+    var tawkLoaded = false;
+    
+    function loadTawk() {
+      if (tawkLoaded) return;
+      tawkLoaded = true;
+      
+      var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
       var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
       s1.async = true;
       s1.src = 'https://embed.tawk.to/693452a684fc15197fdfc2a0/1jbq65n5t';
       s1.charset = 'UTF-8';
       s1.setAttribute('crossorigin', '*');
       s0.parentNode.insertBefore(s1, s0);
-    })();
-  </script>
-  <!--End of Tawk.to Script-->
+    }
+    
+    // Load after 3 seconds
+    setTimeout(loadTawk, 3000);
+    
+    // OR load on first scroll/interaction
+    var events = ['scroll', 'mousemove', 'touchstart', 'click'];
+    var loadOnce = function() {
+      loadTawk();
+      events.forEach(function(event) {
+        window.removeEventListener(event, loadOnce);
+      });
+    };
+    
+    events.forEach(function(event) {
+      window.addEventListener(event, loadOnce, { passive: true, once: true });
+    });
+  })();
+</script>
+<!--End of Tawk.to Script (Optimized Lazy Load)-->
 </body>
 </html>
