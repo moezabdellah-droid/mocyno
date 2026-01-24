@@ -1,0 +1,23 @@
+Starting Comprehensive Audit...
+Scanned 96 files. Found issues in 1 files.
+
+[en\blog\index.html]
+  - Broken Link: /en/services/chantiers/ (Target not found. Checked: ['en\\services\\chantiers', 'en\\services\\chantiers.html', 'en\\services\\chantiers\\index.html'])
+  - Broken Link: /en/services/residentiel/ (Target not found. Checked: ['en\\services\\residentiel', 'en\\services\\residentiel.html', 'en\\services\\residentiel\\index.html'])
+  - Broken Link: /en/services/hotellerie/ (Target not found. Checked: ['en\\services\\hotellerie', 'en\\services\\hotellerie.html', 'en\\services\\hotellerie\\index.html'])
+  - Broken Link: /en/services/evenementiel-premium/ (Target not found. Checked: ['en\\services\\evenementiel-premium', 'en\\services\\evenementiel-premium.html', 'en\\services\\evenementiel-premium\\index.html'])
+  - Broken Link: /en/blog/securite-domaine-prive-saint-tropez.html (Target not found. Checked: ['en\\blog\\securite-domaine-prive-saint-tropez.html', 'en\\blog\\securite-domaine-prive-saint-tropez.html.html', 'en\\blog\\securite-domaine-prive-saint-tropez.html\\index.html'])
+  - Broken Link: /en/blog/securite-domaine-prive-saint-tropez.html (Target not found. Checked: ['en\\blog\\securite-domaine-prive-saint-tropez.html', 'en\\blog\\securite-domaine-prive-saint-tropez.html.html', 'en\\blog\\securite-domaine-prive-saint-tropez.html\\index.html'])
+  - Broken Link: /en/blog/securite-congres-cannes.html (Target not found. Checked: ['en\\blog\\securite-congres-cannes.html', 'en\\blog\\securite-congres-cannes.html.html', 'en\\blog\\securite-congres-cannes.html\\index.html'])
+  - Broken Link: /en/blog/securite-congres-cannes.html (Target not found. Checked: ['en\\blog\\securite-congres-cannes.html', 'en\\blog\\securite-congres-cannes.html.html', 'en\\blog\\securite-congres-cannes.html\\index.html'])
+  - Broken Link: /en/blog/securite-villa-saint-tropez.html (Target not found. Checked: ['en\\blog\\securite-villa-saint-tropez.html', 'en\\blog\\securite-villa-saint-tropez.html.html', 'en\\blog\\securite-villa-saint-tropez.html\\index.html'])
+  - Broken Link: /en/blog/securite-villa-saint-tropez.html (Target not found. Checked: ['en\\blog\\securite-villa-saint-tropez.html', 'en\\blog\\securite-villa-saint-tropez.html.html', 'en\\blog\\securite-villa-saint-tropez.html\\index.html'])
+  - Broken Link: /en/blog/securite-mariage-var.html (Target not found. Checked: ['en\\blog\\securite-mariage-var.html', 'en\\blog\\securite-mariage-var.html.html', 'en\\blog\\securite-mariage-var.html\\index.html'])
+  - Broken Link: /en/blog/securite-mariage-var.html (Target not found. Checked: ['en\\blog\\securite-mariage-var.html', 'en\\blog\\securite-mariage-var.html.html', 'en\\blog\\securite-mariage-var.html\\index.html'])
+  - Broken Link: /en/blog/gardiennage-chantier-toulon.html (Target not found. Checked: ['en\\blog\\gardiennage-chantier-toulon.html', 'en\\blog\\gardiennage-chantier-toulon.html.html', 'en\\blog\\gardiennage-chantier-toulon.html\\index.html'])
+  - Broken Link: /en/blog/gardiennage-chantier-toulon.html (Target not found. Checked: ['en\\blog\\gardiennage-chantier-toulon.html', 'en\\blog\\gardiennage-chantier-toulon.html.html', 'en\\blog\\gardiennage-chantier-toulon.html\\index.html'])
+  - Broken Link: /en/blog/ssiap-hotel-paca.html (Target not found. Checked: ['en\\blog\\ssiap-hotel-paca.html', 'en\\blog\\ssiap-hotel-paca.html.html', 'en\\blog\\ssiap-hotel-paca.html\\index.html'])
+  - Broken Link: /en/blog/ssiap-hotel-paca.html (Target not found. Checked: ['en\\blog\\ssiap-hotel-paca.html', 'en\\blog\\ssiap-hotel-paca.html.html', 'en\\blog\\ssiap-hotel-paca.html\\index.html'])
+  - Broken Link: /en/a-propos/ (Target not found. Checked: ['en\\a-propos', 'en\\a-propos.html', 'en\\a-propos\\index.html'])
+  - Broken Link: /en/mentions-legales/ (Target not found. Checked: ['en\\mentions-legales', 'en\\mentions-legales.html', 'en\\mentions-legales\\index.html'])
+  - Broken Link: /en/politique-confidentialite/ (Target not found. Checked: ['en\\politique-confidentialite', 'en\\politique-confidentialite.html', 'en\\politique-confidentialite\\index.html'])

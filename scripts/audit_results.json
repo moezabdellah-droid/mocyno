@@ -1,0 +1,1677 @@
+[
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\404.html",
+    "rel_path": "404.html",
+    "url": "https://mocyno.com/404/",
+    "title": "404 \u2014 Page non trouv\u00e9e",
+    "h1": "Erreur 404",
+    "description": "La page que vous recherchez est introuvable. Retournez \u00e0 l\u2019accueil, contactez-nous ou consultez le plan du site.",
+    "canonical": null,
+    "hreflangs": [],
+    "word_count": 42,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\a-propos.html",
+    "rel_path": "a-propos.html",
+    "url": "https://mocyno.com/a-propos/",
+    "title": "\u00c0 propos \u2014 MO'CYNO",
+    "h1": "\u00c0 propos",
+    "description": "D\u00e9couvrez MO'CYNO, agence de s\u00e9curit\u00e9 priv\u00e9e varoise. Nos valeurs : rigueur op\u00e9rationnelle, transparence et expertise cynophile au service de votre protection.",
+    "canonical": "https://mocyno.com/a-propos/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/a-propos/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/about/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/a-propos/"
+      }
+    ],
+    "word_count": 291,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\contact.html",
+    "rel_path": "contact.html",
+    "url": "https://mocyno.com/contact/",
+    "title": "Contact & Devis \u2014 MO'CYNO",
+    "h1": "Devis & Contact",
+    "description": "Contactez MO'CYNO pour un devis gratuit de s\u00e9curit\u00e9 priv\u00e9e, gardiennage ou s\u00e9curit\u00e9 cynophile dans le Var. R\u00e9ponse sous 24h.",
+    "canonical": "https://mocyno.com/contact/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/contact/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/contact/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/contact/"
+      }
+    ],
+    "word_count": 151,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\cookies.html",
+    "rel_path": "cookies.html",
+    "url": "https://mocyno.com/cookies/",
+    "title": "Cookies & consentement \u2014 MO'CYNO",
+    "h1": "Cookies",
+    "description": "D\u00e9couvrez comment MO'CYNO utilise les cookies et technologies similaires, et comment g\u00e9rer votre consentement pour les cookies d\u2019analyse.",
+    "canonical": "https://mocyno.com/cookies/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/cookies/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/cookies/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/cookies/"
+      }
+    ],
+    "word_count": 368,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\index.html",
+    "rel_path": "index.html",
+    "url": "https://mocyno.com/",
+    "title": "S\u00e9curit\u00e9 Cynophile & SSIAP Var | MO'CYNO Toulon St-Tropez Cannes",
+    "h1": "MO'CYNO : S\u00e9curit\u00e9 Cynophile & SSIAP Var",
+    "description": "S\u00e9curit\u00e9 cynophile & priv\u00e9e MO'CYNO (Var). Ma\u00eetres-chiens, gardiennage, SSIAP 24/7 \u00e0 Toulon, St-Tropez, Nice. Devis gratuit CNAPS.",
+    "canonical": "https://mocyno.com/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/"
+      }
+    ],
+    "word_count": 928,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\mentions-legales.html",
+    "rel_path": "mentions-legales.html",
+    "url": "https://mocyno.com/mentions-legales/",
+    "title": "Mentions l\u00e9gales \u2014 MO'CYNO",
+    "h1": "Mentions l\u00e9gales",
+    "description": "Mentions l\u00e9gales du site MO'CYNO : \u00e9diteur, h\u00e9bergeur, propri\u00e9t\u00e9 intellectuelle et responsabilit\u00e9s.",
+    "canonical": "https://mocyno.com/mentions-legales/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/mentions-legales/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/legal/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/mentions-legales/"
+      }
+    ],
+    "word_count": 298,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\merci.html",
+    "rel_path": "merci.html",
+    "url": "https://mocyno.com/merci/",
+    "title": "Merci pour votre message \u2014 MO'CYNO",
+    "h1": "Merci pour votre message\u00a0!",
+    "description": "Merci pour votre message. L\u2019\u00e9quipe MO\u2019CYNO reviendra vers vous sous 24 h ouvr\u00e9es.",
+    "canonical": "https://mocyno.com/merci.html",
+    "hreflangs": [],
+    "word_count": 141,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\politique-confidentialite.html",
+    "rel_path": "politique-confidentialite.html",
+    "url": "https://mocyno.com/politique-confidentialite/",
+    "title": "Politique de confidentialit\u00e9 \u2014 MO'CYNO",
+    "h1": "Politique de confidentialit\u00e9",
+    "description": "Comment MO'CYNO traite vos donn\u00e9es personnelles conform\u00e9ment au RGPD et \u00e0 la loi Informatique et Libert\u00e9s.",
+    "canonical": "https://mocyno.com/politique-confidentialite/",
+    "hreflangs": [],
+    "word_count": 281,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\admin\\index.html",
+    "rel_path": "admin\\index.html",
+    "url": "https://mocyno.com/admin/",
+    "title": "admin",
+    "h1": null,
+    "description": null,
+    "canonical": null,
+    "hreflangs": [],
+    "word_count": 0,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\blog\\gardiennage-chantier-toulon.html",
+    "rel_path": "blog\\gardiennage-chantier-toulon.html",
+    "url": "https://mocyno.com/blog/gardiennage-chantier-toulon/",
+    "title": "Gardiennage de Chantier \u00e0 Toulon : Stop aux vols de mat\u00e9riaux \u2014 MO'CYNO",
+    "h1": "Gardiennage de\n                    Chantier \u00e0 Toulon : Comment stopper les vols ?",
+    "description": "Les chantiers BTP \u00e0 Toulon et dans le Var sont la cible de vols (cuivre, outillage). D\u00e9couvrez comment s\u00e9curiser votre chantier efficacement avec MO'CYNO.",
+    "canonical": "https://mocyno.com/blog/gardiennage-chantier-toulon.html",
+    "hreflangs": [],
+    "word_count": 315,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\blog\\index.html",
+    "rel_path": "blog\\index.html",
+    "url": "https://mocyno.com/blog/",
+    "title": "Blog S\u00e9curit\u00e9 Priv\u00e9e & Actus MO'CYNO \u2014 Var",
+    "h1": "Actualit\u00e9s & Conseils S\u00e9curit\u00e9",
+    "description": "Actualit\u00e9s, conseils et r\u00e9glementations sur la s\u00e9curit\u00e9 priv\u00e9e, le gardiennage et la s\u00e9curit\u00e9 cynophile dans le Var (83) et PACA.",
+    "canonical": "https://mocyno.com/blog/",
+    "hreflangs": [],
+    "word_count": 336,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\blog\\securite-congres-cannes.html",
+    "rel_path": "blog\\securite-congres-cannes.html",
+    "url": "https://mocyno.com/blog/securite-congres-cannes/",
+    "title": "S\u00e9curit\u00e9 des Congr\u00e8s et Salons \u00e0 Cannes : Le guide pour organisateurs",
+    "h1": "S\u00e9curit\u00e9 des Congr\u00e8s\n                    et Salons \u00e0 Cannes : Ce que les organisateurs doivent pr\u00e9voir",
+    "description": "Organisateurs de congr\u00e8s \u00e0 Cannes (MIPIM, Festival, Lions) : d\u00e9couvrez les enjeux vitaux de la s\u00e9curit\u00e9 \u00e9v\u00e9nementielle. Filtrage, VIP et risques business.",
+    "canonical": "https://mocyno.com/blog/securite-congres-cannes.html",
+    "hreflangs": [],
+    "word_count": 487,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\blog\\securite-domaine-prive-saint-tropez.html",
+    "rel_path": "blog\\securite-domaine-prive-saint-tropez.html",
+    "url": "https://mocyno.com/blog/securite-domaine-prive-saint-tropez/",
+    "title": "S\u00e9curit\u00e9 des Domaines Priv\u00e9s \u00e0 Saint-Tropez : Comment prot\u00e9ger les grands parcs",
+    "h1": "S\u00e9curit\u00e9 des Domaines\n                    Priv\u00e9s \u00e0 Saint-Tropez : Prot\u00e9ger l'espace et l'intimit\u00e9",
+    "description": "Les grands domaines priv\u00e9s de Saint-Tropez et Ramatuelle n\u00e9cessitent une s\u00e9curit\u00e9 sp\u00e9cifique. D\u00e9couvrez pourquoi le bin\u00f4me ma\u00eetre-chien est la seule r\u00e9ponse fiable pour les grands parcs.",
+    "canonical": "https://mocyno.com/blog/securite-domaine-prive-saint-tropez.html",
+    "hreflangs": [],
+    "word_count": 534,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\blog\\securite-mariage-var.html",
+    "rel_path": "blog\\securite-mariage-var.html",
+    "url": "https://mocyno.com/blog/securite-mariage-var/",
+    "title": "S\u00e9curit\u00e9 Mariage Var & C\u00f4te d'Azur : Discr\u00e9tion et Efficacit\u00e9 \u2014 MO'CYNO",
+    "h1": "\n                    S\u00e9curit\u00e9 Mariage Var :\n                    L'art de la protection invisible",
+    "description": "Organiser un mariage d'exception dans le Var demande une s\u00e9curit\u00e9 irr\u00e9prochable. Gestion des acc\u00e8s, protection des VIP et s\u00e9curit\u00e9 incendie pour votre r\u00e9ception.",
+    "canonical": "https://mocyno.com/blog/securite-mariage-var.html",
+    "hreflangs": [],
+    "word_count": 380,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\blog\\securite-villa-saint-tropez.html",
+    "rel_path": "blog\\securite-villa-saint-tropez.html",
+    "url": "https://mocyno.com/blog/securite-villa-saint-tropez/",
+    "title": "S\u00e9curit\u00e9 Villa Saint-Tropez : Pourquoi le Ma\u00eetre-Chien est Indispensable \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 Villa\n                    Saint-Tropez : Pourquoi le Ma\u00eetre-Chien est Indispensable ?",
+    "description": "Propri\u00e9taires de villas \u00e0 Saint-Tropez et Ramatuelle, d\u00e9couvrez pourquoi la s\u00e9curit\u00e9 cynophile est la meilleure protection contre les cambriolages et intrusions.",
+    "canonical": "https://mocyno.com/blog/securite-villa-saint-tropez.html",
+    "hreflangs": [],
+    "word_count": 470,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\blog\\ssiap-hotel-paca.html",
+    "rel_path": "blog\\ssiap-hotel-paca.html",
+    "url": "https://mocyno.com/blog/ssiap-hotel-paca/",
+    "title": "S\u00e9curit\u00e9 Incendie en H\u00f4tellerie PACA : Les obligations SSIAP \u2014 MO'CYNO",
+    "h1": "H\u00f4tellerie en PACA :\n                    Ma\u00eetriser le risque incendie avec le SSIAP",
+    "description": "H\u00f4teliers en r\u00e9gion PACA, assurez la conformit\u00e9 incendie de votre \u00e9tablissement. R\u00f4le des agents SSIAP, rondes de nuit et accueil client.",
+    "canonical": "https://mocyno.com/blog/ssiap-hotel-paca.html",
+    "hreflangs": [],
+    "word_count": 285,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\about.html",
+    "rel_path": "en\\about.html",
+    "url": "https://mocyno.com/en/about/",
+    "title": "About \u2014 MO'CYNO",
+    "h1": "About MO'CYNO",
+    "description": "About MO'CYNO: private security company providing manned guarding, K9 units, SSIAP fire safety and event security across the French Riviera.",
+    "canonical": "https://mocyno.com/en/about/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/a-propos/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/about/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/a-propos/"
+      }
+    ],
+    "word_count": 279,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\contact.html",
+    "rel_path": "en\\contact.html",
+    "url": "https://mocyno.com/en/contact/",
+    "title": "Contact & Quote \u2014 MO'CYNO",
+    "h1": "Contact & Quote",
+    "description": "Contact MO'CYNO for a free quote on private security, guarding, or K9 security in the French Riviera. Response within 24h.",
+    "canonical": "https://mocyno.com/en/contact/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/contact/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/contact/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/contact/"
+      }
+    ],
+    "word_count": 140,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\cookies.html",
+    "rel_path": "en\\cookies.html",
+    "url": "https://mocyno.com/en/cookies/",
+    "title": "Cookies & consent \u2014 MO'CYNO",
+    "h1": "Cookies & consent",
+    "description": "Find out how MO'CYNO uses cookies and similar technologies, and how you can manage your consent for analytics cookies.",
+    "canonical": "https://mocyno.com/en/cookies/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/cookies/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/cookies/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/cookies/"
+      }
+    ],
+    "word_count": 467,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\index.html",
+    "rel_path": "en\\index.html",
+    "url": "https://mocyno.com/en/",
+    "title": "MO'CYNO \u2014 Private Security, K9, Fire Safety & Event Security (PACA)",
+    "h1": "MO'CYNO \u2014 Private Security & K9 Services in PACA",
+    "description": "MO'CYNO: private security, K9 units, fire safety (SSIAP) and event security in the PACA region. Fast quote, 24/7 responsive team.",
+    "canonical": "https://mocyno.com/en/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/"
+      }
+    ],
+    "word_count": 624,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\legal.html",
+    "rel_path": "en\\legal.html",
+    "url": "https://mocyno.com/en/legal/",
+    "title": "Legal Notice \u2014 MO'CYNO",
+    "h1": "Legal Notice",
+    "description": "Legal notice for MO'CYNO. Company details, hosting, and CNAPS license information.",
+    "canonical": "https://mocyno.com/en/legal/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/mentions-legales/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/legal/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/mentions-legales/"
+      }
+    ],
+    "word_count": 225,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\merci_en.html",
+    "rel_path": "en\\merci_en.html",
+    "url": "https://mocyno.com/en/merci_en/",
+    "title": "Thank You for Your Message \u2014 MO'CYNO",
+    "h1": "Thank You for Your Message!",
+    "description": "Thank you for your message. The MO'CYNO team will get back to you within 24 business hours.",
+    "canonical": null,
+    "hreflangs": [],
+    "word_count": 126,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\privacy.html",
+    "rel_path": "en\\privacy.html",
+    "url": "https://mocyno.com/en/privacy/",
+    "title": "Privacy Policy (GDPR) \u2014 MO'CYNO",
+    "h1": "Privacy Policy (GDPR)",
+    "description": "How MO'CYNO processes personal data in accordance with the GDPR and French data protection law.",
+    "canonical": "https://mocyno.com/en/privacy/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/politique-confidentialite/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/privacy/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/politique-confidentialite/"
+      }
+    ],
+    "word_count": 213,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\services\\index.html",
+    "rel_path": "en\\services\\index.html",
+    "url": "https://mocyno.com/en/services/",
+    "title": "Security Services (PACA) \u2014 MO'CYNO",
+    "h1": "Our Security Services",
+    "description": "Private security services in the French Riviera: manned guarding, K9 units, fire safety (SSIAP), event security and luxury security across the PACA region.",
+    "canonical": "https://mocyno.com/en/services/",
+    "hreflangs": [
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/"
+      },
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/en/services/"
+      }
+    ],
+    "word_count": 199,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\services\\protection-luxe.html",
+    "rel_path": "en\\services\\protection-luxe.html",
+    "url": "https://mocyno.com/en/services/protection-luxe/",
+    "title": "Luxury Security \u2014 MO'CYNO",
+    "h1": "Luxury & Prestige Protection",
+    "description": "Luxury security in the French Riviera: discreet protection for boutiques, jewellery stores, villas and VIP events in the PACA region.",
+    "canonical": "https://mocyno.com/en/services/protection-luxe.html",
+    "hreflangs": [
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/protection-luxe.html"
+      },
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/protection-luxe.html"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/en/services/protection-luxe.html"
+      }
+    ],
+    "word_count": 385,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\services\\securite-cynophile.html",
+    "rel_path": "en\\services\\securite-cynophile.html",
+    "url": "https://mocyno.com/en/services/securite-cynophile/",
+    "title": "K9 Security Units \u2014 MO'CYNO",
+    "h1": "K9 Security Units \u2014 Dog-Handler Teams",
+    "description": "K9 security units in the French Riviera: trained dog-handler teams for deterrence, patrols and access control on sensitive sites in the PACA region.",
+    "canonical": "https://mocyno.com/en/services/securite-cynophile.html",
+    "hreflangs": [
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/securite-cynophile.html"
+      },
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/securite-cynophile.html"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/en/services/securite-cynophile.html"
+      }
+    ],
+    "word_count": 206,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\services\\securite-evenementielle.html",
+    "rel_path": "en\\services\\securite-evenementielle.html",
+    "url": "https://mocyno.com/en/services/securite-evenementielle/",
+    "title": "Event Security \u2014 MO'CYNO",
+    "h1": "Event Security",
+    "description": "Event security in the French Riviera: access control, screening, VIP protection and tailored security plans for public and private events.",
+    "canonical": "https://mocyno.com/en/services/securite-evenementielle.html",
+    "hreflangs": [
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/securite-evenementielle.html"
+      },
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/securite-evenementielle.html"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/en/services/securite-evenementielle.html"
+      }
+    ],
+    "word_count": 225,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\services\\securite-incendie-ssiap.html",
+    "rel_path": "en\\services\\securite-incendie-ssiap.html",
+    "url": "https://mocyno.com/en/services/securite-incendie-ssiap/",
+    "title": "Fire Safety (SSIAP) \u2014 MO'CYNO",
+    "h1": "Fire Safety \u2014 SSIAP Officers",
+    "description": "SSIAP fire safety officers in the French Riviera: prevention, control room duties, alarm verification and evacuation support for ERP and industrial sites.",
+    "canonical": "https://mocyno.com/en/services/securite-incendie-ssiap.html",
+    "hreflangs": [
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/securite-incendie-ssiap.html"
+      },
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/securite-incendie-ssiap.html"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/en/services/securite-incendie-ssiap.html"
+      }
+    ],
+    "word_count": 226,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\services\\surveillance-humaine.html",
+    "rel_path": "en\\services\\surveillance-humaine.html",
+    "url": "https://mocyno.com/en/services/surveillance-humaine/",
+    "title": "Manned Guarding \u2014 MO'CYNO",
+    "h1": "Manned Guarding \u2014 Security Officers",
+    "description": "Manned guarding in the French Riviera: professional security officers for industrial sites, shops, construction sites and residences in the PACA region.",
+    "canonical": "https://mocyno.com/en/services/surveillance-humaine.html",
+    "hreflangs": [
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/surveillance-humaine.html"
+      },
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/surveillance-humaine.html"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/en/services/surveillance-humaine.html"
+      }
+    ],
+    "word_count": 256,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\services\\construction-sites\\index.html",
+    "rel_path": "en\\services\\construction-sites\\index.html",
+    "url": "https://mocyno.com/en/services/construction-sites/",
+    "title": "Construction Site Security \u2014 MO'CYNO",
+    "h1": "Construction Site Security",
+    "description": "Construction site security and guarding in the French Riviera. Prevention of theft, access control and K9 patrols for building sites.",
+    "canonical": "https://mocyno.com/en/services/construction-sites/",
+    "hreflangs": [
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/construction-sites/"
+      },
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/chantiers/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/en/services/construction-sites/"
+      }
+    ],
+    "word_count": 307,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\services\\hospitality\\index.html",
+    "rel_path": "en\\services\\hospitality\\index.html",
+    "url": "https://mocyno.com/en/services/hospitality/",
+    "title": "Hotel & Hospitality Security \u2014 MO'CYNO",
+    "h1": "Hotel & Hospitality Security",
+    "description": "Security for luxury hotels and palaces in the French Riviera. Bilingual agents, night guards and access management for demanding clientele.",
+    "canonical": "https://mocyno.com/en/services/hospitality/",
+    "hreflangs": [
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/hospitality/"
+      },
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/hotellerie/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/en/services/hospitality/"
+      }
+    ],
+    "word_count": 304,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\services\\luxury-boutiques\\index.html",
+    "rel_path": "en\\services\\luxury-boutiques\\index.html",
+    "url": "https://mocyno.com/en/services/luxury-boutiques/",
+    "title": "Luxury Retail Security \u2014 MO'CYNO",
+    "h1": "Luxury Retail & Boutique Security",
+    "description": "Security for luxury boutiques, jewelry stores and showrooms on the French Riviera. High-end security guards, loss prevention and customer welcome services.",
+    "canonical": "https://mocyno.com/en/services/luxury-boutiques/",
+    "hreflangs": [
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/luxury-boutiques/"
+      },
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/luxe-boutiques/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/en/services/luxury-boutiques/"
+      }
+    ],
+    "word_count": 302,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\services\\marinas-ports\\index.html",
+    "rel_path": "en\\services\\marinas-ports\\index.html",
+    "url": "https://mocyno.com/en/services/marinas-ports/",
+    "title": "Marina & Yacht Security \u2014 MO'CYNO",
+    "h1": "Marina & Yacht Security",
+    "description": "Specialized security for marinas and yachting ports in the French Riviera. Yacht protection, pontoon access control and fire safety prevention.",
+    "canonical": "https://mocyno.com/en/services/marinas-ports/",
+    "hreflangs": [
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/marinas-ports/"
+      },
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/marinas-ports/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/en/services/marinas-ports/"
+      }
+    ],
+    "word_count": 332,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\services\\premium-events\\index.html",
+    "rel_path": "en\\services\\premium-events\\index.html",
+    "url": "https://mocyno.com/en/services/premium-events/",
+    "title": "Premium Event Security \u2014 MO'CYNO",
+    "h1": "Premium Event Security",
+    "description": "High-end security for private and corporate events in the French Riviera. VIP management, screening, close protection and security chauffeurs.",
+    "canonical": "https://mocyno.com/en/services/premium-events/",
+    "hreflangs": [
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/premium-events/"
+      },
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/evenementiel-premium/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/en/services/premium-events/"
+      }
+    ],
+    "word_count": 282,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\services\\residential\\index.html",
+    "rel_path": "en\\services\\residential\\index.html",
+    "url": "https://mocyno.com/en/services/residential/",
+    "title": "Villa & Residential Security \u2014 MO'CYNO",
+    "h1": "Residential & Villa Security",
+    "description": "Guarding of villas and prestigious residences in the French Riviera. Surveillance, neighborhood patrols, alarm response and security concierge services.",
+    "canonical": "https://mocyno.com/en/services/residential/",
+    "hreflangs": [
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/residential/"
+      },
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/residentiel/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/en/services/residential/"
+      }
+    ],
+    "word_count": 303,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\zones\\cannes.html",
+    "rel_path": "en\\zones\\cannes.html",
+    "url": "https://mocyno.com/en/zones/cannes/",
+    "title": "Private Security in Cannes & K9 Services \u2014 MO'CYNO",
+    "h1": "Private Security in Cannes & K9 Services (06400)",
+    "description": "Security company in Cannes (06). Villa guarding, event security for Festivals and Congresses, K9 units for high-level protection.",
+    "canonical": "https://mocyno.com/en/zones/cannes/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/zones/cannes/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/zones/cannes/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/zones/cannes/"
+      }
+    ],
+    "word_count": 529,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\zones\\frejus.html",
+    "rel_path": "en\\zones\\frejus.html",
+    "url": "https://mocyno.com/en/zones/frejus/",
+    "title": "Private Security in Frejus & Camping Guarding \u2014 MO'CYNO",
+    "h1": "Private Security in Frejus & Saint-Raphael (83600)",
+    "description": "Security agency operating in Frejus (83) and Saint-Raphael. Camping guarding, event security and 24/7 K9 surveillance.",
+    "canonical": "https://mocyno.com/en/zones/frejus/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/zones/frejus/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/zones/frejus/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/zones/frejus/"
+      }
+    ],
+    "word_count": 422,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\zones\\nice.html",
+    "rel_path": "en\\zones\\nice.html",
+    "url": "https://mocyno.com/en/zones/nice/",
+    "title": "Security Company in Nice & Guarding \u2014 MO'CYNO",
+    "h1": "Security Company in Nice (06) & Guarding",
+    "description": "Security company in Nice (French Riviera): construction site security, event security and villa protection services by MO'CYNO.",
+    "canonical": "https://mocyno.com/en/zones/nice/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/zones/nice/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/zones/nice/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/zones/nice/"
+      }
+    ],
+    "word_count": 460,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\zones\\ramatuelle.html",
+    "rel_path": "en\\zones\\ramatuelle.html",
+    "url": "https://mocyno.com/en/zones/ramatuelle/",
+    "title": "Villa Security & Guarding in Ramatuelle \u2014 MO'CYNO",
+    "h1": "Villa Security & Guarding in Ramatuelle (83350)",
+    "description": "Luxury villa protection and guarding in Ramatuelle. K9 agents and security patrols for Pampelonne, L'Escalet and private estates.",
+    "canonical": "https://mocyno.com/en/zones/ramatuelle/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/zones/ramatuelle/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/zones/ramatuelle/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/zones/ramatuelle/"
+      }
+    ],
+    "word_count": 506,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\zones\\saint-tropez.html",
+    "rel_path": "en\\zones\\saint-tropez.html",
+    "url": "https://mocyno.com/en/zones/saint-tropez/",
+    "title": "K9 Security & Private Services in Saint-Tropez \u2014 MO'CYNO",
+    "h1": "K9 Security & Private Services in Saint-Tropez (83990)",
+    "description": "K9 security agency in Saint-Tropez: Dog handlers, luxury villa security, VIP event security and guarding. 24/7 intervention in Ramatuelle & Gassin.",
+    "canonical": "https://mocyno.com/en/zones/saint-tropez/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/zones/saint-tropez/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/zones/saint-tropez/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/zones/saint-tropez/"
+      }
+    ],
+    "word_count": 699,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\zones\\sainte-maxime.html",
+    "rel_path": "en\\zones\\sainte-maxime.html",
+    "url": "https://mocyno.com/en/zones/sainte-maxime/",
+    "title": "Security Sainte-Maxime & Villa Guarding \u2014 MO'CYNO",
+    "h1": "Private Security in Sainte-Maxime (83120)",
+    "description": "Guarding company in Sainte-Maxime (83). Villa surveillance, residential security and event protection in the Gulf of Saint-Tropez.",
+    "canonical": "https://mocyno.com/en/zones/sainte-maxime/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/zones/sainte-maxime/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/zones/sainte-maxime/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/zones/sainte-maxime/"
+      }
+    ],
+    "word_count": 392,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\en\\zones\\toulon.html",
+    "rel_path": "en\\zones\\toulon.html",
+    "url": "https://mocyno.com/en/zones/toulon/",
+    "title": "Security Agency in Toulon & Guarding \u2014 MO'CYNO",
+    "h1": "Security Agency in Toulon & Guarding (83000)",
+    "description": "Security agency in Toulon (83): manned guarding, industrial security and K9 units. 24/7 intervention in Toulon, La Seyne and Hy\u00e8res.",
+    "canonical": "https://mocyno.com/en/zones/toulon/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/zones/toulon/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/zones/toulon/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/zones/toulon/"
+      }
+    ],
+    "word_count": 501,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\fr\\404.html",
+    "rel_path": "fr\\404.html",
+    "url": "https://mocyno.com/fr/404/",
+    "title": "Page Not Found",
+    "h1": "Page Not Found",
+    "description": null,
+    "canonical": null,
+    "hreflangs": [],
+    "word_count": 49,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\fr\\a-propos.html",
+    "rel_path": "fr\\a-propos.html",
+    "url": "https://mocyno.com/fr/a-propos/",
+    "title": "\u00c0 propos \u2014 MO'CYNO",
+    "h1": "\u00c0 propos",
+    "description": "MO'CYNO : s\u00e9curit\u00e9 priv\u00e9e, \u00e9quipes cynophiles, SSIAP et s\u00fbret\u00e9 \u00e9v\u00e9nementielle en PACA. D\u00e9couvrez notre d\u00e9marche, nos valeurs et notre exigence qualit\u00e9.",
+    "canonical": "https://mocyno.com/a-propos/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/a-propos/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/about/"
+      }
+    ],
+    "word_count": 293,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\fr\\contact.html",
+    "rel_path": "fr\\contact.html",
+    "url": "https://mocyno.com/fr/contact/",
+    "title": "Contact & Devis \u2014 MO'CYNO",
+    "h1": "Devis & Contact",
+    "description": "Demandez un devis pour une solution de s\u00e9curit\u00e9 priv\u00e9e en PACA : surveillance humaine, cynophile, SSIAP, \u00e9v\u00e9nementiel.",
+    "canonical": null,
+    "hreflangs": [],
+    "word_count": 142,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\fr\\cookies.html",
+    "rel_path": "fr\\cookies.html",
+    "url": "https://mocyno.com/fr/cookies/",
+    "title": "Cookies \u2014 MO'CYNO",
+    "h1": "Cookies",
+    "description": "Politique de cookies de MO'CYNO : cookies n\u00e9cessaires au fonctionnement du site et, avec consentement, cookies Google Analytics pour la mesure d\u2019audience.",
+    "canonical": "https://mocyno.com/cookies/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/cookies/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/cookies/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/cookies/"
+      }
+    ],
+    "word_count": 143,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\fr\\index.html",
+    "rel_path": "fr\\index.html",
+    "url": "https://mocyno.com/fr/",
+    "title": "MO'CYNO \u2014 S\u00e9curit\u00e9 priv\u00e9e, Cynophile, SSIAP, \u00c9v\u00e9nementiel (PACA)",
+    "h1": "MO'CYNO \u2014 S\u00e9curit\u00e9 priv\u00e9e & Cynophile (K9) en PACA",
+    "description": "MO'CYNO : s\u00e9curit\u00e9 priv\u00e9e, \u00e9quipes cynophiles (K9), SSIAP et s\u00fbret\u00e9 \u00e9v\u00e9nementielle en PACA. Devis rapide, \u00e9quipe r\u00e9active 24/7.",
+    "canonical": "https://mocyno.com/",
+    "hreflangs": [],
+    "word_count": 463,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\fr\\mentions-legales.html",
+    "rel_path": "fr\\mentions-legales.html",
+    "url": "https://mocyno.com/fr/mentions-legales/",
+    "title": "Mentions l\u00e9gales \u2014 MO'CYNO",
+    "h1": "Mentions l\u00e9gales",
+    "description": "Mentions l\u00e9gales du site MO'CYNO : \u00e9diteur, h\u00e9bergeur, propri\u00e9t\u00e9 intellectuelle et responsabilit\u00e9s.",
+    "canonical": "https://mocyno.com/mentions-legales/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/mentions-legales/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/legal/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/mentions-legales/"
+      }
+    ],
+    "word_count": 298,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\fr\\merci.html",
+    "rel_path": "fr\\merci.html",
+    "url": "https://mocyno.com/fr/merci/",
+    "title": "Merci pour votre message \u2014 MO'CYNO",
+    "h1": "Merci pour votre message !",
+    "description": "Merci pour votre message. L\u2019\u00e9quipe MO\u2019CYNO reviendra vers vous sous 24 h ouvr\u00e9es.",
+    "canonical": "https://mocyno.com/merci.html",
+    "hreflangs": [],
+    "word_count": 141,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\fr\\politique-confidentialite.html",
+    "rel_path": "fr\\politique-confidentialite.html",
+    "url": "https://mocyno.com/fr/politique-confidentialite/",
+    "title": "Politique de confidentialit\u00e9 \u2014 MO'CYNO",
+    "h1": "Politique de confidentialit\u00e9",
+    "description": "Comment MO'CYNO traite vos donn\u00e9es personnelles conform\u00e9ment au RGPD et \u00e0 la loi Informatique et Libert\u00e9s.",
+    "canonical": "https://mocyno.com/politique-confidentialite/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/politique-confidentialite/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/privacy/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/politique-confidentialite/"
+      }
+    ],
+    "word_count": 281,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\fr\\services\\index.html",
+    "rel_path": "fr\\services\\index.html",
+    "url": "https://mocyno.com/fr/services/",
+    "title": "Services \u2014 MO'CYNO",
+    "h1": "Services",
+    "description": "Surveillance humaine, \u00e9quipes cynophiles (K9), SSIAP et s\u00fbret\u00e9 \u00e9v\u00e9nementielle en PACA.",
+    "canonical": "https://mocyno.com/services/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/"
+      }
+    ],
+    "word_count": 292,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\fr\\services\\protection-luxe.html",
+    "rel_path": "fr\\services\\protection-luxe.html",
+    "url": "https://mocyno.com/fr/services/protection-luxe/",
+    "title": "Protection du luxe \u2014 MO'CYNO",
+    "h1": "Protection boutiques & luxe",
+    "description": "S\u00e9curit\u00e9 discr\u00e8te et haut de gamme pour maisons et boutiques de luxe.",
+    "canonical": "https://mocyno.com/services/protection-luxe.html",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/protection-luxe.html"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/protection-luxe.html"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/protection-luxe.html"
+      }
+    ],
+    "word_count": 264,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\fr\\services\\securite-cynophile.html",
+    "rel_path": "fr\\services\\securite-cynophile.html",
+    "url": "https://mocyno.com/fr/services/securite-cynophile/",
+    "title": "S\u00e9curit\u00e9 cynophile (K9) \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 cynophile \u2014 Ma\u00eetre-chien (K9)",
+    "description": "Ma\u00eetres-chiens pour dissuasion, rondes et contr\u00f4le d\u2019acc\u00e8s en PACA.",
+    "canonical": "https://mocyno.com/services/securite-cynophile.html",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/securite-cynophile.html"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/securite-cynophile.html"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/securite-cynophile.html"
+      }
+    ],
+    "word_count": 265,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\fr\\services\\securite-evenementielle.html",
+    "rel_path": "fr\\services\\securite-evenementielle.html",
+    "url": "https://mocyno.com/fr/services/securite-evenementielle/",
+    "title": "S\u00e9curit\u00e9 \u00e9v\u00e9nementielle \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 \u00e9v\u00e9nementielle",
+    "description": "Dispositifs de s\u00fbret\u00e9 pour \u00e9v\u00e9nements premium, filtrage et contr\u00f4le d\u2019acc\u00e8s.",
+    "canonical": "https://mocyno.com/services/securite-evenementielle.html",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/securite-evenementielle.html"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/securite-evenementielle.html"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/securite-evenementielle.html"
+      }
+    ],
+    "word_count": 269,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\fr\\services\\securite-incendie-ssiap.html",
+    "rel_path": "fr\\services\\securite-incendie-ssiap.html",
+    "url": "https://mocyno.com/fr/services/securite-incendie-ssiap/",
+    "title": "S\u00e9curit\u00e9 incendie (SSIAP) \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 incendie \u2014 SSIAP",
+    "description": "Pr\u00e9vention, PC s\u00e9curit\u00e9 et \u00e9quipes SSIAP 1/2/3 en r\u00e9gion PACA.",
+    "canonical": "https://mocyno.com/services/securite-incendie-ssiap.html",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/securite-incendie-ssiap.html"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/securite-incendie-ssiap.html"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/securite-incendie-ssiap.html"
+      }
+    ],
+    "word_count": 265,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\fr\\services\\surveillance-humaine.html",
+    "rel_path": "fr\\services\\surveillance-humaine.html",
+    "url": "https://mocyno.com/fr/services/surveillance-humaine/",
+    "title": "Surveillance humaine \u2014 MO'CYNO",
+    "h1": "Surveillance humaine \u2014 Agent de s\u00e9curit\u00e9",
+    "description": "Agents de s\u00e9curit\u00e9 qualifi\u00e9s pour sites sensibles, commerces et r\u00e9sidences en PACA.",
+    "canonical": "https://mocyno.com/services/surveillance-humaine.html",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/surveillance-humaine.html"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/surveillance-humaine.html"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/surveillance-humaine.html"
+      }
+    ],
+    "word_count": 273,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\mobile\\index.html",
+    "rel_path": "mobile\\index.html",
+    "url": "https://mocyno.com/mobile/",
+    "title": "mobile",
+    "h1": null,
+    "description": null,
+    "canonical": null,
+    "hreflangs": [],
+    "word_count": 0,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\services\\index.html",
+    "rel_path": "services\\index.html",
+    "url": "https://mocyno.com/services/",
+    "title": "Services \u2014 MO'CYNO",
+    "h1": "Services",
+    "description": "Surveillance humaine, \u00e9quipes cynophiles (K9), SSIAP, s\u00fbret\u00e9 \u00e9v\u00e9nementielle et protection du luxe en PACA.",
+    "canonical": "https://mocyno.com/services/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/"
+      }
+    ],
+    "word_count": 424,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\services\\protection-luxe.html",
+    "rel_path": "services\\protection-luxe.html",
+    "url": "https://mocyno.com/services/protection-luxe/",
+    "title": "Protection du luxe \u2014 MO'CYNO",
+    "h1": "Protection du Luxe & Prestige",
+    "description": "S\u00e9curit\u00e9 discr\u00e8te et haut de gamme pour maisons et boutiques de luxe.",
+    "canonical": "https://mocyno.com/services/protection-luxe.html",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/protection-luxe.html"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/protection-luxe.html"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/protection-luxe.html"
+      }
+    ],
+    "word_count": 448,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\services\\securite-cynophile.html",
+    "rel_path": "services\\securite-cynophile.html",
+    "url": "https://mocyno.com/services/securite-cynophile/",
+    "title": "S\u00e9curit\u00e9 Cynophile (Ma\u00eetre-Chien K9) Var & 83 \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 cynophile \u2014 Ma\u00eetre-chien (K9)",
+    "description": "Service de s\u00e9curit\u00e9 cynophile (Ma\u00eetre-chien K9) dans le Var. Dissuasion anti-intrusion pour chantiers, parkings et \u00e9v\u00e9nements sensibles par MO'CYNO.",
+    "canonical": "https://mocyno.com/services/securite-cynophile.html",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/securite-cynophile.html"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/securite-cynophile.html"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/securite-cynophile.html"
+      }
+    ],
+    "word_count": 324,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\services\\securite-evenementielle.html",
+    "rel_path": "services\\securite-evenementielle.html",
+    "url": "https://mocyno.com/services/securite-evenementielle/",
+    "title": "S\u00e9curit\u00e9 \u00e9v\u00e9nementielle \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 \u00e9v\u00e9nementielle",
+    "description": "Dispositifs de s\u00fbret\u00e9 pour \u00e9v\u00e9nements premium, filtrage et contr\u00f4le d\u2019acc\u00e8s.",
+    "canonical": "https://mocyno.com/services/securite-evenementielle.html",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/securite-evenementielle.html"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/securite-evenementielle.html"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/securite-evenementielle.html"
+      }
+    ],
+    "word_count": 287,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\services\\securite-incendie-ssiap.html",
+    "rel_path": "services\\securite-incendie-ssiap.html",
+    "url": "https://mocyno.com/services/securite-incendie-ssiap/",
+    "title": "S\u00e9curit\u00e9 incendie (SSIAP) \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 incendie \u2014 SSIAP",
+    "description": "Pr\u00e9vention, PC s\u00e9curit\u00e9 et \u00e9quipes SSIAP 1/2/3 en r\u00e9gion PACA.",
+    "canonical": "https://mocyno.com/services/securite-incendie-ssiap.html",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/securite-incendie-ssiap.html"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/securite-incendie-ssiap.html"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/securite-incendie-ssiap.html"
+      }
+    ],
+    "word_count": 286,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\services\\surveillance-humaine.html",
+    "rel_path": "services\\surveillance-humaine.html",
+    "url": "https://mocyno.com/services/surveillance-humaine/",
+    "title": "Surveillance humaine \u2014 MO'CYNO",
+    "h1": "Surveillance humaine \u2014 Agent de s\u00e9curit\u00e9",
+    "description": "Agents de s\u00e9curit\u00e9 qualifi\u00e9s pour sites sensibles, commerces et r\u00e9sidences en PACA.",
+    "canonical": "https://mocyno.com/services/surveillance-humaine.html",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/surveillance-humaine.html"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/surveillance-humaine.html"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/surveillance-humaine.html"
+      }
+    ],
+    "word_count": 323,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\services\\chantiers\\index.html",
+    "rel_path": "services\\chantiers\\index.html",
+    "url": "https://mocyno.com/services/chantiers/",
+    "title": "S\u00e9curit\u00e9 Chantiers & BTP \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 des Chantiers & Sites de Construction",
+    "description": "Surveillance et gardiennage de chantiers BTP en PACA. Lutte contre le vol de mat\u00e9riaux, contr\u00f4le d'acc\u00e8s et rondes cynophiles.",
+    "canonical": "https://mocyno.com/services/chantiers/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/chantiers/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/construction-sites/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/chantiers/"
+      }
+    ],
+    "word_count": 359,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\services\\evenementiel-premium\\index.html",
+    "rel_path": "services\\evenementiel-premium\\index.html",
+    "url": "https://mocyno.com/services/evenementiel-premium/",
+    "title": "S\u00e9curit\u00e9 \u00c9v\u00e9nementielle Premium \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 \u00c9v\u00e9nementielle Premium",
+    "description": "S\u00e9curit\u00e9 haut de gamme pour \u00e9v\u00e9nements priv\u00e9s et professionnels en PACA. Gestion VIP, filtrage, protection rapproch\u00e9e et chauffeurs de s\u00e9curit\u00e9.",
+    "canonical": "https://mocyno.com/services/evenementiel-premium/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/evenementiel-premium/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/premium-events/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/evenementiel-premium/"
+      }
+    ],
+    "word_count": 332,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\services\\hotellerie\\index.html",
+    "rel_path": "services\\hotellerie\\index.html",
+    "url": "https://mocyno.com/services/hotellerie/",
+    "title": "S\u00e9curit\u00e9 H\u00f4tellerie & Palaces \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 H\u00f4teli\u00e8re & Palaces",
+    "description": "S\u00e9curit\u00e9 pour h\u00f4tels de luxe et palaces en r\u00e9gion PACA. Agents bilingues, rondes de nuit et gestion des acc\u00e8s pour une client\u00e8le exigeante.",
+    "canonical": "https://mocyno.com/services/hotellerie/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/hotellerie/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/hospitality/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/hotellerie/"
+      }
+    ],
+    "word_count": 344,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\services\\luxe-boutiques\\index.html",
+    "rel_path": "services\\luxe-boutiques\\index.html",
+    "url": "https://mocyno.com/services/luxe-boutiques/",
+    "title": "S\u00e9curit\u00e9 Luxe et Boutiques \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 Boutiques de Luxe & Retail",
+    "description": "Protection des boutiques de luxe, joailleries et showrooms sur la C\u00f4te d'Azur. Agents de s\u00e9curit\u00e9 haut de gamme, pr\u00e9vention des vols et accueil client.",
+    "canonical": "https://mocyno.com/services/luxe-boutiques/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/luxe-boutiques/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/luxury-boutiques/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/luxe-boutiques/"
+      }
+    ],
+    "word_count": 363,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\services\\marinas-ports\\index.html",
+    "rel_path": "services\\marinas-ports\\index.html",
+    "url": "https://mocyno.com/services/marinas-ports/",
+    "title": "S\u00e9curit\u00e9 Marinas & Ports de Plaisance \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 des Marinas & Ports de Plaisance",
+    "description": "S\u00e9curit\u00e9 sp\u00e9cialis\u00e9e pour marinas et ports de plaisance en PACA. Protection des navires, contr\u00f4le d'acc\u00e8s aux pontons et pr\u00e9vention incendie.",
+    "canonical": "https://mocyno.com/services/marinas-ports/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/marinas-ports/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/marinas-ports/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/marinas-ports/"
+      }
+    ],
+    "word_count": 389,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\services\\residentiel\\index.html",
+    "rel_path": "services\\residentiel\\index.html",
+    "url": "https://mocyno.com/services/residentiel/",
+    "title": "S\u00e9curit\u00e9 R\u00e9sidentielle & Villas \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 R\u00e9sidentielle & Villas",
+    "description": "Gardiennage de villas et r\u00e9sidences de prestige en PACA. Surveillance, rondes de quartier, alarmes et services de conciergerie s\u00e9curit\u00e9.",
+    "canonical": "https://mocyno.com/services/residentiel/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/services/residentiel/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/services/residential/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/services/residentiel/"
+      }
+    ],
+    "word_count": 346,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\zones\\cannes.html",
+    "rel_path": "zones\\cannes.html",
+    "url": "https://mocyno.com/zones/cannes/",
+    "title": "S\u00e9curit\u00e9 Priv\u00e9e \u00e0 Cannes & Agent Cynophile \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 Priv\u00e9e \u00e0 Cannes & Agent Cynophile (06400)",
+    "description": "Soci\u00e9t\u00e9 de s\u00e9curit\u00e9 \u00e0 Cannes (06). Gardiennage de villas, s\u00e9curit\u00e9 \u00e9v\u00e9nementielle Festival et Congr\u00e8s, ma\u00eetres-chiens pour protection haute s\u00e9curit\u00e9.",
+    "canonical": "https://mocyno.com/zones/cannes/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/zones/cannes/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/zones/cannes/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/zones/cannes/"
+      }
+    ],
+    "word_count": 653,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\zones\\frejus.html",
+    "rel_path": "zones\\frejus.html",
+    "url": "https://mocyno.com/zones/frejus/",
+    "title": "S\u00e9curit\u00e9 Priv\u00e9e \u00e0 Fr\u00e9jus & Gardiennage Camping \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 Priv\u00e9e \u00e0 Fr\u00e9jus & Saint-Rapha\u00ebl (83600)",
+    "description": "Agence de s\u00e9curit\u00e9 op\u00e9rant \u00e0 Fr\u00e9jus (83) et Saint-Rapha\u00ebl. Gardiennage de campings, s\u00e9curit\u00e9 \u00e9v\u00e9nementielle et surveillance cynophile 24h/24.",
+    "canonical": "https://mocyno.com/zones/frejus/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/zones/frejus/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/zones/frejus/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/zones/frejus/"
+      }
+    ],
+    "word_count": 469,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\zones\\nice.html",
+    "rel_path": "zones\\nice.html",
+    "url": "https://mocyno.com/zones/nice/",
+    "title": "Soci\u00e9t\u00e9 de S\u00e9curit\u00e9 \u00e0 Nice & Gardiennage \u2014 MO'CYNO",
+    "h1": "Soci\u00e9t\u00e9 de S\u00e9curit\u00e9 \u00e0 Nice (06) & Gardiennage",
+    "description": "Soci\u00e9t\u00e9 de s\u00e9curit\u00e9 \u00e0 Nice (06) : gardiennage chantiers, surveillance \u00e9v\u00e9nementielle et protection de villas. Agents MO'CYNO disponibles 24/7.",
+    "canonical": "https://mocyno.com/zones/nice/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/zones/nice/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/zones/nice/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/zones/nice/"
+      }
+    ],
+    "word_count": 515,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\zones\\ramatuelle.html",
+    "rel_path": "zones\\ramatuelle.html",
+    "url": "https://mocyno.com/zones/ramatuelle/",
+    "title": "S\u00e9curit\u00e9 Villa & Gardiennage \u00e0 Ramatuelle \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 Villa & Gardiennage \u00e0 Ramatuelle (83350)",
+    "description": "Protection de villas de luxe et gardiennage \u00e0 Ramatuelle. Agents cynophiles et rondes de s\u00e9curit\u00e9 pour Pampelonne, L'Escalet et domaines priv\u00e9s.",
+    "canonical": "https://mocyno.com/zones/ramatuelle/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/zones/ramatuelle/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/zones/ramatuelle/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/zones/ramatuelle/"
+      }
+    ],
+    "word_count": 581,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\zones\\saint-tropez.html",
+    "rel_path": "zones\\saint-tropez.html",
+    "url": "https://mocyno.com/zones/saint-tropez/",
+    "title": "Agent Cynophile & S\u00e9curit\u00e9 Priv\u00e9e \u00e0 Saint-Tropez \u2014 MO'CYNO",
+    "h1": "Agent Cynophile & S\u00e9curit\u00e9 Priv\u00e9e \u00e0 Saint-Tropez (83990)",
+    "description": "Agence cynophile \u00e0 Saint-Tropez : Ma\u00eetres-chiens, s\u00e9curit\u00e9 de villas de luxe, \u00e9v\u00e9nementiel VIP et gardiennage. Intervention 24/7 Ramatuelle & Gassin.",
+    "canonical": "https://mocyno.com/zones/saint-tropez/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/zones/saint-tropez/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/zones/saint-tropez/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/zones/saint-tropez/"
+      }
+    ],
+    "word_count": 831,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\zones\\sainte-maxime.html",
+    "rel_path": "zones\\sainte-maxime.html",
+    "url": "https://mocyno.com/zones/sainte-maxime/",
+    "title": "S\u00e9curit\u00e9 Sainte-Maxime & Gardiennage Villa \u2014 MO'CYNO",
+    "h1": "S\u00e9curit\u00e9 Priv\u00e9e \u00e0 Sainte-Maxime (83120)",
+    "description": "Soci\u00e9t\u00e9 de gardiennage \u00e0 Sainte-Maxime (83). Surveillance de villas, s\u00e9curit\u00e9 r\u00e9sidentielle et protection \u00e9v\u00e9nementielle dans le Golfe de Saint-Tropez.",
+    "canonical": "https://mocyno.com/zones/sainte-maxime/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/zones/sainte-maxime/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/zones/sainte-maxime/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/zones/sainte-maxime/"
+      }
+    ],
+    "word_count": 435,
+    "last_mod": "2026-01-21"
+  },
+  {
+    "file_path": "c:\\Users\\abdel\\Desktop\\Mocyno3\\mocyno2\\public\\zones\\toulon.html",
+    "rel_path": "zones\\toulon.html",
+    "url": "https://mocyno.com/zones/toulon/",
+    "title": "Agence de S\u00e9curit\u00e9 Toulon & Gardiennage Chantier \u2014 MO'CYNO",
+    "h1": "Agence de S\u00e9curit\u00e9 \u00e0 Toulon & Gardiennage (83000)",
+    "description": "Agence de s\u00e9curit\u00e9 \u00e0 Toulon (83) : surveillance portuaire, industrielle et \u00e9v\u00e9nementielle. Ma\u00eetres-chiens et agents qualifi\u00e9s MO'CYNO. Devis gratuit.",
+    "canonical": "https://mocyno.com/zones/toulon/",
+    "hreflangs": [
+      {
+        "lang": "fr",
+        "href": "https://mocyno.com/zones/toulon/"
+      },
+      {
+        "lang": "en",
+        "href": "https://mocyno.com/en/zones/toulon/"
+      },
+      {
+        "lang": "x-default",
+        "href": "https://mocyno.com/zones/toulon/"
+      }
+    ],
+    "word_count": 540,
+    "last_mod": "2026-01-21"
+  }
+]

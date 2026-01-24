@@ -1,0 +1,67 @@
+======================================================================
+PRE-PHASE 3 CONSISTENCY AUDIT
+======================================================================
+
+OK - Baselines loaded successfully
+
+Found 95 HTML files to audit
+
+
+======================================================================
+AUDIT REPORT
+======================================================================
+
+Total pages scanned: 95
+  FR pages: 68
+  EN pages: 27
+
+Fully compliant: 92
+With divergence: 3
+
+======================================================================
+DIVERGENCES DETECTED
+======================================================================
+
+File: public\404.html
+Language: FR
+  HEADER:
+    - Missing key: logo_href
+    - Missing key: nav_items
+    - Missing key: services_submenu
+    - Missing key: zones_submenu
+    - Missing key: lang_switch
+    - Missing key: cta_button
+  FOOTER:
+    - Missing key: footer_links
+    - Missing key: has_cnaps
+    - Missing key: cnaps_text
+
+File: public\fr\404.html
+Language: FR
+  HEADER:
+    - Missing key: logo_href
+    - Missing key: nav_items
+    - Missing key: services_submenu
+    - Missing key: zones_submenu
+    - Missing key: lang_switch
+    - Missing key: cta_button
+  FOOTER:
+    - Missing key: footer_links
+    - Missing key: has_cnaps
+    - Missing key: cnaps_text
+
+File: public\services\index.html
+Language: FR
+  HEADER:
+    - logo_href: '/fr/' != '/'
+    - nav_items[3]: {'text': 'Devis & Contact', 'href': '/fr/contact/', 'classes': 'btn primary'} != {'text': 'Devis & Contact', 'href': '/contact/', 'classes': 'btn primary'}
+    - cta_button: '{'text': 'Devis & Contact', 'href': '/fr/contact/'}' != '{'text': 'Devis & Contact', 'href': '/contact/'}'
+  FOOTER:
+    - footer_links[0]: {'text': '└ propos', 'href': '/fr/a-propos/'} != {'text': '└ propos', 'href': '/a-propos/'}
+    - footer_links[1]: {'text': 'Mentions lÚgales', 'href': '/fr/mentions-legales/'} != {'text': 'Mentions lÚgales', 'href': '/mentions-legales/'}
+    - footer_links[2]: {'text': 'ConfidentialitÚ', 'href': '/fr/politique-confidentialite/'} != {'text': 'ConfidentialitÚ', 'href': '/politique-confidentialite/'}
+    - footer_links[3]: {'text': 'Cookies', 'href': '/fr/cookies/'} != {'text': 'Cookies', 'href': '/cookies/'}
+
+======================================================================
+VERDICT: WARNING - DIVERGENCES FOUND - FIX REQUIRED BEFORE PHASE 3
+======================================================================
