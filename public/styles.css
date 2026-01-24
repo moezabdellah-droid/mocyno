@@ -898,7 +898,8 @@ form.grid-2 {
 
 .services-list a {
   display: block;
-  padding: 10px 20px;
+  padding: 10px 24px 10px 24px;
+  /* Fixed left padding to prevent CLS */
   color: #0f3552;
   text-decoration: none !important;
   font-size: 15px;
@@ -910,7 +911,7 @@ form.grid-2 {
 .services-list a:hover {
   background: #f8fafc;
   color: #cd1a20;
-  padding-left: 24px;
+  /* Removed: padding-left: 24px; - causes CLS */
   border-left-color: #cd1a20;
 }
 
