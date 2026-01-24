@@ -473,6 +473,35 @@
     })();
   </script>
   <!--End of Tawk.to Script-->
+
+  <!-- Script Toggle Mobile Menu - Services & Zones -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Toggle Services Menu
+      var servicesTrigger = document.querySelector('.services-trigger');
+      var servicesNav = document.querySelector('.services-nav');
+      if (servicesTrigger && servicesNav) {
+        servicesTrigger.addEventListener('click', function (e) {
+          if (window.innerWidth <= 920) {
+            e.preventDefault();
+            servicesNav.classList.toggle('is-open');
+          }
+        });
+      }
+
+      // Toggle Zones Menu
+      var zonesTrigger = document.querySelector('.zones-trigger');
+      var zonesNav = document.querySelector('.zones-nav');
+      if (zonesTrigger && zonesNav) {
+        zonesTrigger.addEventListener('click', function (e) {
+          if (window.innerWidth <= 920) {
+            e.preventDefault();
+            zonesNav.classList.toggle('is-open');
+          }
+        });
+      }
+    });
+  </script>
 </body>
 
 </html>

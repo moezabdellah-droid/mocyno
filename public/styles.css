@@ -938,10 +938,15 @@ form.grid-2 {
     transform: none !important;
     box-shadow: none;
     border: none;
-    opacity: 1;
-    visibility: visible;
     padding: 0;
     margin-top: 5px;
+    /* MASQUÉ PAR DÉFAUT SUR MOBILE */
+    display: none !important;
+  }
+
+  /* État ouvert au clic */
+  .services-nav.is-open .services-menu {
+    display: block !important;
   }
 
   .services-list a {
@@ -1153,10 +1158,15 @@ form.grid-2 {
     transform: none !important;
     box-shadow: none;
     border: none;
-    opacity: 1;
-    visibility: visible;
     padding: 0;
     margin-top: 5px;
+    /* MASQUÉ PAR DÉFAUT SUR MOBILE */
+    display: none !important;
+  }
+
+  /* État ouvert au clic */
+  .zones-nav.is-open .zones-menu {
+    display: block !important;
   }
 
   .zones-list a {
