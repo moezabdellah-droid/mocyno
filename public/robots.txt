@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mocyno.com/sitemap.xml
+Sitemap: https://mocyno.com/sitemap-index.xml
