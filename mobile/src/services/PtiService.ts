@@ -6,6 +6,35 @@ export class PtiService {
     private static watchId: string | null = null;
     private static isServiceActive = false;
 
+    /**
+     * Best-effort location payload.
+     * - Retourne { location: {lat,lng,lastUpdated} } si OK
+     * - Retourne {} si géoloc KO/refusée/timeout
+     *
+     * IMPORTANT: Ne jamais écrire "status" ici (champ RH).
+     */
+    private static async getBestEffortLocationPayload(): Promise<{
+        location?: { lat: number; lng: number; lastUpdated: any };
+    }> {
+        try {
+            const pos = await Geolocation.getCurrentPosition({
+                enableHighAccuracy: true,
+                timeout: 10_000,
+            });
+            return {
+                location: {
+                    lat: pos.coords.latitude,
+                    lng: pos.coords.longitude,
+                    lastUpdated: serverTimestamp(),
+                },
+            };
+        } catch (e) {
+            // Géoloc refusée / timeout / indisponible: non bloquant
+            console.warn("[PTI] Geolocation unavailable", e);
+            return {};
+        }
+    }
+
     // Start Background Tracking (Simulated Background)
     static async startService() {
         if (this.isServiceActive) return;
@@ -21,11 +50,13 @@ export class PtiService {
 
         this.isServiceActive = true;
 
-        // Persist State to Firestore
+        // ✅ Persist State + Initial Location to Firestore (1 write)
         try {
+            const locationPayload = await this.getBestEffortLocationPayload();
+
             await updateDoc(doc(db, 'agents', user.uid), {
                 isServiceRunning: true,
-                updatedAt: serverTimestamp()
+                ...locationPayload,
             });
         } catch (e) {
             console.error("Failed to persist service state:", e);
@@ -64,11 +95,13 @@ export class PtiService {
 
         const user = auth.currentUser;
         if (user) {
-            // Persist State to Firestore
+            // ✅ Persist State + Last Location to Firestore (1 write)
             try {
+                const locationPayload = await this.getBestEffortLocationPayload();
+
                 await updateDoc(doc(db, 'agents', user.uid), {
                     isServiceRunning: false,
-                    updatedAt: serverTimestamp()
+                    ...locationPayload,
                 });
             } catch (e) {
                 console.error("Failed to persist service state:", e);
@@ -109,8 +142,7 @@ export class PtiService {
                     lat,
                     lng,
                     lastUpdated: serverTimestamp()
-                },
-                status: 'active'
+                }
             });
         } catch (error) {
             console.error("Error updating location:", error);
