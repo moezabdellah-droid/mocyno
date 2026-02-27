@@ -2,12 +2,15 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    // Auth Helpers
+    // ═══════════════════════════════════════════════════════════════
+    // AUTH HELPERS
+    // ═══════════════════════════════════════════════════════════════
+
     function isAuthenticated() {
       return request.auth != null;
     }
     
-    // Récupérer le rôle depuis le document agent de l'utilisateur
+    // Récupérer le rôle depuis le document agent (Firestore-based RBAC)
     function getUserData() {
       let path = /databases/$(database)/documents/agents/$(request.auth.uid);
       return exists(path) ? get(path).data : {};
@@ -18,54 +21,206 @@ service cloud.firestore {
       return isAuthenticated() && (data != null && data.role == role);
     }
     
-    // Rôles
-    function isAdmin() { return hasRole('admin'); }
-    function isManager() { return hasRole('manager'); }
-    function isAdminOrManager() { 
-      // Optimisation: lire une seule fois si possible, mais ici logique 'OR'
-      return isAdmin() || isManager(); 
-    }
+    function isAdmin()           { return request.auth.token.role == 'admin' || hasRole('admin'); }
+    function isManager()         { return request.auth.token.role == 'manager' || hasRole('manager'); }
+    function isAdminOrManager()  { return isAdmin() || isManager(); }
+    function isClient()           { return isAuthenticated() && request.auth.token.role == 'client'; }
+    function getClientId()       { return request.auth.token.clientId; }
 
-    // --- COLLECTIONS ---
-
-    // 1. CONSIGNES (CORRECTIF)
-    match /consignes/{consigneId} {
-      allow read: if isAuthenticated();
-      // UPDATE: Seuls Admin et Manager peuvent écrire
-      allow write: if isAdminOrManager();
-    }
-
-    // 2. AGENTS
+    // ═══════════════════════════════════════════════════════════════
+    // 1. AGENTS (SEC-001 fix)
+    //
+    // AVANT : allow read: if isAuthenticated()  ← trop permissif (PII exposées)
+    // APRÈS  :
+    //   - list  → admin/manager SEULEMENT (nécessaire react-admin AgentList)
+    //   - get   → self OU admin/manager
+    //   Séparation list/get pour zéro régression react-admin vs mobile.
+    // ═══════════════════════════════════════════════════════════════
     match /agents/{userId} {
-      allow read: if isAuthenticated();
-      // Bootstrap/Self-Registration: allow creating own document if authenticated
-      // but only one's own UID, and role cannot be set to admin unless by an existing admin (handled below)
-      allow create: if (isAuthenticated() && request.auth.uid == userId) || isAdminOrManager();
-      allow update: if isAdminOrManager() || (isAuthenticated() && request.auth.uid == userId);
+
+      // LIST (getList react-admin) : admin/manager uniquement
+      allow list: if isAdminOrManager();
+
+      // GET (getOne, lecture profil self) : self OU admin/manager
+      allow get: if isAdminOrManager()
+        || (isAuthenticated() && request.auth.uid == userId);
+
+      // CREATE:
+      // - Admin/Manager toujours OK
+      // - Self-create OK UNIQUEMENT si role == "agent" (anti-bootstrap admin/manager)
+      allow create: if
+        isAdminOrManager()
+        || (
+          isAuthenticated()
+          && request.auth.uid == userId
+          && request.resource.data.role == "agent"
+        );
+
+      // UPDATE:
+      // - Admin/Manager toujours OK
+      // - Self-update OK MAIS interdit de modifier les champs sensibles
+      allow update: if
+        isAdminOrManager()
+        || (
+          isAuthenticated()
+          && request.auth.uid == userId
+          && !(
+            request.resource.data.diff(resource.data).changedKeys()
+              .hasAny([
+                "role",
+                "status",
+                "createdAt",
+                "matricule",
+                "email"
+              ])
+          )
+        );
+
       allow delete: if isAdmin();
+
+      // ─── SOUS-COLLECTION : données sensibles (PII) ────────────────
+      // Accessible uniquement par l'agent lui-même OU admin/manager.
+      // Écriture client réservée admin/manager (la CF createAgent écrit via Admin SDK).
+      match /private/{docId} {
+        allow read: if isAdminOrManager()
+          || (isAuthenticated() && request.auth.uid == userId);
+        allow write: if isAdminOrManager();
+      }
     }
-    
-    // 3. PLANNING
+
+    // ═══════════════════════════════════════════════════════════════
+    // 2. PLANNING
+    // ═══════════════════════════════════════════════════════════════
     match /planning/{shiftId} {
-      allow read: if isAuthenticated(); // Tout agent peut voir le planning
+      allow read: if isAuthenticated() && (!isClient() || resource.data.clientId == getClientId());
       allow write: if isAdminOrManager();
     }
 
-    // 4. EVENTS (Main Courante)
+    // ═══════════════════════════════════════════════════════════════
+    // 3. EVENTS (Main Courante)
+    // ═══════════════════════════════════════════════════════════════
     match /events/{eventId} {
-      allow read: if isAuthenticated();
-      allow create: if isAuthenticated(); // Tout agent peut créer un rapport
-      allow update: if isAdminOrManager(); // Modification restreinte
+      allow read:   if isAuthenticated() && (!isClient() || resource.data.clientId == getClientId());
+      allow create: if isAuthenticated() && !isClient(); // Seuls les agents (non-clients) peuvent créer des rapports
+      allow update: if isAdminOrManager();
       allow delete: if isAdminOrManager();
     }
 
-    // 5. SITES
+    // ═══════════════════════════════════════════════════════════════
+    // 4. SITES
+    // ═══════════════════════════════════════════════════════════════
     match /sites/{siteId} {
-      allow read: if isAuthenticated();
+      allow read:  if isAuthenticated() && (
+        isAdminOrManager()
+        || (
+          isClient() && (
+            (resource.data.keys().hasAll(['clientIds']) && resource.data.clientIds.hasAny([getClientId()]))
+            || (resource.data.keys().hasAll(['authorizedClients']) && resource.data.authorizedClients.hasAny([getClientId()]))
+          )
+        )
+      );
       allow write: if isAdminOrManager();
     }
 
-    // Default
+    // ═══════════════════════════════════════════════════════════════
+    // 5. CONSIGNES
+    // ═══════════════════════════════════════════════════════════════
+    match /consignes/{consigneId} {
+      allow read:  if isAuthenticated();
+      allow write: if isAdminOrManager();
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 6. DOCUMENTS (métadonnées) — Admin/Manager seulement
+    // ═══════════════════════════════════════════════════════════════
+    match /documents/{docId} {
+      allow read:          if isAdminOrManager();
+      allow create, update: if isAdminOrManager();
+      allow delete:         if isAdmin();
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 7. DOCUMENT RECEIPTS — ACK via callable uniquement côté agent
+    // ═══════════════════════════════════════════════════════════════
+    match /documentReceipts/{receiptId} {
+      allow read: if isAdminOrManager()
+        || (isAuthenticated() && resource.data.agentId == request.auth.uid);
+      // Écriture client INTERDITE : ACK via callable uniquement
+      allow write: if false;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 8. AUDIT LOGS — Écriture serveur uniquement (Admin SDK)
+    // ═══════════════════════════════════════════════════════════════
+    match /auditLogs/{id} {
+      allow read:  if isAdminOrManager();
+      allow write: if false;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 9. RATE LIMITS — Jamais accessible côté client
+    // ═══════════════════════════════════════════════════════════════
+    match /rateLimits/{id} {
+      allow read, write: if false;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 10. CLIENTS — Admin/Manager ou Client propriétaire
+    // ═══════════════════════════════════════════════════════════════
+    match /clients/{clientId} {
+      allow read: if isAdminOrManager() || (isClient() && clientId == getClientId());
+      allow write: if isAdminOrManager();
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 11. REPORTS — Lecture par client propriétaire ou Admin/Manager
+    // ═══════════════════════════════════════════════════════════════
+    match /reports/{reportId} {
+      // Admin/Manager voit tout
+      allow read: if isAdminOrManager();
+      
+      // Client ne voit que ses propres rapports (vérification clientId dans le doc)
+      allow read: if isClient() && resource.data.clientId == getClientId();
+      
+      // Écriture uniquement par le serveur (Cloud Function avec Admin SDK)
+      allow write: if false; 
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 11. SHIFTS — Source of Truth opérationnelle
+    // Admin/Manager : accès total. Agent : ses propres shifts. Client : ses shifts.
+    // ═══════════════════════════════════════════════════════════════
+    match /shifts/{shiftId} {
+      allow list: if isAdminOrManager();
+      allow get:  if isAdminOrManager()
+        || (isAuthenticated() && resource.data.agentId == request.auth.uid)
+        || (isClient() && resource.data.clientId == getClientId());
+      allow write: if isAdminOrManager();
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 12. STATS — Lecture seule admin/manager
+    // ═══════════════════════════════════════════════════════════════
+    match /stats_meta/{docId} {
+      // Lecture par tout utilisateur authentifié : contient uniquement des métadonnées de dates (non sensibles)
+      // Nécessaire pour que le Dashboard charge ses defaults même quand les custom claims ne sont pas encore propagés
+      allow read: if isAuthenticated();
+      allow write: if false; // Écrit par Cloud Functions uniquement
+    }
+
+    match /stats_daily/{docId} {
+      allow read: if isAdminOrManager();
+      allow write: if false;
+    }
+
+    match /stats_monthly/{docId} {
+      allow read: if isAdminOrManager();
+      allow write: if false;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // DEFAULT — Règle défensive (deny-all)
+    // ═══════════════════════════════════════════════════════════════
     match /{document=**} {
       allow read, write: if false;
     }

@@ -1,0 +1,38 @@
+{
+    "projectInfo": {
+        "timezone": "Europe/Paris"
+    },
+    "collections": [
+        "clients",
+        "sites",
+        "agents",
+        "planning",
+        "shifts",
+        "stats_daily",
+        "stats_monthly",
+        "stats_meta"
+    ],
+    "forbiddenFields": [
+        "billingClientId",
+        "site_id",
+        "agent_id",
+        "client_id"
+    ],
+    "invariantsCritical": {
+        "shifts": [
+            "SHIFT_START_BEFORE_END",
+            "SHIFT_DURATION_MATCH",
+            "SHIFT_DAYKEY_MATCH_PARIS",
+            "SHIFT_CLIENT_EXISTS",
+            "SHIFT_SITE_EXISTS",
+            "SHIFT_AGENT_EXISTS_OR_NULL"
+        ],
+        "sites": [
+            "SITE_CLIENTIDS_VALID"
+        ]
+    },
+    "thresholds": {
+        "shiftsCriticalPassRate": 1.0,
+        "forbiddenFieldsAllowed": 0
+    }
+}
