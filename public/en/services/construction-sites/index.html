@@ -1,231 +1,508 @@
 <!DOCTYPE html>
-
 <html lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Construction Site Security — MO'CYNO</title>
-<meta content="Construction site security and guarding in the French Riviera. Prevention of theft, access control and K9 patrols for building sites." name="description"/>
-<meta content="website" property="og:type"/>
-<meta content="Construction Site Security — MO'CYNO" property="og:title"/>
-<meta content="https://mocyno.com/en/services/construction-sites/" property="og:url"/>
-<meta content="https://mocyno.com/og-image.png" property="og:image"/>
-<!-- SEO:BEGIN -->
-<link href="https://mocyno.com/en/services/construction-sites/" rel="canonical"/>
-<link href="https://mocyno.com/fr/services/chantiers/" hreflang="fr" rel="alternate"/>
-<link href="https://mocyno.com/en/services/construction-sites/" hreflang="en" rel="alternate"/>
-<link href="https://mocyno.com/fr/services/chantiers/" hreflang="x-default" rel="alternate"/>
-<!-- SEO:END -->
-<!-- SAFE GTM - No insertBefore dependency -->
-<script>
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-  var scriptTag = document.createElement('script');
-  scriptTag.async = true;
-  scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-WH9T9G58';
-  document.head.appendChild(scriptTag);
+  <!-- MO'CYNO_CONSENT_DEFAULT_START -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+
+    // Default (avant GTM) : denied + wait_for_update
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'denied',
+      personalization_storage: 'denied',
+      security_storage: 'granted',
+      wait_for_update: 500
+    });
+
+    // Restore consent (si déjà accepté)
+    try {
+      var s = localStorage.getItem('mocyno_consent_state');
+      if (s === 'granted') {
+        gtag('consent', 'update', {
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted',
+          analytics_storage: 'granted',
+          functionality_storage: 'granted',
+          personalization_storage: 'granted',
+          security_storage: 'granted'
+        });
+      }
+    } catch (e) { }
   </script>
-<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="index,follow" name="robots"/>
-<link href="/favicon.ico" rel="icon"/>
-<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
-<meta content="Construction site security and guarding in the French Riviera. Prevention of theft, access control and K9 patrols for building sites." property="og:description"/>
-<meta content="#022C51" name="theme-color"/>
-<link as="style" href="/styles.css?v=2.7" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
-<noscript>
-<link href="/styles.css?v=2.7" rel="stylesheet">
-</link></noscript>
-<link href="/styles-compat-patch.css?v=2.7" rel="stylesheet"/>
-<script defer="" src="/consent-ga.js"></script>
-<meta content="G-E5JX7DYYYN" name="ga-measurement-id"/>
-</link></head>
+  <!-- MO'CYNO_CONSENT_DEFAULT_END -->
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>Construction Site Security — MO'CYNO</title>
+  <meta
+    content="Construction site security and guarding in the French Riviera. Prevention of theft, access control and K9 patrols for building sites."
+    name="description">
+  <meta content="website" property="og:type">
+  <meta content="Construction Site Security — MO'CYNO" property="og:title">
+  <meta content="https://mocyno.com/en/services/construction-sites/" property="og:url">
+  <meta content="https://mocyno.com/og-image.png" property="og:image">
+  <!-- SAFE GTM - No insertBefore dependency -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var scriptTag = document.createElement('script');
+    scriptTag.async = true;
+    scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
+    document.head.appendChild(scriptTag);
+  </script>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="index,follow" name="robots">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.svg" rel="icon" type="image/svg+xml">
+  <meta
+    content="Construction site security and guarding in the French Riviera. Prevention of theft, access control and K9 patrols for building sites."
+    property="og:description">
+  <meta content="#022C51" name="theme-color">
+  <link as="style" href="/styles.css?v=2.7" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
+  <noscript>
+    <link href="/styles.css?v=2.7" rel="stylesheet" />
+  </noscript>
+  <link href="/styles-compat-patch.css?v=2.7" rel="stylesheet">
+  <script defer="" src="/consent-ga.js"></script>
+
+  <meta content="MO'CYNO" property="og:site_name">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- MO'CYNO_JSONLD_START -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://mocyno.com/#organization",
+      "name": "MO'CYNO SASU",
+      "url": "https://mocyno.com/",
+      "logo": "https://mocyno.com/mocyno-logo.png",
+      "sameAs": [
+        "https://www.linkedin.com/company/MO'CYNO"
+      ]
+    },
+    {
+      "@type": [
+        "LocalBusiness",
+        "SecurityService",
+        "ProfessionalService"
+      ],
+      "@id": "https://mocyno.com/#localbusiness-en",
+      "parentOrganization": {
+        "@id": "https://mocyno.com/#organization"
+      },
+      "name": "MO'CYNO",
+      "legalName": "MO'CYNO SASU",
+      "url": "https://mocyno.com/en/",
+      "logo": "https://mocyno.com/mocyno-logo.png",
+      "image": "/images/services/hero-chantiers-btp.png",
+      "telephone": "+33666035116",
+      "email": "contact@MO'CYNO.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "31 Rue Chevalier Paul",
+        "postalCode": "83000",
+        "addressLocality": "Toulon",
+        "addressCountry": "FR"
+      },
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Provence-Alpes-Côte d'Azur, France"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Var, France"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Alpes-Maritimes, France"
+        },
+        {
+          "@type": "City",
+          "name": "Toulon"
+        },
+        {
+          "@type": "City",
+          "name": "Saint-Tropez"
+        },
+        {
+          "@type": "City",
+          "name": "Sainte-Maxime"
+        },
+        {
+          "@type": "City",
+          "name": "Cannes"
+        },
+        {
+          "@type": "City",
+          "name": "Nice"
+        },
+        {
+          "@type": "City",
+          "name": "Antibes"
+        },
+        {
+          "@type": "City",
+          "name": "Fréjus"
+        }
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/company/MO'CYNO",
+        "https://www.instagram.com/MO'CYNOsecurite/"
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://mocyno.com/en/services/construction-sites/#service-index",
+      "name": "Construction Site Security",
+      "serviceType": "Sécurité Privée",
+      "provider": {
+        "@id": "https://mocyno.com/#localbusiness-en"
+      },
+      "url": "https://mocyno.com/en/services/construction-sites/",
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Provence-Alpes-Côte d'Azur, France"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Var, France"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Alpes-Maritimes, France"
+        },
+        {
+          "@type": "City",
+          "name": "Toulon"
+        },
+        {
+          "@type": "City",
+          "name": "Saint-Tropez"
+        },
+        {
+          "@type": "City",
+          "name": "Sainte-Maxime"
+        },
+        {
+          "@type": "City",
+          "name": "Cannes"
+        },
+        {
+          "@type": "City",
+          "name": "Nice"
+        },
+        {
+          "@type": "City",
+          "name": "Antibes"
+        },
+        {
+          "@type": "City",
+          "name": "Fréjus"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://mocyno.com/en/services/construction-sites/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "K9 Security",
+          "item": "https://mocyno.com/en/services/securite-cynophile/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Manned Guarding",
+          "item": "https://mocyno.com/en/services/surveillance-humaine/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Marinas & Ports",
+          "item": "https://mocyno.com/en/services/marinas-ports/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Construction Sites",
+          "item": "https://mocyno.com/en/services/construction-sites/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Residential & Villas",
+          "item": "https://mocyno.com/en/services/residential/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Hospitality",
+          "item": "https://mocyno.com/en/services/hospitality/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "Event Security",
+          "item": "https://mocyno.com/en/services/premium-events/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://mocyno.com/en/services/construction-sites/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the best solution for a large open site?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For large open areas, we recommend a K9 unit (dog handler), whose detection and deterrence capabilities are superior to those of a lone guard."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you operate on short-term sites?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, we offer flexible contracts for specific needs (delivery of sensitive materials, bank holiday weekends, etc.)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you have the necessary equipment (PPE)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. Our agents are equipped with full PPE (safety shoes, helmets, high-vis vests) and respect site safety regulations."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <!-- MO'CYNO_JSONLD_END -->
+  <link rel="stylesheet" href="/styles/visual-polish.css">
+  <!-- MOCYNO:SEO_START -->
+  <link href="https://mocyno.com/en/services/construction-sites/" rel="canonical">
+  <link href="https://mocyno.com/fr/services/chantiers/" hreflang="fr" rel="alternate">
+  <link href="https://mocyno.com/en/services/construction-sites/" hreflang="en" rel="alternate">
+  <link href="https://mocyno.com/fr/services/chantiers/" hreflang="x-default" rel="alternate">
+  <!-- MOCYNO:SEO_END -->
+  <link rel="stylesheet" href="/styles/sticky-cta.css">
+  <script defer src="/scripts/sticky-cta.js"></script>
+</head>
+
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-WH9T9G58" style="display:none;visibility:hidden" width="0"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<header class="site-header">
-<div class="container nav">
-<a class="logo" href="/en/">
-<picture>
-<source srcset="/mocyno-logo.webp" type="image/webp"/>
-<img alt="Logo MO'Cyno" height="36" src="/mocyno-logo.webp" style="border-radius:8px" width="36"/>
-</picture>
-<span>MO'CYNO</span>
-</a>
-<button class="menu-toggle" onclick="document.querySelector('.nav .links').classList.toggle('open');
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-N4MSSMV3"
+      style="display:none;visibility:hidden" width="0"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <header class="site-header">
+    <div class="container nav">
+      <a class="logo" href="/en/">
+        <picture>
+          <source srcset="/mocyno-logo.webp" type="image/webp">
+          <img alt="Logo MO'CYNO" height="36" src="/mocyno-logo.webp" style="border-radius:8px" width="36">
+        </picture>
+        <span>MO'CYNO</span>
+      </a>
+      <button class="menu-toggle" onclick="document.querySelector('.nav .links').classList.toggle('open');
                document.querySelector('.nav-overlay').classList.toggle('show')">
         Menu
       </button>
-<nav class="links">
-<div class="services-nav">
-<a class="services-trigger" href="/en/services/">Services</a>
-<div class="services-menu">
-<ul class="services-list">
-<li><a href="/en/services/securite-cynophile/">K9 Security</a></li>
-<li><a href="/en/services/surveillance-humaine/">Manned Guarding</a></li>
-<li><a href="/en/services/marinas-ports/">Marinas &amp; Ports</a></li>
-<li><a href="/en/services/construction-sites/">Construction Sites</a></li>
-<li><a href="/en/services/residential/">Residential &amp; Villas</a></li>
-<li><a href="/en/services/hospitality/">Hospitality</a></li>
-<li><a href="/en/services/premium-events/">Event Security</a></li>
-</ul>
-</div>
-</div>
-<a href="/en/#expertises">Expertise</a>
-<div class="zones-nav">
-<a class="zones-trigger" href="/en/#zones">Areas</a>
-<div class="zones-menu">
-<ul class="zones-list">
-<li><a href="/en/zones/saint-tropez/">Saint-Tropez</a></li>
-<li><a href="/en/zones/cannes/">Cannes</a></li>
-<li><a href="/en/zones/nice/">Nice</a></li>
-<li><a href="/en/zones/toulon/">Toulon</a></li>
-<li><a href="/en/zones/frejus/">Frejus</a></li>
-<li><a href="/en/zones/sainte-maxime/">Sainte-Maxime</a></li>
-</ul>
-</div>
-</div>
-<a href="/en/#references">References</a>
-<a href="/en/blog/" style="font-weight:700">Blog</a>
-<a class="btn primary" href="/en/contact/">Quote &amp; Contact</a>
-<a aria-label="Français" class="lang-switch" href="/fr/" hreflang="fr">FR</a>
-</nav>
-</div>
-<div class="nav-overlay" onclick="document.querySelector('.nav .links').classList.remove('open');
+      <nav class="links">
+        <div class="zones-nav">
+          <a class="zones-trigger" href="/en/#besoins">Needs</a>
+          <div class="zones-menu">
+            <ul class="zones-list">
+              <li><a href="/en/services/residential/">Villa</a></li>
+              <li><a href="/en/services/premium-events/">Events</a></li>
+              <li><a href="/en/services/construction-sites/">Construction</a></li>
+              <li><a href="/en/services/hospitality/">Hotel</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="zones-nav">
+          <a class="zones-trigger" href="/en/#zones">Areas</a>
+          <div class="zones-menu">
+            <ul class="zones-list">
+              <li><a href="/en/zones/saint-tropez/">Saint-Tropez</a></li>
+              <li><a href="/en/zones/cannes/">Cannes</a></li>
+              <li><a href="/en/zones/nice/">Nice</a></li>
+              <li><a href="/en/zones/toulon/">Toulon</a></li>
+              <li><a href="/en/zones/frejus/">Frejus</a></li>
+              <li><a href="/en/zones/sainte-maxime/">Sainte-Maxime</a></li>
+            </ul>
+          </div>
+        </div>
+        <a href="/en/#expertises">Expertise</a>
+        <a href="/en/blog/">News</a>
+        <a class="btn primary" href="/en/contact/">Quote &amp; Contact</a>
+        <a aria-label="Français" class="lang-switch" href="/fr/services/chantiers/" hreflang="fr">FR</a>
+      </nav>
+    </div>
+    <div class="nav-overlay" onclick="document.querySelector('.nav .links').classList.remove('open');
                 this.classList.remove('show')"></div>
-</header>
-<main role="main" style="max-width:900px;margin:40px auto;padding:0 16px">
-<nav aria-label="Breadcrumb" style="font-size:0.9em;opacity:0.8;margin-bottom:16px;">
-<a href="/en/">Home</a> &gt; <div class="services-nav">
-<a class="services-trigger" href="/en/services/">Services</a>
-<div class="services-menu">
-<ul class="services-list">
-<li><a href="/en/services/securite-cynophile/">K9 Security</a></li>
-<li><a href="/en/services/surveillance-humaine/">Manned Guarding</a></li>
-<li><a href="/en/services/marinas-ports/">Marinas &amp; Ports</a></li>
-<li><a href="/en/services/construction-sites/">Construction Sites</a></li>
-<li><a href="/en/services/residential/">Residential &amp; Villas</a></li>
-<li><a href="/en/services/hospitality/">Hospitality</a></li>
-<li><a href="/en/services/premium-events/">Event Security</a></li>
-</ul>
-</div>
-</div> &gt; <span>Construction Sites</span>
-</nav>
-<h1>Construction Site Security</h1>
-<div class="image-wrapper">
-<img alt="Construction Site Security" class="main-img" fetchpriority="high" height="1080" loading="lazy" src="/images/services/hero-construction-sites-en.png" width="1920"/>
-</div>
-<section>
-<p>
-                Construction and renovation sites are particularly vulnerable to theft of materials (copper, tools,
-                fuel) and vandalism.
-                MO'CYNO ensures rigorous surveillance to guarantee the continuity of your works and avoid costly delays.
-            </p>
-</section>
-<section style="margin:40px 0">
-<h2>Solutions for Construction Sites</h2>
-<ul>
-<li><strong>Night &amp; Weekend Guarding:</strong> Human presence during closing hours to deter intrusion.
-                </li>
-<li><strong>K9 Security:</strong> Use of dog handlers for maximum efficiency on large perimeters.</li>
-<li><strong>Site Access Control:</strong> Verification of subcontractors, badges and deliveries.</li>
-<li><strong>Digital Reporting:</strong> Full traceability of patrols and incidents.</li>
-</ul>
-</section>
-<section style="margin:40px 0">
-<h2>Local Expertise</h2>
-<p>
-                We secure construction sites throughout the <strong>Var</strong> and <strong>Alpes-Maritimes</strong>,
-                ranging from luxury villa renovations to real estate developments and public infrastructure.
-            </p>
-</section>
-<section id="faq" style="margin:40px 0;background:#f9f9f9;padding:24px;border-radius:12px">
-<h2>FAQ – Site Security</h2>
-<details style="margin-bottom:12px">
-<summary><strong>What is the best solution for a large open site?</strong></summary>
-<p style="margin-top:8px">For large open areas, we recommend a K9 unit (dog handler), whose detection
-                    and deterrence capabilities are superior to those of a lone guard.</p>
-</details>
-<details style="margin-bottom:12px">
-<summary><strong>Do you operate on short-term sites?</strong></summary>
-<p style="margin-top:8px">Yes, we offer flexible contracts for specific needs (delivery of sensitive
-                    materials, bank holiday weekends, etc.).</p>
-</details>
-<details>
-<summary><strong>Do you have the necessary equipment (PPE)?</strong></summary>
-<p style="margin-top:8px">Absolutely. Our agents are equipped with full PPE (safety shoes, helmets,
-                    high-vis vests) and respect site safety regulations.</p>
-</details>
-</section>
-<section style="margin:40px 0;border-top:1px solid #eee;padding-top:24px">
-<h3>See also</h3>
-<nav style="display:flex;gap:16px;flex-wrap:wrap">
-<a href="/en/services/securite-cynophile/">K9 Security</a>
-<a href="/en/services/surveillance-humaine/">Manned Guarding</a>
-<a href="/en/services/">All services</a>
-</nav>
-</section>
-<section class="cta container section" style="text-align:center">
-<h2>Protect your site now</h2>
-<p>Free and fast quote.</p>
-<p><a class="btn primary" href="/en/contact/">Request a site quote</a></p>
-</section>
-</main>
-<footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
-<div class="container footer-grid">
-<div class="footer-left">
-<p class="footer-meta">© 2025 MO'CYNO — SASU — SIRET 990 179 566 00015 — NAF 80.10Z</p>
-<div class="footer-inline">
-<span>31 Rue Chevalier Paul, 83000 Toulon, France</span><span>•</span>
-<span>CNAPS licence: <a href="https://teleservices-cnaps.interieur.gouv.fr/teleservices/ihm/#/morale/search" rel="noopener noreferrer" style="color:#fff;text-decoration:underline;" target="_blank">AUT-83-2124-09-09-20250998415</a> — This licence does not confer any public authority status
+  </header>
+  <main>
+    <!-- HERO SECTION PREMIUM -->
+    <section class="hero-premium">
+      <div class="hero-image-wrapper">
+        <img alt="Construction site security by MO'CYNO agents" class="hero-img" height="1024"
+          src="/images/services/hero-chantiers-btp.png" width="1024">
+        <div class="hero-overlay-dark"></div>
+      </div>
+      <div class="container hero-content-premium">
+        <h1>Construction Site Security</h1>
+        <p class="hero-subtitle-premium">Prevention of material theft, access control and 24/7 guarding for building
+          sites across the Riviera.</p>
+        <div class="hero-actions-premium">
+          <a class="btn primary" href="/en/contact/">Secure my Site</a>
+          <a class="btn secondary" href="tel:+33666035116">Security Audit</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- BREADCRUMB DÉCALÉ -->
+    <nav aria-label="Breadcrumb" style="max-width:1200px;margin:20px auto 0;padding:0 16px">
+      <ol style="list-style:none;padding:0;display:flex;gap:8px;font-size:14px;color:#666">
+        <li><a href="/en/" style="color:#022C51;text-decoration:none">Home</a></li>
+        <li aria-hidden="true">›</li>
+        <li><a href="/en/services/" style="color:#022C51;text-decoration:none">Services</a></li>
+        <li aria-hidden="true">›</li>
+        <li style="color:#666">Construction Sites</li>
+      </ol>
+    </nav>
+    <section class="section container">
+      <div class="intro-block">
+        <h2>Expertise in Building Site Protection</h2>
+        <p>
+          Construction and renovation sites are particularly vulnerable to theft of materials (copper, tools,
+          fuel) and vandalism.
+          MO'CYNO ensures rigorous surveillance to guarantee the continuity of your works and avoid costly delays.
+        </p>
+      </div>
+    </section>
+
+    <section class="section bg-light">
+      <div class="container">
+        <h2>Our Solutions for Construction</h2>
+        <div class="grid-services">
+          <div class="service-card">
+            <h3>🌙 Night &amp; Weekend Guarding</h3>
+            <p>Human presence during closing hours to deter intrusion and looting.</p>
+          </div>
+          <div class="service-card">
+            <h3>🐕 K9 Security</h3>
+            <p>Dog handlers for enhanced efficiency and detection on large perimeters.</p>
+          </div>
+          <div class="service-card">
+            <h3>🎫 Site Access Control</h3>
+            <p>Strict verification of badges, subcontractors and material deliveries.</p>
+          </div>
+          <div class="service-card">
+            <h3>📲 Digital Reporting</h3>
+            <p>Full traceability of patrols and incidents via our electronic reporting tool.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="intro-block">
+        <h2>Local Expertise in the Region</h2>
+        <p>
+          We secure construction sites throughout the <strong>Var</strong> and <strong>Alpes-Maritimes</strong>,
+          ranging from luxury villa renovations to real estate developments and public infrastructure.
+        </p>
+      </div>
+    </section>
+    <section id="faq" style="margin:40px 0;background:#f9f9f9;padding:24px;border-radius:12px">
+      <h2>FAQ – Site Security</h2>
+      <details style="margin-bottom:12px">
+        <summary><strong>What is the best solution for a large open site?</strong></summary>
+        <p style="margin-top:8px">For large open areas, we recommend a K9 unit (dog handler), whose detection
+          and deterrence capabilities are superior to those of a lone guard.</p>
+      </details>
+      <details style="margin-bottom:12px">
+        <summary><strong>Do you operate on short-term sites?</strong></summary>
+        <p style="margin-top:8px">Yes, we offer flexible contracts for specific needs (delivery of sensitive
+          materials, bank holiday weekends, etc.).</p>
+      </details>
+      <details>
+        <summary><strong>Do you have the necessary equipment (PPE)?</strong></summary>
+        <p style="margin-top:8px">Absolutely. Our agents are equipped with full PPE (safety shoes, helmets,
+          high-vis vests) and respect site safety regulations.</p>
+      </details>
+    </section>
+    <section style="margin:40px 0;border-top:1px solid #eee;padding-top:24px">
+      <h3>See also</h3>
+      <nav style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="/en/services/securite-cynophile/">K9 Security</a>
+        <a href="/en/services/surveillance-humaine/">Manned Guarding</a>
+        <a href="/en/services/">All services</a>
+      </nav>
+    </section>
+    <section class="cta container section" style="text-align:center">
+      <h2>Protect your site now</h2>
+      <p>Free and fast quote.</p>
+      <p><a class="btn primary" href="/en/contact/">Request a site quote</a></p>
+    </section>
+  </main>
+  <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
+    <div class="container footer-grid">
+      <div class="footer-left">
+        <p class="footer-meta">© 2025 MO'CYNO — SASU — SIRET 990 179 566 00015 — NAF 80.10Z</p>
+        <div class="footer-inline">
+          <span>31 Rue Chevalier Paul, 83000 Toulon, France <em>(Registered office / domiciliation — on-site services
+              only, no public office)</em></span><span>•</span>
+          <span>CNAPS licence: <a href="https://teleservices-cnaps.interieur.gouv.fr/teleservices/ihm/#/morale/search"
+              rel="noopener noreferrer" style="color:#fff;text-decoration:underline;"
+              target="_blank">AUT-83-2124-09-09-20250998415</a> — This licence does not confer any public authority
+            status
             nor official endorsement. (Art. L612-14 CSI)</span>
-</div>
-</div>
-<nav aria-label="Secondary navigation" class="footer-links" role="navigation">
-<a href="/en/about/">About</a>
-<a href="/en/legal/">Legal</a>
-<a href="/en/privacy/">Privacy</a>
-<a href="/en/cookies/">Cookies</a>
-<a href="/sitemap.xml">Sitemap</a>
-</nav>
-</div>
-</footer>
-<!--Start of Tawk.to Script (Optimized Lazy Load)-->
-<script type="text/javascript">
-  // Lazy load Tawk.to after 3s OR on user scroll/interaction
-  (function() {
-    var tawkLoaded = false;
-    
-    function loadTawk() {
-      if (tawkLoaded) return;
-      tawkLoaded = true;
-      
-      var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-      s1.async = true;
-      s1.src = 'https://embed.tawk.to/693452a684fc15197fdfc2a0/1jbq65n5t';
-      s1.charset = 'UTF-8';
-      s1.setAttribute('crossorigin', '*');
-      s0.parentNode.insertBefore(s1, s0);
-    }
-    
-    // Load after 3 seconds
-    setTimeout(loadTawk, 3000);
-    
-    // OR load on first scroll/interaction
-    var events = ['scroll', 'mousemove', 'touchstart', 'click'];
-    var loadOnce = function() {
-      loadTawk();
-      events.forEach(function(event) {
-        window.removeEventListener(event, loadOnce);
-      });
-    };
-    
-    events.forEach(function(event) {
-      window.addEventListener(event, loadOnce, { passive: true, once: true });
-    });
-  })();
-</script>
-<!--End of Tawk.to Script (Optimized Lazy Load)-->
+        </div>
+      </div>
+      <nav aria-label="Secondary navigation" class="footer-links" role="navigation">
+        <a href="/en/about/">About</a>
+        <a href="/en/legal/">Legal</a>
+        <a href="/en/privacy/">Privacy</a>
+        <a href="/en/cookies/">Cookies</a>
+        <a href="/sitemap.xml">Sitemap</a>
+      </nav>
+    </div>
+  </footer>
+  <script defer="" src="/tawk-consent.js"></script>
+
 </body>
+
 </html>
