@@ -1,233 +1,509 @@
 <!DOCTYPE html>
-
 <html lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Hotel &amp; Hospitality Security — MO'CYNO</title>
-<meta content="Security for luxury hotels and palaces in the French Riviera. Bilingual agents, night guards and access management for demanding clientele." name="description"/>
-<meta content="website" property="og:type"/>
-<meta content="Hotel &amp; Hospitality Security — MO'CYNO" property="og:title"/>
-<meta content="https://mocyno.com/en/services/hospitality/" property="og:url"/>
-<meta content="https://mocyno.com/og-image.png" property="og:image"/>
-<!-- SEO:BEGIN -->
-<link href="https://mocyno.com/en/services/hospitality/" rel="canonical"/>
-<link href="https://mocyno.com/fr/services/hotellerie/" hreflang="fr" rel="alternate"/>
-<link href="https://mocyno.com/en/services/hospitality/" hreflang="en" rel="alternate"/>
-<link href="https://mocyno.com/fr/services/hotellerie/" hreflang="x-default" rel="alternate"/>
-<!-- SEO:END -->
-<!-- SAFE GTM - No insertBefore dependency -->
-<script>
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-  var scriptTag = document.createElement('script');
-  scriptTag.async = true;
-  scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-WH9T9G58';
-  document.head.appendChild(scriptTag);
+  <!-- MO'CYNO_CONSENT_DEFAULT_START -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+
+    // Default (avant GTM) : denied + wait_for_update
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'denied',
+      personalization_storage: 'denied',
+      security_storage: 'granted',
+      wait_for_update: 500
+    });
+
+    // Restore consent (si déjà accepté)
+    try {
+      var s = localStorage.getItem('mocyno_consent_state');
+      if (s === 'granted') {
+        gtag('consent', 'update', {
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted',
+          analytics_storage: 'granted',
+          functionality_storage: 'granted',
+          personalization_storage: 'granted',
+          security_storage: 'granted'
+        });
+      }
+    } catch (e) { }
   </script>
-<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="index,follow" name="robots"/>
-<link href="/favicon.ico" rel="icon"/>
-<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
-<meta content="Security for luxury hotels and palaces in the French Riviera. Bilingual agents, night guards and access management for demanding clientele." property="og:description"/>
-<meta content="#022C51" name="theme-color"/>
-<link as="style" href="/styles.css?v=2.7" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
-<noscript>
-<link href="/styles.css?v=2.7" rel="stylesheet">
-</link></noscript>
-<link href="/styles-compat-patch.css?v=2.7" rel="stylesheet"/>
-<script defer="" src="/consent-ga.js"></script>
-<meta content="G-E5JX7DYYYN" name="ga-measurement-id"/>
-</link></head>
+  <!-- MO'CYNO_CONSENT_DEFAULT_END -->
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>Hotel &amp; Hospitality Security — MO'CYNO</title>
+  <meta
+    content="Security for luxury hotels and palaces in the French Riviera. Bilingual agents, night guards and access management for demanding clientele."
+    name="description">
+  <meta content="website" property="og:type">
+  <meta content="Hotel &amp; Hospitality Security — MO'CYNO" property="og:title">
+  <meta content="https://mocyno.com/en/services/hospitality/" property="og:url">
+  <meta content="https://mocyno.com/og-image.png" property="og:image">
+  <!-- SAFE GTM - No insertBefore dependency -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var scriptTag = document.createElement('script');
+    scriptTag.async = true;
+    scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
+    document.head.appendChild(scriptTag);
+  </script>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="index,follow" name="robots">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/favicon.svg" rel="icon" type="image/svg+xml">
+  <meta
+    content="Security for luxury hotels and palaces in the French Riviera. Bilingual agents, night guards and access management for demanding clientele."
+    property="og:description">
+  <meta content="#022C51" name="theme-color">
+  <link as="style" href="/styles.css?v=2.7" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
+  <noscript>
+    <link href="/styles.css?v=2.7" rel="stylesheet" />
+  </noscript>
+  <link href="/styles-compat-patch.css?v=2.7" rel="stylesheet">
+  <script defer="" src="/consent-ga.js"></script>
+
+  <meta content="MO'CYNO" property="og:site_name">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- MO'CYNO_JSONLD_START -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://mocyno.com/#organization",
+      "name": "MO'CYNO SASU",
+      "url": "https://mocyno.com/",
+      "logo": "https://mocyno.com/mocyno-logo.png",
+      "sameAs": [
+        "https://www.linkedin.com/company/MO'CYNO"
+      ]
+    },
+    {
+      "@type": [
+        "LocalBusiness",
+        "SecurityService",
+        "ProfessionalService"
+      ],
+      "@id": "https://mocyno.com/#localbusiness-en",
+      "parentOrganization": {
+        "@id": "https://mocyno.com/#organization"
+      },
+      "name": "MO'CYNO",
+      "legalName": "MO'CYNO SASU",
+      "url": "https://mocyno.com/en/",
+      "logo": "https://mocyno.com/mocyno-logo.png",
+      "image": "/images/service-villa-security-saint-tropez.png",
+      "telephone": "+33666035116",
+      "email": "contact@MO'CYNO.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "31 Rue Chevalier Paul",
+        "postalCode": "83000",
+        "addressLocality": "Toulon",
+        "addressCountry": "FR"
+      },
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Provence-Alpes-Côte d'Azur, France"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Var, France"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Alpes-Maritimes, France"
+        },
+        {
+          "@type": "City",
+          "name": "Toulon"
+        },
+        {
+          "@type": "City",
+          "name": "Saint-Tropez"
+        },
+        {
+          "@type": "City",
+          "name": "Sainte-Maxime"
+        },
+        {
+          "@type": "City",
+          "name": "Cannes"
+        },
+        {
+          "@type": "City",
+          "name": "Nice"
+        },
+        {
+          "@type": "City",
+          "name": "Antibes"
+        },
+        {
+          "@type": "City",
+          "name": "Fréjus"
+        }
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/company/MO'CYNO",
+        "https://www.instagram.com/MO'CYNOsecurite/"
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://mocyno.com/en/services/hospitality/#service-index",
+      "name": "Hotel & Hospitality Security",
+      "serviceType": "Sécurité Privée",
+      "provider": {
+        "@id": "https://mocyno.com/#localbusiness-en"
+      },
+      "url": "https://mocyno.com/en/services/hospitality/",
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Provence-Alpes-Côte d'Azur, France"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Var, France"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Alpes-Maritimes, France"
+        },
+        {
+          "@type": "City",
+          "name": "Toulon"
+        },
+        {
+          "@type": "City",
+          "name": "Saint-Tropez"
+        },
+        {
+          "@type": "City",
+          "name": "Sainte-Maxime"
+        },
+        {
+          "@type": "City",
+          "name": "Cannes"
+        },
+        {
+          "@type": "City",
+          "name": "Nice"
+        },
+        {
+          "@type": "City",
+          "name": "Antibes"
+        },
+        {
+          "@type": "City",
+          "name": "Fréjus"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://mocyno.com/en/services/hospitality/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "K9 Security",
+          "item": "https://mocyno.com/en/services/securite-cynophile/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Manned Guarding",
+          "item": "https://mocyno.com/en/services/surveillance-humaine/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Marinas & Ports",
+          "item": "https://mocyno.com/en/services/marinas-ports/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Construction Sites",
+          "item": "https://mocyno.com/en/services/construction-sites/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Residential & Villas",
+          "item": "https://mocyno.com/en/services/residential/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Hospitality",
+          "item": "https://mocyno.com/en/services/hospitality/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "Event Security",
+          "item": "https://mocyno.com/en/services/premium-events/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://mocyno.com/en/services/hospitality/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do your agents speak other languages?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, English is a prerequisite for our hospitality agents. Some also speak Russian or Arabic depending on your needs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you handle dress codes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our agents wear the MO'CYNO suit and tie or can adopt your establishment's uniform."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you provide fire safety?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, we provide team leaders and SSIAP 1/2/3 certified agents who are up to date with their training."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <!-- MO'CYNO_JSONLD_END -->
+  <link rel="stylesheet" href="/styles/visual-polish.css">
+  <!-- MOCYNO:SEO_START -->
+  <link href="https://mocyno.com/en/services/hospitality/" rel="canonical">
+  <link href="https://mocyno.com/fr/services/hotellerie/" hreflang="fr" rel="alternate">
+  <link href="https://mocyno.com/en/services/hospitality/" hreflang="en" rel="alternate">
+  <link href="https://mocyno.com/fr/services/hotellerie/" hreflang="x-default" rel="alternate">
+  <!-- MOCYNO:SEO_END -->
+  <link rel="stylesheet" href="/styles/sticky-cta.css">
+  <script defer src="/scripts/sticky-cta.js"></script>
+</head>
+
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-WH9T9G58" style="display:none;visibility:hidden" width="0"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<header class="site-header">
-<div class="container nav">
-<a class="logo" href="/en/">
-<picture>
-<source srcset="/mocyno-logo.webp" type="image/webp"/>
-<img alt="Logo MO'Cyno" height="36" src="/mocyno-logo.webp" style="border-radius:8px" width="36"/>
-</picture>
-<span>MO'CYNO</span>
-</a>
-<button class="menu-toggle" onclick="document.querySelector('.nav .links').classList.toggle('open');
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-N4MSSMV3"
+      style="display:none;visibility:hidden" width="0"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <header class="site-header">
+    <div class="container nav">
+      <a class="logo" href="/en/">
+        <picture>
+          <source srcset="/mocyno-logo.webp" type="image/webp">
+          <img alt="Logo MO'CYNO" height="36" src="/mocyno-logo.webp" style="border-radius:8px" width="36">
+        </picture>
+        <span>MO'CYNO</span>
+      </a>
+      <button class="menu-toggle" onclick="document.querySelector('.nav .links').classList.toggle('open');
                document.querySelector('.nav-overlay').classList.toggle('show')">
         Menu
       </button>
-<nav class="links">
-<div class="services-nav">
-<a class="services-trigger" href="/en/services/">Services</a>
-<div class="services-menu">
-<ul class="services-list">
-<li><a href="/en/services/securite-cynophile/">K9 Security</a></li>
-<li><a href="/en/services/surveillance-humaine/">Manned Guarding</a></li>
-<li><a href="/en/services/marinas-ports/">Marinas &amp; Ports</a></li>
-<li><a href="/en/services/construction-sites/">Construction Sites</a></li>
-<li><a href="/en/services/residential/">Residential &amp; Villas</a></li>
-<li><a href="/en/services/hospitality/">Hospitality</a></li>
-<li><a href="/en/services/premium-events/">Event Security</a></li>
-</ul>
-</div>
-</div>
-<a href="/en/#expertises">Expertise</a>
-<div class="zones-nav">
-<a class="zones-trigger" href="/en/#zones">Areas</a>
-<div class="zones-menu">
-<ul class="zones-list">
-<li><a href="/en/zones/saint-tropez/">Saint-Tropez</a></li>
-<li><a href="/en/zones/cannes/">Cannes</a></li>
-<li><a href="/en/zones/nice/">Nice</a></li>
-<li><a href="/en/zones/toulon/">Toulon</a></li>
-<li><a href="/en/zones/frejus/">Frejus</a></li>
-<li><a href="/en/zones/sainte-maxime/">Sainte-Maxime</a></li>
-</ul>
-</div>
-</div>
-<a href="/en/#references">References</a>
-<a href="/en/blog/" style="font-weight:700">Blog</a>
-<a class="btn primary" href="/en/contact/">Quote &amp; Contact</a>
-<a aria-label="Français" class="lang-switch" href="/fr/" hreflang="fr">FR</a>
-</nav>
-</div>
-<div class="nav-overlay" onclick="document.querySelector('.nav .links').classList.remove('open');
+      <nav class="links">
+        <div class="zones-nav">
+          <a class="zones-trigger" href="/en/#besoins">Needs</a>
+          <div class="zones-menu">
+            <ul class="zones-list">
+              <li><a href="/en/services/residential/">Villa</a></li>
+              <li><a href="/en/services/premium-events/">Events</a></li>
+              <li><a href="/en/services/construction-sites/">Construction</a></li>
+              <li><a href="/en/services/hospitality/">Hotel</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="zones-nav">
+          <a class="zones-trigger" href="/en/#zones">Areas</a>
+          <div class="zones-menu">
+            <ul class="zones-list">
+              <li><a href="/en/zones/saint-tropez/">Saint-Tropez</a></li>
+              <li><a href="/en/zones/cannes/">Cannes</a></li>
+              <li><a href="/en/zones/nice/">Nice</a></li>
+              <li><a href="/en/zones/toulon/">Toulon</a></li>
+              <li><a href="/en/zones/frejus/">Frejus</a></li>
+              <li><a href="/en/zones/sainte-maxime/">Sainte-Maxime</a></li>
+            </ul>
+          </div>
+        </div>
+        <a href="/en/#expertises">Expertise</a>
+        <a href="/en/blog/">News</a>
+        <a class="btn primary" href="/en/contact/">Quote &amp; Contact</a>
+        <a aria-label="Français" class="lang-switch" href="/fr/services/hotellerie/" hreflang="fr">FR</a>
+      </nav>
+    </div>
+    <div class="nav-overlay" onclick="document.querySelector('.nav .links').classList.remove('open');
                 this.classList.remove('show')"></div>
-</header>
-<main role="main" style="max-width:900px;margin:40px auto;padding:0 16px">
-<nav aria-label="Breadcrumb" style="font-size:0.9em;opacity:0.8;margin-bottom:16px;">
-<a href="/en/">Home</a> &gt; <div class="services-nav">
-<a class="services-trigger" href="/en/services/">Services</a>
-<div class="services-menu">
-<ul class="services-list">
-<li><a href="/en/services/securite-cynophile/">K9 Security</a></li>
-<li><a href="/en/services/surveillance-humaine/">Manned Guarding</a></li>
-<li><a href="/en/services/marinas-ports/">Marinas &amp; Ports</a></li>
-<li><a href="/en/services/construction-sites/">Construction Sites</a></li>
-<li><a href="/en/services/residential/">Residential &amp; Villas</a></li>
-<li><a href="/en/services/hospitality/">Hospitality</a></li>
-<li><a href="/en/services/premium-events/">Event Security</a></li>
-</ul>
-</div>
-</div> &gt; <span>Hospitality</span>
-</nav>
-<h1>Hotel &amp; Hospitality Security</h1>
-<div class="image-wrapper">
-<img alt="Hospitality Security" class="main-img" fetchpriority="high" height="1080" loading="lazy" src="/images/services/hero-hospitality-en.png" width="1920"/>
-</div>
-<section>
-<p>
-                Hotels on the French Riviera welcome an international clientele demanding peace of mind and impeccable
-                service.
-                MO'CYNO integrates security as a component of the guest experience: our night auditors and "welcome
-                security" agents ensure safety without disturbing comfort.
-            </p>
-</section>
-<section style="margin:40px 0">
-<h2>Services for Hotels</h2>
-<ul>
-<li><strong>Qualified Night Auditor:</strong> Floor patrols, door locking and late check-in management.
-                </li>
-<li><strong>Fire Safety (SSIAP):</strong> Mandatory for public buildings with sleeping quarters, our
-                    agents are trained in first aid and evacuation.</li>
-<li><strong>Discreet Screening:</strong> Access control to the lobby, parking and spa areas.</li>
-<li><strong>Conflict Management:</strong> Diplomatic intervention in case of noise or incivility.</li>
-</ul>
-</section>
-<section style="margin:40px 0">
-<h2>Areas of Intervention</h2>
-<p>
-                We work with boutique hotels, tourist residences and palaces in <strong>Nice</strong>,
-                <strong>Cannes</strong>, <strong>Antibes</strong> and the Var hinterland.
-            </p>
-</section>
-<section id="faq" style="margin:40px 0;background:#f9f9f9;padding:24px;border-radius:12px">
-<h2>FAQ – Hotel Security</h2>
-<details style="margin-bottom:12px">
-<summary><strong>Do your agents speak other languages?</strong></summary>
-<p style="margin-top:8px">Yes, English is a prerequisite for our hospitality agents. Some also speak
-                    Russian or Arabic depending on your needs.</p>
-</details>
-<details style="margin-bottom:12px">
-<summary><strong>How do you handle dress codes?</strong></summary>
-<p style="margin-top:8px">Our agents wear the MO'CYNO suit and tie or can adopt your establishment's
-                    uniform.</p>
-</details>
-<details>
-<summary><strong>Do you provide fire safety?</strong></summary>
-<p style="margin-top:8px">Yes, we provide team leaders and SSIAP 1/2/3 certified agents who are up to
-                    date with their training.</p>
-</details>
-</section>
-<section style="margin:40px 0;border-top:1px solid #eee;padding-top:24px">
-<h3>See also</h3>
-<nav style="display:flex;gap:16px;flex-wrap:wrap">
-<a href="/en/services/securite-incendie-ssiap/">Fire Safety</a>
-<a href="/en/services/premium-events/">Events</a>
-<a href="/en/services/">All services</a>
-</nav>
-</section>
-<section class="cta container section" style="text-align:center">
-<h2>Secure your establishment</h2>
-<p>Free needs assessment.</p>
-<p><a class="btn primary" href="/en/contact/">Request hotel quote</a></p>
-</section>
-</main>
-<footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
-<div class="container footer-grid">
-<div class="footer-left">
-<p class="footer-meta">© 2025 MO'CYNO — SASU — SIRET 990 179 566 00015 — NAF 80.10Z</p>
-<div class="footer-inline">
-<span>31 Rue Chevalier Paul, 83000 Toulon, France</span><span>•</span>
-<span>CNAPS licence: <a href="https://teleservices-cnaps.interieur.gouv.fr/teleservices/ihm/#/morale/search" rel="noopener noreferrer" style="color:#fff;text-decoration:underline;" target="_blank">AUT-83-2124-09-09-20250998415</a> — This licence does not confer any public authority status
+  </header>
+  <main>
+    <!-- HERO SECTION PREMIUM -->
+    <section class="hero-premium">
+      <div class="hero-image-wrapper">
+        <img alt="Luxury hotel security on the French Riviera by MO'CYNO" class="hero-img" height="1024"
+          src="/images/zone-cannes-croisette.png" width="1024">
+        <div class="hero-overlay-dark"></div>
+      </div>
+      <div class="container hero-content-premium">
+        <h1>Hotel &amp; Hospitality Security</h1>
+        <p class="hero-subtitle-premium">Bilingual agents, SSIAP fire safety and security concierge services for the
+          most prestigious establishments on the Riviera.</p>
+        <div class="hero-actions-premium">
+          <a class="btn primary" href="/en/contact/">Free Audit</a>
+          <a class="btn secondary" href="tel:+33666035116">Discreet Inquiry</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- BREADCRUMB DÉCALÉ -->
+    <nav aria-label="Breadcrumb" style="max-width:1200px;margin:20px auto 0;padding:0 16px">
+      <ol style="list-style:none;padding:0;display:flex;gap:8px;font-size:14px;color:#666">
+        <li><a href="/en/" style="color:#022C51;text-decoration:none">Home</a></li>
+        <li aria-hidden="true">›</li>
+        <li><a href="/en/services/" style="color:#022C51;text-decoration:none">Services</a></li>
+        <li aria-hidden="true">›</li>
+        <li style="color:#666">Hotel &amp; Hospitality</li>
+      </ol>
+    </nav>
+    <section class="section container">
+      <div class="intro-block">
+        <h2>Premium Hospitality Safety Expertise</h2>
+        <p>
+          Hotels on the French Riviera welcome an international clientele demanding peace of mind and impeccable
+          service.
+          MO'CYNO integrates security as a component of the guest experience: our night auditors and "welcome
+          security" agents ensure safety without disturbing comfort.
+        </p>
+      </div>
+    </section>
+
+    <section class="section bg-light">
+      <div class="container">
+        <h2>Our Solutions for Hotels</h2>
+        <div class="grid-services">
+          <div class="service-card">
+            <h3>👔 Welcome Security</h3>
+            <p>Upscale lobby greeting, discreet screening and VIP guest management.</p>
+          </div>
+          <div class="service-card">
+            <h3>🔥 Fire Safety</h3>
+            <p>Certified SSIAP 1/2/3 agents ensuring full compliance and emergency response.</p>
+          </div>
+          <div class="service-card">
+            <h3>🌙 Night Auditor</h3>
+            <p>Security patrols, late arrival management and ensuring a quiet environment for guests.</p>
+          </div>
+          <div class="service-card">
+            <h3>📡 Concierge Sûreté</h3>
+            <p>Discreet assistance and coordination for specific guest safety requests.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="intro-block">
+        <h2>Strong Regional Presence</h2>
+        <p>
+          We work with boutique hotels, tourist residences and palaces in <strong>Nice, Cannes, Antibes</strong> and the
+          Var hinterland. Our expertise is tailored to your establishment's unique DNA.
+        </p>
+      </div>
+    </section>
+    <section id="faq" style="margin:40px 0;background:#f9f9f9;padding:24px;border-radius:12px">
+      <h2>FAQ – Hotel Security</h2>
+      <details style="margin-bottom:12px">
+        <summary><strong>Do your agents speak other languages?</strong></summary>
+        <p style="margin-top:8px">Yes, English is a prerequisite for our hospitality agents. Some also speak
+          Russian or Arabic depending on your needs.</p>
+      </details>
+      <details style="margin-bottom:12px">
+        <summary><strong>How do you handle dress codes?</strong></summary>
+        <p style="margin-top:8px">Our agents wear the MO'CYNO suit and tie or can adopt your establishment's
+          uniform.</p>
+      </details>
+      <details>
+        <summary><strong>Do you provide fire safety?</strong></summary>
+        <p style="margin-top:8px">Yes, we provide team leaders and SSIAP 1/2/3 certified agents who are up to
+          date with their training.</p>
+      </details>
+    </section>
+    <section style="margin:40px 0;border-top:1px solid #eee;padding-top:24px">
+      <h3>See also</h3>
+      <nav style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="/en/services/securite-incendie-ssiap/">Fire Safety</a>
+        <a href="/en/services/premium-events/">Events</a>
+        <a href="/en/services/">All services</a>
+      </nav>
+    </section>
+    <section class="cta container section" style="text-align:center">
+      <h2>Secure your establishment</h2>
+      <p>Free needs assessment.</p>
+      <p><a class="btn primary" href="/en/contact/">Request hotel quote</a></p>
+    </section>
+  </main>
+  <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
+    <div class="container footer-grid">
+      <div class="footer-left">
+        <p class="footer-meta">© 2025 MO'CYNO — SASU — SIRET 990 179 566 00015 — NAF 80.10Z</p>
+        <div class="footer-inline">
+          <span>31 Rue Chevalier Paul, 83000 Toulon, France <em>(Registered office / domiciliation — on-site services
+              only, no public office)</em></span><span>•</span>
+          <span>CNAPS licence: <a href="https://teleservices-cnaps.interieur.gouv.fr/teleservices/ihm/#/morale/search"
+              rel="noopener noreferrer" style="color:#fff;text-decoration:underline;"
+              target="_blank">AUT-83-2124-09-09-20250998415</a> — This licence does not confer any public authority
+            status
             nor official endorsement. (Art. L612-14 CSI)</span>
-</div>
-</div>
-<nav aria-label="Secondary navigation" class="footer-links" role="navigation">
-<a href="/en/about/">About</a>
-<a href="/en/legal/">Legal</a>
-<a href="/en/privacy/">Privacy</a>
-<a href="/en/cookies/">Cookies</a>
-<a href="/sitemap.xml">Sitemap</a>
-</nav>
-</div>
-</footer>
-<!--Start of Tawk.to Script (Optimized Lazy Load)-->
-<script type="text/javascript">
-  // Lazy load Tawk.to after 3s OR on user scroll/interaction
-  (function() {
-    var tawkLoaded = false;
-    
-    function loadTawk() {
-      if (tawkLoaded) return;
-      tawkLoaded = true;
-      
-      var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-      s1.async = true;
-      s1.src = 'https://embed.tawk.to/693452a684fc15197fdfc2a0/1jbq65n5t';
-      s1.charset = 'UTF-8';
-      s1.setAttribute('crossorigin', '*');
-      s0.parentNode.insertBefore(s1, s0);
-    }
-    
-    // Load after 3 seconds
-    setTimeout(loadTawk, 3000);
-    
-    // OR load on first scroll/interaction
-    var events = ['scroll', 'mousemove', 'touchstart', 'click'];
-    var loadOnce = function() {
-      loadTawk();
-      events.forEach(function(event) {
-        window.removeEventListener(event, loadOnce);
-      });
-    };
-    
-    events.forEach(function(event) {
-      window.addEventListener(event, loadOnce, { passive: true, once: true });
-    });
-  })();
-</script>
-<!--End of Tawk.to Script (Optimized Lazy Load)-->
+        </div>
+      </div>
+      <nav aria-label="Secondary navigation" class="footer-links" role="navigation">
+        <a href="/en/about/">About</a>
+        <a href="/en/legal/">Legal</a>
+        <a href="/en/privacy/">Privacy</a>
+        <a href="/en/cookies/">Cookies</a>
+        <a href="/sitemap.xml">Sitemap</a>
+      </nav>
+    </div>
+  </footer>
+  <script defer="" src="/tawk-consent.js"></script>
+
 </body>
+
 </html>
