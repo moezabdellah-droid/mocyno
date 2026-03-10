@@ -1,0 +1,180 @@
+/* CSS Luxe - Saint-Tropez Exclusive */
+:root {
+  --gold: #D4AF37;
+  --cream: #F5F5DC;
+  --navy: #022C51;
+  --dark: #0f172a;
+  --white: #ffffff;
+  --font-serif: 'Playfair Display', 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+body.luxe-mode {
+  font-family: var(--font-sans);
+  background-color: var(--white);
+  color: var(--dark);
+}
+
+.luxe-hero {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('/assets/blog-saint-tropez-luxe.png'); /* Fallback image */
+  background-size: cover;
+  background-position: center;
+  color: var(--white);
+  text-align: center;
+}
+
+.luxe-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* Overlay */
+  backdrop-filter: blur(2px); /* Artistic blur */
+}
+
+.luxe-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.luxe-h1 {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--gold);
+}
+
+.luxe-sub {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  font-weight: 300;
+  color: var(--cream);
+}
+
+.btn-luxe {
+  background-color: var(--gold);
+  color: var(--navy);
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.btn-luxe:hover {
+  background-color: #b5952f;
+  transform: translateY(-2px);
+}
+
+.micro-copy {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  display: block;
+}
+
+/* Sections */
+.luxe-section {
+  padding: 6rem 0;
+}
+
+.luxe-bg-dark {
+  background-color: var(--navy);
+  color: var(--white);
+}
+
+.luxe-title {
+  font-family: var(--font-serif);
+  color: var(--navy);
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.luxe-bg-dark .luxe-title {
+  color: var(--gold);
+}
+
+/* Grid */
+.luxe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.luxe-card {
+  padding: 2rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.luxe-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+}
+
+.luxe-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--gold);
+}
+
+/* Form */
+.luxe-form {
+  max-width: 500px;
+  margin: 0 auto;
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+}
+
+.form-select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+}
+
+/* Footer Specific */
+.luxe-footer {
+  background-color: var(--dark);
+  color: #94a3b8;
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .luxe-h1 {
+    font-size: 2.5rem;
+  }
+  .luxe-section {
+    padding: 4rem 0;
+  }
+}

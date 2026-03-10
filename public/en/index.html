@@ -19,12 +19,13 @@
   <link href="https://mocyno.com/fr/" hreflang="x-default" rel="alternate" />
   <!-- SEO:END -->
   <!-- SAFE GTM - No insertBefore dependency -->
-  <script>
+  <script defer src="/consent-ga.js"></script>
+<script>
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
     var scriptTag = document.createElement('script');
     scriptTag.async = true;
-    scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-WH9T9G58';
+    scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
     document.head.appendChild(scriptTag);
   </script>
   <meta
@@ -45,11 +46,7 @@
   <noscript>
     <link href="/styles.css?v=2.7" rel="stylesheet" />
   </noscript>
-  <link as="style" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    onload="this.onload=null;this.rel='stylesheet'" rel="preload" />
-  <noscript>
-    <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
-  </noscript>
+
   <!-- Open Graph / Twitter -->
   <meta content="#022C51" name="theme-color" />
   <!-- Google Analytics via Consent Mode V2 -->
@@ -156,7 +153,7 @@
         "name": "What is the emergency response time for an alarm in the Var?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Our 24/7 security control room triggers immediate intervention by a mobile patrol or K9 unit upon alarm. In Toulon, Hyères and the Gulf of Saint-Tropez, we guarantee rapid arrival to secure the premises."
+          "text": "Our 24/7 security control room triggers immediate response by a mobile patrol or K9 unit upon alarm. In Toulon, Hyères and the Gulf of Saint-Tropez, we guarantee rapid arrival to secure the premises."
         }
       },
       {
@@ -172,7 +169,7 @@
         "name": "Do you offer geolocated patrol reports?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. We use electronic patrol monitoring technology (PTI/DATI). You receive real-time timestamped and geolocated intervention reports, ensuring total transparency of our security services."
+          "text": "Yes. We use electronic patrol monitoring technology (PTI/DATI). You receive real-time timestamped and geolocated response reports, ensuring total transparency of our security services."
         }
       },
       {
@@ -186,15 +183,16 @@
     ]
   }
   </script>
-  </meta>
-  </meta>
-  </meta>
-  </meta>
+
+  <link rel="stylesheet" href="/styles/visual-polish.css">
+  <link rel="stylesheet" href="/styles/sticky-cta.css">
+  <script defer src="/scripts/sticky-cta.js"></script>
+  <script defer src="/tawk-consent.js"></script>
 </head>
 
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-WH9T9G58"
+  <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-N4MSSMV3"
       style="display:none;visibility:hidden" width="0"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
   <header class="site-header">
@@ -206,28 +204,24 @@
         </picture>
         <span>MO'CYNO</span>
       </a>
-      <button class="menu-toggle" onclick="document.querySelector('.nav .links').classList.toggle('open');
+      <button aria-label="Open or close menu" class="menu-toggle" onclick="document.querySelector('.nav .links').classList.toggle('open');
                document.querySelector('.nav-overlay').classList.toggle('show')">
         Menu
       </button>
-      <nav class="links">
-        <div class="services-nav">
-          <a class="services-trigger" href="/en/services/">Services</a>
-          <div class="services-menu">
-            <ul class="services-list">
-              <li><a href="/en/services/securite-cynophile/">K9 Security</a></li>
-              <li><a href="/en/services/surveillance-humaine/">Manned Guarding</a></li>
-              <li><a href="/en/services/marinas-ports/">Marinas &amp; Ports</a></li>
-              <li><a href="/en/services/construction-sites/">Construction Sites</a></li>
-              <li><a href="/en/services/residential/">Residential &amp; Villas</a></li>
-              <li><a href="/en/services/hospitality/">Hospitality</a></li>
-              <li><a href="/en/services/premium-events/">Event Security</a></li>
+      <nav aria-label="Main navigation" class="links" role="navigation">
+        <div class="zones-nav">
+          <a class="zones-trigger" href="/en/#needs">Needs</a>
+          <div class="zones-menu">
+            <ul class="zones-list">
+              <li><a href="/en/services/residential/">Villa</a></li>
+              <li><a href="/en/services/premium-events/">Events</a></li>
+              <li><a href="/en/services/construction-sites/">Construction</a></li>
+              <li><a href="/en/services/hospitality/">Hotel</a></li>
             </ul>
           </div>
         </div>
-        <a href="/en/#expertises">Expertise</a>
         <div class="zones-nav">
-          <a class="zones-trigger" href="/en/#zones">Areas</a>
+          <a class="zones-trigger" href="/en/#areas">Areas</a>
           <div class="zones-menu">
             <ul class="zones-list">
               <li><a href="/en/zones/saint-tropez/">Saint-Tropez</a></li>
@@ -239,8 +233,8 @@
             </ul>
           </div>
         </div>
-        <a href="/en/#references">References</a>
-        <a href="/en/blog/" style="font-weight:700">Blog</a>
+        <a href="/en/services/">Expertise</a>
+        <a href="/en/blog/">News</a>
         <a class="btn primary" href="/en/contact/">Quote &amp; Contact</a>
         <a aria-label="Français" class="lang-switch" href="/fr/" hreflang="fr">FR</a>
       </nav>
@@ -250,141 +244,326 @@
   </header>
   <main>
     <!-- HERO -->
-    <section class="hero container">
-      <div style="text-align:left">
-        <h1>MO'CYNO — Private Security &amp; K9 Services in PACA</h1>
-        <p class="lead">
-          Manned guarding, K9 units, fire safety (SSIAP) and event security.
-          Operations in Toulon, Saint-Tropez, Cannes, Nice and across the PACA region.
-          24/7 responsive team.
-        </p>
-        <div class="actions">
-          <a class="btn primary" href="/en/contact/">Request a quote within 24h</a>
-        </div>
-        <ul class="hero-trust">
-          <li><strong>Licensed private security company (CNAPS)</strong></li>
-          <li>Based in Toulon — missions across the PACA region</li>
-        </ul>
+    <section class="hero-premium">
+      <div class="hero-image-wrapper">
+        <img src="/images/hero-home-main-villa-premium.png"
+          alt="Luxury private security — MO'CYNO K9 & SSIAP in Côte d'Azur" class="hero-img" width="1200" height="600"
+          loading="eager" fetchpriority="high" decoding="async">
+        <div class="hero-overlay-dark"></div>
       </div>
-      <div>
-        <picture>
-          <source srcset="/hero-mocyno.webp" type="image/webp" />
-          <source srcset="/hero-mocyno.webp" type="image/jpeg" />
-          <img alt="MO'Cyno K9 security officer on duty" class="hero-image" decoding="async" fetchpriority="high"
-            height="800" loading="eager" src="/hero-mocyno.webp" width="1200" />
-        </picture>
+      <div class="container hero-content-premium">
+        <h1>Your security, at the level of your standards.</h1>
+        <p class="hero-subtitle-premium">Villa, event, construction or hotel — our teams respond within the hour across
+          the Côte d'Azur.</p>
+        <div class="hero-needs-selector" id="needs">
+          <span class="selector-label">What is your need?</span>
+          <div class="needs-grid">
+            <a href="/en/services/residential/" class="need-item">
+              <span class="icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                  aria-hidden="true" focusable="false">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                </svg>
+              </span>
+              <span class="label">Villa</span>
+            </a>
+            <a href="/en/services/premium-events/" class="need-item">
+              <span class="icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                  aria-hidden="true" focusable="false">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                </svg>
+              </span>
+              <span class="label">Events</span>
+            </a>
+            <a href="/en/services/construction-sites/" class="need-item">
+              <span class="icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                  aria-hidden="true" focusable="false">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l5.654-4.654m5.65-4.656 4.643-3.025a.96.96 0 0 1 1.108.135l1.494 1.494a.96.96 0 0 1 .135 1.108l-3.024 4.644m-4.358-6.381 3.96-3.96a2.25 2.25 0 0 1 3.182 0 2.25 2.25 0 0 1 0 3.182l-3.96 3.96M6 18h.008v.008H6V18Z" />
+                </svg>
+              </span>
+              <span class="label">Construction</span>
+            </a>
+            <a href="/en/services/hospitality/" class="need-item">
+              <span class="icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                  aria-hidden="true" focusable="false">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
+                </svg>
+              </span>
+              <span class="label">Hotel</span>
+            </a>
+            <a href="/en/services/securite-cynophile/" class="need-item">
+              <span class="icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                  aria-hidden="true" focusable="false">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75s.168-.75.375-.75S9.75 9.336 9.75 9.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" />
+                </svg>
+              </span>
+              <span class="label">K9</span>
+            </a>
+          </div>
+        </div>
+        <div class="hero-actions-premium">
+          <a href="/en/contact/" class="btn primary">Request a free security assessment</a>
+          <a href="tel:+33666035116" class="btn secondary">Speak to a MO'CYNO expert</a>
+        </div>
       </div>
     </section>
-    <!-- Social Proof / Key Figures -->
-    <section class="section" style="padding: 24px 0; background-color: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+    <!-- Key Figures -->
+    <section class="section" style="padding:24px 0;background:#f8fafc;border-bottom:1px solid #e2e8f0;">
       <div class="container"
-        style="display:flex; flex-wrap:wrap; justify-content:space-around; gap:24px; text-align:center;">
+        style="display:flex;flex-wrap:wrap;justify-content:space-around;gap:24px;text-align:center;">
         <div style="flex:1 1 150px;">
-          <div style="font-size:2rem; font-weight:800; color:#CD1A20;">24/7</div>
-          <div style="font-size:0.9rem; color:#4a5568; font-weight:600;">Response &amp; Ops</div>
+          <div style="font-size:2rem;font-weight:800;color:#CD1A20;">24/7</div>
+          <div style="font-size:0.9rem;color:#4a5568;font-weight:600;">Response &amp; Operations</div>
         </div>
         <div style="flex:1 1 150px;">
-          <div style="font-size:2rem; font-weight:800; color:#022C51;">100%</div>
-          <div style="font-size:0.9rem; color:#4a5568; font-weight:600;">Licensed (CNAPS)</div>
+          <div style="font-size:2rem;font-weight:800;color:#022C51;">100%</div>
+          <div style="font-size:0.9rem;color:#4a5568;font-weight:600;">CNAPS Licensed</div>
         </div>
         <div style="flex:1 1 150px;">
-          <div style="font-size:2rem; font-weight:800; color:#022C51;">50+</div>
-          <div style="font-size:0.9rem; color:#4a5568; font-weight:600;">Successful Missions</div>
+          <div style="font-size:2rem;font-weight:800;color:#022C51;">PACA</div>
+          <div style="font-size:0.9rem;color:#4a5568;font-weight:600;">Var &amp; French Riviera</div>
         </div>
         <div style="flex:1 1 150px;">
-          <div style="font-size:2rem; font-weight:800; color:#022C51;">1h*</div>
-          <div style="font-size:0.9rem; color:#4a5568; font-weight:600;">Avg. Emergency ETA</div>
+          <div style="font-size:2rem;font-weight:800;color:#022C51;">24h</div>
+          <div style="font-size:0.9rem;color:#4a5568;font-weight:600;">Quote response time</div>
         </div>
       </div>
     </section>
-    <!-- SERVICES / EXPERTISES -->
+
+    <!-- SERVICES — 3-column fixed grid -->
     <section class="container section" id="expertises">
-      <h2>Our services</h2>
-      <div class="swiper myServicesSwiper" style="padding:20px 44px;">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <article class="card">
-              <a href="/en/services/surveillance-humaine/"
-                style="text-decoration:none; color:inherit; display:block; height:100%;">
-                <div aria-hidden="true" class="icon">🛡️</div>
-                <h3>Manned guarding</h3>
-                <p>Uniformed officers for industrial sites, logistics hubs, shops, construction sites and residential
-                  buildings.</p>
-                <span style="font-weight:600; color:var(--red); margin-top:12px; display:block;">Read more →</span>
-              </a>
-            </article>
-          </div>
-          <div class="swiper-slide">
-            <article class="card">
-              <a href="/en/services/securite-cynophile/"
-                style="text-decoration:none; color:inherit; display:block; height:100%;">
-                <div aria-hidden="true" class="icon">🐕</div>
-                <h3>K9 units</h3>
-                <p>Dog-handler teams for strong deterrence, perimeter protection, patrols and access control.</p>
-                <span style="font-weight:600; color:var(--red); margin-top:12px; display:block;">Read more →</span>
-              </a>
-            </article>
-          </div>
-          <div class="swiper-slide">
-            <article class="card">
-              <a href="/en/services/securite-incendie-ssiap/"
-                style="text-decoration:none; color:inherit; display:block; height:100%;">
-                <div aria-hidden="true" class="icon">🔥</div>
-                <h3>Fire safety (SSIAP)</h3>
-                <p>SSIAP 1/2/3 officers for prevention, control room duties, evacuation assistance and incident
-                  response.</p>
-                <span style="font-weight:600; color:var(--red); margin-top:12px; display:block;">Read more →</span>
-              </a>
-            </article>
-          </div>
-          <div class="swiper-slide">
-            <article class="card">
-              <a href="/en/services/securite-evenementielle/"
-                style="text-decoration:none; color:inherit; display:block; height:100%;">
-                <div aria-hidden="true" class="icon">🎪</div>
-                <h3>Event security</h3>
-                <p>Access control, screening and tailored security plans for public and private events.</p>
-                <span style="font-weight:600; color:var(--red); margin-top:12px; display:block;">Read more →</span>
-              </a>
-            </article>
-          </div>
-          <div class="swiper-slide">
-            <article class="card">
-              <a href="/en/services/protection-luxe/"
-                style="text-decoration:none; color:inherit; display:block; height:100%;">
-                <div aria-hidden="true" class="icon">💎</div>
-                <h3>Luxury security</h3>
-                <p>Discreet, high-end protection for luxury boutiques, jewellery stores, villas and VIP events.</p>
-                <span style="font-weight:600; color:var(--red); margin-top:12px; display:block;">Read more →</span>
-              </a>
-            </article>
-          </div>
-        </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-pagination"></div>
+      <p class="kicker"
+        style="font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8a9bb0;margin-bottom:8px;">
+        9 SPECIALTIES — PACA &amp; FRENCH RIVIERA</p>
+      <h2>Our Security Services</h2>
+      <div class="expertises-grid">
+
+        <article class="card">
+          <a href="/en/services/manned-guarding/" style="text-decoration:none;color:inherit;display:block;height:100%;">
+            <div class="card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#022C51" stroke-width="1.5"
+                aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+              </svg>
+            </div>
+            <h3>Manned Guarding</h3>
+            <p>Uniformed officers for sites, logistics hubs, shops and residential buildings.</p>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Read more →</span>
+          </a>
+        </article>
+
+        <article class="card">
+          <a href="/en/services/securite-cynophile/"
+            style="text-decoration:none;color:inherit;display:block;height:100%;">
+            <div class="card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#022C51" stroke-width="1.5"
+                aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
+              </svg>
+            </div>
+            <h3>K9 Units</h3>
+            <p>Dog-handler teams for deterrence, perimeter protection and access control.</p>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Read more →</span>
+          </a>
+        </article>
+
+        <article class="card">
+          <a href="/en/services/fire-safety-ssiap/"
+            style="text-decoration:none;color:inherit;display:block;height:100%;">
+            <div class="card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#022C51" stroke-width="1.5"
+                aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
+              </svg>
+            </div>
+            <h3>Fire Safety (SSIAP)</h3>
+            <p>SSIAP 1/2/3 officers for prevention, evacuation support and incident response.</p>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Read more →</span>
+          </a>
+        </article>
+
+        <article class="card">
+          <a href="/en/services/premium-events/" style="text-decoration:none;color:inherit;display:block;height:100%;">
+            <div class="card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#022C51" stroke-width="1.5"
+                aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+              </svg>
+            </div>
+            <h3>Event Security</h3>
+            <p>Access control, screening and bespoke security plans for private and public events.</p>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Read more →</span>
+          </a>
+        </article>
+
+        <article class="card">
+          <a href="/en/services/luxury-protection/"
+            style="text-decoration:none;color:inherit;display:block;height:100%;">
+            <div class="card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#022C51" stroke-width="1.5"
+                aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
+              </svg>
+            </div>
+            <h3>Luxury Security</h3>
+            <p>Discreet, high-end protection for villas, boutiques and VIP events.</p>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Read more →</span>
+          </a>
+        </article>
+
+        <article class="card">
+          <a href="/en/services/residential/" style="text-decoration:none;color:inherit;display:block;height:100%;">
+            <div class="card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#022C51" stroke-width="1.5"
+                aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+              </svg>
+            </div>
+            <h3>Villa &amp; Residential</h3>
+            <p>Continuous guarding and patrols for private residences and seasonal properties.</p>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Read more →</span>
+          </a>
+        </article>
+
+        <article class="card">
+          <a href="/en/services/hospitality/" style="text-decoration:none;color:inherit;display:block;height:100%;">
+            <div class="card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#022C51" stroke-width="1.5"
+                aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
+              </svg>
+            </div>
+            <h3>Hospitality</h3>
+            <p>Professional security for hotels, resorts and luxury hospitality establishments.</p>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Read more →</span>
+          </a>
+        </article>
+
+        <article class="card">
+          <a href="/en/services/construction-sites/"
+            style="text-decoration:none;color:inherit;display:block;height:100%;">
+            <div class="card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#022C51" stroke-width="1.5"
+                aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l5.654-4.654m5.598-2.623 3.03-2.496a2.249 2.249 0 0 0 .766-1.208" />
+              </svg>
+            </div>
+            <h3>Construction Sites</h3>
+            <p>Overnight and weekend guarding to prevent theft and intrusion on job sites.</p>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Read more →</span>
+          </a>
+        </article>
+
+        <article class="card">
+          <a href="/en/services/marinas-ports/" style="text-decoration:none;color:inherit;display:block;height:100%;">
+            <div class="card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#022C51" stroke-width="1.5"
+                aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+              </svg>
+            </div>
+            <h3>Marinas &amp; Ports</h3>
+            <p>Quayside guarding and access control for marinas, yachts and nautical facilities.</p>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Read more →</span>
+          </a>
+        </article>
+
+      </div>
+      <div style="text-align:center;margin-top:2rem;">
+        <a href="/en/contact/" class="btn primary">Request my free security assessment</a>
       </div>
     </section>
+
     <!-- AREAS -->
-    <section class="container section" id="zones">
-      <h2>Areas we cover</h2>
-      <p>
-        Toulon, Hyères, La Seyne, Saint-Tropez, Sainte-Maxime, Fréjus, Saint-Raphaël, Cannes, Antibes, Nice and the
-        whole PACA region.
-      </p>
+    <section class="container section" id="areas">
+      <p class="kicker"
+        style="font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8a9bb0;margin-bottom:8px;">
+        VAR &amp; CÔTE D'AZUR</p>
+      <h2>Areas We Cover</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-top:1.5rem;">
+        <a href="/en/zones/toulon/"
+          style="display:block;padding:16px;background:#f0f5fa;border-radius:10px;text-decoration:none;color:#022C51;font-weight:600;text-align:center;">Toulon</a>
+        <a href="/en/zones/saint-tropez/"
+          style="display:block;padding:16px;background:#f0f5fa;border-radius:10px;text-decoration:none;color:#022C51;font-weight:600;text-align:center;">Saint-Tropez</a>
+        <a href="/en/zones/cannes/"
+          style="display:block;padding:16px;background:#f0f5fa;border-radius:10px;text-decoration:none;color:#022C51;font-weight:600;text-align:center;">Cannes</a>
+        <a href="/en/zones/nice/"
+          style="display:block;padding:16px;background:#f0f5fa;border-radius:10px;text-decoration:none;color:#022C51;font-weight:600;text-align:center;">Nice</a>
+        <a href="/en/zones/frejus/"
+          style="display:block;padding:16px;background:#f0f5fa;border-radius:10px;text-decoration:none;color:#022C51;font-weight:600;text-align:center;">Fréjus</a>
+        <a href="/en/zones/sainte-maxime/"
+          style="display:block;padding:16px;background:#f0f5fa;border-radius:10px;text-decoration:none;color:#022C51;font-weight:600;text-align:center;">Sainte-Maxime</a>
+      </div>
+      <div style="text-align:center;margin-top:1.5rem;padding:16px;background:#f0f5fa;border-radius:10px;">
+        <p style="margin:0 0 12px;">We also operate in Hyères, La Seyne-sur-Mer, Antibes, Bandol and the entire PACA
+          region.</p>
+        <a class="btn primary" href="/en/contact/">Request a free security assessment</a>
+      </div>
     </section>
-    <!-- REFERENCES & COMMITMENTS -->
+
+    <!-- COMMITMENTS -->
     <section class="container section" id="references">
-      <h2>References &amp; commitments</h2>
-      <ul>
-        <li>Qualified officers with a strong service culture and transparent reporting.</li>
-        <li>Clear procedures and continuous supervision.</li>
-        <li>CNAPS licence: <strong>AUT-83-2124-09-09-20250998415</strong>.</li>
+      <p class="kicker"
+        style="font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8a9bb0;margin-bottom:8px;">
+        QUALITY COMMITMENT</p>
+      <h2>Our Standards</h2>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;">
+        <li style="display:flex;align-items:flex-start;gap:10px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#022C51" stroke-width="1.5"
+            aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px;">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          K9 duos and security agents fully CNAPS certified
+        </li>
+        <li style="display:flex;align-items:flex-start;gap:10px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#022C51" stroke-width="1.5"
+            aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px;">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          Reporting, transparency and confidentiality on every mission
+        </li>
+        <li style="display:flex;align-items:flex-start;gap:10px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#022C51" stroke-width="1.5"
+            aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px;">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          Rapid emergency response — 24h/24, 7 days a week
+        </li>
+        <li style="display:flex;align-items:flex-start;gap:10px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#022C51" stroke-width="1.5"
+            aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px;">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          Free assessment, no obligation, tailored quote within 24h
+        </li>
       </ul>
     </section>
+
     <!-- FAQ -->
     <section class="container section" id="faq">
-      <h2>Frequently asked questions</h2>
+      <h2>Frequently Asked Questions</h2>
       <div class="faq-list">
         <details>
           <summary>Which types of sites does MO'CYNO protect?</summary>
@@ -393,7 +572,7 @@
         </details>
         <details>
           <summary>Do you provide fast quotes?</summary>
-          <p>Yes. Once we have reviewed your needs, we usually send a tailored quote within 24 business hours.</p>
+          <p>Yes. Once we have reviewed your needs, we send a tailored quote within 24 business hours.</p>
         </details>
         <details>
           <summary>Are your K9 handlers trained and declared?</summary>
@@ -402,64 +581,77 @@
         </details>
         <details>
           <summary>Is MO'CYNO authorised by the CNAPS?</summary>
-          <p>Yes. MO'CYNO operates under a CNAPS licence, displayed in the footer of the site, in line with legal
-            requirements. This licence does not confer any public authority status or official endorsement.</p>
+          <p>Yes. MO'CYNO operates under CNAPS licence AUT-83-2124-09-09-20250998415. This licence does not confer any
+            public authority status or official endorsement.</p>
         </details>
         <details>
           <summary>Do you only work in Toulon?</summary>
-          <p>No. We are based in Toulon but operate throughout the PACA region: Hyères, La Seyne, Saint-Tropez,
-            Sainte-Maxime, Fréjus, Saint-Raphaël, Cannes, Antibes, Nice, and more.</p>
+          <p>No. We are based in Toulon but operate throughout the PACA region: Saint-Tropez, Sainte-Maxime, Fréjus,
+            Cannes, Antibes, Nice, and more.</p>
         </details>
         <details>
           <summary>Can you secure a one-off event?</summary>
-          <p>Yes. We design a tailored security setup for your event (welcome, access control, screening, patrols, first
-            aid support) taking into account your venue, schedule and expected audience.</p>
-        </details>
-        <details>
-          <summary>What is the emergency response time for an alarm in the Var?</summary>
-          <p>Our 24/7 security control room triggers immediate intervention by a <strong>mobile patrol</strong> or
-            <strong>K9 unit</strong> upon alarm. In Toulon, Hyères and the Gulf of Saint-Tropez, we guarantee rapid
-            arrival to secure the premises.
-          </p>
-        </details>
-        <details>
-          <summary>Do you ensure confidentiality for luxury villa security?</summary>
-          <p>Yes. Discretion is absolute. Our <strong>close protection</strong> and guarding agents are trained in
-            <strong>luxury</strong> standards and sign a strict confidentiality charter to protect the privacy of your
-            residences and VIP events.
-          </p>
-        </details>
-        <details>
-          <summary>Do you offer geolocated patrol reports?</summary>
-          <p>Yes. We use <strong>electronic patrol monitoring</strong> technology (PTI/DATI). You receive real-time
-            timestamped and <strong>geolocated</strong> intervention reports, ensuring total transparency of our
-            security services.</p>
+          <p>Yes. We design a tailored security plan (access control, screening, patrols, first aid) based on your
+            venue, schedule and audience.</p>
         </details>
         <details>
           <summary>Is the security quote free and non-binding?</summary>
-          <p>Absolutely. <strong>Request your free quote</strong> for manned guarding, K9 or fire safety. We perform a
-            complimentary security audit if necessary to precisely assess your needs in the Var.</p>
+          <p>Absolutely. Request your free security assessment — no commitment. We conduct a complimentary on-site audit
+            if needed.</p>
         </details>
       </div>
     </section>
+
     <!-- CTA -->
     <section class="cta container section" style="text-align:center">
-      <h2>Need security?</h2>
-      <p>We usually answer within 24 business hours.</p>
-      <p><a class="btn primary" href="/en/contact/">Quote &amp; Contact</a></p>
+      <p class="kicker"
+        style="font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8a9bb0;margin-bottom:8px;">
+        FREE — NO OBLIGATION</p>
+      <h2>Ready to secure your project?</h2>
+      <p>Our experts respond within 24 business hours.</p>
+      <a class="btn primary" href="/en/contact/">Request my free security assessment</a>
     </section>
   </main>
   <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
     <div class="container footer-grid">
       <div class="footer-left">
-        <p class="footer-meta">© 2025 MO'CYNO — SASU — SIRET 990 179 566 00015 — NAF 80.10Z</p>
+        <p class="footer-meta">© 2026 MO'CYNO — Private security agency — SASU — SIRET 990 179 566 00015 — NAF 80.10Z
+        </p>
         <div class="footer-inline">
-          <span>31 Rue Chevalier Paul, 83000 Toulon, France</span><span>•</span>
+          <span>31 Rue Chevalier Paul, 83000 Toulon, France <em>(Registered office — on-site operations only, no public
+              reception)</em></span> <span>•</span>
           <span>CNAPS licence: <a href="https://teleservices-cnaps.interieur.gouv.fr/teleservices/ihm/#/morale/search"
               rel="noopener noreferrer" style="color:#fff;text-decoration:underline;"
               target="_blank">AUT-83-2124-09-09-20250998415</a> — This licence does not confer any public authority
-            status
-            nor official endorsement. (Art. L612-14 CSI)</span>
+            status nor official endorsement. (Art. L612-14 CSI)</span>
+        </div>
+        <div class="footer-social">
+          <a class="footer-social-link" href="https://wa.me/33666035116" aria-label="Contact MO'CYNO on WhatsApp"
+            target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.570-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+              <path
+                d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.117 1.528 5.845L0 24l6.335-1.508A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.667-.495-5.2-1.362l-.372-.22-3.861.919.951-3.77-.243-.387A9.953 9.953 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+            </svg>
+            WhatsApp
+          </a>
+          <a class="footer-social-link" href="https://www.linkedin.com/company/mocyno/" aria-label="MO'CYNO on LinkedIn"
+            target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+            LinkedIn
+          </a>
+          <a class="footer-social-link" href="https://www.instagram.com/mocyno_officiel/"
+            aria-label="MO'CYNO on Instagram" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+            </svg>
+            Instagram
+          </a>
         </div>
       </div>
       <nav aria-label="Secondary navigation" class="footer-links" role="navigation">
@@ -471,69 +663,10 @@
       </nav>
     </div>
   </footer>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      new Swiper('.myServicesSwiper', {
-        slidesPerView: 1,
-        spaceBetween: 16,
-        loop: false,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-        },
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-        breakpoints: {
-          568: { slidesPerView: 1.1 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
-          1280: { slidesPerView: 4 }
-        }
-      });
-    });
-  </script>
-  <!--Start of Tawk.to Script (Optimized Lazy Load)-->
-<script type="text/javascript">
-  // Lazy load Tawk.to after 3s OR on user scroll/interaction
-  (function() {
-    var tawkLoaded = false;
-    
-    function loadTawk() {
-      if (tawkLoaded) return;
-      tawkLoaded = true;
-      
-      var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-      s1.async = true;
-      s1.src = 'https://embed.tawk.to/693452a684fc15197fdfc2a0/1jbq65n5t';
-      s1.charset = 'UTF-8';
-      s1.setAttribute('crossorigin', '*');
-      s0.parentNode.insertBefore(s1, s0);
-    }
-    
-    // Load after 3 seconds
-    setTimeout(loadTawk, 3000);
-    
-    // OR load on first scroll/interaction
-    var events = ['scroll', 'mousemove', 'touchstart', 'click'];
-    var loadOnce = function() {
-      loadTawk();
-      events.forEach(function(event) {
-        window.removeEventListener(event, loadOnce);
-      });
-    };
-    
-    events.forEach(function(event) {
-      window.addEventListener(event, loadOnce, { passive: true, once: true });
-    });
-  })();
-</script>
-<!--End of Tawk.to Script (Optimized Lazy Load)-->
 
-  <!-- Script Toggle Mobile Menu - Services & Zones -->
+  
+
+  <!-- Script Toggle Mobile Menu - Services & Areas -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       // Toggle Services Menu
@@ -548,14 +681,14 @@
         });
       }
 
-      // Toggle Zones Menu
-      var zonesTrigger = document.querySelector('.zones-trigger');
-      var zonesNav = document.querySelector('.zones-nav');
-      if (zonesTrigger && zonesNav) {
-        zonesTrigger.addEventListener('click', function (e) {
+      // Toggle Areas Menu
+      var areasTrigger = document.querySelector('.areas-trigger');
+      var areasNav = document.querySelector('.areas-nav');
+      if (areasTrigger && areasNav) {
+        areasTrigger.addEventListener('click', function (e) {
           if (window.innerWidth <= 920) {
             e.preventDefault();
-            zonesNav.classList.toggle('is-open');
+            areasNav.classList.toggle('is-open');
           }
         });
       }

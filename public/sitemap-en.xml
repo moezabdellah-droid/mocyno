@@ -2,117 +2,143 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://mocyno.com/en/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://mocyno.com/en/about/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mocyno.com/en/contact/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mocyno.com/en/blog/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-10</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mocyno.com/en/services/</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mocyno.com/en/services/protection-luxe/</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mocyno.com/en/services/securite-cynophile/</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mocyno.com/en/services/securite-evenementielle/</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mocyno.com/en/services/securite-incendie-ssiap/</loc>
-    <lastmod>2026-01-25</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mocyno.com/en/services/surveillance-humaine/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mocyno.com/en/services/construction-sites/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-07</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/services/fire-safety-ssiap/</loc>
+    <lastmod>2026-03-07</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mocyno.com/en/services/hospitality/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://mocyno.com/en/services/luxury-boutiques/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <loc>https://mocyno.com/en/services/luxury-protection/</loc>
+    <lastmod>2026-03-07</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/services/manned-guarding/</loc>
+    <lastmod>2026-03-07</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mocyno.com/en/services/marinas-ports/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mocyno.com/en/services/premium-events/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mocyno.com/en/services/residential/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-07</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/services/securite-cynophile/</loc>
+    <lastmod>2026-03-07</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mocyno.com/en/zones/cannes/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mocyno.com/en/zones/frejus/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mocyno.com/en/zones/nice/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mocyno.com/en/zones/ramatuelle/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mocyno.com/en/zones/saint-tropez/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mocyno.com/en/zones/sainte-maxime/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://mocyno.com/en/zones/toulon/</loc>
-    <lastmod>2026-01-25</lastmod>
+    <lastmod>2026-03-07</lastmod>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/blog/private-estate-security-saint-tropez/</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/blog/congress-security-cannes-guide/</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/blog/villa-security-saint-tropez-k9/</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/blog/wedding-security-var/</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/blog/construction-site-security-toulon/</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/blog/hotel-ssiap-fire-safety-paca/</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

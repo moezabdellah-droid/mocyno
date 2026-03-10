@@ -6,12 +6,13 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>404 — Page non trouvée</title>
 <!-- SAFE GTM - No insertBefore dependency -->
+<script defer src="/consent-ga.js"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
   var scriptTag = document.createElement('script');
   scriptTag.async = true;
-  scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-WH9T9G58';
+  scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
   document.head.appendChild(scriptTag);
   </script>
 <meta content="noindex, nofollow" name="robots"/>
@@ -44,10 +45,11 @@
       body { border-top: 16px solid #ffa100; }
     }
   </style>
+  <script defer src="/tawk-consent.js"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-WH9T9G58" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-N4MSSMV3" style="display:none;visibility:hidden" width="0"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 <div aria-labelledby="main-title" id="message" role="main">
 <h1 id="main-title">Erreur 404</h1>
@@ -60,42 +62,6 @@
 </div>
 <p class="note">Si le problème persiste, consultez notre <a href="/sitemap.xml" style="color:#022C51;text-decoration:underline;">plan du site complet</a> ou contactez notre support.</p>
 </div>
-<!--Start of Tawk.to Script (Optimized Lazy Load)-->
-<script type="text/javascript">
-  // Lazy load Tawk.to after 3s OR on user scroll/interaction
-  (function() {
-    var tawkLoaded = false;
-    
-    function loadTawk() {
-      if (tawkLoaded) return;
-      tawkLoaded = true;
-      
-      var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-      s1.async = true;
-      s1.src = 'https://embed.tawk.to/693452a684fc15197fdfc2a0/1jbq65n5t';
-      s1.charset = 'UTF-8';
-      s1.setAttribute('crossorigin', '*');
-      s0.parentNode.insertBefore(s1, s0);
-    }
-    
-    // Load after 3 seconds
-    setTimeout(loadTawk, 3000);
-    
-    // OR load on first scroll/interaction
-    var events = ['scroll', 'mousemove', 'touchstart', 'click'];
-    var loadOnce = function() {
-      loadTawk();
-      events.forEach(function(event) {
-        window.removeEventListener(event, loadOnce);
-      });
-    };
-    
-    events.forEach(function(event) {
-      window.addEventListener(event, loadOnce, { passive: true, once: true });
-    });
-  })();
-</script>
-<!--End of Tawk.to Script (Optimized Lazy Load)-->
+
 </body>
 </html>
