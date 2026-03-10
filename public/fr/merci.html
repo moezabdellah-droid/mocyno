@@ -42,10 +42,7 @@
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     window.gtag = window.gtag || gtag;
-    // Google Ads
-    gtag('config', 'AW-1067390390');
     window.addEventListener('load', function () {
-      gtag('event', 'conversion', { 'send_to': 'AW-1067390390/ptW5COqlhb0bELar_PwD' });
       gtag('event', 'generate_lead', { page_title: document.title, page_location: location.href });
       window.dataLayer.push({ event: 'lead_submitted' });
     });
