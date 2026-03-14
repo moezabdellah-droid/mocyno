@@ -3,3 +3,4 @@ packages:
   - 'mobile'
   - 'packages/*'
   - 'functions'
+  - 'apps/clients'
