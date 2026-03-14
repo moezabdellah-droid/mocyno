@@ -26,6 +26,16 @@ service cloud.firestore {
       return isAdmin() || isManager(); 
     }
 
+    // --- PORTAIL CLIENT (R6 — NON ACTIF) ---
+    // Stratégie d'isolation : rôle 'client' stocké dans agents/{uid}.role
+    // Isolation par siteId : agents/{uid}.siteId doit correspondre à la ressource demandée
+    // Collections exposables (R6) : consignes (filtré siteId), sites (own siteId uniquement)
+    // Collections NON exposables : events, planning, agents
+    // Ces règles resteront à `if false` jusqu'au build complet du portail en R6
+    function isClient() { return hasRole('client'); }
+    function clientSiteId() { return getUserData().siteId; }
+
+
     // --- COLLECTIONS ---
 
     // 1. CONSIGNES (CORRECTIF)
