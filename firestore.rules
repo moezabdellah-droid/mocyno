@@ -39,10 +39,10 @@ service cloud.firestore {
 
     // --- COLLECTIONS ---
 
-    // 1. CONSIGNES (CORRECTIF)
+    // 1. CONSIGNES
     match /consignes/{consigneId} {
-      allow read: if isAuthenticated();
-      // UPDATE: Seuls Admin et Manager peuvent écrire
+      allow read: if (isAuthenticated() && !isClient())
+                  || (isClient() && resource.data.siteId == clientSiteId());
       allow write: if isAdminOrManager();
     }
 
@@ -72,7 +72,8 @@ service cloud.firestore {
 
     // 5. SITES
     match /sites/{siteId} {
-      allow read: if isAuthenticated();
+      allow read: if (isAuthenticated() && !isClient())
+                  || (isClient() && resource.data.siteId == clientSiteId());
       allow write: if isAdminOrManager();
     }
 
