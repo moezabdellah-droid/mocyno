@@ -73,7 +73,7 @@ service cloud.firestore {
     // 5. SITES
     match /sites/{siteId} {
       allow read: if (isAuthenticated() && !isClient())
-                  || (isClient() && resource.data.siteId == clientSiteId());
+                  || (isClient() && siteId == clientSiteId());
       allow write: if isAdminOrManager();
     }
 
