@@ -251,6 +251,10 @@
         "destination": "/admin/index.html"
       },
       {
+        "source": "/client/**",
+        "destination": "/client/index.html"
+      },
+      {
         "source": "/api/**",
         "function": {
           "functionId": "contactForm",
@@ -290,6 +294,15 @@
       },
       {
         "source": "/admin/**",
+        "headers": [
+          {
+            "key": "X-Robots-Tag",
+            "value": "noindex, nofollow"
+          }
+        ]
+      },
+      {
+        "source": "/client/**",
         "headers": [
           {
             "key": "X-Robots-Tag",
