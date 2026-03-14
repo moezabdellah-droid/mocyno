@@ -53,6 +53,7 @@ export interface Agent {
     dogIds?: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    isServiceRunning?: boolean;
 }
 export interface Site {
     id: string;
@@ -81,6 +82,7 @@ export interface Consigne {
     siteName?: string;
     type?: string;
     priority?: 'low' | 'medium' | 'high';
+    targetId?: string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
 }
@@ -92,6 +94,7 @@ export interface PayrollStats {
     sundayHours: number;
     holidayHours: number;
     futureHours: number;
+    agentsCount?: number;
 }
 export interface VacationStats {
     total: number;
@@ -120,6 +123,11 @@ export interface PlanningEvent {
     vacationIdx: number;
     color?: string;
     allDay?: boolean;
+    resource?: {
+        mission: Mission;
+        assignment: AgentAssignment;
+        vacation: Vacation;
+    };
 }
 export interface AgentSchedule {
     agent: Agent;

@@ -5,7 +5,7 @@ import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { onAuthStateChanged, type User } from 'firebase/auth';
 
-import type { Mission, AgentAssignment, Vacation } from '../types/shared';
+import type { Mission, AgentAssignment, Vacation } from '@mocyno/types';
 
 interface ExtendedMission extends Mission {
     currentUserAssignment?: AgentAssignment;

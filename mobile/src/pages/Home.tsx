@@ -5,7 +5,7 @@ import { signOut } from 'firebase/auth';
 import { auth, db } from '../firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { PtiService } from '../services/PtiService';
-import type { Agent } from '../types/shared';
+import type { Agent } from '@mocyno/types';
 
 const Home: React.FC = () => {
     // Initialize state

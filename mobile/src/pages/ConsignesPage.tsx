@@ -5,7 +5,7 @@ import { book, close } from 'ionicons/icons';
 import { db } from '../firebase';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 
-import type { Consigne } from '../types/shared';
+import type { Consigne } from '@mocyno/types';
 
 const ConsignesPage: React.FC = () => {
     const [consignes, setConsignes] = useState<Consigne[]>([]);
