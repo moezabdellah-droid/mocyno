@@ -13,6 +13,14 @@ service firebase.storage {
       allow write: if request.auth != null && (request.auth.uid == userId || firestore.get(/databases/(default)/documents/agents/$(request.auth.uid)).data.role in ['admin', 'manager']);
     }
 
+    // Report Photos (Main Courante)
+    // Path: report_photos/{userId}/{filename}
+    // Agents upload their own report photos; read covered by global rule above
+    match /report_photos/{userId}/{fileName} {
+      allow write: if request.auth != null
+                   && request.auth.uid == userId;
+    }
+
     // Badges PDF
     // Path: badges/{filename}
     // Only Admin/Manager should generate these
