@@ -10,32 +10,41 @@ import Dashboard from './Dashboard';
 import { mocynoTheme } from './theme';
 import { SiteList, SiteCreate, SiteEdit } from './pages/Sites';
 
+// Debug proxy — active uniquement en développement local
+function withDebugProxy<T extends object>(provider: T): T {
+  return new Proxy(provider, {
+    get: (target, prop) => {
+      const value = target[prop as keyof typeof target];
+      if (typeof value === 'function') {
+        return async (...args: unknown[]) => {
+          console.log(`[Proxy] Calling ${String(prop)} with:`, args);
+          try {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const result = await (value as (...a: unknown[]) => unknown).apply(target, args as any);
+            console.log(`[Proxy] ${String(prop)} returned:`, result);
+            if (result === null || result === undefined) {
+              console.error(`[Proxy] VIOLATION: ${String(prop)} returned null/undefined!`);
+            }
+            return result;
+          } catch (error) {
+            console.error(`[Proxy] ${String(prop)} threw:`, error);
+            throw error;
+          }
+        };
+      }
+      return value;
+    }
+  });
+}
+
+const activeProvider = import.meta.env.DEV
+  ? withDebugProxy(dataProvider)
+  : dataProvider;
+
 const App = () => (
   <Admin
     authProvider={authProvider}
-    dataProvider={new Proxy(dataProvider, {
-      get: (target, prop) => {
-        const value = target[prop as keyof typeof target];
-        if (typeof value === 'function') {
-          return async (...args: unknown[]) => {
-            console.log(`[Proxy] Calling ${String(prop)} with:`, args);
-            try {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              const result = await value.apply(target, args as any);
-              console.log(`[Proxy] ${String(prop)} returned:`, result);
-              if (result === null || result === undefined) {
-                console.error(`[Proxy] VIOLATION: ${String(prop)} returned null/undefined!`);
-              }
-              return result;
-            } catch (error) {
-              console.error(`[Proxy] ${String(prop)} threw:`, error);
-              throw error;
-            }
-          };
-        }
-        return value;
-      }
-    })}
+    dataProvider={activeProvider}
     dashboard={Dashboard}
     theme={mocynoTheme}
     requireAuth
@@ -54,3 +63,4 @@ const App = () => (
 );
 
 export default App;
+
