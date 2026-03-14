@@ -88,10 +88,11 @@ async function provision() {
         role: 'client',
         siteId,
         status: 'active',
+        mustChangePassword: true,  // Forcer le changement au premier login (R7)
         createdAt: new Date().toISOString(),
     }, { merge: true });
 
-    console.log(`✅ Document Firestore agents/${userRecord.uid} créé avec role:'client'`);
+    console.log(`✅ Document Firestore agents/${userRecord.uid} créé avec role:'client', mustChangePassword:true`);
     console.log(`\n🔐 MOT DE PASSE TEMPORAIRE (à transmettre par canal sécurisé) :`);
     console.log(`   ${tempPassword}`);
     console.log(`\n⚠️  Ce mot de passe ne sera plus affiché. Transmettez-le immédiatement.\n`);
