@@ -25,7 +25,7 @@ export interface Agent {
     firstName: string;
     lastName: string;
     email: string;
-    role: 'admin' | 'agent' | 'manager';
+    role: 'admin' | 'agent' | 'manager' | 'client';
     specialties?: string[];
     status: 'active' | 'inactive';
     photoURL?: string;
