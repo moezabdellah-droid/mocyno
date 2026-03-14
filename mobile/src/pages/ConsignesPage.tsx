@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import DOMPurify from 'dompurify';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonBadge, IonModal, IonButton, IonIcon } from '@ionic/react';
 import { book, close } from 'ionicons/icons';
 import { db } from '../firebase';
@@ -52,7 +53,7 @@ const ConsignesPage: React.FC = () => {
                     </IonHeader>
                     <IonContent className="ion-padding">
                         <IonBadge color="primary">{selectedConsigne?.type}</IonBadge>
-                        <div style={{ marginTop: '20px' }} dangerouslySetInnerHTML={{ __html: selectedConsigne?.content || '' }} />
+                        <div style={{ marginTop: '20px' }} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(selectedConsigne?.content || '') }} />
                     </IonContent>
                 </IonModal>
             </IonContent>
