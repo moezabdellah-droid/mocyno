@@ -144,7 +144,7 @@ exports.createAgent = onCall({ region: "europe-west1" }, async (request) => {
         password,
         displayName: `${firstName} ${lastName}`,
         emailVerified: true,
-        photoURL: photoURL || null,
+        ...(photoURL ? { photoURL } : {}),
       });
     } catch (error) {
       if (error.code === "auth/user-not-found") {
@@ -154,7 +154,7 @@ exports.createAgent = onCall({ region: "europe-west1" }, async (request) => {
           email,
           password,
           displayName: `${firstName} ${lastName}`,
-          photoURL: photoURL || null,
+          ...(photoURL ? { photoURL } : {}),
         });
       } else {
         throw error;
