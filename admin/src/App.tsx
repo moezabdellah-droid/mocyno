@@ -9,7 +9,7 @@ import { AgentList, AgentCreate, AgentEdit } from './pages/Agents';
 import Dashboard from './Dashboard';
 import { mocynoTheme } from './theme';
 import { SiteList, SiteCreate, SiteEdit } from './pages/Sites';
-import { ClientList, ClientShow } from './pages/Clients';
+import { ClientList, ClientShow, ClientCreate } from './pages/Clients';
 
 // Debug proxy — active uniquement en développement local
 function withDebugProxy<T extends object>(provider: T): T {
@@ -60,7 +60,7 @@ const App = () => (
     <Resource name="sites" list={SiteList} create={SiteCreate} edit={SiteEdit} />
     <Resource name="consignes" list={ConsigneList} create={ConsigneCreate} edit={ConsigneEdit} show={ConsigneShow} options={{ label: 'Consignes' }} />
     <Resource name="events" list={EventList} show={EventShow} options={{ label: 'Main Courante' }} />
-    <Resource name="clients" list={ClientList} show={ClientShow} options={{ label: 'Clients' }} />
+    <Resource name="clients" list={ClientList} show={ClientShow} create={ClientCreate} options={{ label: 'Clients' }} />
   </Admin>
 );
 

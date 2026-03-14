@@ -1,12 +1,15 @@
+import { useState } from 'react';
 import {
     List, Datagrid, TextField, EmailField, DateField,
-    FunctionField, Edit, SimpleShowLayout, ShowButton, Show
+    FunctionField, SimpleShowLayout, ShowButton, Show,
+    Create, SimpleForm, TextInput, SelectInput, required,
+    useNotify, useRedirect, ReferenceInput
 } from 'react-admin';
+import { getFunctions, httpsCallable } from 'firebase/functions';
 import type { Agent } from '@mocyno/types';
 
 /**
- * ClientList — vue read-only des agents avec role='client'.
- * Le filtre permanent empêche l'affichage d'agents non-clients.
+ * ClientList — vue des agents avec role='client'.
  * Resource name = 'clients' → redirigé vers collection 'agents' via dataProvider alias.
  */
 export const ClientList = () => (
@@ -43,3 +46,46 @@ export const ClientShow = () => (
         </SimpleShowLayout>
     </Show>
 );
+
+export const ClientCreate = () => {
+    const [, setLoading] = useState(false);
+    const notify = useNotify();
+    const redirect = useRedirect();
+
+    const save = async (data: Partial<Agent>) => {
+        setLoading(true);
+        try {
+            const functions = getFunctions(undefined, 'europe-west1');
+            const createAgent = httpsCallable(functions, 'createAgent');
+
+            await createAgent({
+                ...data,
+                role: 'client',
+                status: 'active',
+                mustChangePassword: true,
+                provisionedAt: new Date().toISOString(),
+            });
+            notify('Compte client créé avec succès', { type: 'success' });
+            redirect('/clients');
+        } catch (error: unknown) {
+            console.error(error);
+            notify(`Erreur: ${(error as Error).message}`, { type: 'error' });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <Create resource="clients">
+            <SimpleForm onSubmit={save}>
+                <TextInput source="firstName" label="Prénom" validate={required()} fullWidth />
+                <TextInput source="lastName" label="Nom" validate={required()} fullWidth />
+                <TextInput source="email" label="Email" validate={required()} fullWidth type="email" />
+                <TextInput source="password" label="Mot de passe provisoire" validate={required()} fullWidth type="password" />
+                <ReferenceInput source="siteId" reference="sites" label="Site">
+                    <SelectInput optionText="name" validate={required()} fullWidth />
+                </ReferenceInput>
+            </SimpleForm>
+        </Create>
+    );
+};
