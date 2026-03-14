@@ -59,7 +59,11 @@ export const ClientCreate = () => {
             const createAgent = httpsCallable(functions, 'createAgent');
 
             await createAgent({
-                ...data,
+                firstName: data.firstName,
+                lastName: data.lastName,
+                email: data.email,
+                password: (data as Record<string, unknown>).password,
+                siteId: data.siteId,
                 role: 'client',
                 status: 'active',
                 mustChangePassword: true,
