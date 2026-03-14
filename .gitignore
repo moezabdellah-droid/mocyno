@@ -65,5 +65,20 @@ node_modules/
 # dotenv environment variables file
 .env
 
+# Credentials & secrets
+functions/keys/
+*.service-account.json
+.service-account.json
+
+# Environment files (sensitive — keep out of git)
+.env.local
+.env.production
+.env.staging
+.env.*.local
+**/.env.local
+**/.env.production
+**/.env.staging
+**/.env.*.local
+
 # dataconnect generated files
 .dataconnect

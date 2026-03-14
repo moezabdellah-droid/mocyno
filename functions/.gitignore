@@ -1,2 +1,9 @@
 node_modules/
 *.local
+
+# Secrets — never commit
+keys/
+*.service-account.json
+.env
+.env.*
+.runtimeconfig.json
