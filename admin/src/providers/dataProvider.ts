@@ -139,7 +139,6 @@ const dataProvider: DataProvider = {
         resource: string,
         params: GetListParams
     ): Promise<GetListResult<RecordType>> => {
-        console.log(`[DataProvider] getList ${resource}`, params);
         try {
             const q = buildQuery(resource, params);
             const querySnapshot = await getDocs(q);
@@ -152,12 +151,7 @@ const dataProvider: DataProvider = {
             const currentPerPage = params.pagination?.perPage || 10;
             const total = data.length === currentPerPage ? data.length * 2 : data.length;
 
-            const result = {
-                data,
-                total,
-            };
-            console.log(`[DataProvider] getList ${resource} result:`, result);
-            return result;
+            return { data, total };
         } catch (error) {
             console.error(`[DataProvider] getList ${resource} failed:`, error);
             throw error;
@@ -168,8 +162,6 @@ const dataProvider: DataProvider = {
         resource: string,
         params: GetOneParams
     ): Promise<GetOneResult<RecordType>> => {
-        console.log(`%c[DataProvider] getOne ENTER ${resource}`, 'color: green; font-weight: bold;', params);
-
         if (!params || !params.id) {
             console.error(`[DataProvider] getOne ERROR: Missing ID for ${resource}`);
             throw new Error(`[DataProvider] Missing ID for ${resource}`);
@@ -178,7 +170,6 @@ const dataProvider: DataProvider = {
         const idString = params.id.toString();
 
         try {
-            console.log(`[DataProvider] getOne fetching doc: ${resource}/${idString}`);
             const docRef = doc(db, resource, idString);
             const docSnap = await getDoc(docRef);
 
@@ -189,20 +180,15 @@ const dataProvider: DataProvider = {
                     throw new Error(`Document data is empty: ${resource}/${idString}`);
                 }
 
-                const result = {
+                return {
                     data: {
                         id: docSnap.id,
                         ...data
                     } as RecordType
                 };
-                console.log(`[DataProvider] getOne SUCCESS ${resource}:`, result);
-                return result;
             }
 
-            console.warn(`[DataProvider] getOne WARNING: Not found ${resource}/${idString}`);
-            // React Admin expects a rejected promise for 404, usually.
-            // But some implementations return { data: null } which crashes it.
-            // We MUST throw an error.
+            // React Admin expects a rejected promise for 404.
             throw new Error(`Document not found: ${resource}/${idString}`);
         } catch (error) {
             console.error(`[DataProvider] getOne EXCEPTION ${resource}/${idString}:`, error);
@@ -214,7 +200,6 @@ const dataProvider: DataProvider = {
         resource: string,
         params: GetManyParams
     ): Promise<GetManyResult<RecordType>> => {
-        console.log(`[DataProvider] getMany ${resource}`, params);
         const { ids } = params;
         const data: RecordType[] = [];
 
@@ -239,16 +224,13 @@ const dataProvider: DataProvider = {
             });
         }
 
-        const result = { data };
-        console.log(`[DataProvider] getMany ${resource} result:`, result);
-        return result;
+        return { data };
     },
 
     getManyReference: async <RecordType extends RaRecord = RaRecord>(
         resource: string,
         params: GetManyReferenceParams
     ): Promise<GetManyReferenceResult<RecordType>> => {
-        console.log(`[DataProvider] getManyReference ${resource}`, params);
         const { target, id, filter, pagination } = params;
 
         // Combine the reference filter with existing filters
@@ -268,21 +250,13 @@ const dataProvider: DataProvider = {
         const currentPerPage = pagination?.perPage || 10;
         const total = data.length === currentPerPage ? data.length * 2 : data.length;
 
-        const result = {
-            data,
-            total
-        };
-        console.log(`[DataProvider] getManyReference ${resource} result:`, result);
-        return result;
+        return { data, total };
     },
 
     create: async <RecordType extends RaRecord = RaRecord>(
         resource: string,
         params: CreateParams
     ): Promise<CreateResult<RecordType>> => {
-        // console.log('[DP-DEBUG] Firebase Config (Project):', app.options.projectId);
-        // console.log('[DP-DEBUG] Params:', params);
-
         let newItem = { ...params.data };
 
         // Handle file upload for photoURL
@@ -292,27 +266,19 @@ const dataProvider: DataProvider = {
 
         // Recursive cleanup to remove undefined values
         newItem = sanitizePayload(newItem);
-        console.log('Sanitized Payload:', newItem);
 
         try {
             const collectionRef = collection(db, resource);
-            // console.log(`[DP] Target Collection Path: ${collectionRef.path}`);
-
             const docRef = await addDoc(collectionRef, newItem);
-            // console.log(`[DP-DEBUG] wrote docId=${docRef.id}`);
 
-            const result = {
+            return {
                 data: {
                     ...newItem,
                     id: docRef.id
                 } as RecordType
             };
-            console.log('[DP-DEBUG] Result returned to React-Admin:', result);
-            console.log(`[DP-DEBUG] create ${resource} END`);
-            return result;
         } catch (e) {
-            console.error('[DP-DEBUG] Error adding document: ', e);
-            console.log(`[DP-DEBUG] create ${resource} ERROR`);
+            console.error('[DataProvider] Error adding document: ', e);
             throw e;
         }
     },
@@ -321,8 +287,6 @@ const dataProvider: DataProvider = {
         resource: string,
         params: UpdateParams
     ): Promise<UpdateResult<RecordType>> => {
-        // console.log(`[DP-DEBUG] update ${resource} START`);
-
         const { id: _id, ...rest } = params.data;
 
         // Handle file upload
@@ -332,24 +296,16 @@ const dataProvider: DataProvider = {
 
         // Recursive cleanup to remove undefined values
         const data = sanitizePayload(rest);
-        console.log('Sanitized Payload (for update):', data);
 
         try {
             const docRef = doc(db, resource, params.id.toString());
-            // console.log(`[DP] Target Doc Path: ${docRef.path}`);
-
             await updateDoc(docRef, data);
-            // console.log(`[DP-DEBUG] updated docId=${docRef.id}`);
 
-            const result = {
+            return {
                 data: { ...params.data, id: params.id } as RecordType
             };
-            console.log('[DP-DEBUG] Result returned to React-Admin:', result);
-            console.log(`[DP-DEBUG] update ${resource} END`);
-            return result;
         } catch (e) {
-            console.error('[DP-DEBUG] Error updating document: ', e);
-            console.log(`[DP-DEBUG] update ${resource} ERROR`);
+            console.error('[DataProvider] Error updating document: ', e);
             throw e;
         }
     },
@@ -358,49 +314,31 @@ const dataProvider: DataProvider = {
         resource: string,
         params: UpdateManyParams
     ): Promise<UpdateManyResult> => {
-        console.log(`[DataProvider] updateMany ${resource}`, params);
         for (const id of params.ids) {
             const docRef = doc(db, resource, id.toString());
             await updateDoc(docRef, params.data);
         }
-
-        const result = {
-            data: params.ids
-        };
-        console.log(`[DataProvider] updateMany ${resource} result:`, result);
-        return result;
+        return { data: params.ids };
     },
 
     delete: async <RecordType extends RaRecord = RaRecord>(
         resource: string,
         params: DeleteParams
     ): Promise<DeleteResult<RecordType>> => {
-        console.log(`[DataProvider] delete ${resource}`, params);
         const docRef = doc(db, resource, params.id.toString());
         await deleteDoc(docRef);
-
-        const result = {
-            data: params.previousData as RecordType
-        };
-        console.log(`[DataProvider] delete ${resource} result:`, result);
-        return result;
+        return { data: params.previousData as RecordType };
     },
 
     deleteMany: async (
         resource: string,
         params: DeleteManyParams
     ): Promise<DeleteManyResult> => {
-        console.log(`[DataProvider] deleteMany ${resource}`, params);
         for (const id of params.ids) {
             const docRef = doc(db, resource, id.toString());
             await deleteDoc(docRef);
         }
-
-        const result = {
-            data: params.ids
-        };
-        console.log(`[DataProvider] deleteMany ${resource} result:`, result);
-        return result;
+        return { data: params.ids };
     }
 };
 

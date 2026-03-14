@@ -109,8 +109,6 @@ export const authProvider: AuthProvider = {
             if (userDoc.exists()) {
                 const userData = userDoc.data();
                 const role = userData.role || 'agent';
-                console.log('[authProvider] Resolved role:', role); // Keep log for diagnostics
-
                 if (role === 'admin' || role === 'manager') {
                     return Promise.resolve(role);
                 }

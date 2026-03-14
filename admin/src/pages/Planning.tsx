@@ -299,7 +299,6 @@ const Planning = () => {
                     data: payloadData,
                     previousData: events?.find((e: Mission) => e.id === selectedMissionId)
                 });
-                console.log('[Planning] Update success');
                 notify('Mission mise à jour avec succès !', { type: 'success' });
             } else {
 
@@ -310,7 +309,6 @@ const Planning = () => {
                         createdAt: new Date()
                     }
                 });
-                console.log('[Planning] Create success');
                 notify('Mission créée avec succès !', { type: 'success' });
             }
 
