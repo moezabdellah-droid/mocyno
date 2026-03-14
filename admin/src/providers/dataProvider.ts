@@ -78,8 +78,15 @@ const sanitizePayload = (obj: any): any => {
     return obj;
 };
 
+// Resource alias: react-admin resource name → Firestore collection name
+const resourceAlias: Record<string, string> = {
+    clients: 'agents',
+};
+const resolveResource = (resource: string) => resourceAlias[resource] || resource;
+
 // Build filter+sort constraints WITHOUT pagination limit (for counting)
 const buildFilterQuery = (resource: string, params: GetListParams) => {
+    const resolved = resolveResource(resource);
     const { filter, sort } = params;
     const { field, order } = sort || { field: 'id', order: 'ASC' };
 
@@ -105,7 +112,7 @@ const buildFilterQuery = (resource: string, params: GetListParams) => {
         constraints.push(orderBy(field, order.toLowerCase() as 'asc' | 'desc'));
     }
 
-    return query(collection(db, resource), ...constraints);
+    return query(collection(db, resolved), ...constraints);
 };
 
 // Helper for building Firestore queries from React Admin params (with pagination limit)
@@ -156,7 +163,7 @@ const dataProvider: DataProvider = {
         const idString = params.id.toString();
 
         try {
-            const docRef = doc(db, resource, idString);
+            const docRef = doc(db, resolveResource(resource), idString);
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
@@ -198,7 +205,7 @@ const dataProvider: DataProvider = {
 
         for (const chunk of chunks) {
             const q = query(
-                collection(db, resource),
+                collection(db, resolveResource(resource)),
                 where(documentId(), 'in', chunk.map(id => id.toString()))
             );
             const snapshot = await getDocs(q);
