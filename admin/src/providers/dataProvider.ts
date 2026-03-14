@@ -33,6 +33,7 @@ import {
     orderBy,
     limit,
     documentId,
+    getCountFromServer,
     type QueryConstraint
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -77,61 +78,42 @@ const sanitizePayload = (obj: any): any => {
     return obj;
 };
 
-// Helper for building Firestore queries from React Admin params
-const buildQuery = (resource: string, params: GetListParams) => {
-    const { filter, pagination, sort } = params;
-    // Provide defaults to avoid "Property does not exist on type ... | undefined"
-    const { perPage } = pagination || { page: 1, perPage: 10 };
+// Build filter+sort constraints WITHOUT pagination limit (for counting)
+const buildFilterQuery = (resource: string, params: GetListParams) => {
+    const { filter, sort } = params;
     const { field, order } = sort || { field: 'id', order: 'ASC' };
 
     const constraints: QueryConstraint[] = [];
 
-    // 1. FILTERING (WHERE)
     if (filter) {
         Object.keys(filter).forEach(key => {
             const value = filter[key];
-
-            // Specific case: Date Filter (for Planning) - checks object structure
             if (typeof value === 'object' && value !== null && (value.$gte || value.$lte)) {
-                // Note: Deep field filtering like 'agentAssignments.vacations.date' doesn't work well 
-                // without specific data structures in Firestore. 
-                // We skip it here to fallback to client-side or specific implementation, 
-                // OR we implement it if the field is simpler.
-                // For now, we only support simple field inequalities if key doesn't contain dots
                 if (!key.includes('.')) {
                     if (value.$gte) constraints.push(where(key, '>=', value.$gte));
                     if (value.$lte) constraints.push(where(key, '<=', value.$lte));
                 }
-            }
-            // Specific case: Array (e.g. 'ids')
-            else if (Array.isArray(value)) {
-                if (value.length > 0) {
-                    constraints.push(where(key, 'in', value.slice(0, 10))); // Firestore 'in' limit is 10
-                }
-            }
-            // Full text search hack (requires 'q' filter to be passed as such)
-            // Not implemented for generic fields.
-
-            // Standard Equality
-            else if (value !== undefined && value !== null && typeof value !== 'object') {
+            } else if (Array.isArray(value)) {
+                if (value.length > 0) constraints.push(where(key, 'in', value.slice(0, 10)));
+            } else if (value !== undefined && value !== null && typeof value !== 'object') {
                 constraints.push(where(key, '==', value));
             }
         });
     }
 
-    // 2. SORTING (ORDER BY)
     if (field && field !== 'id') {
         constraints.push(orderBy(field, order.toLowerCase() as 'asc' | 'desc'));
     }
 
-    // 3. PAGINATION (LIMIT)
-    // Basic implementation: reduce load size. 
-    // Real cursor-based pagination would require 'startAfter'.
-    if (perPage) {
-        constraints.push(limit(perPage));
-    }
-
     return query(collection(db, resource), ...constraints);
+};
+
+// Helper for building Firestore queries from React Admin params (with pagination limit)
+const buildQuery = (resource: string, params: GetListParams) => {
+    const { pagination } = params;
+    const { perPage } = pagination || { page: 1, perPage: 10 };
+    const baseQuery = buildFilterQuery(resource, params);
+    return perPage ? query(baseQuery, limit(perPage)) : baseQuery;
 };
 
 const dataProvider: DataProvider = {
@@ -140,16 +122,20 @@ const dataProvider: DataProvider = {
         params: GetListParams
     ): Promise<GetListResult<RecordType>> => {
         try {
-            const q = buildQuery(resource, params);
-            const querySnapshot = await getDocs(q);
+            const paginatedQuery = buildQuery(resource, params);
+            const countQuery = buildFilterQuery(resource, params);
+
+            const [querySnapshot, countSnapshot] = await Promise.all([
+                getDocs(paginatedQuery),
+                getCountFromServer(countQuery)
+            ]);
+
             const data = querySnapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
             })) as RecordType[];
 
-            // Estimer le total (Hack)
-            const currentPerPage = params.pagination?.perPage || 10;
-            const total = data.length === currentPerPage ? data.length * 2 : data.length;
+            const total = countSnapshot.data().count;
 
             return { data, total };
         } catch (error) {
