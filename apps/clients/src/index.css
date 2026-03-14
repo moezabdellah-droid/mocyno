@@ -84,3 +84,10 @@ body { background: var(--color-bg); color: var(--color-text); min-height: 100vh;
 
 /* Login info */
 .login-info { text-align: center; color: var(--color-text-muted); font-size: 0.875rem; margin-bottom: 1.25rem; line-height: 1.5; }
+
+/* Forgot password */
+.link-btn { background: transparent; border: none; color: var(--color-primary); font-size: 0.875rem; cursor: pointer; padding: 0.5rem 0; text-align: center; width: 100%; }
+.link-btn:hover { text-decoration: underline; }
+.reset-success { text-align: center; }
+.reset-success p { color: var(--color-text-muted); line-height: 1.6; margin-bottom: 1rem; }
+.reset-success strong { color: var(--color-text); }
