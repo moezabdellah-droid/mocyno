@@ -28,7 +28,7 @@ export const ConsigneList = () => (
     </List>
 );
 
-import type { Consigne } from '../types/models';
+import type { Consigne } from '@mocyno/types';
 
 const transform = (data: Partial<Consigne>) => {
     const payload = {

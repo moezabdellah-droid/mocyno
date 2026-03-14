@@ -8,7 +8,7 @@ import {
 } from 'react-admin';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { PDFDownloadLink } from '@react-pdf/renderer';
-import type { Agent } from '../types/models';
+import type { Agent } from '@mocyno/types';
 import { Button, TextField as MuiTextField } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import GenerateIcon from '@mui/icons-material/Autorenew';

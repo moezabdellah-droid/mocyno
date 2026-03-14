@@ -1,6 +1,6 @@
 
 import { Datagrid, List, TextField, DateField, FunctionField, Show, SimpleShowLayout } from 'react-admin';
-import type { Event } from '../types/models';
+import type { Event } from '@mocyno/types';
 
 export const EventList = () => (
     <List resource="events">

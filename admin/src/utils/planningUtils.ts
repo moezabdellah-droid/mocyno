@@ -1,5 +1,5 @@
 import moment from 'moment';
-import type { Mission, PlanningEvent, Agent } from '../types/models';
+import type { Mission, PlanningEvent, Agent } from '@mocyno/types';
 
 export const calculateDuration = (start: moment.Moment, end: moment.Moment) => {
     return moment.duration(end.diff(start)).asHours();

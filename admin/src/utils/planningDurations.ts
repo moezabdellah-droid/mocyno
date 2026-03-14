@@ -1,4 +1,4 @@
-import type { Mission, AgentAssignment, Vacation } from '../types/models';
+import type { Mission, AgentAssignment, Vacation } from '@mocyno/types';
 
 /**
  * Helper to calculate start and end dates handling cross-day shifts
