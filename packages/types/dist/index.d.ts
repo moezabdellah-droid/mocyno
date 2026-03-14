@@ -54,6 +54,8 @@ export interface Agent {
     createdAt?: Date | string;
     updatedAt?: Date | string;
     isServiceRunning?: boolean;
+    mustChangePassword?: boolean;
+    siteId?: string;
 }
 export interface Site {
     id: string;

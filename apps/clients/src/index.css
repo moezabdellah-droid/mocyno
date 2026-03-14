@@ -47,3 +47,40 @@ body { background: var(--color-bg); color: var(--color-text); min-height: 100vh;
 .welcome-card h2 { font-size: 1.25rem; margin-bottom: 0.75rem; }
 .welcome-card p { color: var(--color-text-muted); line-height: 1.6; }
 .coming-soon { margin-top: 1rem; font-style: italic; font-size: 0.875rem; }
+
+/* Navigation tabs */
+.client-nav { background: var(--color-surface); border-bottom: 1px solid var(--color-border); display: flex; gap: 0.25rem; padding: 0 1.5rem; }
+.nav-btn { background: transparent; border: none; color: var(--color-text-muted); padding: 0.875rem 1.25rem; font-size: 0.9375rem; cursor: pointer; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
+.nav-btn:hover { color: var(--color-text); }
+.nav-btn.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+
+/* Pages */
+.page-container { padding: 1.5rem; max-width: 860px; width: 100%; margin: 0 auto; }
+.page-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--color-text); }
+.error-text { color: var(--color-error); }
+.empty-text { color: var(--color-text-muted); }
+
+/* Consignes */
+.consignes-list { list-style: none; display: flex; flex-direction: column; gap: 0.875rem; }
+.consigne-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 10px; padding: 1rem 1.25rem; }
+.consigne-card.priority-high { border-left: 3px solid #f87171; }
+.consigne-card.priority-medium { border-left: 3px solid #fbbf24; }
+.consigne-card.priority-low { border-left: 3px solid #34d399; }
+.consigne-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+.consigne-title { font-weight: 600; }
+.consigne-badge { font-size: 0.75rem; color: var(--color-text-muted); }
+.consigne-content { color: var(--color-text-muted); line-height: 1.6; font-size: 0.9375rem; }
+.consigne-date { display: block; margin-top: 0.5rem; font-size: 0.75rem; color: var(--color-text-muted); }
+
+/* Site */
+.site-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 10px; padding: 1.5rem; }
+.site-name { font-size: 1.125rem; font-weight: 700; margin-bottom: 1rem; }
+.site-field { display: flex; gap: 1rem; padding: 0.625rem 0; border-bottom: 1px solid var(--color-border); font-size: 0.9375rem; }
+.site-field:last-child { border-bottom: none; }
+.site-label { color: var(--color-text-muted); min-width: 90px; flex-shrink: 0; }
+.site-link { color: var(--color-primary); text-decoration: none; }
+.site-link:hover { text-decoration: underline; }
+.site-notes p { color: var(--color-text-muted); line-height: 1.6; }
+
+/* Login info */
+.login-info { text-align: center; color: var(--color-text-muted); font-size: 0.875rem; margin-bottom: 1.25rem; line-height: 1.5; }
