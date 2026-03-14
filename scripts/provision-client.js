@@ -89,6 +89,7 @@ async function provision() {
         siteId,
         status: 'active',
         mustChangePassword: true,  // Forcer le changement au premier login (R7)
+        provisionedAt: new Date().toISOString(),
         createdAt: new Date().toISOString(),
     }, { merge: true });
 
