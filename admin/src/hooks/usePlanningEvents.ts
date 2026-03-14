@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import type { Mission, PlanningEvent, AgentAssignment, Vacation } from '../types/models';
+import type { Mission, PlanningEvent, AgentAssignment, Vacation } from '@mocyno/types';
 import { getEventRange } from '../utils/planningDurations';
 
 interface UsePlanningEventsResult {

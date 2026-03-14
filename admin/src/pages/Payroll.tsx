@@ -16,7 +16,7 @@ import StarIcon from '@mui/icons-material/Star';
 import EmailIcon from '@mui/icons-material/Email';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import moment from 'moment';
-import type { Agent, Mission, AgentAssignment, Vacation, PayrollStats } from '../types/models';
+import type { Agent, Mission, AgentAssignment, Vacation, PayrollStats } from '@mocyno/types';
 import { calculateVacationStats } from '../utils/planningUtils';
 import { useRobustGetList } from '../hooks/useRobustGetList';
 

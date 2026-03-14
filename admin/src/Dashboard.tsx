@@ -18,7 +18,7 @@ import moment from 'moment';
 // @ts-expect-error - moment locale files don't have TypeScript declarations
 import 'moment/dist/locale/fr';
 import { calculateVacationStats } from './utils/planningUtils';
-import type { Mission, AgentAssignment, Vacation } from './types/models';
+import type { Mission, AgentAssignment, Vacation } from '@mocyno/types';
 import dataProvider from './providers/dataProvider';
 
 moment.locale('fr');
