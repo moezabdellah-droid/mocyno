@@ -58,14 +58,14 @@ service cloud.firestore {
     
     // 3. PLANNING
     match /planning/{shiftId} {
-      allow read: if isAuthenticated(); // Tout agent peut voir le planning
+      allow read: if isAuthenticated() && !isClient(); // Agents et admins uniquement
       allow write: if isAdminOrManager();
     }
 
     // 4. EVENTS (Main Courante)
     match /events/{eventId} {
-      allow read: if isAuthenticated();
-      allow create: if isAuthenticated(); // Tout agent peut créer un rapport
+      allow read: if isAuthenticated() && !isClient();
+      allow create: if isAuthenticated() && !isClient(); // Agents uniquement
       allow update: if isAdminOrManager(); // Modification restreinte
       allow delete: if isAdminOrManager();
     }

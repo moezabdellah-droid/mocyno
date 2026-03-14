@@ -349,9 +349,8 @@ function formatDate(dateString) {
 
 // Callable function to send a planning summary email manually
 exports.sendAgentPlanningSummary = onCall({ region: "europe-west1" }, async (request) => {
-  if (!request.auth) {
-    throw new HttpsError("unauthenticated", "User must be logged in.");
-  }
+  requireAdminOrManager(request);
+
   const { agentId } = request.data;
   if (!agentId) {
     throw new HttpsError("invalid-argument", 'The function must be called with an "agentId".');
