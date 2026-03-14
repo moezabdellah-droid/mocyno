@@ -14,12 +14,28 @@ const { Resend } = require("resend");
 
 admin.initializeApp();
 
-// Initialize Resend (no hardcoded key)
-const resendApiKey = process.env.RESEND_API_KEY;
-if (!resendApiKey) {
-  throw new Error("RESEND_API_KEY is not set");
+// ─── RBAC Helper ──────────────────────────────────────────────────────────────
+// Convention: CAS B — HttpsError importé directement (firebase-functions/v2/https)
+// Signature callable: onCall(async (request) => ...)
+function requireAdminOrManager(request) {
+  if (!request.auth) {
+    throw new HttpsError("unauthenticated", "Authentification requise.");
+  }
+  const role = request.auth.token.role;
+  if (role !== "admin" && role !== "manager") {
+    throw new HttpsError("permission-denied", "Action réservée aux rôles admin et manager.");
+  }
 }
-const resend = new Resend(resendApiKey);
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Resend lazy init — key read at call time (compatible with Secret Manager)
+let _resend = null;
+function getResend() {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) throw new Error("RESEND_API_KEY is not set in environment or Secret Manager");
+  if (!_resend) _resend = new Resend(key);
+  return _resend;
+}
 
 // Helper to generate Google Calendar Link
 function generateGoogleCalendarLink(title, start, end, details, location) {
@@ -74,9 +90,7 @@ END:VEVENT
 
 // Function to create an Agent (Auth + Firestore)
 exports.createAgent = onCall({ region: "europe-west1" }, async (request) => {
-  if (!request.auth) {
-    throw new HttpsError("unauthenticated", "User must be logged in.");
-  }
+  requireAdminOrManager(request);
 
   const {
     email,
@@ -232,7 +246,7 @@ exports.sendPlanningEmail = onDocumentCreated(
             .map((v) => `<li><strong>${formatDate(v.date)}</strong> : ${v.start} - ${v.end}</li>`)
             .join("");
 
-          const { data, error } = await resend.emails.send({
+          const { data, error } = await getResend().emails.send({
             from: "Mo'Cyno Planning <planning@mocyno.com>",
             to: [agent.email],
             subject: `Nouvelle Mission : ${mission.siteName}`,
@@ -487,7 +501,7 @@ exports.sendAgentPlanningSummary = onCall({ region: "europe-west1" }, async (req
       </html>
     `;
 
-    const { data, error } = await resend.emails.send({
+    const { data, error } = await getResend().emails.send({
       from: "Mo'Cyno Planning <planning@mocyno.com>",
       to: [agent.email],
       subject: "Votre Planning à venir - Mo'Cyno",
@@ -509,9 +523,7 @@ exports.sendAgentPlanningSummary = onCall({ region: "europe-west1" }, async (req
 
 // Function to generate matricule for existing agents
 exports.generateMatricule = onCall({ region: "europe-west1" }, async (request) => {
-  if (!request.auth) {
-    throw new HttpsError("unauthenticated", "User must be logged in.");
-  }
+  requireAdminOrManager(request);
 
   const { agentId } = request.data;
   if (!agentId) {
@@ -554,9 +566,7 @@ exports.generateMatricule = onCall({ region: "europe-west1" }, async (request) =
 
 // Function to update an agent's password
 exports.updateAgentPassword = onCall({ region: "europe-west1" }, async (request) => {
-  if (!request.auth) {
-    throw new HttpsError("unauthenticated", "User must be logged in.");
-  }
+  requireAdminOrManager(request);
 
   const { agentId, newPassword } = request.data;
   if (!agentId || !newPassword) {
@@ -594,17 +604,23 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
   const ip = req.headers["x-forwarded-for"] || req.socket?.remoteAddress || req.ip;
 
   // Accept both x-www-form-urlencoded and JSON (Firebase parses req.body)
-  const { name, email, phone, service, message, website } = req.body || {};
+  const { firstName, lastName, name, email, phone, service, message, website } = req.body || {};
 
   // Honeypot anti-spam
+  const lang = String(req.body?.lang || "fr").trim().toLowerCase();
+  const merciUrl = lang === "en" ? "/en/merci/" : "/fr/merci/";
+
   if (website) {
     console.log(`Spam détecté (honeypot) depuis IP: ${ip}`);
-    res.redirect("/merci.html");
+    res.redirect(merciUrl);
     return;
   }
 
   // Basic validation
-  const nameStr = String(name || "").trim();
+  // Accepte "name" (ancien formulaire) ou "firstName"+"lastName" (nouveau formulaire)
+  const nameStr = String(
+    name || ((firstName || "").trim() + " " + (lastName || "").trim()).trim() || ""
+  ).trim();
   const emailStr = String(email || "").trim();
   const messageStr = String(message || "").trim();
   const phoneStr = String(phone || "").trim();
@@ -630,7 +646,7 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
 
   try {
     // 1. Send Admin Notification (to Mo'Cyno Team)
-    const adminEmail = await resend.emails.send({
+    const adminEmail = await getResend().emails.send({
       from: "Mo'Cyno Contact <no-reply@mocyno.com>",
       to: ["contact@mocyno.com", "abdellahmoez@gmail.com", "moezabdellah@mocyno.com"],
       replyTo: emailStr,
@@ -666,7 +682,7 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
     // 2. Send User Confirmation (to the sender)
     // We do not block execution on error for this one (fire and forget logic or loose coupling)
     try {
-      await resend.emails.send({
+      await getResend().emails.send({
         from: "Mo'Cyno <no-reply@mocyno.com>",
         to: [emailStr],
         subject: "Confirmation de réception - MO'CYNO",
@@ -724,7 +740,7 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
     } // End user confirmation
 
     console.log(`Contact email sent from ${emailStr}`, adminEmail.data);
-    res.redirect("/merci.html");
+    res.redirect(merciUrl);
   } catch (err) {
     console.error("Server Error:", err);
     res.status(500).send("Erreur interne du serveur.");
