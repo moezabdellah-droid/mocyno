@@ -1,6 +1,7 @@
 import { Geolocation } from '@capacitor/geolocation';
 import { db, auth } from '../firebase';
 import { collection, addDoc, serverTimestamp, doc, updateDoc } from 'firebase/firestore';
+import { SOS_PHONE_NUMBER } from '../constants';
 
 export class PtiService {
     private static watchId: string | null = null;
@@ -155,7 +156,7 @@ export class PtiService {
 
             // SYSTEME SMS
             // Note: This relies on the device handling the sms: protocol.
-            const phoneNumber = "+33666035116";
+            const phoneNumber = SOS_PHONE_NUMBER;
             const message = `SOS ALERT! Agent: ${user.email} - Location: ${location ? `${location.lat},${location.lng}` : 'Unknown'}`;
             window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
 
