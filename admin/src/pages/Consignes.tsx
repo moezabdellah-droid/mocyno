@@ -14,8 +14,19 @@ const consigneStatuses = [
     { id: 'rejected', name: 'Refusée' },
 ];
 
+const sourceChoices = [
+    { id: 'client', name: 'Client' },
+    { id: 'admin', name: 'Admin' },
+];
+
+const consigneFilters = [
+    <SelectInput key="source" source="source" label="Origine" choices={sourceChoices} alwaysOn />,
+    <SelectInput key="status" source="status" label="Statut" choices={consigneStatuses} alwaysOn />,
+    <TextInput key="clientId" source="clientId" label="Client ID" />,
+];
+
 export const ConsigneList = () => (
-    <List resource="consignes">
+    <List resource="consignes" filters={consigneFilters}>
         <Datagrid rowClick="show">
             <TextField source="title" label="Titre" />
             <FunctionField

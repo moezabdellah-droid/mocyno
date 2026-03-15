@@ -7,9 +7,16 @@ const statusChoices = [
     { id: 'closed', name: 'Clôturé' },
 ];
 
+const priorityChoices = [
+    { id: 'normal', name: 'Normale' },
+    { id: 'high', name: 'Haute' },
+    { id: 'urgent', name: 'Urgente' },
+];
+
 const filters = [
     <TextInput key="clientId" source="clientId" label="Client ID" alwaysOn />,
     <SelectInput key="status" source="status" label="Statut" choices={statusChoices} alwaysOn />,
+    <SelectInput key="priority" source="priority" label="Priorité" choices={priorityChoices} />,
     <TextInput key="category" source="category" label="Catégorie" />,
     <TextInput key="siteName" source="siteName" label="Site" />,
 ];
