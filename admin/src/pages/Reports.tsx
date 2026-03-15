@@ -1,8 +1,9 @@
 import {
     Datagrid, List, TextField, DateField, SelectInput, TextInput,
     FunctionField, Show, SimpleShowLayout, Edit, SimpleForm,
-    ShowButton, EditButton
+    ShowButton, EditButton, useRecordContext
 } from 'react-admin';
+import { AdminCommentThread } from '../components/AdminCommentThread';
 
 const statusChoices = [
     { id: 'open', name: '🔴 Ouvert' },
@@ -72,8 +73,9 @@ export const ReportList = () => (
     </List>
 );
 
-export const ReportShow = () => (
-    <Show resource="reports">
+const ReportShowContent = () => {
+    const record = useRecordContext();
+    return (
         <SimpleShowLayout>
             <TextField source="id" label="Report ID" />
             <TextField source="title" label="Titre" />
@@ -95,7 +97,14 @@ export const ReportShow = () => (
                         : '—'
                 }
             />
+            {record?.id && <AdminCommentThread parentCollection="reports" parentId={record.id as string} />}
         </SimpleShowLayout>
+    );
+};
+
+export const ReportShow = () => (
+    <Show resource="reports">
+        <ReportShowContent />
     </Show>
 );
 

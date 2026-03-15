@@ -1,8 +1,9 @@
 import {
     Datagrid, List, TextField, DateField, SelectInput, TextInput,
     FunctionField, Show, SimpleShowLayout, Edit, SimpleForm,
-    ShowButton, EditButton
+    ShowButton, EditButton, useRecordContext
 } from 'react-admin';
+import { AdminCommentThread } from '../components/AdminCommentThread';
 
 const statusChoices = [
     { id: 'pending', name: '🟡 En attente' },
@@ -55,8 +56,9 @@ export const ClientRequestList = () => (
     </List>
 );
 
-export const ClientRequestShow = () => (
-    <Show resource="clientRequests">
+const ClientRequestShowContent = () => {
+    const record = useRecordContext();
+    return (
         <SimpleShowLayout>
             <TextField source="id" label="Demande ID" />
             <TextField source="title" label="Titre" />
@@ -76,7 +78,14 @@ export const ClientRequestShow = () => (
                         : '—'
                 }
             />
+            {record?.id && <AdminCommentThread parentCollection="clientRequests" parentId={record.id as string} />}
         </SimpleShowLayout>
+    );
+};
+
+export const ClientRequestShow = () => (
+    <Show resource="clientRequests">
+        <ClientRequestShowContent />
     </Show>
 );
 
