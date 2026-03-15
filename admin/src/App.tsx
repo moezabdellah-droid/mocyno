@@ -57,19 +57,19 @@ const App = () => (
     <Resource
       name="planning"
       list={Planning}
-      options={{ label: 'Planning' }}
+      options={{ label: '📅 Planning' }}
     />
-    <Resource name="payroll" list={Payroll} options={{ label: 'RH & Export' }} />
-    <Resource name="agents" list={AgentList} create={AgentCreate} edit={AgentEdit} />
-    <Resource name="sites" list={SiteList} create={SiteCreate} edit={SiteEdit} />
-    <Resource name="consignes" list={ConsigneList} create={ConsigneCreate} edit={ConsigneEdit} show={ConsigneShow} options={{ label: 'Consignes' }} />
-    <Resource name="events" list={EventList} show={EventShow} options={{ label: 'Main Courante' }} />
-    <Resource name="clients" list={ClientList} show={ClientShow} create={ClientCreate} options={{ label: 'Clients' }} />
-    {/* A23 — Support & Pilotage resources */}
-    <Resource name="reports" list={ReportList} show={ReportShow} edit={ReportEdit} options={{ label: 'Incidents' }} />
-    <Resource name="documents" list={DocumentList} show={DocumentShow} options={{ label: 'Documents' }} />
-    <Resource name="clientRequests" list={ClientRequestList} show={ClientRequestShow} edit={ClientRequestEdit} options={{ label: 'Demandes Clients' }} />
-    <Resource name="documentDownloads" list={DocumentDownloadList} options={{ label: 'Téléchargements' }} />
+    <Resource name="payroll" list={Payroll} options={{ label: '💰 RH & Export' }} />
+    <Resource name="agents" list={AgentList} create={AgentCreate} edit={AgentEdit} options={{ label: '👥 Agents' }} />
+    <Resource name="sites" list={SiteList} create={SiteCreate} edit={SiteEdit} options={{ label: '🏢 Sites' }} />
+    <Resource name="consignes" list={ConsigneList} create={ConsigneCreate} edit={ConsigneEdit} show={ConsigneShow} options={{ label: '📋 Consignes' }} />
+    <Resource name="events" list={EventList} show={EventShow} options={{ label: '📝 Main Courante' }} />
+    <Resource name="clients" list={ClientList} show={ClientShow} create={ClientCreate} options={{ label: '🤝 Clients' }} />
+    {/* A23/A24 — Support & Pilotage resources */}
+    <Resource name="reports" list={ReportList} show={ReportShow} edit={ReportEdit} options={{ label: '🔴 Incidents' }} />
+    <Resource name="documents" list={DocumentList} show={DocumentShow} options={{ label: '📄 Documents' }} />
+    <Resource name="clientRequests" list={ClientRequestList} show={ClientRequestShow} edit={ClientRequestEdit} options={{ label: '📩 Demandes' }} />
+    <Resource name="documentDownloads" list={DocumentDownloadList} options={{ label: '📥 Téléchargements' }} />
   </Admin>
 );
 
