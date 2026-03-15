@@ -113,9 +113,10 @@ service cloud.firestore {
     match /reports/{reportId} {
       allow read: if isAdminOrManager()
                   || (isClient() && resource.data.clientId == clientTokenId());
-      allow create: if isClient()
-                    && request.resource.data.clientId == clientTokenId()
-                    && request.resource.data.source == 'client';
+      allow create: if isAdminOrManager()
+                    || (isClient()
+                        && request.resource.data.clientId == clientTokenId()
+                        && request.resource.data.source == 'client');
       allow update, delete: if isAdminOrManager();
 
       // Comments sub-collection
