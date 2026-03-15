@@ -10,11 +10,13 @@ import DocumentsPage from './pages/DocumentsPage';
 import RequestsPage from './pages/RequestsPage';
 import ReportsPage from './pages/ReportsPage';
 import ConsignesPage from './pages/ConsignesPage';
+import DashboardPage from './pages/DashboardPage';
 import './index.css';
 
-type Tab = 'planning' | 'sites' | 'documents' | 'consignes' | 'requests' | 'reports';
+type Tab = 'dashboard' | 'planning' | 'sites' | 'documents' | 'consignes' | 'requests' | 'reports';
 
 const tabs: { key: Tab; label: string }[] = [
+    { key: 'dashboard', label: 'Accueil' },
     { key: 'planning', label: 'Planning' },
     { key: 'sites', label: 'Sites' },
     { key: 'documents', label: 'Documents' },
@@ -30,7 +32,7 @@ const tabs: { key: Tab; label: string }[] = [
  */
 const App: React.FC = () => {
     const { user, clientId, clientProfile, loading, error } = useClientData();
-    const [activeTab, setActiveTab] = useState<Tab>('planning');
+    const [activeTab, setActiveTab] = useState<Tab>('dashboard');
 
     // Loading
     if (loading) {
@@ -88,6 +90,7 @@ const App: React.FC = () => {
                 ))}
             </nav>
             <main className="dashboard-main">
+                {activeTab === 'dashboard' && <DashboardPage clientId={clientId} clientName={`${clientProfile.firstName} ${clientProfile.lastName}`} onNavigate={(tab) => setActiveTab(tab as Tab)} />}
                 {activeTab === 'planning' && <PlanningPage clientId={clientId} />}
                 {activeTab === 'sites' && <SitesPage clientId={clientId} />}
                 {activeTab === 'documents' && <DocumentsPage clientId={clientId} />}
