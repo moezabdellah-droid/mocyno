@@ -15,16 +15,30 @@ const { Resend } = require("resend");
 admin.initializeApp();
 
 // ─── RBAC Helper ──────────────────────────────────────────────────────────────
-// Convention: CAS B — HttpsError importé directement (firebase-functions/v2/https)
-// Signature callable: onCall(async (request) => ...)
-function requireAdminOrManager(request) {
+// A21 — Dual-source RBAC: check custom claims first, then Firestore fallback
+// This ensures functions work even if claims were never set for legacy admins.
+async function requireAdminOrManager(request) {
   if (!request.auth) {
     throw new HttpsError("unauthenticated", "Authentification requise.");
   }
-  const role = request.auth.token.role;
-  if (role !== "admin" && role !== "manager") {
-    throw new HttpsError("permission-denied", "Action réservée aux rôles admin et manager.");
+  // 1. Check custom claim (fast)
+  const claimRole = request.auth.token.role;
+  if (claimRole === "admin" || claimRole === "manager") {
+    return;
   }
+  // 2. Fallback: check Firestore agents/{uid}.role
+  try {
+    const userDoc = await admin.firestore().collection("agents").doc(request.auth.uid).get();
+    if (userDoc.exists) {
+      const firestoreRole = userDoc.data().role;
+      if (firestoreRole === "admin" || firestoreRole === "manager") {
+        return;
+      }
+    }
+  } catch (err) {
+    console.error("[RBAC] Firestore fallback failed:", err);
+  }
+  throw new HttpsError("permission-denied", "Action réservée aux rôles admin et manager.");
 }
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -90,7 +104,7 @@ END:VEVENT
 
 // Function to create an Agent (Auth + Firestore)
 exports.createAgent = onCall({ region: "europe-west1" }, async (request) => {
-  requireAdminOrManager(request);
+  await requireAdminOrManager(request);
 
   const {
     email,
@@ -205,6 +219,9 @@ exports.createAgent = onCall({ region: "europe-west1" }, async (request) => {
 
       currentSpecialty: null,
     });
+
+    // A21 — Set custom claims for the new agent (aligns with token-based RBAC)
+    await admin.auth().setCustomUserClaims(userRecord.uid, { role: "agent" });
 
     return {
       uid: userRecord.uid,
@@ -349,7 +366,7 @@ function formatDate(dateString) {
 
 // Callable function to send a planning summary email manually
 exports.sendAgentPlanningSummary = onCall({ region: "europe-west1" }, async (request) => {
-  requireAdminOrManager(request);
+  await requireAdminOrManager(request);
 
   const { agentId } = request.data;
   if (!agentId) {
@@ -522,7 +539,7 @@ exports.sendAgentPlanningSummary = onCall({ region: "europe-west1" }, async (req
 
 // Function to generate matricule for existing agents
 exports.generateMatricule = onCall({ region: "europe-west1" }, async (request) => {
-  requireAdminOrManager(request);
+  await requireAdminOrManager(request);
 
   const { agentId } = request.data;
   if (!agentId) {
@@ -565,7 +582,7 @@ exports.generateMatricule = onCall({ region: "europe-west1" }, async (request) =
 
 // Function to update an agent's password
 exports.updateAgentPassword = onCall({ region: "europe-west1" }, async (request) => {
-  requireAdminOrManager(request);
+  await requireAdminOrManager(request);
 
   const { agentId, newPassword } = request.data;
   if (!agentId || !newPassword) {
@@ -760,7 +777,7 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
  * Output: { uid, clientId, message }
  */
 exports.createClient = onCall({ region: "europe-west1" }, async (request) => {
-  requireAdminOrManager(request);
+  await requireAdminOrManager(request);
   const caller = request.auth?.uid || 'unknown';
   console.log(`[createClient] Called by ${caller}`);
 
