@@ -79,9 +79,8 @@ const sanitizePayload = (obj: any): any => {
 };
 
 // Resource alias: react-admin resource name → Firestore collection name
-const resourceAlias: Record<string, string> = {
-    clients: 'agents',
-};
+// NOTE: A21 — removed 'clients: agents' alias so 'clients' reads the real clients/ collection
+const resourceAlias: Record<string, string> = {};
 const resolveResource = (resource: string) => resourceAlias[resource] || resource;
 
 // Build filter+sort constraints WITHOUT pagination limit (for counting)
