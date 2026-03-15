@@ -96,11 +96,46 @@ const PlanningPage: React.FC<PlanningPageProps> = ({ clientId }) => {
         ], `mocyno-planning-${todayISO()}.csv`);
     };
 
+    const handleExportPDF = () => {
+        const rows = segments.map(s => `
+            <tr>
+                <td>${csvDateTime(s.startTimestamp).split(' ')[0] || ''}</td>
+                <td>${csvDateTime(s.startTimestamp).split(' ')[1] || ''}</td>
+                <td>${csvDateTime(s.endTimestamp).split(' ')[1] || ''}</td>
+                <td>${s.agentName || s.agentId}</td>
+                <td>${s.siteName || s.siteId}</td>
+                <td>${s.status}</td>
+            </tr>`).join('');
+        const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Planning MoCyno - ${todayISO()}</title>
+            <style>
+                body{font-family:system-ui,sans-serif;padding:2rem;color:#1a1a2e}
+                h1{font-size:1.3rem;margin-bottom:0.25rem}
+                .sub{color:#666;font-size:0.85rem;margin-bottom:1.5rem}
+                table{border-collapse:collapse;width:100%;font-size:0.85rem}
+                th,td{border:1px solid #ddd;padding:0.4rem 0.6rem;text-align:left}
+                th{background:#f0f0f5;font-weight:600}
+                @media print{body{padding:0}}
+            </style></head><body>
+            <h1>Planning — MoCyno</h1>
+            <p class="sub">Exporté le ${new Date().toLocaleDateString('fr-FR')} — ${segments.length} créneau(x)</p>
+            <table><thead><tr><th>Date</th><th>Début</th><th>Fin</th><th>Agent</th><th>Site</th><th>Statut</th></tr></thead>
+            <tbody>${rows}</tbody></table>
+            <script>window.onload=()=>{window.print();}<\/script>
+        </body></html>`;
+        const w = window.open('', '_blank');
+        if (w) { w.document.write(html); w.document.close(); }
+    };
+
     return (
         <div className="page-content">
             <div className="page-header">
                 <h2>Planning</h2>
-                {segments.length > 0 && <button onClick={handleExportCSV} className="action-btn">⬇ Exporter CSV</button>}
+                {segments.length > 0 && (
+                    <div style={{display:'flex',gap:'0.5rem'}}>
+                        <button onClick={handleExportCSV} className="action-btn">⬇ CSV</button>
+                        <button onClick={handleExportPDF} className="action-btn">🖨 PDF</button>
+                    </div>
+                )}
             </div>
             {segments.length === 0 ? (
                 <p className="empty-state">Aucun créneau planifié pour le moment.</p>
