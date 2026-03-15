@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { updatePassword } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
+import { logger } from '../utils/logger';
 
 interface ChangePasswordPageProps {
     clientId: string;
@@ -49,11 +50,11 @@ const ChangePasswordPage: React.FC<ChangePasswordPageProps> = ({ clientId }) => 
             try {
                 await clearFlag();
             } catch (flagErr) {
-                console.warn('First flag clear failed, retrying...', flagErr);
+                logger.warn('ChangePasswordPage', 'First flag clear failed, retrying...');
                 try {
                     await clearFlag();
                 } catch (retryErr) {
-                    console.error('Flag clear retry failed:', retryErr);
+                    logger.error('ChangePasswordPage.clearFlag', retryErr);
                     setError('Mot de passe mis à jour, mais le flag n\'a pas pu être levé. Reconnectez-vous pour réessayer.');
                     setLoading(false);
                     return;

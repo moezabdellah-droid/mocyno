@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../firebase';
+import { logger } from '../utils/logger';
 
 interface LoginPageProps {
     onLogin: () => void;
@@ -50,7 +51,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
         try {
             await sendPasswordResetEmail(auth, email);
             setResetSent(true);
-        } catch {
+        } catch (err: unknown) {
+            logger.error('LoginPage.resetPassword', err);
             setError('Impossible d\'envoyer le lien. Vérifiez l\'adresse email.');
         } finally {
             setLoading(false);
