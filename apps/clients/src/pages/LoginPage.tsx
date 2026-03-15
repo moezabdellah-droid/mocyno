@@ -21,8 +21,19 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             onLogin();
-        } catch {
-            setError('Identifiants incorrects. Vérifiez votre email et mot de passe.');
+        } catch (err: unknown) {
+            const code = (err as { code?: string })?.code || '';
+            if (code === 'auth/invalid-credential' || code === 'auth/wrong-password' || code === 'auth/user-not-found') {
+                setError('Email ou mot de passe incorrect. Vérifiez vos identifiants.');
+            } else if (code === 'auth/too-many-requests') {
+                setError('Trop de tentatives. Veuillez patienter quelques minutes avant de réessayer.');
+            } else if (code === 'auth/network-request-failed') {
+                setError('Problème de connexion réseau. Vérifiez votre accès internet.');
+            } else if (code === 'auth/user-disabled') {
+                setError('Ce compte a été désactivé. Contactez votre administrateur.');
+            } else {
+                setError('Erreur de connexion. Si le problème persiste, contactez le support.');
+            }
         } finally {
             setLoading(false);
         }
@@ -94,6 +105,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
             <div className="login-card">
                 <h1 className="login-title">MoCyno</h1>
                 <p className="login-subtitle">Portail Client</p>
+                <p className="login-info">Première connexion ? Utilisez les identifiants fournis par votre administrateur.</p>
                 <form onSubmit={handleSubmit} className="login-form">
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
