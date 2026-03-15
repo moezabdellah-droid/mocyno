@@ -1,31 +1,74 @@
 rules_version = '2';
 
-// Craft rules based on data model
+// R10A — Storage Rules sécurisées
+// Lecture globale supprimée. Chaque path a ses propres règles.
+// Les Cloud Functions (Admin SDK) contournent les rules pour les signed URLs.
 service firebase.storage {
   match /b/{bucket}/o {
-    match /{allPaths=**} {
-      allow read: if request.auth != null;
-    }
-    
-    // Agent Photos
+
+    // ── Agent Photos ──────────────────────────────────────────
     // Path: agent_photos/{userId}/{filename}
+    // Read : propriétaire OU admin/manager
+    // Write : propriétaire OU admin/manager
     match /agent_photos/{userId}/{fileName} {
-      allow write: if request.auth != null && (request.auth.uid == userId || firestore.get(/databases/(default)/documents/agents/$(request.auth.uid)).data.role in ['admin', 'manager']);
+      allow read: if request.auth != null
+                  && (request.auth.uid == userId
+                      || firestore.get(/databases/(default)/documents/agents/$(request.auth.uid)).data.role in ['admin', 'manager']);
+      allow write: if request.auth != null
+                   && (request.auth.uid == userId
+                       || firestore.get(/databases/(default)/documents/agents/$(request.auth.uid)).data.role in ['admin', 'manager']);
     }
 
-    // Report Photos (Main Courante)
+    // ── Report Photos (Main Courante) ─────────────────────────
     // Path: report_photos/{userId}/{filename}
-    // Agents upload their own report photos; read covered by global rule above
+    // Read : propriétaire OU admin/manager
+    // Write : propriétaire uniquement
     match /report_photos/{userId}/{fileName} {
+      allow read: if request.auth != null
+                  && (request.auth.uid == userId
+                      || firestore.get(/databases/(default)/documents/agents/$(request.auth.uid)).data.role in ['admin', 'manager']);
       allow write: if request.auth != null
                    && request.auth.uid == userId;
     }
 
-    // Badges PDF
+    // ── Badges PDF ────────────────────────────────────────────
     // Path: badges/{filename}
-    // Only Admin/Manager should generate these
+    // Read : admin/manager uniquement (clients via getAgentBadgeSignedUrl function)
+    // Write : admin/manager uniquement
     match /badges/{fileName} {
-      allow write: if request.auth != null && firestore.get(/databases/(default)/documents/agents/$(request.auth.uid)).data.role in ['admin', 'manager'];
+      allow read: if request.auth != null
+                  && firestore.get(/databases/(default)/documents/agents/$(request.auth.uid)).data.role in ['admin', 'manager'];
+      allow write: if request.auth != null
+                   && firestore.get(/databases/(default)/documents/agents/$(request.auth.uid)).data.role in ['admin', 'manager'];
+    }
+
+    // ── Documents clients ─────────────────────────────────────
+    // Path: documents/{clientId}/{filename} ou tout storagePath
+    // Pas de lecture directe — accès uniquement via getDocumentSignedUrl (Admin SDK)
+    // Write : admin/manager uniquement (upload console ou function future)
+    match /documents/{allPaths=**} {
+      allow read: if request.auth != null
+                  && firestore.get(/databases/(default)/documents/agents/$(request.auth.uid)).data.role in ['admin', 'manager'];
+      allow write: if request.auth != null
+                   && firestore.get(/databases/(default)/documents/agents/$(request.auth.uid)).data.role in ['admin', 'manager'];
+    }
+
+    // ── Client Uploads ────────────────────────────────────────
+    // Path: clientUploads/{clientId}/{filename}
+    // Read : le client propriétaire (via claim) OU admin/manager
+    // Write : le client propriétaire (via claim) OU admin/manager
+    match /clientUploads/{clientId}/{fileName} {
+      allow read: if request.auth != null
+                  && (request.auth.token.clientId == clientId
+                      || firestore.get(/databases/(default)/documents/agents/$(request.auth.uid)).data.role in ['admin', 'manager']);
+      allow write: if request.auth != null
+                   && (request.auth.token.clientId == clientId
+                       || firestore.get(/databases/(default)/documents/agents/$(request.auth.uid)).data.role in ['admin', 'manager']);
+    }
+
+    // ── Default : deny all ────────────────────────────────────
+    match /{allPaths=**} {
+      allow read, write: if false;
     }
   }
 }
