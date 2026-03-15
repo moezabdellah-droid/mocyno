@@ -6,24 +6,28 @@ import {
     useNotify, useRedirect, ReferenceInput
 } from 'react-admin';
 import { getFunctions, httpsCallable } from 'firebase/functions';
-import type { Agent } from '@mocyno/types';
 
 /**
- * ClientList — vue des agents avec role='client'.
- * Resource name = 'clients' → redirigé vers collection 'agents' via dataProvider alias.
+ * R12 — Admin Clients — modèle avancé clients/{docId}
+ * Resource = 'clients' → pointe vers collection 'clients' via dataProvider.
+ * Création via callable createClient (provisioning industrialisé).
  */
+
 export const ClientList = () => (
-    <List resource="clients" filter={{ role: 'client' }} exporter={false}>
+    <List resource="clients" exporter={false} sort={{ field: 'provisionedAt', order: 'DESC' }}>
         <Datagrid rowClick="show" bulkActionButtons={false}>
             <TextField source="firstName" label="Prénom" />
             <TextField source="lastName" label="Nom" />
             <EmailField source="email" />
-            <TextField source="siteId" label="Site ID" />
+            <TextField source="companyName" label="Société" />
             <TextField source="status" label="Statut" />
-            <FunctionField label="MDP à changer" render={(record: Agent) =>
+            <FunctionField label="Accès portail" render={(record: Record<string, unknown>) =>
+                record.portalAccess ? '✅ Actif' : '❌ Désactivé'
+            } />
+            <FunctionField label="MDP à changer" render={(record: Record<string, unknown>) =>
                 record.mustChangePassword ? '⚠️ Oui' : '✅ Non'
             } />
-            <DateField source="createdAt" label="Créé le" />
+            <DateField source="provisionedAt" label="Provisionné le" />
             <ShowButton />
         </Datagrid>
     </List>
@@ -32,17 +36,27 @@ export const ClientList = () => (
 export const ClientShow = () => (
     <Show resource="clients">
         <SimpleShowLayout>
-            <TextField source="id" label="UID" />
+            <TextField source="id" label="Client ID" />
+            <TextField source="authUid" label="Auth UID" />
             <TextField source="firstName" label="Prénom" />
             <TextField source="lastName" label="Nom" />
             <EmailField source="email" />
+            <TextField source="companyName" label="Société" />
             <TextField source="role" label="Rôle" />
-            <TextField source="siteId" label="Site ID" />
             <TextField source="status" label="Statut" />
-            <FunctionField label="MDP à changer" render={(record: Agent) =>
+            <FunctionField label="Site(s)" render={(record: Record<string, unknown>) => {
+                const ids = record.siteIds as string[] | undefined;
+                if (ids && ids.length > 0) return ids.join(', ');
+                return (record.siteId as string) || '—';
+            }} />
+            <FunctionField label="Accès portail" render={(record: Record<string, unknown>) =>
+                record.portalAccess ? '✅ Actif' : '❌ Désactivé'
+            } />
+            <FunctionField label="MDP à changer" render={(record: Record<string, unknown>) =>
                 record.mustChangePassword ? '⚠️ Oui' : '✅ Non'
             } />
-            <DateField source="createdAt" label="Créé le" />
+            <DateField source="provisionedAt" label="Provisionné le" showTime />
+            <DateField source="createdAt" label="Créé le (legacy)" />
         </SimpleShowLayout>
     </Show>
 );
@@ -52,24 +66,21 @@ export const ClientCreate = () => {
     const notify = useNotify();
     const redirect = useRedirect();
 
-    const save = async (data: Partial<Agent>) => {
+    const save = async (data: Record<string, unknown>) => {
         setLoading(true);
         try {
             const functions = getFunctions(undefined, 'europe-west1');
-            const createAgent = httpsCallable(functions, 'createAgent');
+            const createClient = httpsCallable(functions, 'createClient');
 
-            await createAgent({
+            await createClient({
                 firstName: data.firstName,
                 lastName: data.lastName,
                 email: data.email,
-                password: (data as Record<string, unknown>).password,
+                password: data.password,
                 siteId: data.siteId,
-                role: 'client',
-                status: 'active',
-                mustChangePassword: true,
-                provisionedAt: new Date().toISOString(),
+                companyName: data.companyName || null,
             });
-            notify('Compte client créé avec succès', { type: 'success' });
+            notify('Compte client créé avec succès (portail activé, MDP à changer)', { type: 'success' });
             redirect('/clients');
         } catch (error: unknown) {
             console.error(error);
@@ -85,8 +96,9 @@ export const ClientCreate = () => {
                 <TextInput source="firstName" label="Prénom" validate={required()} fullWidth />
                 <TextInput source="lastName" label="Nom" validate={required()} fullWidth />
                 <TextInput source="email" label="Email" validate={required()} fullWidth type="email" />
-                <TextInput source="password" label="Mot de passe provisoire" validate={required()} fullWidth type="password" />
-                <ReferenceInput source="siteId" reference="sites" label="Site">
+                <TextInput source="password" label="Mot de passe provisoire" validate={required()} fullWidth type="password" helperText="Le client devra le changer à la première connexion" />
+                <TextInput source="companyName" label="Société (optionnel)" fullWidth />
+                <ReferenceInput source="siteId" reference="sites" label="Site principal">
                     <SelectInput optionText="name" validate={required()} fullWidth />
                 </ReferenceInput>
             </SimpleForm>
