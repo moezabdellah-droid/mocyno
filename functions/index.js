@@ -746,7 +746,121 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
   }
 });
 
+// ─── CLIENT PORTAL — Provisioning industrialisé ──────────────────────────────
+
+/**
+ * createClient (R10A)
+ * Provisionne un compte client complet pour le portail avancé /clients/ :
+ *   1. Crée le compte Firebase Auth
+ *   2. Crée le document clients/{docId} dans Firestore
+ *   3. Pose les custom claims { role: 'client', clientId: docId }
+ *   4. Rattache le clientId au site (clientIds[] + authorizedClients[])
+ *
+ * Input: { email, password, firstName, lastName, siteId, companyName? }
+ * Output: { uid, clientId, message }
+ */
+exports.createClient = onCall({ region: "europe-west1" }, async (request) => {
+  requireAdminOrManager(request);
+
+  const { email, password, firstName, lastName, siteId, companyName } = request.data;
+
+  // Input validation
+  if (!email || typeof email !== "string") {
+    throw new HttpsError("invalid-argument", "Email requis.");
+  }
+  if (!password || typeof password !== "string" || password.length < 6) {
+    throw new HttpsError("invalid-argument", "Mot de passe requis (min. 6 caractères).");
+  }
+  if (!firstName || typeof firstName !== "string") {
+    throw new HttpsError("invalid-argument", "Prénom requis.");
+  }
+  if (!lastName || typeof lastName !== "string") {
+    throw new HttpsError("invalid-argument", "Nom requis.");
+  }
+  if (!siteId || typeof siteId !== "string") {
+    throw new HttpsError("invalid-argument", "siteId requis.");
+  }
+
+  const db = admin.firestore();
+
+  try {
+    // 1. Verify site exists
+    const siteDoc = await db.collection("sites").doc(siteId).get();
+    if (!siteDoc.exists) {
+      throw new HttpsError("not-found", `Site ${siteId} introuvable.`);
+    }
+
+    // 2. Create Auth user
+    let userRecord;
+    let isNewUser = false;
+    try {
+      userRecord = await admin.auth().getUserByEmail(email);
+      console.log(`Client auth account already exists: ${email}, updating...`);
+      await admin.auth().updateUser(userRecord.uid, {
+        password,
+        displayName: `${firstName} ${lastName}`,
+      });
+    } catch (error) {
+      if (error.code === "auth/user-not-found") {
+        isNewUser = true;
+        userRecord = await admin.auth().createUser({
+          email,
+          password,
+          displayName: `${firstName} ${lastName}`,
+        });
+      } else {
+        throw error;
+      }
+    }
+
+    // 3. Create clients/{docId} — use a new Firestore ID (not Auth UID)
+    const clientRef = db.collection("clients").doc();
+    const clientId = clientRef.id;
+
+    await clientRef.set({
+      authUid: userRecord.uid,
+      email,
+      firstName,
+      lastName,
+      companyName: companyName || null,
+      role: "client",
+      status: "active",
+      mustChangePassword: true,
+      portalAccess: true,
+      provisionedAt: admin.firestore.FieldValue.serverTimestamp(),
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+
+    // 4. Set Custom User Claims
+    await admin.auth().setCustomUserClaims(userRecord.uid, {
+      role: "client",
+      clientId: clientId,
+    });
+
+    // 5. Rattach client to site (clientIds + authorizedClients)
+    await db.collection("sites").doc(siteId).update({
+      clientIds: admin.firestore.FieldValue.arrayUnion(clientId),
+      authorizedClients: admin.firestore.FieldValue.arrayUnion(clientId),
+    });
+
+    console.log(`Client provisioned: ${email} → clients/${clientId}, site ${siteId}`);
+
+    return {
+      uid: userRecord.uid,
+      clientId: clientId,
+      message: isNewUser
+        ? `Compte client créé : ${email} → clients/${clientId}`
+        : `Compte client existant mis à jour : ${email} → clients/${clientId}`,
+    };
+  } catch (error) {
+    console.error("Error creating client:", error);
+    if (error instanceof HttpsError) throw error;
+    throw new HttpsError("internal", `Erreur provisioning client : ${error.message}`);
+  }
+});
+
 // ─── CLIENT PORTAL — Signed URL Functions ───────────────────────────────────
+
 
 /**
  * getDocumentSignedUrl
