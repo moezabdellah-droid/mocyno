@@ -8,14 +8,19 @@ interface ChangePasswordPageProps {
 }
 
 /**
- * R10C — ChangePasswordPage migré vers modèle avancé.
- * Met à jour le flag mustChangePassword dans clients/{clientId} (au lieu de agents/{uid}).
+ * R10D — ChangePasswordPage — modèle avancé.
+ * Flux : updatePassword → clear mustChangePassword dans clients/{clientId} → reload.
+ * Si updatePassword OK mais updateDoc échoue → retry automatique pour éviter le blocage.
  */
 const ChangePasswordPage: React.FC<ChangePasswordPageProps> = ({ clientId }) => {
     const [newPassword, setNewPassword] = useState('');
     const [confirm, setConfirm] = useState('');
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+
+    const clearFlag = async () => {
+        await updateDoc(doc(db, 'clients', clientId), { mustChangePassword: false });
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -34,11 +39,28 @@ const ChangePasswordPage: React.FC<ChangePasswordPageProps> = ({ clientId }) => 
         try {
             const user = auth.currentUser;
             if (!user) throw new Error('Non authentifié.');
+
             // 1. Update Firebase Auth password
             await updatePassword(user, newPassword);
-            // 2. Clear mustChangePassword in clients/{clientId}
-            await updateDoc(doc(db, 'clients', clientId), { mustChangePassword: false });
-            // Reload to trigger App re-render
+
+            // 2. Clear mustChangePassword flag in clients/{clientId}
+            //    If this fails, retry once — password is already changed,
+            //    we must not leave the user trapped in the MDP loop.
+            try {
+                await clearFlag();
+            } catch (flagErr) {
+                console.warn('First flag clear failed, retrying...', flagErr);
+                try {
+                    await clearFlag();
+                } catch (retryErr) {
+                    console.error('Flag clear retry failed:', retryErr);
+                    setError('Mot de passe mis à jour, mais le flag n\'a pas pu être levé. Reconnectez-vous pour réessayer.');
+                    setLoading(false);
+                    return;
+                }
+            }
+
+            // 3. Reload to trigger App re-render with flag cleared
             window.location.reload();
         } catch (err) {
             const msg = err instanceof Error ? err.message : 'Erreur inconnue.';
