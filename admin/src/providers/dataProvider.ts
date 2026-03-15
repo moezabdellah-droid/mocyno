@@ -32,9 +32,11 @@ import {
     where,
     orderBy,
     limit,
+    startAfter,
     documentId,
     getCountFromServer,
-    type QueryConstraint
+    type QueryConstraint,
+    type DocumentSnapshot
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../firebase.config';
@@ -114,13 +116,35 @@ const buildFilterQuery = (resource: string, params: GetListParams) => {
     return query(collection(db, resolved), ...constraints);
 };
 
-// Helper for building Firestore queries from React Admin params (with pagination limit)
-const buildQuery = (resource: string, params: GetListParams) => {
+// ─── A22 — Cursor-based pagination ──────────────────────────────────────────
+// Cache last document snapshot per resource+sort+filter+page for cursor pagination
+interface CursorEntry {
+    key: string;           // serialized sort+filter
+    pages: Map<number, DocumentSnapshot>;
+}
+
+const cursorCache = new Map<string, CursorEntry>();
+
+const getCursorKey = (params: GetListParams): string => {
+    const { sort, filter } = params;
+    return JSON.stringify({ sort, filter });
+};
+
+// Build paginated query with cursor support
+const buildPaginatedQuery = (resource: string, params: GetListParams, cursor?: DocumentSnapshot) => {
     const { pagination } = params;
     const { perPage } = pagination || { page: 1, perPage: 10 };
     const baseQuery = buildFilterQuery(resource, params);
-    return perPage ? query(baseQuery, limit(perPage)) : baseQuery;
+    const paginationConstraints: QueryConstraint[] = [];
+    if (cursor) {
+        paginationConstraints.push(startAfter(cursor));
+    }
+    if (perPage) {
+        paginationConstraints.push(limit(perPage));
+    }
+    return query(baseQuery, ...paginationConstraints);
 };
+// ─────────────────────────────────────────────────────────────────────────────
 
 const dataProvider: DataProvider = {
     getList: async <RecordType extends RaRecord = RaRecord>(
@@ -128,13 +152,50 @@ const dataProvider: DataProvider = {
         params: GetListParams
     ): Promise<GetListResult<RecordType>> => {
         try {
-            const paginatedQuery = buildQuery(resource, params);
+            const { pagination } = params;
+            const { page, perPage } = pagination || { page: 1, perPage: 10 };
+            const cursorKey = getCursorKey(params);
+
+            // Get or initialize cursor entry for this resource
+            let entry = cursorCache.get(resource);
+            if (!entry || entry.key !== cursorKey) {
+                // Sort/filter changed → invalidate cache
+                entry = { key: cursorKey, pages: new Map() };
+                cursorCache.set(resource, entry);
+            }
+
+            // For page > 1, we need the cursor from the previous page
+            let cursor: DocumentSnapshot | undefined;
+            if (page > 1) {
+                cursor = entry.pages.get(page - 1);
+                if (!cursor) {
+                    // Previous page cursor not available → fetch preceding pages to build cursors
+                    for (let p = 1; p < page; p++) {
+                        const prevCursor = p > 1 ? entry.pages.get(p - 1) : undefined;
+                        const prevQuery = buildPaginatedQuery(resource, params, prevCursor);
+                        const prevSnapshot = await getDocs(prevQuery);
+                        if (prevSnapshot.docs.length > 0) {
+                            entry.pages.set(p, prevSnapshot.docs[prevSnapshot.docs.length - 1]);
+                        } else {
+                            break; // No more data
+                        }
+                    }
+                    cursor = entry.pages.get(page - 1);
+                }
+            }
+
+            const paginatedQuery = buildPaginatedQuery(resource, params, cursor);
             const countQuery = buildFilterQuery(resource, params);
 
             const [querySnapshot, countSnapshot] = await Promise.all([
                 getDocs(paginatedQuery),
                 getCountFromServer(countQuery)
             ]);
+
+            // Cache the last doc of THIS page for future page+1 navigation
+            if (querySnapshot.docs.length > 0) {
+                entry.pages.set(page, querySnapshot.docs[querySnapshot.docs.length - 1]);
+            }
 
             const data = querySnapshot.docs.map(doc => ({
                 id: doc.id,
@@ -223,7 +284,7 @@ const dataProvider: DataProvider = {
         resource: string,
         params: GetManyReferenceParams
     ): Promise<GetManyReferenceResult<RecordType>> => {
-        const { target, id, filter, pagination } = params;
+        const { target, id, filter } = params;
 
         // Combine the reference filter with existing filters
         const combinedParams = {
@@ -231,16 +292,21 @@ const dataProvider: DataProvider = {
             filter: { ...filter, [target]: id }
         };
 
-        // Reuse buildQuery to handle pagination, sort, and the new filter
-        const q = buildQuery(resource, combinedParams);
-        const querySnapshot = await getDocs(q);
+        // A22 — Use real count instead of hacked total
+        const countQuery = buildFilterQuery(resource, combinedParams);
+        const paginatedQuery = buildPaginatedQuery(resource, combinedParams);
+
+        const [querySnapshot, countSnapshot] = await Promise.all([
+            getDocs(paginatedQuery),
+            getCountFromServer(countQuery)
+        ]);
+
         const data = querySnapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
         })) as RecordType[];
 
-        const currentPerPage = pagination?.perPage || 10;
-        const total = data.length === currentPerPage ? data.length * 2 : data.length;
+        const total = countSnapshot.data().count;
 
         return { data, total };
     },
@@ -262,6 +328,9 @@ const dataProvider: DataProvider = {
         try {
             const collectionRef = collection(db, resource);
             const docRef = await addDoc(collectionRef, newItem);
+
+            // A22 — Invalidate cursor cache for this resource after create
+            cursorCache.delete(resource);
 
             return {
                 data: {
@@ -319,6 +388,10 @@ const dataProvider: DataProvider = {
     ): Promise<DeleteResult<RecordType>> => {
         const docRef = doc(db, resource, params.id.toString());
         await deleteDoc(docRef);
+
+        // A22 — Invalidate cursor cache after delete
+        cursorCache.delete(resource);
+
         return { data: params.previousData as RecordType };
     },
 
@@ -330,6 +403,10 @@ const dataProvider: DataProvider = {
             const docRef = doc(db, resource, id.toString());
             await deleteDoc(docRef);
         }
+
+        // A22 — Invalidate cursor cache after deleteMany
+        cursorCache.delete(resource);
+
         return { data: params.ids };
     }
 };
