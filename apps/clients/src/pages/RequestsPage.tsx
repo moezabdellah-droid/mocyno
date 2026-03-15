@@ -6,6 +6,7 @@ import { exportCSV, csvDate, todayISO } from '../utils/csvExport';
 import { REQUEST_STATUS, statusLabel as sl } from '../utils/statusMap';
 import { showToast } from '../components/Toast';
 import { uploadClientFile } from '../utils/uploadFile';
+import CommentThread from '../components/CommentThread';
 
 interface RequestsPageProps {
     clientId: string;
@@ -265,6 +266,7 @@ const RequestsPage: React.FC<RequestsPageProps> = ({ clientId }) => {
                                     {categoryLabel(req.category) && <span className="detail-type">{categoryLabel(req.category)}</span>}
                                     {priorityLabel(req.priority) && <span className="detail-priority">{priorityLabel(req.priority)}</span>}
                                 </div>
+                                <CommentThread parentCollection="clientRequests" parentId={req.id} clientId={clientId} />
                             </div>
                         ))}
                     </div>

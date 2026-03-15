@@ -6,6 +6,7 @@ import { exportCSV, csvDate, todayISO } from '../utils/csvExport';
 import { REPORT_STATUS, statusLabel as sl } from '../utils/statusMap';
 import { showToast } from '../components/Toast';
 import { uploadClientFile } from '../utils/uploadFile';
+import CommentThread from '../components/CommentThread';
 
 interface ReportsPageProps {
     clientId: string;
@@ -258,6 +259,7 @@ const ReportsPage: React.FC<ReportsPageProps> = ({ clientId }) => {
                                     )}
                                     {report.severity && <span className="detail-priority">{report.severity === 'critical' ? '🔴 Critique' : report.severity === 'high' ? '🟠 Élevée' : ''}</span>}
                                 </div>
+                                <CommentThread parentCollection="reports" parentId={report.id} clientId={clientId} />
                             </div>
                         ))}
                     </div>
