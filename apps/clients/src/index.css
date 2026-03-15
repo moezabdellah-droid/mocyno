@@ -352,3 +352,25 @@ body { background: var(--color-bg); color: var(--color-text); min-height: 100vh;
 .doc-status { padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; white-space: nowrap; }
 .doc-new { background: #3b82f622; color: #3b82f6; }
 .doc-downloaded { background: #10b98122; color: #10b981; }
+
+/* ─── Reporting ─── */
+.reporting-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem; }
+.reporting-card {
+  background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 10px;
+  padding: 1rem; display: flex; flex-direction: column; align-items: center; gap: 0.25rem; text-align: center;
+}
+.reporting-icon { font-size: 1.5rem; }
+.reporting-value { font-size: 1.75rem; font-weight: 700; color: var(--color-text); }
+.reporting-label { font-size: 0.8rem; color: var(--color-muted); }
+.reporting-alert { font-size: 0.7rem; color: #ef4444; font-weight: 600; }
+.reporting-section { margin-bottom: 1.5rem; }
+.reporting-section h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--color-text); }
+.reporting-bars { display: flex; flex-direction: column; gap: 0.5rem; }
+.reporting-bar-row { display: flex; align-items: center; gap: 0.75rem; }
+.reporting-bar-label { flex: 0 0 120px; font-size: 0.8rem; color: var(--color-text); text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.reporting-bar-track { flex: 1; height: 8px; background: var(--color-border); border-radius: 4px; overflow: hidden; }
+.reporting-bar-fill { height: 100%; background: var(--color-primary); border-radius: 4px; transition: width 0.3s; }
+.reporting-bar-value { flex: 0 0 30px; font-size: 0.8rem; font-weight: 600; color: var(--color-text); }
+.reporting-status-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.reporting-status-item { display: flex; align-items: center; gap: 0.5rem; }
+.reporting-status-count { font-size: 1.1rem; font-weight: 700; color: var(--color-text); }
