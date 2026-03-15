@@ -22,19 +22,17 @@ service cloud.firestore {
     function isAdmin() { return hasRole('admin'); }
     function isManager() { return hasRole('manager'); }
     function isAdminOrManager() { 
-      // Optimisation: lire une seule fois si possible, mais ici logique 'OR'
       return isAdmin() || isManager(); 
     }
 
-    // --- PORTAIL CLIENT (R6 — ACTIF) ---
+    // --- PORTAIL CLIENT ---
     // Rôle 'client' stocké dans agents/{uid}.role = 'client'
-    // Isolation par siteId : enforced côté app (query filtrée) car Firestore
-    //   rules ne peuvent filtrer sur un champ de la ressource sans règle par-document.
-    // Collections exposables (authenticated) : consignes, sites
-    // Collections NON exposables : events, planning, agents (pas de règle client open)
-    // Aucune écriture client ouverte dans ce round.
+    // App minimale /client/ : isolation par siteId (Firestore field agents/{uid}.siteId)
+    // App avancée /clients/ : isolation par clientId (custom claim Auth token)
+    //   clientId = doc ID dans la collection clients/, pas UID Auth
     function isClient() { return hasRole('client'); }
     function clientSiteId() { return getUserData().siteId; }
+    function clientTokenId() { return request.auth.token.clientId; }
 
 
     // --- COLLECTIONS ---
@@ -49,8 +47,6 @@ service cloud.firestore {
     // 2. AGENTS
     match /agents/{userId} {
       allow read: if isAuthenticated();
-      // Bootstrap/Self-Registration: allow creating own document if authenticated
-      // but only one's own UID, and role cannot be set to admin unless by an existing admin (handled below)
       allow create: if (isAuthenticated() && request.auth.uid == userId) || isAdminOrManager();
       allow update: if isAdminOrManager() || (isAuthenticated() && request.auth.uid == userId);
       allow delete: if isAdmin();
@@ -58,22 +54,74 @@ service cloud.firestore {
     
     // 3. PLANNING
     match /planning/{shiftId} {
-      allow read: if isAuthenticated() && !isClient(); // Agents et admins uniquement
+      allow read: if isAuthenticated() && !isClient();
       allow write: if isAdminOrManager();
     }
 
     // 4. EVENTS (Main Courante)
     match /events/{eventId} {
       allow read: if isAuthenticated() && !isClient();
-      allow create: if isAuthenticated() && !isClient(); // Agents uniquement
-      allow update: if isAdminOrManager(); // Modification restreinte
+      allow create: if isAuthenticated() && !isClient();
+      allow update: if isAdminOrManager();
       allow delete: if isAdminOrManager();
     }
 
-    // 5. SITES
+    // 5. SITES — supporte les 4 queries de l'app avancée
     match /sites/{siteId} {
-      allow read: if (isAuthenticated() && !isClient())
-                  || (isClient() && siteId == clientSiteId());
+      allow read: if isAdminOrManager()
+                  || (isAuthenticated() && !isClient())
+                  || (isClient() && siteId == clientSiteId())
+                  || (isClient() && clientTokenId() in resource.data.clientIds)
+                  || (isClient() && clientTokenId() in resource.data.authorizedClients)
+                  || (isClient() && resource.data.primaryClientId == clientTokenId())
+                  || (isClient() && resource.data.clientId == clientTokenId());
+      allow write: if isAdminOrManager();
+    }
+
+    // 6. SHIFT SEGMENTS — lecture client par clientId
+    match /shiftSegments/{segmentId} {
+      allow read: if isAdminOrManager()
+                  || (isAuthenticated() && !isClient())
+                  || (isClient() && resource.data.clientId == clientTokenId());
+      allow write: if isAdminOrManager();
+    }
+
+    // 7. CLIENT REQUESTS — lecture + création client
+    match /clientRequests/{requestId} {
+      allow read: if isAdminOrManager()
+                  || (isClient() && resource.data.clientId == clientTokenId());
+      allow create: if isClient() && request.resource.data.clientId == clientTokenId();
+      allow update, delete: if isAdminOrManager();
+    }
+
+    // 8. REPORTS — lecture client + création incidents
+    match /reports/{reportId} {
+      allow read: if isAdminOrManager()
+                  || (isClient() && resource.data.clientId == clientTokenId());
+      allow create: if isClient() && request.resource.data.clientId == clientTokenId();
+      allow update, delete: if isAdminOrManager();
+    }
+
+    // 9. DOCUMENTS — lecture client si visible
+    match /documents/{documentId} {
+      allow read: if isAdminOrManager()
+                  || (isClient()
+                      && resource.data.clientId == clientTokenId()
+                      && resource.data.visibility.client == true);
+      allow write: if isAdminOrManager();
+    }
+
+    // 10. CLIENTS — lecture propre doc
+    match /clients/{docId} {
+      allow read: if isAdminOrManager()
+                  || (isClient() && docId == clientTokenId());
+      allow write: if isAdminOrManager();
+    }
+
+    // 11. CLIENT SITE PROFILES
+    match /clientSiteProfiles/{profileId} {
+      allow read: if isAdminOrManager()
+                  || (isClient() && resource.data.clientId == clientTokenId());
       allow write: if isAdminOrManager();
     }
 
