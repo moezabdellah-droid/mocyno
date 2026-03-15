@@ -25,8 +25,8 @@ interface DashboardCard {
 const DashboardPage: React.FC<DashboardPageProps> = ({ clientId, clientName, onNavigate }) => {
     const [cards, setCards] = useState<DashboardCard[]>([]);
     const [nextShift, setNextShift] = useState<string | null>(null);
-    const [recentRequests, setRecentRequests] = useState<{ title: string; status: string; date: string }[]>([]);
-    const [recentReports, setRecentReports] = useState<{ title: string; status: string; date: string }[]>([]);
+    const [recentRequests, setRecentRequests] = useState<{ title: string; status: string; date: string; hasAttachment?: boolean }[]>([]);
+    const [recentReports, setRecentReports] = useState<{ title: string; status: string; date: string; source?: string; hasAttachment?: boolean }[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -83,6 +83,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ clientId, clientName, onN
                         title: data.title as string,
                         status: statusMap[data.status as string] || (data.status as string),
                         date: formatDate(data.createdAt),
+                        hasAttachment: !!data.attachmentUrl,
                     };
                 }));
 
@@ -93,6 +94,8 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ clientId, clientName, onN
                         title: data.title as string,
                         status: repStatusMap[data.status as string] || (data.status as string),
                         date: formatDate(data.createdAt),
+                        source: data.source as string | undefined,
+                        hasAttachment: !!data.attachmentUrl,
                     };
                 }));
             } catch (err) {
@@ -140,7 +143,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ clientId, clientName, onN
                     <div className="recent-list">
                         {recentRequests.map((r, i) => (
                             <div key={i} className="recent-item">
-                                <span className="recent-title">{r.title}</span>
+                                <span className="recent-title">{r.title} {r.hasAttachment && '📎'}</span>
                                 <span className="recent-meta">
                                     <span className={`mini-badge status-${(r.status || '').toLowerCase().replace(/\s/g, '_')}`}>{r.status}</span>
                                     <span>{r.date}</span>
@@ -160,7 +163,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ clientId, clientName, onN
                     <div className="recent-list">
                         {recentReports.map((r, i) => (
                             <div key={i} className="recent-item">
-                                <span className="recent-title">{r.title}</span>
+                                <span className="recent-title">{r.title} {r.source === 'client' && <span style={{fontSize:'0.65rem',background:'#3b82f622',color:'#3b82f6',padding:'0.1rem 0.3rem',borderRadius:'4px'}}>Client</span>} {r.hasAttachment && '📎'}</span>
                                 <span className="recent-meta">
                                     <span className={`mini-badge status-${(r.status || '').toLowerCase().replace(/\s/g, '_')}`}>{r.status}</span>
                                     <span>{r.date}</span>
@@ -175,6 +178,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ clientId, clientName, onN
                 <button className="shortcut-btn" onClick={() => onNavigate('planning')}>📅 Planning</button>
                 <button className="shortcut-btn" onClick={() => onNavigate('consignes')}>📋 Consignes</button>
                 <button className="shortcut-btn" onClick={() => onNavigate('requests')}>+ Nouvelle demande</button>
+                <button className="shortcut-btn" onClick={() => onNavigate('reports')}>⚠️ Signaler un incident</button>
                 <button className="shortcut-btn" onClick={() => onNavigate('reporting')}>📊 Reporting</button>
             </div>
         </div>
