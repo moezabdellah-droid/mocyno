@@ -3,6 +3,7 @@ import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
 import { logger, classifyError, formatDate, formatTime } from '../utils/logger';
 import { exportCSV, csvDate, todayISO } from '../utils/csvExport';
+import { REPORT_STATUS, statusLabel as sl } from '../utils/statusMap';
 
 interface ReportsPageProps {
     clientId: string;
@@ -52,15 +53,7 @@ const ReportsPage: React.FC<ReportsPageProps> = ({ clientId }) => {
         fetchReports();
     }, [clientId]);
 
-    const statusLabel = (status: string) => {
-        const map: Record<string, string> = {
-            open: 'Ouvert',
-            in_progress: 'En cours',
-            resolved: 'Résolu',
-            closed: 'Clôturé',
-        };
-        return map[status] || status;
-    };
+    const stLabel = (s: string) => sl(REPORT_STATUS, s);
 
     if (loading) return <div className="page-loading">Chargement des incidents…</div>;
     if (error) return <div className="page-error">{error}</div>;
@@ -70,7 +63,7 @@ const ReportsPage: React.FC<ReportsPageProps> = ({ clientId }) => {
             <div className="page-header">
                 <h2>Incidents</h2>
                 {reports.length > 0 && <button onClick={() => {
-                    exportCSV(reports.map(r => ({ titre: r.title, statut: statusLabel(r.status), type: r.type || '', date: csvDate(r.createdAt), description: r.description || '' })),
+                    exportCSV(reports.map(r => ({ titre: r.title, statut: stLabel(r.status), type: r.type || '', date: csvDate(r.createdAt), description: r.description || '' })),
                         [{ key: 'titre', label: 'Titre' }, { key: 'statut', label: 'Statut' }, { key: 'type', label: 'Type' }, { key: 'date', label: 'Date' }, { key: 'description', label: 'Description' }],
                         `mocyno-incidents-${todayISO()}.csv`);
                 }} className="action-btn">⬇ CSV</button>}
@@ -105,7 +98,7 @@ const ReportsPage: React.FC<ReportsPageProps> = ({ clientId }) => {
                             <div key={report.id} className="detail-card">
                                 <div className="detail-card-header">
                                     <strong className="detail-card-title">{report.title}</strong>
-                                    <span className={`status-badge status-${report.status}`}>{statusLabel(report.status)}</span>
+                                    <span className={`status-badge status-${report.status}`}>{stLabel(report.status)}</span>
                                 </div>
                                 {report.description && <p className="detail-card-body">{report.description}</p>}
                                 <div className="detail-card-footer">

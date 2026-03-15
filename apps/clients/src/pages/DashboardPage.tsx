@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
 import { db } from '../firebase';
 import { logger, toJsDate, formatDate } from '../utils/logger';
+import { REQUEST_STATUS, REPORT_STATUS } from '../utils/statusMap';
 
 interface DashboardPageProps {
     clientId: string;
@@ -77,7 +78,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ clientId, clientName, onN
 
                 setRecentRequests(reqSnap.docs.slice(0, 3).map(d => {
                     const data = d.data();
-                    const statusMap: Record<string, string> = { pending: 'En attente', in_progress: 'En cours', resolved: 'Résolu', closed: 'Clôturé' };
+                    const statusMap: Record<string, string> = Object.fromEntries(Object.entries(REQUEST_STATUS).map(([k, v]) => [k, v.label]));
                     return {
                         title: data.title as string,
                         status: statusMap[data.status as string] || (data.status as string),
@@ -87,10 +88,10 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ clientId, clientName, onN
 
                 setRecentReports(repSnap.docs.slice(0, 3).map(d => {
                     const data = d.data();
-                    const statusMap: Record<string, string> = { open: 'Ouvert', in_progress: 'En cours', resolved: 'Résolu', closed: 'Clôturé' };
+                    const repStatusMap: Record<string, string> = Object.fromEntries(Object.entries(REPORT_STATUS).map(([k, v]) => [k, v.label]));
                     return {
                         title: data.title as string,
-                        status: statusMap[data.status as string] || (data.status as string),
+                        status: repStatusMap[data.status as string] || (data.status as string),
                         date: formatDate(data.createdAt),
                     };
                 }));

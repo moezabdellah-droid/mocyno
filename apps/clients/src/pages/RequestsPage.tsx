@@ -3,6 +3,7 @@ import { collection, query, where, getDocs, addDoc, orderBy, serverTimestamp } f
 import { db } from '../firebase';
 import { logger, classifyError, formatDate } from '../utils/logger';
 import { exportCSV, csvDate, todayISO } from '../utils/csvExport';
+import { REQUEST_STATUS, statusLabel as sl } from '../utils/statusMap';
 
 interface RequestsPageProps {
     clientId: string;
@@ -134,15 +135,7 @@ const RequestsPage: React.FC<RequestsPageProps> = ({ clientId }) => {
         }
     };
 
-    const statusLabel = (status: string) => {
-        const map: Record<string, string> = {
-            pending: 'En attente',
-            in_progress: 'En cours',
-            resolved: 'Résolu',
-            closed: 'Clôturé',
-        };
-        return map[status] || status;
-    };
+    const stLabel = (s: string) => sl(REQUEST_STATUS, s);
 
     const priorityLabel = (p?: string) => {
         if (!p || p === 'normal') return null;
@@ -164,7 +157,7 @@ const RequestsPage: React.FC<RequestsPageProps> = ({ clientId }) => {
                 <div style={{display:'flex',gap:'0.5rem'}}>
                     {requests.length > 0 && <button onClick={() => {
                         exportCSV(requests.map(r => ({
-                            titre: r.title, statut: statusLabel(r.status),
+                            titre: r.title, statut: stLabel(r.status),
                             priorite: r.priority || 'normal',
                             categorie: categoryLabel(r.category) || '',
                             site: r.siteName || '',
@@ -249,7 +242,7 @@ const RequestsPage: React.FC<RequestsPageProps> = ({ clientId }) => {
                             <div key={req.id} className="detail-card">
                                 <div className="detail-card-header">
                                     <strong className="detail-card-title">{req.title}</strong>
-                                    <span className={`status-badge status-${req.status}`}>{statusLabel(req.status)}</span>
+                                    <span className={`status-badge status-${req.status}`}>{stLabel(req.status)}</span>
                                 </div>
                                 {req.message && <p className="detail-card-body">{req.message}</p>}
                                 <div className="detail-card-footer">
