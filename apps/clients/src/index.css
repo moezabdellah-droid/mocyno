@@ -49,16 +49,32 @@ body { background: var(--color-bg); color: var(--color-text); min-height: 100vh;
 .coming-soon { margin-top: 1rem; font-style: italic; font-size: 0.875rem; }
 
 /* Navigation tabs */
-.client-nav { background: var(--color-surface); border-bottom: 1px solid var(--color-border); display: flex; gap: 0.25rem; padding: 0 1.5rem; }
-.nav-btn { background: transparent; border: none; color: var(--color-text-muted); padding: 0.875rem 1.25rem; font-size: 0.9375rem; cursor: pointer; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
-.nav-btn:hover { color: var(--color-text); }
-.nav-btn.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+.client-nav {
+  background: var(--color-surface); border-bottom: 1px solid var(--color-border);
+  display: flex; gap: 0.125rem; padding: 0 1.5rem;
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.client-nav::-webkit-scrollbar { display: none; }
+.nav-btn {
+  background: transparent; border: none; color: var(--color-text-muted);
+  padding: 0.875rem 1rem; font-size: 0.875rem; cursor: pointer; white-space: nowrap;
+  border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s, background 0.15s;
+  font-family: inherit;
+}
+.nav-btn:hover { color: var(--color-text); background: rgba(255,255,255,0.03); }
+.nav-btn.active { color: var(--color-primary); border-bottom-color: var(--color-primary); font-weight: 600; }
 
 /* Pages */
 .page-container { padding: 1.5rem; max-width: 860px; width: 100%; margin: 0 auto; }
-.page-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--color-text); }
+.page-content { max-width: 860px; width: 100%; margin: 0 auto; }
+.page-content h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--color-text); }
+.page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem; }
+.page-header h2 { margin-bottom: 0; }
+.page-loading { text-align: center; padding: 3rem 1rem; color: var(--color-muted); font-size: 0.9rem; }
+.page-error { text-align: center; padding: 2rem 1rem; color: var(--color-error); font-size: 0.9rem; }
 .error-text { color: var(--color-error); }
 .empty-text { color: var(--color-text-muted); }
+.empty-state { text-align: center; padding: 2rem 1rem; color: var(--color-muted); font-size: 0.9rem; }
 
 /* Consignes */
 .consignes-list { list-style: none; display: flex; flex-direction: column; gap: 0.875rem; }
