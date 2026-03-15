@@ -3,6 +3,7 @@ import { collection, query, where, getDocs, addDoc, orderBy, serverTimestamp } f
 import { db } from '../firebase';
 import { logger, classifyError, toJsDate, formatDate } from '../utils/logger';
 import { CONSIGNE_STATUS, statusLabel } from '../utils/statusMap';
+import { showToast } from '../components/Toast';
 
 interface ConsignesPageProps {
     clientId: string;
@@ -142,6 +143,7 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ clientId }) => {
             setFormContent('');
             setFormSiteId('');
             setShowForm(false);
+            showToast('Votre consigne a été enregistrée et sera examinée.');
             // Refetch
             setLoading(true);
             window.location.reload();

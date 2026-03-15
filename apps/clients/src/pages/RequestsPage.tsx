@@ -4,6 +4,7 @@ import { db } from '../firebase';
 import { logger, classifyError, formatDate } from '../utils/logger';
 import { exportCSV, csvDate, todayISO } from '../utils/csvExport';
 import { REQUEST_STATUS, statusLabel as sl } from '../utils/statusMap';
+import { showToast } from '../components/Toast';
 
 interface RequestsPageProps {
     clientId: string;
@@ -125,6 +126,7 @@ const RequestsPage: React.FC<RequestsPageProps> = ({ clientId }) => {
             setCategory('');
             setSiteId('');
             setShowForm(false);
+            showToast('Votre demande a bien été envoyée.');
             setLoading(true);
             await fetchRequests();
         } catch (err) {

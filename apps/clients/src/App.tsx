@@ -12,6 +12,7 @@ import ReportsPage from './pages/ReportsPage';
 import ConsignesPage from './pages/ConsignesPage';
 import DashboardPage from './pages/DashboardPage';
 import ReportingPage from './pages/ReportingPage';
+import { ToastProvider } from './components/Toast';
 import './index.css';
 
 type Tab = 'dashboard' | 'planning' | 'sites' | 'documents' | 'consignes' | 'requests' | 'reports' | 'reporting';
@@ -72,6 +73,7 @@ const App: React.FC = () => {
 
     // Main layout
     return (
+        <ToastProvider>
         <div className="dashboard-container">
             <header className="dashboard-header">
                 <h1>MoCyno — Portail Client</h1>
@@ -102,6 +104,7 @@ const App: React.FC = () => {
                 {activeTab === 'reporting' && <ReportingPage clientId={clientId} />}
             </main>
         </div>
+        </ToastProvider>
     );
 };
 
