@@ -5,6 +5,7 @@ import { logger, classifyError, formatDate } from '../utils/logger';
 import { exportCSV, csvDate, todayISO } from '../utils/csvExport';
 import { REQUEST_STATUS, statusLabel as sl } from '../utils/statusMap';
 import { showToast } from '../components/Toast';
+import { uploadClientFile } from '../utils/uploadFile';
 
 interface RequestsPageProps {
     clientId: string;
@@ -55,6 +56,7 @@ const RequestsPage: React.FC<RequestsPageProps> = ({ clientId }) => {
     const [priority, setPriority] = useState('normal');
     const [category, setCategory] = useState('');
     const [siteId, setSiteId] = useState('');
+    const [formFile, setFormFile] = useState<File | null>(null);
     const [submitting, setSubmitting] = useState(false);
     const [statusFilter, setStatusFilter] = useState('all');
     const [sites, setSites] = useState<SiteOption[]>([]);
@@ -109,6 +111,10 @@ const RequestsPage: React.FC<RequestsPageProps> = ({ clientId }) => {
         setSubmitting(true);
         try {
             const selectedSite = sites.find(s => s.id === siteId);
+            let attachment: { url: string; path: string; fileName: string } | null = null;
+            if (formFile) {
+                attachment = await uploadClientFile(clientId, formFile, 'request');
+            }
             await addDoc(collection(db, 'clientRequests'), {
                 clientId,
                 title: title.trim(),
@@ -119,12 +125,14 @@ const RequestsPage: React.FC<RequestsPageProps> = ({ clientId }) => {
                 siteName: selectedSite?.name || null,
                 status: 'pending',
                 createdAt: serverTimestamp(),
+                ...(attachment ? { attachmentUrl: attachment.url, attachmentPath: attachment.path, attachmentName: attachment.fileName } : {}),
             });
             setTitle('');
             setMessage('');
             setPriority('normal');
             setCategory('');
             setSiteId('');
+            setFormFile(null);
             setShowForm(false);
             showToast('Votre demande a bien été envoyée.');
             setLoading(true);
@@ -217,6 +225,10 @@ const RequestsPage: React.FC<RequestsPageProps> = ({ clientId }) => {
                     <div className="form-group">
                         <label htmlFor="req-message">Description</label>
                         <textarea id="req-message" value={message} onChange={e => setMessage(e.target.value)} rows={3} placeholder="Détaillez votre demande (optionnel)" />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="req-file">Pièce jointe (optionnel, max 5 Mo)</label>
+                        <input id="req-file" type="file" onChange={e => setFormFile(e.target.files?.[0] || null)} accept="image/*,.pdf,.doc,.docx" />
                     </div>
                     <button type="submit" disabled={submitting} className="action-btn primary">
                         {submitting ? 'Envoi…' : 'Envoyer'}

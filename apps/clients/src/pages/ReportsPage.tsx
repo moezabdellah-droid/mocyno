@@ -5,6 +5,7 @@ import { logger, classifyError, formatDate, formatTime } from '../utils/logger';
 import { exportCSV, csvDate, todayISO } from '../utils/csvExport';
 import { REPORT_STATUS, statusLabel as sl } from '../utils/statusMap';
 import { showToast } from '../components/Toast';
+import { uploadClientFile } from '../utils/uploadFile';
 
 interface ReportsPageProps {
     clientId: string;
@@ -57,6 +58,7 @@ const ReportsPage: React.FC<ReportsPageProps> = ({ clientId }) => {
     const [formType, setFormType] = useState('autre');
     const [formSeverity, setFormSeverity] = useState('medium');
     const [formSiteId, setFormSiteId] = useState('');
+    const [formFile, setFormFile] = useState<File | null>(null);
     const [submitting, setSubmitting] = useState(false);
 
     const fetchReports = async () => {
@@ -109,6 +111,10 @@ const ReportsPage: React.FC<ReportsPageProps> = ({ clientId }) => {
         setSubmitting(true);
         try {
             const selectedSite = sites.find(s => s.id === formSiteId);
+            let attachment: { url: string; path: string; fileName: string } | null = null;
+            if (formFile) {
+                attachment = await uploadClientFile(clientId, formFile, 'incident');
+            }
             await addDoc(collection(db, 'reports'), {
                 clientId,
                 title: formTitle.trim(),
@@ -121,12 +127,14 @@ const ReportsPage: React.FC<ReportsPageProps> = ({ clientId }) => {
                 status: 'open',
                 createdBy: clientId,
                 createdAt: serverTimestamp(),
+                ...(attachment ? { attachmentUrl: attachment.url, attachmentPath: attachment.path, attachmentName: attachment.fileName } : {}),
             });
             setFormTitle('');
             setFormDesc('');
             setFormType('autre');
             setFormSeverity('medium');
             setFormSiteId('');
+            setFormFile(null);
             setShowForm(false);
             showToast('Votre incident a été signalé. Il sera pris en charge par nos équipes.');
             setLoading(true);
@@ -194,6 +202,10 @@ const ReportsPage: React.FC<ReportsPageProps> = ({ clientId }) => {
                         <label htmlFor="inc-desc">Description</label>
                         <textarea id="inc-desc" value={formDesc} onChange={e => setFormDesc(e.target.value)} rows={3} placeholder="Détaillez l'incident (optionnel)" />
                     </div>
+                    <div className="form-group">
+                        <label htmlFor="inc-file">Pièce jointe (optionnel, max 5 Mo)</label>
+                        <input id="inc-file" type="file" onChange={e => setFormFile(e.target.files?.[0] || null)} accept="image/*,.pdf,.doc,.docx" />
+                    </div>
                     <button type="submit" disabled={submitting} className="action-btn primary">
                         {submitting ? 'Envoi…' : 'Signaler l\'incident'}
                     </button>
@@ -239,6 +251,11 @@ const ReportsPage: React.FC<ReportsPageProps> = ({ clientId }) => {
                                     {!report.siteName && report.siteId && <span className="detail-type">📍 {report.siteId}</span>}
                                     {report.type && <span className="detail-type">{report.type}</span>}
                                     {report.source === 'client' && <span className="doc-status doc-new">Client</span>}
+                                    {typeof report.attachmentUrl === 'string' && (
+                                        <a href={report.attachmentUrl} target="_blank" rel="noopener noreferrer" className="doc-status" style={{background:'#3b82f622',color:'#3b82f6',textDecoration:'none'}}>
+                                            📎 {typeof report.attachmentName === 'string' ? report.attachmentName : 'Pièce jointe'}
+                                        </a>
+                                    )}
                                     {report.severity && <span className="detail-priority">{report.severity === 'critical' ? '🔴 Critique' : report.severity === 'high' ? '🟠 Élevée' : ''}</span>}
                                 </div>
                             </div>
