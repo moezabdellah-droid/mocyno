@@ -10,6 +10,7 @@ import Dashboard from './Dashboard';
 import { mocynoTheme } from './theme';
 import { SiteList, SiteCreate, SiteEdit } from './pages/Sites';
 import { ClientList, ClientShow, ClientCreate } from './pages/Clients';
+import { DocumentDownloadList } from './pages/DocumentDownloads';
 
 // Debug proxy — active uniquement en développement local
 function withDebugProxy<T extends object>(provider: T): T {
@@ -61,6 +62,7 @@ const App = () => (
     <Resource name="consignes" list={ConsigneList} create={ConsigneCreate} edit={ConsigneEdit} show={ConsigneShow} options={{ label: 'Consignes' }} />
     <Resource name="events" list={EventList} show={EventShow} options={{ label: 'Main Courante' }} />
     <Resource name="clients" list={ClientList} show={ClientShow} create={ClientCreate} options={{ label: 'Clients' }} />
+    <Resource name="documentDownloads" list={DocumentDownloadList} options={{ label: 'Téléchargements' }} />
   </Admin>
 );
 
