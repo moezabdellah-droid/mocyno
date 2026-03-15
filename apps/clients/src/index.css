@@ -261,3 +261,22 @@ body { background: var(--color-bg); color: var(--color-text); min-height: 100vh;
   font-family: inherit; transition: border-color 0.15s;
 }
 .shortcut-btn:hover { border-color: var(--color-primary); }
+
+/* ─── Filters ─── */
+.filter-bar {
+  display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;
+}
+.filter-input {
+  flex: 1; max-width: 320px; padding: 0.5rem 0.75rem;
+  background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 6px;
+  color: var(--color-text); font-size: 0.85rem; font-family: inherit;
+}
+.filter-input::placeholder { color: var(--color-muted); }
+.filter-input:focus { outline: none; border-color: var(--color-primary); }
+.filter-select {
+  padding: 0.5rem 0.75rem; background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: 6px; color: var(--color-text); font-size: 0.85rem; font-family: inherit;
+  cursor: pointer;
+}
+.filter-select:focus { outline: none; border-color: var(--color-primary); }
+.filter-count { font-size: 0.75rem; color: var(--color-muted); white-space: nowrap; }

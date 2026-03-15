@@ -35,6 +35,7 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ clientId }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [expandedId, setExpandedId] = useState<string | null>(null);
+    const [typeFilter, setTypeFilter] = useState('all');
 
 
 
@@ -122,11 +123,21 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ clientId }) => {
     return (
         <div className="page-content">
             <h2>Consignes</h2>
+            <div className="filter-bar">
+                <select className="filter-select" value={typeFilter} onChange={e => setTypeFilter(e.target.value)}>
+                    <option value="all">Tous les types</option>
+                    <option value="general">Générale</option>
+                    <option value="metier">Métier</option>
+                    <option value="site">Site</option>
+                    <option value="service">Service</option>
+                </select>
+                <span className="filter-count">{consignes.filter(c => typeFilter === 'all' || c.type === typeFilter).length} / {consignes.length}</span>
+            </div>
             {consignes.length === 0 ? (
                 <p className="empty-state">Aucune consigne disponible pour vos sites.</p>
             ) : (
                 <div className="consignes-list">
-                    {consignes.map(c => (
+                    {consignes.filter(c => typeFilter === 'all' || c.type === typeFilter).map(c => (
                         <div key={c.id} className={`consigne-card${expandedId === c.id ? ' expanded' : ''}`}>
                             <div
                                 className="consigne-header"

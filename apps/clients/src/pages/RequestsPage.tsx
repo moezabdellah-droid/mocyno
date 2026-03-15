@@ -29,6 +29,7 @@ const RequestsPage: React.FC<RequestsPageProps> = ({ clientId }) => {
     const [title, setTitle] = useState('');
     const [message, setMessage] = useState('');
     const [submitting, setSubmitting] = useState(false);
+    const [statusFilter, setStatusFilter] = useState('all');
 
     const fetchRequests = async () => {
         try {
@@ -96,6 +97,17 @@ const RequestsPage: React.FC<RequestsPageProps> = ({ clientId }) => {
                 </button>
             </div>
 
+            <div className="filter-bar">
+                <select className="filter-select" value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
+                    <option value="all">Tous les statuts</option>
+                    <option value="pending">En attente</option>
+                    <option value="in_progress">En cours</option>
+                    <option value="resolved">Résolu</option>
+                    <option value="closed">Clôturé</option>
+                </select>
+                <span className="filter-count">{requests.filter(r => statusFilter === 'all' || r.status === statusFilter).length} / {requests.length}</span>
+            </div>
+
             {showForm && (
                 <form onSubmit={handleSubmit} className="inline-form">
                     <div className="form-group">
@@ -138,7 +150,7 @@ const RequestsPage: React.FC<RequestsPageProps> = ({ clientId }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {requests.map(req => (
+                            {requests.filter(r => statusFilter === 'all' || r.status === statusFilter).map(req => (
                                 <tr key={req.id}>
                                     <td>
                                         <strong>{req.title}</strong>

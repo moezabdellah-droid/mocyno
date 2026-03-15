@@ -32,6 +32,7 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ clientId }) => {
     const [error, setError] = useState<string | null>(null);
     const [downloadingId, setDownloadingId] = useState<string | null>(null);
     const [downloadError, setDownloadError] = useState<string | null>(null);
+    const [search, setSearch] = useState('');
 
 
     const formatFileSize = (bytes?: number): string => {
@@ -85,6 +86,10 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ clientId }) => {
     return (
         <div className="page-content">
             <h2>Documents</h2>
+            <div className="filter-bar">
+                <input type="text" className="filter-input" placeholder="Rechercher par nom ou type…" value={search} onChange={e => setSearch(e.target.value)} />
+                <span className="filter-count">{(() => { const s = search.toLowerCase(); const filtered = documents.filter(d => !s || d.name.toLowerCase().includes(s) || (d.type || '').toLowerCase().includes(s) || (d.fileName || '').toLowerCase().includes(s)); return `${filtered.length} / ${documents.length}`; })()}</span>
+            </div>
             {downloadError && (
                 <div className="inline-error">
                     {downloadError}
@@ -106,7 +111,7 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ clientId }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {documents.map(doc => (
+                            {documents.filter(d => { const s = search.toLowerCase(); return !s || d.name.toLowerCase().includes(s) || (d.type || '').toLowerCase().includes(s) || (d.fileName || '').toLowerCase().includes(s); }).map(doc => (
                                 <tr key={doc.id}>
                                     <td>
                                         <span className="doc-name">{doc.name}</span>

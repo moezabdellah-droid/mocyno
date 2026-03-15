@@ -26,6 +26,7 @@ const ReportsPage: React.FC<ReportsPageProps> = ({ clientId }) => {
     const [reports, setReports] = useState<Report[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [statusFilter, setStatusFilter] = useState('all');
 
     useEffect(() => {
         const fetchReports = async () => {
@@ -63,6 +64,16 @@ const ReportsPage: React.FC<ReportsPageProps> = ({ clientId }) => {
     return (
         <div className="page-content">
             <h2>Incidents</h2>
+            <div className="filter-bar">
+                <select className="filter-select" value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
+                    <option value="all">Tous les statuts</option>
+                    <option value="open">Ouvert</option>
+                    <option value="in_progress">En cours</option>
+                    <option value="resolved">Résolu</option>
+                    <option value="closed">Clôturé</option>
+                </select>
+                <span className="filter-count">{reports.filter(r => statusFilter === 'all' || r.status === statusFilter).length} / {reports.length}</span>
+            </div>
             {reports.length === 0 ? (
                 <p className="empty-state">Aucun incident signalé.</p>
             ) : (
@@ -77,7 +88,7 @@ const ReportsPage: React.FC<ReportsPageProps> = ({ clientId }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {reports.map(report => (
+                            {reports.filter(r => statusFilter === 'all' || r.status === statusFilter).map(report => (
                                 <tr key={report.id}>
                                     <td>
                                         <strong>{report.title}</strong>
