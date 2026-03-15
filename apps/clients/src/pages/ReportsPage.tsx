@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
+import { logger, classifyError, formatDate } from '../utils/logger';
 
 interface ReportsPageProps {
     clientId: string;
@@ -37,22 +38,14 @@ const ReportsPage: React.FC<ReportsPageProps> = ({ clientId }) => {
                 const snapshot = await getDocs(q);
                 setReports(snapshot.docs.map(d => ({ id: d.id, ...d.data() } as Report)));
             } catch (err) {
-                console.error('Error loading reports:', err);
-                setError('Erreur de chargement des incidents.');
+                logger.error('ReportsPage.fetch', err);
+                setError(classifyError(err));
             } finally {
                 setLoading(false);
             }
         };
         fetchReports();
     }, [clientId]);
-
-    const formatDate = (ts: { seconds: number } | string | undefined) => {
-        if (!ts) return '—';
-        try {
-            const d = typeof ts === 'string' ? new Date(ts) : new Date(ts.seconds * 1000);
-            return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-        } catch { return '—'; }
-    };
 
     const statusLabel = (status: string) => {
         const map: Record<string, string> = {

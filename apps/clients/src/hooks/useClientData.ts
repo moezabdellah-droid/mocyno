@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { onAuthStateChanged, type User } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
+import { logger } from '../utils/logger';
 
 interface ClientProfile {
     id: string;
@@ -89,7 +90,7 @@ export function useClientData(): UseClientDataResult {
                     setClientProfile(null);
                 }
             } catch (err) {
-                console.error('useClientData error:', err);
+                logger.error('useClientData', err);
                 setError('Erreur de chargement du profil client.');
             } finally {
                 setLoading(false);

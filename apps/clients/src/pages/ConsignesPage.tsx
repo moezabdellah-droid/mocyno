@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
+import { logger, classifyError, toJsDate, formatDate } from '../utils/logger';
 
 interface ConsignesPageProps {
     clientId: string;
@@ -35,23 +36,7 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ clientId }) => {
     const [error, setError] = useState<string | null>(null);
     const [expandedId, setExpandedId] = useState<string | null>(null);
 
-    const toJsDate = (value: unknown): Date | null => {
-        if (!value) return null;
-        if (typeof value === 'object' && value !== null && 'toDate' in value && typeof (value as { toDate: () => Date }).toDate === 'function') {
-            return (value as { toDate: () => Date }).toDate();
-        }
-        if (typeof value === 'object' && value !== null && 'seconds' in value) {
-            return new Date((value as { seconds: number }).seconds * 1000);
-        }
-        const d = new Date(value as string | number);
-        return isNaN(d.getTime()) ? null : d;
-    };
 
-    const formatDate = (value: unknown): string => {
-        const d = toJsDate(value);
-        if (!d) return '—';
-        return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-    };
 
     useEffect(() => {
         const fetchConsignes = async () => {
@@ -116,8 +101,8 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ clientId }) => {
 
                 setConsignes(allConsignes);
             } catch (err) {
-                console.error('Error loading consignes:', err);
-                setError('Erreur de chargement des consignes.');
+                logger.error('ConsignesPage.fetch', err);
+                setError(classifyError(err));
             } finally {
                 setLoading(false);
             }

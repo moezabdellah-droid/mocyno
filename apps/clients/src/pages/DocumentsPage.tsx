@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { httpsCallable } from 'firebase/functions';
 import { db, functions } from '../firebase';
+import { logger, classifyError, formatDate } from '../utils/logger';
 
 interface DocumentsPageProps {
     clientId: string;
@@ -32,23 +33,6 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ clientId }) => {
     const [downloadingId, setDownloadingId] = useState<string | null>(null);
     const [downloadError, setDownloadError] = useState<string | null>(null);
 
-    const toJsDate = (value: unknown): Date | null => {
-        if (!value) return null;
-        if (typeof value === 'object' && value !== null && 'toDate' in value && typeof (value as { toDate: () => Date }).toDate === 'function') {
-            return (value as { toDate: () => Date }).toDate();
-        }
-        if (typeof value === 'object' && value !== null && 'seconds' in value) {
-            return new Date((value as { seconds: number }).seconds * 1000);
-        }
-        const d = new Date(value as string | number);
-        return isNaN(d.getTime()) ? null : d;
-    };
-
-    const formatDate = (value: unknown): string => {
-        const d = toJsDate(value);
-        if (!d) return '—';
-        return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-    };
 
     const formatFileSize = (bytes?: number): string => {
         if (!bytes || bytes <= 0) return '—';
@@ -69,8 +53,8 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ clientId }) => {
                 const snapshot = await getDocs(q);
                 setDocuments(snapshot.docs.map(d => ({ id: d.id, ...d.data() } as ClientDocument)));
             } catch (err) {
-                console.error('Error loading documents:', err);
-                setError('Erreur de chargement des documents.');
+                logger.error('DocumentsPage.fetch', err);
+                setError(classifyError(err));
             } finally {
                 setLoading(false);
             }
@@ -88,8 +72,8 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ clientId }) => {
             const result = await getDocumentSignedUrl({ documentId });
             window.open(result.data.url, '_blank');
         } catch (err) {
-            console.error('Download error:', err);
-            setDownloadError(`Échec du téléchargement. Réessayez ou contactez le support.`);
+            logger.error('DocumentsPage.download', err);
+            setDownloadError('Échec du téléchargement. Réessayez ou contactez le support.');
         } finally {
             setDownloadingId(null);
         }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { httpsCallable } from 'firebase/functions';
 import { db, functions } from '../firebase';
+import { logger, classifyError, formatDate, formatTime } from '../utils/logger';
 
 interface PlanningPageProps {
     clientId: string;
@@ -44,8 +45,8 @@ const PlanningPage: React.FC<PlanningPageProps> = ({ clientId }) => {
                 const data = snapshot.docs.map(d => ({ id: d.id, ...d.data() } as ShiftSegment));
                 setSegments(data);
             } catch (err) {
-                console.error('Error loading planning:', err);
-                setError('Erreur de chargement du planning.');
+                logger.error('PlanningPage.fetch', err);
+                setError(classifyError(err));
             } finally {
                 setLoading(false);
             }
@@ -70,36 +71,7 @@ const PlanningPage: React.FC<PlanningPageProps> = ({ clientId }) => {
         }
     };
 
-    /**
-     * Normalise une valeur Firestore en Date JS.
-     * Accepte : Firestore Timestamp (.toDate()), { seconds }, string, number, Date.
-     */
-    const toJsDate = (value: unknown): Date | null => {
-        if (!value) return null;
-        // Firestore Timestamp with toDate()
-        if (typeof value === 'object' && value !== null && 'toDate' in value && typeof (value as { toDate: () => Date }).toDate === 'function') {
-            return (value as { toDate: () => Date }).toDate();
-        }
-        // Plain object { seconds, nanoseconds }
-        if (typeof value === 'object' && value !== null && 'seconds' in value) {
-            return new Date((value as { seconds: number }).seconds * 1000);
-        }
-        // string or number
-        const d = new Date(value as string | number);
-        return isNaN(d.getTime()) ? null : d;
-    };
 
-    const formatDate = (value: unknown): string => {
-        const d = toJsDate(value);
-        if (!d) return '—';
-        return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-    };
-
-    const formatTime = (value: unknown): string => {
-        const d = toJsDate(value);
-        if (!d) return '—';
-        return d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-    };
 
     if (loading) return <div className="page-loading">Chargement du planning…</div>;
     if (error) return <div className="page-error">{error}</div>;

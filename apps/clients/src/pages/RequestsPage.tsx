@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, addDoc, orderBy, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
+import { logger, classifyError, formatDate } from '../utils/logger';
 
 interface RequestsPageProps {
     clientId: string;
@@ -39,8 +40,8 @@ const RequestsPage: React.FC<RequestsPageProps> = ({ clientId }) => {
             const snapshot = await getDocs(q);
             setRequests(snapshot.docs.map(d => ({ id: d.id, ...d.data() } as ClientRequest)));
         } catch (err) {
-            console.error('Error loading requests:', err);
-            setError('Erreur de chargement des demandes.');
+            logger.error('RequestsPage.fetch', err);
+            setError(classifyError(err));
         } finally {
             setLoading(false);
         }
@@ -66,19 +67,11 @@ const RequestsPage: React.FC<RequestsPageProps> = ({ clientId }) => {
             setLoading(true);
             await fetchRequests();
         } catch (err) {
-            console.error('Error creating request:', err);
-            alert('Erreur lors de la création de la demande.');
+            logger.error('RequestsPage.create', err);
+            setError(classifyError(err));
         } finally {
             setSubmitting(false);
         }
-    };
-
-    const formatDate = (ts: { seconds: number } | string | undefined) => {
-        if (!ts) return '—';
-        try {
-            const d = typeof ts === 'string' ? new Date(ts) : new Date(ts.seconds * 1000);
-            return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-        } catch { return '—'; }
     };
 
     const statusLabel = (status: string) => {
