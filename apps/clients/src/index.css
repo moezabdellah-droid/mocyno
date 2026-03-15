@@ -374,3 +374,12 @@ body { background: var(--color-bg); color: var(--color-text); min-height: 100vh;
 .reporting-status-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .reporting-status-item { display: flex; align-items: center; gap: 0.5rem; }
 .reporting-status-count { font-size: 1.1rem; font-weight: 700; color: var(--color-text); }
+
+/* ─── Export polish ─── */
+.action-btn { transition: background 0.15s, transform 0.1s; }
+.action-btn:active { transform: scale(0.97); }
+@media (max-width: 480px) {
+  .reporting-bar-label { flex: 0 0 80px; font-size: 0.7rem; }
+  .reporting-cards { grid-template-columns: repeat(2, 1fr); }
+  .page-header { flex-direction: column; align-items: flex-start; }
+}
