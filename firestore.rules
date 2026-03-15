@@ -45,8 +45,10 @@ service cloud.firestore {
     }
 
     // 2. AGENTS
+    // R10A: lecture restreinte — self ou admin/manager
     match /agents/{userId} {
-      allow read: if isAuthenticated();
+      allow read: if isAdminOrManager()
+                  || (isAuthenticated() && request.auth.uid == userId);
       allow create: if (isAuthenticated() && request.auth.uid == userId) || isAdminOrManager();
       allow update: if isAdminOrManager() || (isAuthenticated() && request.auth.uid == userId);
       allow delete: if isAdmin();
