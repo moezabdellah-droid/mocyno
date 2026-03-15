@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
-import { logger, classifyError, formatDate } from '../utils/logger';
+import { logger, classifyError, formatDate, formatTime } from '../utils/logger';
 import { exportCSV, csvDate, todayISO } from '../utils/csvExport';
 
 interface ReportsPageProps {
@@ -14,6 +14,9 @@ interface Report {
     description?: string;
     status: string;
     type?: string;
+    siteId?: string;
+    siteName?: string;
+    severity?: string;
     createdAt?: { seconds: number } | string;
     [key: string]: unknown;
 }
@@ -106,8 +109,11 @@ const ReportsPage: React.FC<ReportsPageProps> = ({ clientId }) => {
                                 </div>
                                 {report.description && <p className="detail-card-body">{report.description}</p>}
                                 <div className="detail-card-footer">
-                                    <span className="detail-date">📅 {formatDate(report.createdAt)}</span>
+                                    <span className="detail-date">📅 {formatDate(report.createdAt)}{report.createdAt ? ` à ${formatTime(report.createdAt)}` : ''}</span>
+                                    {report.siteName && <span className="detail-type">📍 {report.siteName}</span>}
+                                    {!report.siteName && report.siteId && <span className="detail-type">📍 {report.siteId}</span>}
                                     {report.type && <span className="detail-type">{report.type}</span>}
+                                    {report.severity && <span className="detail-priority">{report.severity === 'critical' ? '🔴 Critique' : report.severity === 'high' ? '🟠 Élevée' : ''}</span>}
                                 </div>
                             </div>
                         ))}
