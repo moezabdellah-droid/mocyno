@@ -141,7 +141,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ clientId, clientName, onN
                             <div key={i} className="recent-item">
                                 <span className="recent-title">{r.title}</span>
                                 <span className="recent-meta">
-                                    <span className={`mini-badge status-${r.status.toLowerCase().replace(/\s/g, '_')}`}>{r.status}</span>
+                                    <span className={`mini-badge status-${(r.status || '').toLowerCase().replace(/\s/g, '_')}`}>{r.status}</span>
                                     <span>{r.date}</span>
                                 </span>
                             </div>
@@ -161,7 +161,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ clientId, clientName, onN
                             <div key={i} className="recent-item">
                                 <span className="recent-title">{r.title}</span>
                                 <span className="recent-meta">
-                                    <span className={`mini-badge status-${r.status.toLowerCase().replace(/\s/g, '_')}`}>{r.status}</span>
+                                    <span className={`mini-badge status-${(r.status || '').toLowerCase().replace(/\s/g, '_')}`}>{r.status}</span>
                                     <span>{r.date}</span>
                                 </span>
                             </div>
