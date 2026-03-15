@@ -1,12 +1,14 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/client/',
-  build: {
-    outDir: '../../public/client',
-    emptyOutDir: true,
+  resolve: {
+    dedupe: ['firebase', 'react', 'react-dom']
   },
+  base: '/clients/',
+  build: {
+    outDir: '../../public/clients',
+    emptyOutDir: true,
+  }
 });

@@ -3,7 +3,15 @@ import { updatePassword } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 
-const ChangePasswordPage: React.FC = () => {
+interface ChangePasswordPageProps {
+    clientId: string;
+}
+
+/**
+ * R10C — ChangePasswordPage migré vers modèle avancé.
+ * Met à jour le flag mustChangePassword dans clients/{clientId} (au lieu de agents/{uid}).
+ */
+const ChangePasswordPage: React.FC<ChangePasswordPageProps> = ({ clientId }) => {
     const [newPassword, setNewPassword] = useState('');
     const [confirm, setConfirm] = useState('');
     const [error, setError] = useState<string | null>(null);
@@ -26,15 +34,14 @@ const ChangePasswordPage: React.FC = () => {
         try {
             const user = auth.currentUser;
             if (!user) throw new Error('Non authentifié.');
-            // 1. Mettre à jour le mot de passe Firebase Auth
+            // 1. Update Firebase Auth password
             await updatePassword(user, newPassword);
-            // 2. Lever le flag mustChangePassword dans Firestore
-            await updateDoc(doc(db, 'agents', user.uid), { mustChangePassword: false });
-            // L'App.tsx réagit automatiquement au changement de clientData (re-fetch ou reload)
+            // 2. Clear mustChangePassword in clients/{clientId}
+            await updateDoc(doc(db, 'clients', clientId), { mustChangePassword: false });
+            // Reload to trigger App re-render
             window.location.reload();
         } catch (err) {
             const msg = err instanceof Error ? err.message : 'Erreur inconnue.';
-            // Firebase renvoie requires-recent-login si la session est trop ancienne
             if (msg.includes('requires-recent-login')) {
                 setError('Votre session a expiré. Reconnectez-vous puis changez votre mot de passe.');
             } else {

@@ -1,66 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { onAuthStateChanged, type User } from 'firebase/auth';
+import React, { useState } from 'react';
+import { signOut } from 'firebase/auth';
 import { auth } from './firebase';
 import { useClientData } from './hooks/useClientData';
 import LoginPage from './pages/LoginPage';
 import ChangePasswordPage from './pages/ChangePasswordPage';
-import ConsignesPage from './pages/ConsignesPage';
-import SitePage from './pages/SitePage';
+import PlanningPage from './pages/PlanningPage';
+import SitesPage from './pages/SitesPage';
+import DocumentsPage from './pages/DocumentsPage';
+import RequestsPage from './pages/RequestsPage';
+import ReportsPage from './pages/ReportsPage';
 import './index.css';
 
-type Tab = 'consignes' | 'site';
+type Tab = 'planning' | 'sites' | 'documents' | 'requests' | 'reports';
 
-// Composant layout principal post-login
-const ClientLayout: React.FC<{ user: User; siteId: string }> = ({ user, siteId }) => {
-    const [tab, setTab] = useState<Tab>('consignes');
-    const { signOut } = { signOut: () => import('firebase/auth').then(m => m.signOut(auth)) };
+const tabs: { key: Tab; label: string }[] = [
+    { key: 'planning', label: 'Planning' },
+    { key: 'sites', label: 'Sites' },
+    { key: 'documents', label: 'Documents' },
+    { key: 'requests', label: 'Demandes' },
+    { key: 'reports', label: 'Incidents' },
+];
 
-    return (
-        <div className="dashboard-container">
-            <header className="dashboard-header">
-                <h1>MoCyno — Portail Client</h1>
-                <div className="header-user">
-                    <span>{user.email}</span>
-                    <button onClick={signOut} className="logout-btn">Déconnexion</button>
-                </div>
-            </header>
-            <nav className="client-nav">
-                <button
-                    className={`nav-btn${tab === 'consignes' ? ' active' : ''}`}
-                    onClick={() => setTab('consignes')}
-                >
-                    Consignes
-                </button>
-                <button
-                    className={`nav-btn${tab === 'site' ? ' active' : ''}`}
-                    onClick={() => setTab('site')}
-                >
-                    Mon site
-                </button>
-            </nav>
-            <main className="dashboard-main">
-                {tab === 'consignes' && <ConsignesPage siteId={siteId} />}
-                {tab === 'site' && <SitePage siteId={siteId} />}
-            </main>
-        </div>
-    );
-};
-
+/**
+ * R10C — App.tsx reconstruit
+ * Modèle: claims { role:'client', clientId } + clients/{docId}
+ * Pages: Planning, Sites, Documents, Demandes, Incidents
+ */
 const App: React.FC = () => {
-    const [user, setUser] = useState<User | null>(null);
-    const [authLoading, setAuthLoading] = useState(true);
-    const { clientData, loading: profileLoading, error: profileError } = useClientData(user?.uid ?? null);
+    const { user, clientId, clientProfile, loading, error } = useClientData();
+    const [activeTab, setActiveTab] = useState<Tab>('planning');
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-            setUser(firebaseUser);
-            setAuthLoading(false);
-        });
-        return unsubscribe;
-    }, []);
-
-    // Auth loading
-    if (authLoading || (user && profileLoading)) {
+    // Loading
+    if (loading) {
         return (
             <div className="loading-screen">
                 <div className="loading-spinner" />
@@ -68,29 +39,61 @@ const App: React.FC = () => {
         );
     }
 
-    // Non connecté
+    // Not logged in
     if (!user) return <LoginPage onLogin={() => {}} />;
 
-    // Profil introuvable
-    if (profileError || !clientData?.siteId) {
+    // Error / no claims / no profile
+    if (error || !clientId || !clientProfile) {
         return (
             <div className="login-container">
                 <div className="login-card">
+                    <h1 className="login-title">MoCyno</h1>
                     <p className="login-error">
-                        {profileError ?? 'Profil client incomplet. Contactez votre administrateur.'}
+                        {error ?? 'Profil client introuvable. Contactez votre administrateur.'}
                     </p>
+                    <button onClick={() => signOut(auth)} className="logout-btn" style={{ marginTop: '1rem' }}>
+                        Déconnexion
+                    </button>
                 </div>
             </div>
         );
     }
 
-    // Changement de mot de passe obligatoire
-    if (clientData.mustChangePassword) {
-        return <ChangePasswordPage />;
+    // Force password change
+    if (clientProfile.mustChangePassword) {
+        return <ChangePasswordPage clientId={clientId} />;
     }
 
-    // App normale
-    return <ClientLayout user={user} siteId={clientData.siteId} />;
+    // Main layout
+    return (
+        <div className="dashboard-container">
+            <header className="dashboard-header">
+                <h1>MoCyno — Portail Client</h1>
+                <div className="header-user">
+                    <span>{clientProfile.firstName} {clientProfile.lastName}</span>
+                    <button onClick={() => signOut(auth)} className="logout-btn">Déconnexion</button>
+                </div>
+            </header>
+            <nav className="client-nav">
+                {tabs.map(t => (
+                    <button
+                        key={t.key}
+                        className={`nav-btn${activeTab === t.key ? ' active' : ''}`}
+                        onClick={() => setActiveTab(t.key)}
+                    >
+                        {t.label}
+                    </button>
+                ))}
+            </nav>
+            <main className="dashboard-main">
+                {activeTab === 'planning' && <PlanningPage clientId={clientId} />}
+                {activeTab === 'sites' && <SitesPage clientId={clientId} />}
+                {activeTab === 'documents' && <DocumentsPage clientId={clientId} />}
+                {activeTab === 'requests' && <RequestsPage clientId={clientId} />}
+                {activeTab === 'reports' && <ReportsPage clientId={clientId} />}
+            </main>
+        </div>
+    );
 };
 
 export default App;
