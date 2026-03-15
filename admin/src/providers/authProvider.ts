@@ -85,11 +85,24 @@ export const authProvider: AuthProvider = {
             const unsubscribe = onAuthStateChanged(auth, async (user: User | null) => {
                 unsubscribe();
                 if (user) {
-                    // Double check role here? 
-                    // To avoid spamming Firestore reads on every nav, we rely on getPermissions or component-level checks.
-                    // However, to be strict, we can just resolve. 
-                    // If getPermissions fails, the user will be kicked out anyway.
-                    resolve();
+                    // A21 — Revalidate role from Firestore on every navigation
+                    try {
+                        const userDoc = await getDoc(doc(db, 'agents', user.uid));
+                        if (userDoc.exists()) {
+                            const role = userDoc.data().role || 'agent';
+                            if (role === 'admin' || role === 'manager') {
+                                resolve();
+                                return;
+                            }
+                        }
+                        // Role no longer admin/manager or doc missing → sign out
+                        await signOut(auth);
+                        reject(new Error('Accès révoqué. Votre rôle ne permet plus l\'accès admin.'));
+                    } catch (error) {
+                        console.error('[Auth] checkAuth role revalidation failed:', error);
+                        // On network error, allow session to continue (don't lock out on transient failures)
+                        resolve();
+                    }
                 } else {
                     reject(new Error('Non authentifié'));
                 }
