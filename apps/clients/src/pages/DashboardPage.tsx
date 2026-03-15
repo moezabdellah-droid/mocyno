@@ -25,6 +25,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ clientId, clientName, onN
     const [cards, setCards] = useState<DashboardCard[]>([]);
     const [nextShift, setNextShift] = useState<string | null>(null);
     const [recentRequests, setRecentRequests] = useState<{ title: string; status: string; date: string }[]>([]);
+    const [recentReports, setRecentReports] = useState<{ title: string; status: string; date: string }[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -77,6 +78,16 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ clientId, clientName, onN
                 setRecentRequests(reqSnap.docs.slice(0, 3).map(d => {
                     const data = d.data();
                     const statusMap: Record<string, string> = { pending: 'En attente', in_progress: 'En cours', resolved: 'Résolu', closed: 'Clôturé' };
+                    return {
+                        title: data.title as string,
+                        status: statusMap[data.status as string] || (data.status as string),
+                        date: formatDate(data.createdAt),
+                    };
+                }));
+
+                setRecentReports(repSnap.docs.slice(0, 3).map(d => {
+                    const data = d.data();
+                    const statusMap: Record<string, string> = { open: 'Ouvert', in_progress: 'En cours', resolved: 'Résolu', closed: 'Clôturé' };
                     return {
                         title: data.title as string,
                         status: statusMap[data.status as string] || (data.status as string),
@@ -139,10 +150,31 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ clientId, clientName, onN
                 </div>
             )}
 
+            {recentReports.length > 0 && (
+                <div className="dashboard-section">
+                    <div className="section-header">
+                        <h3>Incidents récents</h3>
+                        <button className="link-btn" onClick={() => onNavigate('reports')}>Voir tout →</button>
+                    </div>
+                    <div className="recent-list">
+                        {recentReports.map((r, i) => (
+                            <div key={i} className="recent-item">
+                                <span className="recent-title">{r.title}</span>
+                                <span className="recent-meta">
+                                    <span className={`mini-badge status-${r.status.toLowerCase().replace(/\s/g, '_')}`}>{r.status}</span>
+                                    <span>{r.date}</span>
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
             <div className="dashboard-shortcuts">
                 <button className="shortcut-btn" onClick={() => onNavigate('planning')}>📅 Planning</button>
                 <button className="shortcut-btn" onClick={() => onNavigate('consignes')}>📋 Consignes</button>
                 <button className="shortcut-btn" onClick={() => onNavigate('requests')}>+ Nouvelle demande</button>
+                <button className="shortcut-btn" onClick={() => onNavigate('reporting')}>📊 Reporting</button>
             </div>
         </div>
     );
