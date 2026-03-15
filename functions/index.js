@@ -746,6 +746,143 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
   }
 });
 
+// ─── CLIENT PORTAL — Signed URL Functions ───────────────────────────────────
+
+/**
+ * getDocumentSignedUrl
+ * Permet au client de télécharger un document qui lui est attribué.
+ * Vérifie : auth, role client, doc.clientId == token.clientId, visibility.client == true
+ * Input: { documentId: string }
+ * Output: { url: string }
+ */
+exports.getDocumentSignedUrl = onCall({ region: "europe-west1" }, async (request) => {
+  if (!request.auth) {
+    throw new HttpsError("unauthenticated", "Authentification requise.");
+  }
+
+  const callerClientId = request.auth.token.clientId;
+  const callerRole = request.auth.token.role;
+
+  // Admin/Manager can also access
+  const isAdminOrMgr = callerRole === "admin" || callerRole === "manager";
+
+  const { documentId } = request.data;
+  if (!documentId || typeof documentId !== "string") {
+    throw new HttpsError("invalid-argument", "documentId requis.");
+  }
+
+  // Read the document metadata from Firestore
+  const docSnap = await admin.firestore().collection("documents").doc(documentId).get();
+  if (!docSnap.exists) {
+    throw new HttpsError("not-found", "Document introuvable.");
+  }
+
+  const docData = docSnap.data();
+
+  // Access check
+  if (!isAdminOrMgr) {
+    if (callerRole !== "client" || !callerClientId) {
+      throw new HttpsError("permission-denied", "Accès refusé.");
+    }
+    if (docData.clientId !== callerClientId) {
+      throw new HttpsError("permission-denied", "Ce document ne vous appartient pas.");
+    }
+    if (!docData.visibility || docData.visibility.client !== true) {
+      throw new HttpsError("permission-denied", "Document non visible pour les clients.");
+    }
+  }
+
+  // Get the storage path
+  const storagePath = docData.storagePath || docData.filePath || docData.path;
+  if (!storagePath) {
+    throw new HttpsError("failed-precondition", "Aucun fichier attaché à ce document.");
+  }
+
+  // Check file exists and generate signed URL
+  const bucket = admin.storage().bucket();
+  const file = bucket.file(storagePath);
+  const [exists] = await file.exists();
+  if (!exists) {
+    throw new HttpsError("not-found", "Fichier introuvable dans le stockage.");
+  }
+
+  const [url] = await file.getSignedUrl({
+    action: "read",
+    expires: Date.now() + 15 * 60 * 1000, // 15 minutes
+  });
+
+  return { url };
+});
+
+/**
+ * getAgentBadgeSignedUrl
+ * Permet au client de voir la carte professionnelle d'un agent affecté à ses sites.
+ * Vérifie : auth, role client, existence d'un shiftSegment liant agentId + callerClientId
+ * Input: { agentId: string }
+ * Output: { url: string }
+ */
+exports.getAgentBadgeSignedUrl = onCall({ region: "europe-west1" }, async (request) => {
+  if (!request.auth) {
+    throw new HttpsError("unauthenticated", "Authentification requise.");
+  }
+
+  const callerClientId = request.auth.token.clientId;
+  const callerRole = request.auth.token.role;
+  const isAdminOrMgr = callerRole === "admin" || callerRole === "manager";
+
+  const { agentId } = request.data;
+  if (!agentId || typeof agentId !== "string") {
+    throw new HttpsError("invalid-argument", "agentId requis.");
+  }
+
+  // Verify the caller has a relationship with this agent via shiftSegments
+  if (!isAdminOrMgr) {
+    if (callerRole !== "client" || !callerClientId) {
+      throw new HttpsError("permission-denied", "Accès refusé.");
+    }
+
+    const segSnap = await admin.firestore()
+      .collection("shiftSegments")
+      .where("clientId", "==", callerClientId)
+      .where("agentId", "==", agentId)
+      .limit(1)
+      .get();
+
+    if (segSnap.empty) {
+      throw new HttpsError("permission-denied", "Cet agent n'est pas affecté à vos sites.");
+    }
+  }
+
+  // Find the agent's badge in Storage
+  // Convention: badges/{agentId}.pdf or badges/{agentId}_badge.pdf
+  const bucket = admin.storage().bucket();
+  const possiblePaths = [
+    `badges/${agentId}.pdf`,
+    `badges/${agentId}_badge.pdf`,
+    `badges/${agentId}_carte.pdf`,
+  ];
+
+  let foundFile = null;
+  for (const p of possiblePaths) {
+    const f = bucket.file(p);
+    const [ex] = await f.exists();
+    if (ex) { foundFile = f; break; }
+  }
+
+  if (!foundFile) {
+    throw new HttpsError("not-found", "Aucun badge trouvé pour cet agent.");
+  }
+
+  const [url] = await foundFile.getSignedUrl({
+    action: "read",
+    expires: Date.now() + 15 * 60 * 1000,
+  });
+
+  return { url };
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 // Minimal HTML escaping to avoid injection in emails
 function escapeHtml(input) {
   return String(input)
@@ -755,3 +892,4 @@ function escapeHtml(input) {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 }
+
