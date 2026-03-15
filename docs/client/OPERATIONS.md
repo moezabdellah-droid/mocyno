@@ -16,6 +16,8 @@
 2. Custom Claims positionnés : `role: 'client'`, `clientId: '<id>'`
 3. Document `clients/{clientId}` existant avec `portalAccess: true`
 4. Au moins 1 site rattaché via `clientIds` ou `authorizedClients` ou `primaryClientId` ou `clientId`
+5. `portalAccess` doit être **explicitement `true`** — si absent ou `false`, le portail refuse l'accès
+6. `mustChangePassword` peut être `true` lors du premier accès : le client est alors redirigé vers le changement de mot de passe avant de voir le portail
 
 ---
 
@@ -71,7 +73,8 @@ payload: { email, password, firstName, lastName, siteId, companyName? }
 ### Planning vide
 1. Vérifier que des `shiftSegments` existent avec `clientId == <clientId>`
 2. Vérifier l'index composite : `shiftSegments / COLLECTION_GROUP / clientId ASC + startTimestamp DESC`
-3. Vérifier les rules Firestore autorisent la lecture
+3. L'index doit être **actif (Activé)** dans Firebase Console — un index en cours de construction (building) ne suffit pas
+4. Vérifier les rules Firestore autorisent la lecture
 
 ### Consignes vides
 1. Les consignes sont liées par `targetId` (= siteId du site cible)
