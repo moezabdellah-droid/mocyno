@@ -593,18 +593,36 @@ exports.updateAgentPassword = onCall({ region: "europe-west1" }, async (request)
     throw new HttpsError("invalid-argument", "Password must be at least 6 characters.");
   }
 
+  // A21 — Prevent self-change via admin function (use normal reset flow)
+  if (agentId === request.auth.uid) {
+    throw new HttpsError("permission-denied", "Impossible de modifier son propre mot de passe via cette fonction.");
+  }
+
   try {
     const agentDoc = await admin.firestore().collection("agents").doc(agentId).get();
     if (!agentDoc.exists) {
       throw new HttpsError("not-found", "Agent profile not found.");
     }
 
+    // A21 — Prevent privilege escalation: managers cannot change admin/manager passwords
+    const targetRole = agentDoc.data().role;
+    if (targetRole === "admin" || targetRole === "manager") {
+      // Only admins can change admin/manager passwords
+      const callerDoc = await admin.firestore().collection("agents").doc(request.auth.uid).get();
+      const callerRole = callerDoc.exists ? callerDoc.data().role : null;
+      if (callerRole !== "admin") {
+        throw new HttpsError("permission-denied",
+            "Seul un admin peut modifier le mot de passe d'un admin ou manager.");
+      }
+    }
+
     await admin.auth().updateUser(agentId, { password: newPassword });
-    console.log(`Password updated for agent ${agentId} by ${request.auth.uid}`);
+    console.log(`[A21] Password updated for agent ${agentId} (role=${targetRole}) by ${request.auth.uid}`);
 
     return { success: true, message: "Password updated successfully." };
   } catch (error) {
     console.error("Error updating password:", error);
+    if (error instanceof HttpsError) throw error;
     throw new HttpsError("internal", error.message);
   }
 });
