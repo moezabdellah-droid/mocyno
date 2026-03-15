@@ -159,3 +159,65 @@ Format : `[functionName] <Action>: <Details>`
 - `[createClient]` — provisioning
 - `[getDocumentSignedUrl]` — download document
 - `[getAgentBadgeSignedUrl]` — badge agent
+
+---
+
+## 8. Gouvernance — Cycle de vie des apports client
+
+### 8.1. Demandes client (`clientRequests`)
+
+| Statut | Label FR | Qui crée | Qui traite |
+|---|---|---|---|
+| `pending` | En attente | Client (portail) | Admin (via admin panel) |
+| `in_progress` | En cours | — | Admin |
+| `resolved` | Traité | — | Admin |
+| `closed` | Clôturé | — | Admin |
+
+**Champs structurés** : titre, catégorie (planning/facturation/remplacement/incident/contrat/autre), priorité (normal/high/urgent), siteId, siteName, message.
+
+**Permissions** : le client peut créer. Seul l'admin peut changer le statut.
+
+### 8.2. Consignes client (`consignes` avec `source:'client'`)
+
+| Statut | Label FR | Qui crée | Qui traite |
+|---|---|---|---|
+| `pending` | En attente de validation | Client (portail) | Admin (via admin panel) |
+| `approved` | Validée | — | Admin |
+| `rejected` | Refusée | — | Admin |
+
+**Schéma** : `source:'client'`, `clientId`, `targetId`=siteId, `status`, `createdBy`, `createdAt`.
+
+**Permissions** :
+- Client : **création uniquement** (rules exigent `source=='client'` + `clientId` matche token)
+- Client : **pas d'update, pas de delete**
+- Admin/Manager : lecture, validation (update status), suppression
+
+**Workflow** :
+1. Client crée une consigne → statut = `pending`
+2. Admin voit la consigne en admin panel (filtre source=client + statut=en attente)
+3. Admin passe en `approved` ou `rejected`
+4. Client voit le statut mis à jour dans le portail
+
+### 8.3. Incidents / Rapports (`reports`)
+
+| Statut | Label FR |
+|---|---|
+| `open` | Ouvert |
+| `in_progress` | En cours |
+| `resolved` | Résolu |
+| `closed` | Clôturé |
+
+### 8.4. Notifications client
+
+- Création de demande : toast « Votre demande a bien été envoyée. »
+- Création de consigne : toast « Votre consigne a été enregistrée et sera examinée. »
+- Pas de notifications push dans ce round.
+
+### 8.5. Dépannage
+
+| Symptôme | Diagnostic | Action |
+|---|---|---|
+| Consigne reste "En attente" | Admin n'a pas traité | Filtrer source=client + status=pending en admin |
+| Demande reste "En attente" | Admin n'a pas changé le statut | Ouvrir clientRequests en admin, changer statut |
+| Client ne voit pas sa consigne | Rules bloquent la lecture | Vérifier que targetId = un site rattaché au client |
+| Toast ne s'affiche pas | ToastProvider absent | Vérifier que App.tsx est wrappé dans `<ToastProvider>` |
