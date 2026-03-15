@@ -13,8 +13,9 @@ interface ShiftSegment {
     agentName?: string;
     siteId: string;
     siteName?: string;
-    start: string;
-    end: string;
+    startTimestamp: string;
+    endTimestamp: string;
+    dayKey?: string;
     status: string;
     [key: string]: unknown;
 }
@@ -37,7 +38,7 @@ const PlanningPage: React.FC<PlanningPageProps> = ({ clientId }) => {
                 const q = query(
                     collection(db, 'shiftSegments'),
                     where('clientId', '==', clientId),
-                    orderBy('start', 'desc')
+                    orderBy('startTimestamp', 'desc')
                 );
                 const snapshot = await getDocs(q);
                 const data = snapshot.docs.map(d => ({ id: d.id, ...d.data() } as ShiftSegment));
@@ -73,7 +74,7 @@ const PlanningPage: React.FC<PlanningPageProps> = ({ clientId }) => {
         try {
             const d = new Date(dateStr);
             return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-        } catch { return dateStr; }
+        } catch { return String(dateStr); }
     };
 
     const formatTime = (dateStr: string) => {
@@ -108,9 +109,9 @@ const PlanningPage: React.FC<PlanningPageProps> = ({ clientId }) => {
                         <tbody>
                             {segments.map(seg => (
                                 <tr key={seg.id}>
-                                    <td>{formatDate(seg.start)}</td>
-                                    <td>{formatTime(seg.start)}</td>
-                                    <td>{formatTime(seg.end)}</td>
+                                    <td>{formatDate(seg.startTimestamp)}</td>
+                                    <td>{formatTime(seg.startTimestamp)}</td>
+                                    <td>{formatTime(seg.endTimestamp)}</td>
                                     <td>{seg.agentName || seg.agentId}</td>
                                     <td>{seg.siteName || seg.siteId}</td>
                                     <td><span className={`status-badge status-${seg.status}`}>{seg.status}</span></td>

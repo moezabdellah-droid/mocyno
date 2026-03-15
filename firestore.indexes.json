@@ -62,7 +62,7 @@
       "queryScope": "COLLECTION",
       "fields": [
         { "fieldPath": "clientId", "order": "ASCENDING" },
-        { "fieldPath": "start", "order": "DESCENDING" }
+        { "fieldPath": "startTimestamp", "order": "DESCENDING" }
       ]
     }
   ],
