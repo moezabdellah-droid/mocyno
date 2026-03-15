@@ -243,6 +243,16 @@
         "source": "/sitemap.xml",
         "destination": "/sitemap-index.xml",
         "type": 301
+      },
+      {
+        "source": "/client",
+        "destination": "/clients/",
+        "type": 301
+      },
+      {
+        "source": "/client/**",
+        "destination": "/clients/",
+        "type": 301
       }
     ],
     "rewrites": [
@@ -250,10 +260,7 @@
         "source": "/admin/**",
         "destination": "/admin/index.html"
       },
-      {
-        "source": "/client/**",
-        "destination": "/client/index.html"
-      },
+
       {
         "source": "/clients/**",
         "destination": "/clients/index.html"
