@@ -46,20 +46,13 @@ const formats = {
 };
 
 const Planning = () => {
-    // Date Range Filter logic (Current Month default)
-    const [dateRange] = useState({
-        start: moment().startOf('month').toISOString(),
-        end: moment().endOf('month').toISOString()
-    });
-
+    // A22 — Removed illusory date filter on 'agentAssignments.vacations.date'
+    // Firestore cannot query nested array fields. The calendar view handles visual filtering natively.
+    // perPage will be reduced in FIX 3.
     const { data: events, isLoading: isLoadingEvents } = useRobustGetList<Mission>('planning', {
         pagination: { page: 1, perPage: 1000 },
-        filter: {
-            'agentAssignments.vacations.date': {
-                $gte: dateRange.start,
-                $lte: dateRange.end
-            }
-        }
+        filter: {},
+        sort: { field: 'id', order: 'ASC' }
     });
 
     // Robust hooks for resources
