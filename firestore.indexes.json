@@ -59,7 +59,7 @@
     },
     {
       "collectionGroup": "shiftSegments",
-      "queryScope": "COLLECTION",
+      "queryScope": "COLLECTION_GROUP",
       "fields": [
         { "fieldPath": "clientId", "order": "ASCENDING" },
         { "fieldPath": "startTimestamp", "order": "DESCENDING" }
