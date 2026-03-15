@@ -11,7 +11,9 @@ import { mocynoTheme } from './theme';
 import { SiteList, SiteCreate, SiteEdit } from './pages/Sites';
 import { ClientList, ClientShow, ClientCreate } from './pages/Clients';
 import { DocumentDownloadList } from './pages/DocumentDownloads';
-import { ClientRequestList } from './pages/ClientRequests';
+import { ClientRequestList, ClientRequestShow, ClientRequestEdit } from './pages/ClientRequests';
+import { ReportList, ReportShow, ReportEdit } from './pages/Reports';
+import { DocumentList, DocumentShow } from './pages/Documents';
 
 // Debug proxy — active uniquement en développement local
 function withDebugProxy<T extends object>(provider: T): T {
@@ -63,10 +65,12 @@ const App = () => (
     <Resource name="consignes" list={ConsigneList} create={ConsigneCreate} edit={ConsigneEdit} show={ConsigneShow} options={{ label: 'Consignes' }} />
     <Resource name="events" list={EventList} show={EventShow} options={{ label: 'Main Courante' }} />
     <Resource name="clients" list={ClientList} show={ClientShow} create={ClientCreate} options={{ label: 'Clients' }} />
+    {/* A23 — Support & Pilotage resources */}
+    <Resource name="reports" list={ReportList} show={ReportShow} edit={ReportEdit} options={{ label: 'Incidents' }} />
+    <Resource name="documents" list={DocumentList} show={DocumentShow} options={{ label: 'Documents' }} />
+    <Resource name="clientRequests" list={ClientRequestList} show={ClientRequestShow} edit={ClientRequestEdit} options={{ label: 'Demandes Clients' }} />
     <Resource name="documentDownloads" list={DocumentDownloadList} options={{ label: 'Téléchargements' }} />
-    <Resource name="clientRequests" list={ClientRequestList} options={{ label: 'Demandes Clients' }} />
   </Admin>
 );
 
 export default App;
-
