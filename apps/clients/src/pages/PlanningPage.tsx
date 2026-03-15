@@ -70,18 +70,35 @@ const PlanningPage: React.FC<PlanningPageProps> = ({ clientId }) => {
         }
     };
 
-    const formatDate = (dateStr: string) => {
-        try {
-            const d = new Date(dateStr);
-            return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-        } catch { return String(dateStr); }
+    /**
+     * Normalise une valeur Firestore en Date JS.
+     * Accepte : Firestore Timestamp (.toDate()), { seconds }, string, number, Date.
+     */
+    const toJsDate = (value: unknown): Date | null => {
+        if (!value) return null;
+        // Firestore Timestamp with toDate()
+        if (typeof value === 'object' && value !== null && 'toDate' in value && typeof (value as { toDate: () => Date }).toDate === 'function') {
+            return (value as { toDate: () => Date }).toDate();
+        }
+        // Plain object { seconds, nanoseconds }
+        if (typeof value === 'object' && value !== null && 'seconds' in value) {
+            return new Date((value as { seconds: number }).seconds * 1000);
+        }
+        // string or number
+        const d = new Date(value as string | number);
+        return isNaN(d.getTime()) ? null : d;
     };
 
-    const formatTime = (dateStr: string) => {
-        try {
-            const d = new Date(dateStr);
-            return d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-        } catch { return ''; }
+    const formatDate = (value: unknown): string => {
+        const d = toJsDate(value);
+        if (!d) return '—';
+        return d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    };
+
+    const formatTime = (value: unknown): string => {
+        const d = toJsDate(value);
+        if (!d) return '—';
+        return d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
     };
 
     if (loading) return <div className="page-loading">Chargement du planning…</div>;
