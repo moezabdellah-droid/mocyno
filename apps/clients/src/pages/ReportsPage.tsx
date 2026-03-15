@@ -74,35 +74,38 @@ const ReportsPage: React.FC<ReportsPageProps> = ({ clientId }) => {
                 </select>
                 <span className="filter-count">{reports.filter(r => statusFilter === 'all' || r.status === statusFilter).length} / {reports.length}</span>
             </div>
-            {reports.length === 0 ? (
-                <p className="empty-state">Aucun incident signalé.</p>
-            ) : (
-                <div className="table-wrapper">
-                    <table className="data-table">
-                        <thead>
-                            <tr>
-                                <th>Titre</th>
-                                <th>Type</th>
-                                <th>Statut</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {reports.filter(r => statusFilter === 'all' || r.status === statusFilter).map(report => (
-                                <tr key={report.id}>
-                                    <td>
-                                        <strong>{report.title}</strong>
-                                        {report.description && <p className="row-detail">{report.description}</p>}
-                                    </td>
-                                    <td>{report.type || '—'}</td>
-                                    <td><span className={`status-badge status-${report.status}`}>{statusLabel(report.status)}</span></td>
-                                    <td>{formatDate(report.createdAt)}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
+            {(() => {
+                const filtered = reports.filter(r => statusFilter === 'all' || r.status === statusFilter);
+                if (reports.length === 0) {
+                    return (
+                        <div className="empty-state-box">
+                            <span className="empty-icon">✅</span>
+                            <p>Aucun incident signalé.</p>
+                            <span className="empty-detail">Les incidents apparaîtront ici automatiquement.</span>
+                        </div>
+                    );
+                }
+                if (filtered.length === 0) {
+                    return <p className="empty-state">Aucun incident ne correspond au filtre sélectionné.</p>;
+                }
+                return (
+                    <div className="detail-cards">
+                        {filtered.map(report => (
+                            <div key={report.id} className="detail-card">
+                                <div className="detail-card-header">
+                                    <strong className="detail-card-title">{report.title}</strong>
+                                    <span className={`status-badge status-${report.status}`}>{statusLabel(report.status)}</span>
+                                </div>
+                                {report.description && <p className="detail-card-body">{report.description}</p>}
+                                <div className="detail-card-footer">
+                                    <span className="detail-date">📅 {formatDate(report.createdAt)}</span>
+                                    {report.type && <span className="detail-type">{report.type}</span>}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                );
+            })()}
         </div>
     );
 };

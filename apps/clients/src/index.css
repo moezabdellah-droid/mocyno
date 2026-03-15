@@ -280,3 +280,44 @@ body { background: var(--color-bg); color: var(--color-text); min-height: 100vh;
 }
 .filter-select:focus { outline: none; border-color: var(--color-primary); }
 .filter-count { font-size: 0.75rem; color: var(--color-muted); white-space: nowrap; }
+
+/* ─── Detail Cards ─── */
+.detail-cards { display: flex; flex-direction: column; gap: 0.75rem; }
+.detail-card {
+  background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 10px;
+  padding: 1rem 1.25rem; transition: border-color 0.15s;
+}
+.detail-card:hover { border-color: var(--color-primary); }
+.detail-card-header {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem;
+}
+.detail-card-title { font-size: 0.95rem; color: var(--color-text); }
+.detail-card-body {
+  margin-top: 0.5rem; font-size: 0.85rem; color: var(--color-muted); line-height: 1.5;
+}
+.detail-card-footer {
+  margin-top: 0.625rem; display: flex; align-items: center; gap: 1rem; font-size: 0.75rem; color: var(--color-muted);
+}
+.detail-date { white-space: nowrap; }
+.detail-priority { color: var(--color-primary); font-weight: 500; }
+.detail-type {
+  padding: 0.1rem 0.5rem; background: var(--color-border); border-radius: 4px;
+  font-size: 0.7rem; color: var(--color-text);
+}
+
+/* ─── Status badge colors ─── */
+.status-badge { padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+.status-pending { background: #f59e0b22; color: #f59e0b; }
+.status-in_progress { background: #3b82f622; color: #3b82f6; }
+.status-resolved { background: #10b98122; color: #10b981; }
+.status-closed { background: #6b728022; color: #9ca3af; }
+.status-open { background: #ef444422; color: #ef4444; }
+
+/* ─── Empty state box ─── */
+.empty-state-box {
+  display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+  padding: 2.5rem 1rem; text-align: center;
+}
+.empty-icon { font-size: 2rem; }
+.empty-state-box p { font-size: 1rem; color: var(--color-text); }
+.empty-detail { font-size: 0.8rem; color: var(--color-muted); }

@@ -137,33 +137,38 @@ const RequestsPage: React.FC<RequestsPageProps> = ({ clientId }) => {
                 </form>
             )}
 
-            {requests.length === 0 ? (
-                <p className="empty-state">Aucune demande pour le moment.</p>
-            ) : (
-                <div className="table-wrapper">
-                    <table className="data-table">
-                        <thead>
-                            <tr>
-                                <th>Titre</th>
-                                <th>Statut</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {requests.filter(r => statusFilter === 'all' || r.status === statusFilter).map(req => (
-                                <tr key={req.id}>
-                                    <td>
-                                        <strong>{req.title}</strong>
-                                        {req.message && <p className="row-detail">{req.message}</p>}
-                                    </td>
-                                    <td><span className={`status-badge status-${req.status}`}>{statusLabel(req.status)}</span></td>
-                                    <td>{formatDate(req.createdAt)}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
+            {(() => {
+                const filtered = requests.filter(r => statusFilter === 'all' || r.status === statusFilter);
+                if (requests.length === 0) {
+                    return (
+                        <div className="empty-state-box">
+                            <span className="empty-icon">📝</span>
+                            <p>Aucune demande pour le moment.</p>
+                            <button onClick={() => setShowForm(true)} className="action-btn primary">Créer une demande</button>
+                        </div>
+                    );
+                }
+                if (filtered.length === 0) {
+                    return <p className="empty-state">Aucune demande ne correspond au filtre sélectionné.</p>;
+                }
+                return (
+                    <div className="detail-cards">
+                        {filtered.map(req => (
+                            <div key={req.id} className="detail-card">
+                                <div className="detail-card-header">
+                                    <strong className="detail-card-title">{req.title}</strong>
+                                    <span className={`status-badge status-${req.status}`}>{statusLabel(req.status)}</span>
+                                </div>
+                                {req.message && <p className="detail-card-body">{req.message}</p>}
+                                <div className="detail-card-footer">
+                                    <span className="detail-date">📅 {formatDate(req.createdAt)}</span>
+                                    {req.priority && <span className="detail-priority">Priorité : {req.priority}</span>}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                );
+            })()}
         </div>
     );
 };
