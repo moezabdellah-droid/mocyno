@@ -8,6 +8,12 @@ const consigneTypes = [
     { id: 'service', name: 'Service (Ponctuelle)' }
 ];
 
+const consigneStatuses = [
+    { id: 'pending', name: 'En attente' },
+    { id: 'approved', name: 'Validée' },
+    { id: 'rejected', name: 'Refusée' },
+];
+
 export const ConsigneList = () => (
     <List resource="consignes">
         <Datagrid rowClick="show">
@@ -25,6 +31,14 @@ export const ConsigneList = () => (
             <TextField source="targetId" label="ID Cible (Autre)" />
             <DateField source="createdAt" label="Créé le" showTime />
             <TextField source="source" label="Origine" />
+            <FunctionField
+                label="Statut"
+                render={(record: { status?: string; source?: string }) => {
+                    if (record.source !== 'client') return '—';
+                    const st = consigneStatuses.find(s => s.id === record.status);
+                    return st ? st.name : (record.status || 'N/A');
+                }}
+            />
             <TextField source="clientId" label="Client ID" />
         </Datagrid>
     </List>
@@ -97,6 +111,14 @@ export const ConsigneEdit = () => (
             </FormDataConsumer>
 
             <RichTextInput source="content" validate={[required()]} />
+
+            <FormDataConsumer>
+                {({ formData }) =>
+                    formData?.source === 'client' ? (
+                        <SelectInput source="status" choices={consigneStatuses} label="Statut de validation" fullWidth />
+                    ) : null
+                }
+            </FormDataConsumer>
         </SimpleForm>
     </Edit>
 );
@@ -108,6 +130,7 @@ export const ConsigneShow = () => (
             <TextField source="type" />
             <DateField source="createdAt" showTime />
             <TextField source="source" label="Origine" />
+            <TextField source="status" label="Statut de validation" />
             <TextField source="clientId" label="Client ID" />
             <RichTextField source="content" />
         </SimpleShowLayout>

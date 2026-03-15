@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, addDoc, orderBy, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import { logger, classifyError, toJsDate, formatDate } from '../utils/logger';
+import { CONSIGNE_STATUS, statusLabel } from '../utils/statusMap';
 
 interface ConsignesPageProps {
     clientId: string;
@@ -15,6 +16,7 @@ interface Consigne {
     targetId?: string;
     siteName?: string;
     source?: string;
+    status?: string;
     createdAt?: unknown;
     [key: string]: unknown;
 }
@@ -132,6 +134,7 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ clientId }) => {
                 targetId: formSiteId,
                 clientId,
                 source: 'client',
+                status: 'pending',
                 createdBy: clientId,
                 createdAt: serverTimestamp(),
             });
@@ -237,7 +240,11 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ clientId }) => {
                                 <div className="consigne-meta">
                                     <span className="consigne-site">{c.siteName}</span>
                                     <span className="consigne-date">{formatDate(c.createdAt)}</span>
-                                    {c.source === 'client' && <span className="doc-status doc-new">Client</span>}
+                                    {c.source === 'client' && (
+                                        <span className="doc-status" style={{background: (CONSIGNE_STATUS[c.status || 'pending']?.color || '#f59e0b') + '22', color: CONSIGNE_STATUS[c.status || 'pending']?.color || '#f59e0b'}}>
+                                            {statusLabel(CONSIGNE_STATUS, c.status || 'pending')}
+                                        </span>
+                                    )}
                                     <span className="consigne-chevron">{expandedId === c.id ? '▲' : '▼'}</span>
                                 </div>
                             </div>
