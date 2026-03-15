@@ -74,16 +74,18 @@ payload: { email, password, firstName, lastName, siteId, companyName? }
 3. Vérifier les rules Firestore autorisent la lecture
 
 ### Consignes vides
-1. Les consignes sont liées par `targetId` (= siteId du site)
-2. Vérifier que le client a au moins un site rattaché
-3. Vérifier que des consignes existent avec `targetId` = un des siteIds du client
-4. Index requis : `consignes / siteId + createdAt`
+1. Les consignes sont liées par `targetId` (= siteId du site cible)
+2. Le portail récupère d'abord les sites du client (4 queries), puis cherche les consignes via `where('targetId', 'in', [siteIds])` + `orderBy('createdAt', 'desc')`
+3. Vérifier que le client a au moins un site rattaché
+4. Vérifier que des consignes existent avec `targetId` = un des siteIds du client
+5. Index requis : `consignes / targetId + createdAt DESC` (COLLECTION)
 
 ### Document non téléchargeable
 1. Vérifier le document existe dans `documents/` avec `clientId` correct et `visibility.client: true`
 2. Vérifier que `storagePath` / `filePath` / `path` pointe vers un fichier existant dans Storage
-3. Vérifier les règles Storage (lecture OK pour le path)
-4. Logs functions : `[getDocumentSignedUrl] Success` ou `Access denied`
+3. Le téléchargement passe par la callable `getDocumentSignedUrl` (pas de lecture directe Storage par le client)
+4. La function vérifie : auth, role client, ownership (`clientId`), visibility, existence fichier Storage
+5. Logs functions : `[getDocumentSignedUrl] Success` ou `Access denied` / `Not found`
 
 ### Badge agent non trouvé
 1. Le fichier doit être dans `badges/{agentId}.pdf` ou `badges/{agentId}_badge.pdf` ou `badges/{agentId}_carte.pdf`
@@ -99,7 +101,7 @@ payload: { email, password, firstName, lastName, siteId, companyName? }
 | `shiftSegments` | `clientId ASC + startTimestamp DESC` | COLLECTION_GROUP | PlanningPage |
 | `documents` | `clientId + visibility.client + createdAt` | COLLECTION | DocumentsPage |
 | `clientRequests` | `clientId + createdAt` | COLLECTION | RequestsPage |
-| `consignes` | `siteId + createdAt` | COLLECTION | ConsignesPage (indirect) |
+| `consignes` | `targetId + createdAt DESC` | COLLECTION | ConsignesPage (via multi-site) |
 
 ---
 
@@ -116,8 +118,10 @@ payload: { email, password, firstName, lastName, siteId, companyName? }
 
 | Source | Destination | Type |
 |---|---|---|
-| `/client/` | `/clients/` | 301 permanent |
-| `/client/*` | `/clients/*` | 301 permanent |
+| `/client` | `/clients/` | 301 permanent |
+| `/client/**` | `/clients/` | 301 permanent |
+
+Note : les sous-chemins `/client/xxx` redirigent tous vers `/clients/` (pas de conservation du path).
 
 Configuré dans `firebase.json` > `hosting.redirects`
 
