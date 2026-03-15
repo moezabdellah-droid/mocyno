@@ -13,18 +13,44 @@ interface ClientDocument {
     name: string;
     storagePath?: string;
     type?: string;
+    category?: string;
     fileName?: string;
     fileSize?: number;
+    description?: string;
     createdAt?: unknown;
     uploadedAt?: unknown;
     [key: string]: unknown;
 }
 
+const TYPE_ICONS: Record<string, string> = {
+    facture: '🧾', invoice: '🧾', contrat: '📜', contract: '📜',
+    rapport: '📊', report: '📊', devis: '💰', quote: '💰',
+    attestation: '🏅', certificat: '🏅', planning: '📅',
+    procedure: '📋', consigne: '📋', default: '📄',
+};
+
+const formatFileSize = (bytes?: number): string => {
+    if (!bytes || bytes <= 0) return '—';
+    if (bytes < 1024) return `${bytes} o`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} Ko`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} Mo`;
+};
+
+const getTypeIcon = (type?: string): string => {
+    if (!type) return TYPE_ICONS.default;
+    const key = type.toLowerCase();
+    return TYPE_ICONS[key] || TYPE_ICONS.default;
+};
+
+const getFileExt = (fileName?: string, storagePath?: string): string => {
+    const path = fileName || storagePath || '';
+    const dot = path.lastIndexOf('.');
+    return dot > 0 ? path.slice(dot + 1).toUpperCase() : '';
+};
+
 /**
- * R12 — DocumentsPage enrichi
- * Affiche les documents visibles pour le client (visibility.client == true).
- * Téléchargement via getDocumentSignedUrl callable.
- * Améliorations: Timestamp handling, fileSize, uploadedAt, download error inline.
+ * R15 — DocumentsPage enrichi
+ * Card layout avec métadonnées enrichies, type badges, et traçabilité.
  */
 const DocumentsPage: React.FC<DocumentsPageProps> = ({ clientId }) => {
     const [documents, setDocuments] = useState<ClientDocument[]>([]);
@@ -33,14 +59,6 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ clientId }) => {
     const [downloadingId, setDownloadingId] = useState<string | null>(null);
     const [downloadError, setDownloadError] = useState<string | null>(null);
     const [search, setSearch] = useState('');
-
-
-    const formatFileSize = (bytes?: number): string => {
-        if (!bytes || bytes <= 0) return '—';
-        if (bytes < 1024) return `${bytes} o`;
-        if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} Ko`;
-        return `${(bytes / (1024 * 1024)).toFixed(1)} Mo`;
-    };
 
     useEffect(() => {
         const fetchDocuments = async () => {
@@ -83,12 +101,15 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ clientId }) => {
     if (loading) return <div className="page-loading">Chargement des documents…</div>;
     if (error) return <div className="page-error">{error}</div>;
 
+    const s = search.toLowerCase();
+    const filtered = documents.filter(d => !s || d.name.toLowerCase().includes(s) || (d.type || '').toLowerCase().includes(s) || (d.fileName || '').toLowerCase().includes(s));
+
     return (
         <div className="page-content">
             <h2>Documents</h2>
             <div className="filter-bar">
                 <input type="text" className="filter-input" placeholder="Rechercher par nom ou type…" value={search} onChange={e => setSearch(e.target.value)} />
-                <span className="filter-count">{(() => { const s = search.toLowerCase(); const filtered = documents.filter(d => !s || d.name.toLowerCase().includes(s) || (d.type || '').toLowerCase().includes(s) || (d.fileName || '').toLowerCase().includes(s)); return `${filtered.length} / ${documents.length}`; })()}</span>
+                <span className="filter-count">{filtered.length} / {documents.length}</span>
             </div>
             {downloadError && (
                 <div className="inline-error">
@@ -97,48 +118,51 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ clientId }) => {
                 </div>
             )}
             {documents.length === 0 ? (
-                <p className="empty-state">Aucun document disponible.</p>
+                <div className="empty-state-box">
+                    <span className="empty-icon">📄</span>
+                    <p>Aucun document disponible.</p>
+                    <span className="empty-detail">Les documents partagés apparaîtront ici.</span>
+                </div>
+            ) : filtered.length === 0 ? (
+                <p className="empty-state">Aucun document ne correspond à la recherche.</p>
             ) : (
-                <div className="table-wrapper">
-                    <table className="data-table">
-                        <thead>
-                            <tr>
-                                <th>Nom</th>
-                                <th>Type</th>
-                                <th>Taille</th>
-                                <th>Date</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {documents.filter(d => { const s = search.toLowerCase(); return !s || d.name.toLowerCase().includes(s) || (d.type || '').toLowerCase().includes(s) || (d.fileName || '').toLowerCase().includes(s); }).map(doc => (
-                                <tr key={doc.id}>
-                                    <td>
-                                        <span className="doc-name">{doc.name}</span>
-                                        {doc.fileName && doc.fileName !== doc.name && (
-                                            <span className="doc-filename">{doc.fileName}</span>
-                                        )}
-                                    </td>
-                                    <td><span className="doc-type-badge">{doc.type || '—'}</span></td>
-                                    <td>{formatFileSize(doc.fileSize)}</td>
-                                    <td>{formatDate(doc.uploadedAt || doc.createdAt)}</td>
-                                    <td>
-                                        <button
-                                            onClick={() => handleDownload(doc.id)}
-                                            className="action-btn"
-                                            disabled={downloadingId === doc.id}
-                                        >
-                                            {downloadingId === doc.id ? (
-                                                <><span className="btn-spinner" /> Chargement…</>
-                                            ) : (
-                                                '⬇ Télécharger'
+                <div className="detail-cards">
+                    {filtered.map(doc => {
+                        const ext = getFileExt(doc.fileName, doc.storagePath);
+                        return (
+                            <div key={doc.id} className="detail-card doc-card">
+                                <div className="detail-card-header">
+                                    <div className="doc-card-left">
+                                        <span className="doc-icon">{getTypeIcon(doc.type)}</span>
+                                        <div>
+                                            <strong className="detail-card-title">{doc.name}</strong>
+                                            {doc.fileName && doc.fileName !== doc.name && (
+                                                <span className="doc-filename">{doc.fileName}</span>
                                             )}
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                                        </div>
+                                    </div>
+                                    <button
+                                        onClick={() => handleDownload(doc.id)}
+                                        className="action-btn"
+                                        disabled={downloadingId === doc.id}
+                                    >
+                                        {downloadingId === doc.id ? (
+                                            <><span className="btn-spinner" /> …</>
+                                        ) : (
+                                            '⬇ Télécharger'
+                                        )}
+                                    </button>
+                                </div>
+                                {doc.description && <p className="detail-card-body">{doc.description}</p>}
+                                <div className="detail-card-footer">
+                                    {doc.type && <span className="detail-type">{doc.type}</span>}
+                                    {ext && <span className="doc-ext">{ext}</span>}
+                                    <span>{formatFileSize(doc.fileSize)}</span>
+                                    <span className="detail-date">📅 {formatDate(doc.uploadedAt || doc.createdAt)}</span>
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
             )}
         </div>
