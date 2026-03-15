@@ -21,7 +21,7 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ siteId }) => {
     useEffect(() => {
         const q = query(
             collection(db, 'consignes'),
-            where('siteId', '==', siteId),
+            where('targetId', '==', siteId),
             orderBy('createdAt', 'desc')
         );
         getDocs(q)

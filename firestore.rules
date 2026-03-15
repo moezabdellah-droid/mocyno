@@ -42,7 +42,7 @@ service cloud.firestore {
     // 1. CONSIGNES
     match /consignes/{consigneId} {
       allow read: if (isAuthenticated() && !isClient())
-                  || (isClient() && resource.data.siteId == clientSiteId());
+                  || (isClient() && resource.data.targetId == clientSiteId());
       allow write: if isAdminOrManager();
     }
 
