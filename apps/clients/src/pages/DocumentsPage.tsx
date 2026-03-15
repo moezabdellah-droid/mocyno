@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
+import { collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
 import { httpsCallable } from 'firebase/functions';
 import { db, functions } from '../firebase';
 import { logger, classifyError, formatDate } from '../utils/logger';
@@ -59,6 +59,7 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ clientId }) => {
     const [downloadingId, setDownloadingId] = useState<string | null>(null);
     const [downloadError, setDownloadError] = useState<string | null>(null);
     const [search, setSearch] = useState('');
+    const [downloadHistory, setDownloadHistory] = useState<Map<string, Date>>(new Map());
 
     useEffect(() => {
         const fetchDocuments = async () => {
@@ -71,6 +72,30 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ clientId }) => {
                 );
                 const snapshot = await getDocs(q);
                 setDocuments(snapshot.docs.map(d => ({ id: d.id, ...d.data() } as ClientDocument)));
+
+                // Fetch download history
+                try {
+                    const hq = query(
+                        collection(db, 'documentDownloads'),
+                        where('clientId', '==', clientId),
+                        orderBy('downloadedAt', 'desc'),
+                        limit(200)
+                    );
+                    const hSnap = await getDocs(hq);
+                    const history = new Map<string, Date>();
+                    for (const d of hSnap.docs) {
+                        const data = d.data();
+                        const docId = data.documentId as string;
+                        if (docId && !history.has(docId)) {
+                            const ts = data.downloadedAt as { seconds: number } | null;
+                            if (ts && ts.seconds) history.set(docId, new Date(ts.seconds * 1000));
+                        }
+                    }
+                    setDownloadHistory(history);
+                } catch (hErr) {
+                    // Non-blocking — history is optional
+                    logger.warn('DocumentsPage.fetchHistory', String(hErr));
+                }
             } catch (err) {
                 logger.error('DocumentsPage.fetch', err);
                 setError(classifyError(err));
@@ -159,6 +184,11 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ clientId }) => {
                                     {ext && <span className="doc-ext">{ext}</span>}
                                     <span>{formatFileSize(doc.fileSize)}</span>
                                     <span className="detail-date">📅 {formatDate(doc.uploadedAt || doc.createdAt)}</span>
+                                    {downloadHistory.has(doc.id) ? (
+                                        <span className="doc-status doc-downloaded" title={`Dernier téléchargement : ${downloadHistory.get(doc.id)!.toLocaleDateString('fr-FR')}`}>✓ Consulté</span>
+                                    ) : (
+                                        <span className="doc-status doc-new">Nouveau</span>
+                                    )}
                                 </div>
                             </div>
                         );

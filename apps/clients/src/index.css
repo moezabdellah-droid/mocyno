@@ -347,3 +347,8 @@ body { background: var(--color-bg); color: var(--color-text); min-height: 100vh;
   padding: 0.1rem 0.4rem; background: var(--color-primary); color: #fff; border-radius: 3px;
   font-size: 0.65rem; font-weight: 700; letter-spacing: 0.03em;
 }
+
+/* ─── Doc status badges ─── */
+.doc-status { padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; white-space: nowrap; }
+.doc-new { background: #3b82f622; color: #3b82f6; }
+.doc-downloaded { background: #10b98122; color: #10b981; }
