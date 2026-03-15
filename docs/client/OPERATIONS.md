@@ -221,3 +221,81 @@ Format : `[functionName] <Action>: <Details>`
 | Demande reste "En attente" | Admin n'a pas changé le statut | Ouvrir clientRequests en admin, changer statut |
 | Client ne voit pas sa consigne | Rules bloquent la lecture | Vérifier que targetId = un site rattaché au client |
 | Toast ne s'affiche pas | ToastProvider absent | Vérifier que App.tsx est wrappé dans `<ToastProvider>` |
+
+---
+
+## 9. Incidents client (R19)
+
+### 9.1. Signalement d'incident
+
+Le client peut signaler un incident sur un de ses sites rattachés.
+
+**Collection** : `reports` (réutilisation avec marquage `source:'client'`)
+
+| Champ | Obligatoire | Description |
+|---|---|---|
+| `title` | ✅ | Titre de l'incident |
+| `type` | ✅ | intrusion / dégradation / dysfonctionnement / comportement / autre |
+| `severity` | ✅ | low / medium / high / critical |
+| `siteId` | ✅ | ID du site (limité aux sites rattachés) |
+| `siteName` | — | Nom affiché du site |
+| `description` | — | Détails (optionnel) |
+| `source` | ✅ | `'client'` (obligatoire pour création client) |
+| `status` | ✅ | `'open'` à la création |
+| `clientId` | ✅ | Vérifié par rules = token.clientId |
+| `createdBy` | ✅ | clientId du créateur |
+| `createdAt` | ✅ | serverTimestamp() |
+
+**Rules** :
+- Création : `isClient() && clientId == token && source == 'client'`
+- Lecture : admin/manager ou client propriétaire
+- Update/Delete : admin/manager uniquement
+
+### 9.2. Pièces jointes
+
+Disponibles sur deux flux : **demandes** (`clientRequests`) et **incidents** (`reports`).
+
+| Élément | Détail |
+|---|---|
+| Storage path | `clientUploads/{clientId}/{prefix}_{timestamp}_{filename}` |
+| Taille max | 5 Mo |
+| Formats acceptés | images, PDF, DOC/DOCX |
+| Champs Firestore | `attachmentUrl`, `attachmentPath`, `attachmentName` |
+
+**Rules Storage** : `clientUploads/{clientId}/*` — lecture/écriture par le client propriétaire ou admin/manager.
+
+### 9.3. Commentaires / Notes de suivi
+
+Disponibles sur **demandes** et **incidents** via sous-collection `comments`.
+
+**Modèle** : `{parentCollection}/{parentId}/comments/{commentId}`
+
+| Champ | Description |
+|---|---|
+| `text` | Contenu du commentaire |
+| `authorId` | ID de l'auteur |
+| `authorRole` | `client` ou `admin`/`support` |
+| `createdAt` | serverTimestamp() |
+
+**Rules** :
+- Lecture : admin/manager ou client authentifié
+- Création : client (avec authorId == token) ou admin/manager
+- Update/Delete : admin/manager uniquement
+
+**UX** : thread expandable sous chaque carte, distinction visuelle client (bleu) vs support (vert).
+
+### 9.4. Historique d'échanges
+
+- Dashboard : badges source (Client) et 📎 sur les items récents
+- Raccourci : « ⚠️ Signaler un incident » dans le Dashboard
+- Chaque carte incident/demande : thread de commentaires intégré
+- Statut visible : badge coloré cohérent avec statusMap
+
+### 9.5. Dépannage R19
+
+| Symptôme | Diagnostic | Action |
+|---|---|---|
+| Incident non créé | Rules bloquent | Vérifier source=='client' + clientId matche |
+| Upload échoue | Taille > 5 Mo ou Storage rules | Vérifier fichier < 5 Mo, Storage path `clientUploads/{clientId}/*` |
+| Commentaire non visible | Sub-collection vide ou rules | Vérifier sub-collection `comments` existe, rules OK |
+| 📎 absent sur Dashboard | Pas d'attachmentUrl | Le document n'a pas de pièce jointe |
