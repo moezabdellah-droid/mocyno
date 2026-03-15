@@ -24,6 +24,8 @@ export const ConsigneList = () => (
             </ReferenceField>
             <TextField source="targetId" label="ID Cible (Autre)" />
             <DateField source="createdAt" label="Créé le" showTime />
+            <TextField source="source" label="Origine" />
+            <TextField source="clientId" label="Client ID" />
         </Datagrid>
     </List>
 );
@@ -105,6 +107,8 @@ export const ConsigneShow = () => (
             <TextField source="title" variant="h5" />
             <TextField source="type" />
             <DateField source="createdAt" showTime />
+            <TextField source="source" label="Origine" />
+            <TextField source="clientId" label="Client ID" />
             <RichTextField source="content" />
         </SimpleShowLayout>
     </Show>

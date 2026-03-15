@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
+import { collection, query, where, getDocs, addDoc, orderBy, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import { logger, classifyError, toJsDate, formatDate } from '../utils/logger';
 
@@ -14,6 +14,7 @@ interface Consigne {
     content?: string;
     targetId?: string;
     siteName?: string;
+    source?: string;
     createdAt?: unknown;
     [key: string]: unknown;
 }
@@ -36,6 +37,13 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ clientId }) => {
     const [error, setError] = useState<string | null>(null);
     const [expandedId, setExpandedId] = useState<string | null>(null);
     const [typeFilter, setTypeFilter] = useState('all');
+    const [showForm, setShowForm] = useState(false);
+    const [formTitle, setFormTitle] = useState('');
+    const [formType, setFormType] = useState('site');
+    const [formContent, setFormContent] = useState('');
+    const [formSiteId, setFormSiteId] = useState('');
+    const [submitting, setSubmitting] = useState(false);
+    const [sitesMap, setSitesMap] = useState<Map<string, string>>(new Map());
 
 
 
@@ -101,6 +109,7 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ clientId }) => {
                 });
 
                 setConsignes(allConsignes);
+                setSitesMap(sitesMap);
             } catch (err) {
                 logger.error('ConsignesPage.fetch', err);
                 setError(classifyError(err));
@@ -110,6 +119,36 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ clientId }) => {
         };
         fetchConsignes();
     }, [clientId]);
+
+    const handleCreateConsigne = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!formTitle.trim() || !formSiteId) return;
+        setSubmitting(true);
+        try {
+            await addDoc(collection(db, 'consignes'), {
+                title: formTitle.trim(),
+                type: formType,
+                content: formContent.trim() || null,
+                targetId: formSiteId,
+                clientId,
+                source: 'client',
+                createdBy: clientId,
+                createdAt: serverTimestamp(),
+            });
+            setFormTitle('');
+            setFormContent('');
+            setFormSiteId('');
+            setShowForm(false);
+            // Refetch
+            setLoading(true);
+            window.location.reload();
+        } catch (err) {
+            logger.error('ConsignesPage.create', err);
+            alert('Erreur lors de la cr\u00e9ation de la consigne.');
+        } finally {
+            setSubmitting(false);
+        }
+    };
 
     const stripHtml = (html: string): string => {
         const div = document.createElement('div');
@@ -122,7 +161,53 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ clientId }) => {
 
     return (
         <div className="page-content">
-            <h2>Consignes</h2>
+            <div className="page-header">
+                <h2>Consignes</h2>
+                {sitesMap.size > 0 && (
+                    <button onClick={() => setShowForm(!showForm)} className="action-btn primary">
+                        {showForm ? 'Annuler' : '+ Ajouter une consigne'}
+                    </button>
+                )}
+            </div>
+
+            {showForm && (
+                <form onSubmit={handleCreateConsigne} className="inline-form">
+                    <p style={{fontSize:'0.8rem',color:'#9ca3af',marginBottom:'0.5rem'}}>
+                        ℹ️ Cette consigne sera marquée comme « ajoutée par le client ».
+                    </p>
+                    <div className="form-group">
+                        <label htmlFor="con-site">Site concerné *</label>
+                        <select id="con-site" value={formSiteId} onChange={e => setFormSiteId(e.target.value)} required>
+                            <option value="">— Sélectionnez un site —</option>
+                            {Array.from(sitesMap.entries()).map(([id, name]) => (
+                                <option key={id} value={id}>{name}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="form-row">
+                        <div className="form-group" style={{flex:2}}>
+                            <label htmlFor="con-title">Titre *</label>
+                            <input id="con-title" type="text" value={formTitle} onChange={e => setFormTitle(e.target.value)} required placeholder="Ex: Vérifier portail arrière" />
+                        </div>
+                        <div className="form-group" style={{flex:1}}>
+                            <label htmlFor="con-type">Type</label>
+                            <select id="con-type" value={formType} onChange={e => setFormType(e.target.value)}>
+                                <option value="site">Site</option>
+                                <option value="general">Générale</option>
+                                <option value="service">Service</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="con-content">Contenu</label>
+                        <textarea id="con-content" value={formContent} onChange={e => setFormContent(e.target.value)} rows={3} placeholder="Détail de la consigne (optionnel)" />
+                    </div>
+                    <button type="submit" disabled={submitting} className="action-btn primary">
+                        {submitting ? 'Envoi…' : 'Créer la consigne'}
+                    </button>
+                </form>
+            )}
+
             <div className="filter-bar">
                 <select className="filter-select" value={typeFilter} onChange={e => setTypeFilter(e.target.value)}>
                     <option value="all">Tous les types</option>
@@ -152,6 +237,7 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ clientId }) => {
                                 <div className="consigne-meta">
                                     <span className="consigne-site">{c.siteName}</span>
                                     <span className="consigne-date">{formatDate(c.createdAt)}</span>
+                                    {c.source === 'client' && <span className="doc-status doc-new">Client</span>}
                                     <span className="consigne-chevron">{expandedId === c.id ? '▲' : '▼'}</span>
                                 </div>
                             </div>

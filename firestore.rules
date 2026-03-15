@@ -41,7 +41,11 @@ service cloud.firestore {
     match /consignes/{consigneId} {
       allow read: if (isAuthenticated() && !isClient())
                   || (isClient() && resource.data.targetId == clientSiteId());
-      allow write: if isAdminOrManager();
+      allow create: if isAdminOrManager()
+                    || (isClient()
+                        && request.resource.data.clientId == clientTokenId()
+                        && request.resource.data.source == 'client');
+      allow update, delete: if isAdminOrManager();
     }
 
     // 2. AGENTS
