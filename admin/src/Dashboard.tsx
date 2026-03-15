@@ -32,7 +32,7 @@ const Dashboard = () => {
             try {
                 // Direct call to dataProvider to bypass potential hook issues
                 const { data } = await dataProvider.getList('planning', {
-                    pagination: { page: 1, perPage: 1000 },
+                    pagination: { page: 1, perPage: 200 }, // A22 — reduced from 1000
                     sort: { field: 'createdAt', order: 'DESC' },
                     filter: {}
                 });

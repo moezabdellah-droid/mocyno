@@ -50,14 +50,14 @@ const Planning = () => {
     // Firestore cannot query nested array fields. The calendar view handles visual filtering natively.
     // perPage will be reduced in FIX 3.
     const { data: events, isLoading: isLoadingEvents } = useRobustGetList<Mission>('planning', {
-        pagination: { page: 1, perPage: 1000 },
+        pagination: { page: 1, perPage: 200 }, // A22 — reduced from 1000
         filter: {},
         sort: { field: 'id', order: 'ASC' }
     });
 
     // Robust hooks for resources
-    const { data: sites } = useRobustGetList<Site>('sites', { pagination: { page: 1, perPage: 1000 } });
-    const { data: agents } = useRobustGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
+    const { data: sites } = useRobustGetList<Site>('sites', { pagination: { page: 1, perPage: 500 } }); // A22
+    const { data: agents } = useRobustGetList<Agent>('agents', { pagination: { page: 1, perPage: 500 } }); // A22
 
     // const dataProvider = useDataProvider();
     const refresh = useRefresh();

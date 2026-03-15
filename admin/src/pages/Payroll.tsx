@@ -23,8 +23,8 @@ import { useRobustGetList } from '../hooks/useRobustGetList';
 
 const Payroll = () => {
     // Robust hooks (replacing manual fetch)
-    const { data: planning, isLoading: loadingPlanning } = useRobustGetList<Mission>('planning', { pagination: { page: 1, perPage: 1000 } });
-    const { data: agents, isLoading: loadingAgents } = useRobustGetList<Agent>('agents', { pagination: { page: 1, perPage: 1000 } });
+    const { data: planning, isLoading: loadingPlanning } = useRobustGetList<Mission>('planning', { pagination: { page: 1, perPage: 200 } }); // A22
+    const { data: agents, isLoading: loadingAgents } = useRobustGetList<Agent>('agents', { pagination: { page: 1, perPage: 500 } }); // A22
 
     const notify = useNotify();
     const [sendingEmail, setSendingEmail] = useState<string | null>(null);
