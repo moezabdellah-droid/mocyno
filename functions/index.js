@@ -761,6 +761,8 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
  */
 exports.createClient = onCall({ region: "europe-west1" }, async (request) => {
   requireAdminOrManager(request);
+  const caller = request.auth?.uid || 'unknown';
+  console.log(`[createClient] Called by ${caller}`);
 
   const { email, password, firstName, lastName, siteId, companyName } = request.data;
 
@@ -778,6 +780,7 @@ exports.createClient = onCall({ region: "europe-west1" }, async (request) => {
     throw new HttpsError("invalid-argument", "Nom requis.");
   }
   if (!siteId || typeof siteId !== "string") {
+    console.warn(`[createClient] Validation refused: missing siteId (caller=${caller})`);
     throw new HttpsError("invalid-argument", "siteId requis.");
   }
 
@@ -795,7 +798,7 @@ exports.createClient = onCall({ region: "europe-west1" }, async (request) => {
     let isNewUser = false;
     try {
       userRecord = await admin.auth().getUserByEmail(email);
-      console.log(`Client auth account already exists: ${email}, updating...`);
+      console.log(`[createClient] Existing auth user found: ${email}, uid=${userRecord.uid}, updating...`);
       await admin.auth().updateUser(userRecord.uid, {
         password,
         displayName: `${firstName} ${lastName}`,
@@ -843,7 +846,7 @@ exports.createClient = onCall({ region: "europe-west1" }, async (request) => {
       authorizedClients: admin.firestore.FieldValue.arrayUnion(clientId),
     });
 
-    console.log(`Client provisioned: ${email} → clients/${clientId}, site ${siteId}`);
+    console.log(`[createClient] Success: ${email} → clients/${clientId}, site=${siteId}, ${isNewUser ? 'new' : 'existing'} auth user`);
 
     return {
       uid: userRecord.uid,
@@ -853,7 +856,7 @@ exports.createClient = onCall({ region: "europe-west1" }, async (request) => {
         : `Compte client existant mis à jour : ${email} → clients/${clientId}`,
     };
   } catch (error) {
-    console.error("Error creating client:", error);
+    console.error(`[createClient] Error for ${email}:`, error.message || error);
     if (error instanceof HttpsError) throw error;
     throw new HttpsError("internal", `Erreur provisioning client : ${error.message}`);
   }
@@ -871,8 +874,10 @@ exports.createClient = onCall({ region: "europe-west1" }, async (request) => {
  */
 exports.getDocumentSignedUrl = onCall({ region: "europe-west1" }, async (request) => {
   if (!request.auth) {
+    console.warn('[getDocumentSignedUrl] Unauthenticated call rejected');
     throw new HttpsError("unauthenticated", "Authentification requise.");
   }
+  const caller = request.auth.uid;
 
   const callerClientId = request.auth.token.clientId;
   const callerRole = request.auth.token.role;
@@ -888,6 +893,7 @@ exports.getDocumentSignedUrl = onCall({ region: "europe-west1" }, async (request
   // Read the document metadata from Firestore
   const docSnap = await admin.firestore().collection("documents").doc(documentId).get();
   if (!docSnap.exists) {
+    console.warn(`[getDocumentSignedUrl] Not found: documentId=${documentId}, caller=${caller}`);
     throw new HttpsError("not-found", "Document introuvable.");
   }
 
@@ -896,12 +902,15 @@ exports.getDocumentSignedUrl = onCall({ region: "europe-west1" }, async (request
   // Access check
   if (!isAdminOrMgr) {
     if (callerRole !== "client" || !callerClientId) {
+      console.warn(`[getDocumentSignedUrl] Access denied: non-client role=${callerRole}, caller=${caller}`);
       throw new HttpsError("permission-denied", "Accès refusé.");
     }
     if (docData.clientId !== callerClientId) {
+      console.warn(`[getDocumentSignedUrl] Access denied: clientId mismatch, doc=${docData.clientId}, caller=${callerClientId}`);
       throw new HttpsError("permission-denied", "Ce document ne vous appartient pas.");
     }
     if (!docData.visibility || docData.visibility.client !== true) {
+      console.warn(`[getDocumentSignedUrl] Access denied: doc not visible to client, documentId=${documentId}`);
       throw new HttpsError("permission-denied", "Document non visible pour les clients.");
     }
   }
@@ -925,6 +934,7 @@ exports.getDocumentSignedUrl = onCall({ region: "europe-west1" }, async (request
     expires: Date.now() + 15 * 60 * 1000, // 15 minutes
   });
 
+  console.log(`[getDocumentSignedUrl] Success: documentId=${documentId}, caller=${caller}`);
   return { url };
 });
 
@@ -937,8 +947,10 @@ exports.getDocumentSignedUrl = onCall({ region: "europe-west1" }, async (request
  */
 exports.getAgentBadgeSignedUrl = onCall({ region: "europe-west1" }, async (request) => {
   if (!request.auth) {
+    console.warn('[getAgentBadgeSignedUrl] Unauthenticated call rejected');
     throw new HttpsError("unauthenticated", "Authentification requise.");
   }
+  const caller = request.auth.uid;
 
   const callerClientId = request.auth.token.clientId;
   const callerRole = request.auth.token.role;
@@ -963,6 +975,7 @@ exports.getAgentBadgeSignedUrl = onCall({ region: "europe-west1" }, async (reque
       .get();
 
     if (segSnap.empty) {
+      console.warn(`[getAgentBadgeSignedUrl] Access denied: no shiftSegment for client=${callerClientId}, agent=${agentId}`);
       throw new HttpsError("permission-denied", "Cet agent n'est pas affecté à vos sites.");
     }
   }
@@ -992,6 +1005,7 @@ exports.getAgentBadgeSignedUrl = onCall({ region: "europe-west1" }, async (reque
     expires: Date.now() + 15 * 60 * 1000,
   });
 
+  console.log(`[getAgentBadgeSignedUrl] Success: agentId=${agentId}, caller=${caller}`);
   return { url };
 });
 
