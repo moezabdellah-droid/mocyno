@@ -64,6 +64,14 @@
         { "fieldPath": "clientId", "order": "ASCENDING" },
         { "fieldPath": "startTimestamp", "order": "DESCENDING" }
       ]
+    },
+    {
+      "collectionGroup": "documentDownloads",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "clientId", "order": "ASCENDING" },
+        { "fieldPath": "downloadedAt", "order": "DESCENDING" }
+      ]
     }
   ],
   "fieldOverrides": []

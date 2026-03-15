@@ -127,6 +127,13 @@ service cloud.firestore {
       allow write: if isAdminOrManager();
     }
 
+    // 12. DOCUMENT DOWNLOADS — traçabilité téléchargements (R15)
+    match /documentDownloads/{downloadId} {
+      allow read: if isAdminOrManager()
+                  || (isClient() && resource.data.clientId == clientTokenId());
+      allow write: if isAdminOrManager();
+    }
+
     // Default
     match /{document=**} {
       allow read, write: if false;

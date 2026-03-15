@@ -935,6 +935,22 @@ exports.getDocumentSignedUrl = onCall({ region: "europe-west1" }, async (request
   });
 
   console.log(`[getDocumentSignedUrl] Success: documentId=${documentId}, caller=${caller}`);
+
+  // R15 — Download traceability (fire-and-forget, non-blocking)
+  try {
+    await admin.firestore().collection("documentDownloads").add({
+      documentId,
+      clientId: docData.clientId || null,
+      callerUid: caller,
+      callerRole: callerRole || 'unknown',
+      documentName: docData.name || null,
+      documentType: docData.type || null,
+      downloadedAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+  } catch (traceErr) {
+    console.warn(`[getDocumentSignedUrl] Trace write failed (non-blocking): ${traceErr.message}`);
+  }
+
   return { url };
 });
 
