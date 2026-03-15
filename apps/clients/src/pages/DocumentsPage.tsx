@@ -3,6 +3,7 @@ import { collection, query, where, getDocs, orderBy, limit } from 'firebase/fire
 import { httpsCallable } from 'firebase/functions';
 import { db, functions } from '../firebase';
 import { logger, classifyError, formatDate } from '../utils/logger';
+import { exportCSV, csvDate, todayISO } from '../utils/csvExport';
 
 interface DocumentsPageProps {
     clientId: string;
@@ -131,7 +132,19 @@ const DocumentsPage: React.FC<DocumentsPageProps> = ({ clientId }) => {
 
     return (
         <div className="page-content">
-            <h2>Documents</h2>
+            <div className="page-header">
+                <h2>Documents</h2>
+                {documents.length > 0 && <button onClick={() => {
+                    const fmtSize = (b?: number) => !b || b <= 0 ? '' : b < 1024 ? `${b} o` : b < 1024*1024 ? `${(b/1024).toFixed(0)} Ko` : `${(b/(1024*1024)).toFixed(1)} Mo`;
+                    exportCSV(documents.map(d => ({
+                        nom: d.name, type: d.type || '', taille: fmtSize(d.fileSize),
+                        date: csvDate(d.uploadedAt || d.createdAt),
+                        consulte: downloadHistory.has(d.id) ? 'Oui' : 'Non',
+                    })),
+                        [{ key: 'nom', label: 'Nom' }, { key: 'type', label: 'Type' }, { key: 'taille', label: 'Taille' }, { key: 'date', label: 'Date' }, { key: 'consulte', label: 'Consulté' }],
+                        `mocyno-documents-${todayISO()}.csv`);
+                }} className="action-btn">⬇ CSV</button>}
+            </div>
             <div className="filter-bar">
                 <input type="text" className="filter-input" placeholder="Rechercher par nom ou type…" value={search} onChange={e => setSearch(e.target.value)} />
                 <span className="filter-count">{filtered.length} / {documents.length}</span>

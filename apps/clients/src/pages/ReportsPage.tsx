@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
 import { logger, classifyError, formatDate } from '../utils/logger';
+import { exportCSV, csvDate, todayISO } from '../utils/csvExport';
 
 interface ReportsPageProps {
     clientId: string;
@@ -63,7 +64,14 @@ const ReportsPage: React.FC<ReportsPageProps> = ({ clientId }) => {
 
     return (
         <div className="page-content">
-            <h2>Incidents</h2>
+            <div className="page-header">
+                <h2>Incidents</h2>
+                {reports.length > 0 && <button onClick={() => {
+                    exportCSV(reports.map(r => ({ titre: r.title, statut: statusLabel(r.status), type: r.type || '', date: csvDate(r.createdAt), description: r.description || '' })),
+                        [{ key: 'titre', label: 'Titre' }, { key: 'statut', label: 'Statut' }, { key: 'type', label: 'Type' }, { key: 'date', label: 'Date' }, { key: 'description', label: 'Description' }],
+                        `mocyno-incidents-${todayISO()}.csv`);
+                }} className="action-btn">⬇ CSV</button>}
+            </div>
             <div className="filter-bar">
                 <select className="filter-select" value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
                     <option value="all">Tous les statuts</option>

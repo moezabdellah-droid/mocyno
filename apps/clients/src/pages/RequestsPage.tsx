@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, query, where, getDocs, addDoc, orderBy, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import { logger, classifyError, formatDate } from '../utils/logger';
+import { exportCSV, csvDate, todayISO } from '../utils/csvExport';
 
 interface RequestsPageProps {
     clientId: string;
@@ -92,9 +93,16 @@ const RequestsPage: React.FC<RequestsPageProps> = ({ clientId }) => {
         <div className="page-content">
             <div className="page-header">
                 <h2>Demandes</h2>
-                <button onClick={() => setShowForm(!showForm)} className="action-btn primary">
-                    {showForm ? 'Annuler' : '+ Nouvelle demande'}
-                </button>
+                <div style={{display:'flex',gap:'0.5rem'}}>
+                    {requests.length > 0 && <button onClick={() => {
+                        exportCSV(requests.map(r => ({ titre: r.title, statut: statusLabel(r.status), priorite: r.priority || '', date: csvDate(r.createdAt), message: r.message || '' })),
+                            [{ key: 'titre', label: 'Titre' }, { key: 'statut', label: 'Statut' }, { key: 'priorite', label: 'Priorité' }, { key: 'date', label: 'Date' }, { key: 'message', label: 'Message' }],
+                            `mocyno-demandes-${todayISO()}.csv`);
+                    }} className="action-btn">⬇ CSV</button>}
+                    <button onClick={() => setShowForm(!showForm)} className="action-btn primary">
+                        {showForm ? 'Annuler' : '+ Nouvelle demande'}
+                    </button>
+                </div>
             </div>
 
             <div className="filter-bar">

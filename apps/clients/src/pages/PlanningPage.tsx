@@ -3,6 +3,7 @@ import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { httpsCallable } from 'firebase/functions';
 import { db, functions } from '../firebase';
 import { logger, classifyError, formatDate, formatTime } from '../utils/logger';
+import { exportCSV, csvDateTime, todayISO } from '../utils/csvExport';
 
 interface PlanningPageProps {
     clientId: string;
@@ -76,9 +77,31 @@ const PlanningPage: React.FC<PlanningPageProps> = ({ clientId }) => {
     if (loading) return <div className="page-loading">Chargement du planning…</div>;
     if (error) return <div className="page-error">{error}</div>;
 
+    const handleExportCSV = () => {
+        const rows = segments.map(s => ({
+            date: csvDateTime(s.startTimestamp).split(' ')[0] || '',
+            debut: csvDateTime(s.startTimestamp).split(' ')[1] || '',
+            fin: csvDateTime(s.endTimestamp).split(' ')[1] || '',
+            agent: s.agentName || s.agentId,
+            site: s.siteName || s.siteId,
+            statut: s.status,
+        }));
+        exportCSV(rows, [
+            { key: 'date', label: 'Date' },
+            { key: 'debut', label: 'Début' },
+            { key: 'fin', label: 'Fin' },
+            { key: 'agent', label: 'Agent' },
+            { key: 'site', label: 'Site' },
+            { key: 'statut', label: 'Statut' },
+        ], `mocyno-planning-${todayISO()}.csv`);
+    };
+
     return (
         <div className="page-content">
-            <h2>Planning</h2>
+            <div className="page-header">
+                <h2>Planning</h2>
+                {segments.length > 0 && <button onClick={handleExportCSV} className="action-btn">⬇ Exporter CSV</button>}
+            </div>
             {segments.length === 0 ? (
                 <p className="empty-state">Aucun créneau planifié pour le moment.</p>
             ) : (
