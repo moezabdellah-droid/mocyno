@@ -9,14 +9,16 @@ import SitesPage from './pages/SitesPage';
 import DocumentsPage from './pages/DocumentsPage';
 import RequestsPage from './pages/RequestsPage';
 import ReportsPage from './pages/ReportsPage';
+import ConsignesPage from './pages/ConsignesPage';
 import './index.css';
 
-type Tab = 'planning' | 'sites' | 'documents' | 'requests' | 'reports';
+type Tab = 'planning' | 'sites' | 'documents' | 'consignes' | 'requests' | 'reports';
 
 const tabs: { key: Tab; label: string }[] = [
     { key: 'planning', label: 'Planning' },
     { key: 'sites', label: 'Sites' },
     { key: 'documents', label: 'Documents' },
+    { key: 'consignes', label: 'Consignes' },
     { key: 'requests', label: 'Demandes' },
     { key: 'reports', label: 'Incidents' },
 ];
@@ -89,6 +91,7 @@ const App: React.FC = () => {
                 {activeTab === 'planning' && <PlanningPage clientId={clientId} />}
                 {activeTab === 'sites' && <SitesPage clientId={clientId} />}
                 {activeTab === 'documents' && <DocumentsPage clientId={clientId} />}
+                {activeTab === 'consignes' && <ConsignesPage clientId={clientId} />}
                 {activeTab === 'requests' && <RequestsPage clientId={clientId} />}
                 {activeTab === 'reports' && <ReportsPage clientId={clientId} />}
             </main>
