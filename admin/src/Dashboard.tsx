@@ -184,9 +184,33 @@ const Dashboard = () => {
         };
     }, [reports, requests, consignes, clients, days]);
 
-    // ─── Alerts (FIX 4) ─────────────────────────────────────────────────────
+    // ─── Alerts — support + exploitation anomalies (A24 FIX 4 + A25 FIX 3) ────
     const alerts = useMemo(() => {
         const items: { label: string; badge: string; to: string; color: string }[] = [];
+
+        // Exploitation anomalies (A25)
+        if (planning) {
+            const now = moment();
+            const missionsNoAgent = planning.filter(m => {
+                if (!m.agentAssignments || m.agentAssignments.length === 0) return true;
+                return m.agentAssignments.every((a: AgentAssignment) => !a.agentId);
+            });
+            const activeFutureMissionsNoAgent = missionsNoAgent.filter(m => {
+                if (!m.agentAssignments || m.agentAssignments.length === 0) return true;
+                let latestEnd = 0;
+                m.agentAssignments.forEach((a: AgentAssignment) => {
+                    a.vacations.forEach((v: Vacation) => {
+                        const end = moment(`${v.date}T${v.end}`).valueOf();
+                        if (end > latestEnd) latestEnd = end;
+                    });
+                });
+                return latestEnd === 0 || latestEnd > now.valueOf();
+            });
+            if (activeFutureMissionsNoAgent.length > 0)
+                items.push({ label: `${activeFutureMissionsNoAgent.length} mission(s) sans agent affecté`, badge: '⚠️', to: '/planning?view=list', color: '#e65100' });
+        }
+
+        // Support alerts
         if (supportStats.criticalIncidents > 0)
             items.push({ label: `${supportStats.criticalIncidents} incident(s) critique(s) ouvert(s)`, badge: '🔴', to: '/reports?filter=%7B%22status%22%3A%22open%22%7D', color: '#d32f2f' });
         if (supportStats.urgentRequests > 0)
@@ -196,7 +220,7 @@ const Dashboard = () => {
         if (supportStats.pendingRequests > 0)
             items.push({ label: `${supportStats.pendingRequests} demande(s) en attente de traitement`, badge: '📋', to: '/clientRequests?filter=%7B%22status%22%3A%22pending%22%7D', color: '#1976d2' });
         return items;
-    }, [supportStats]);
+    }, [supportStats, planning]);
 
     // ─── Recent activity (FIX 4) ─────────────────────────────────────────────
     const recentActivity = useMemo(() => {
