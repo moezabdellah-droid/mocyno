@@ -90,7 +90,49 @@ Le Dashboard est le cockpit principal. Il affiche :
 | Incident non visible | Filtre actif | Vérifier les filtres actifs |
 | "Permission denied" | Rôle non admin | Vérifier `agents/{uid}.role = admin` |
 
-## 7. Architecture technique
+## 7. Observabilité & Audit (A27)
+
+### Actions auditées
+
+| Action | Déclencheur | Cible |
+|---|---|---|
+| `createAgent` | Cloud Function | Agent |
+| `createClient` | Cloud Function | Client |
+| `updateAgentPassword` | Cloud Function | Agent |
+| `generateMatricule` | Cloud Function | Agent |
+
+### Collection `auditLogs`
+
+Chaque entrée contient :
+- `action` — identifiant de l'action
+- `actorUid` — UID de l'auteur
+- `actorRole` — rôle de l'auteur (admin/manager)
+- `targetType` — type de la cible (agent/client)
+- `targetId` — ID de la cible
+- `summary` — résumé non sensible
+- `createdAt` — timestamp serveur
+
+### Ressource Admin
+
+Accessible via 🔍 **Journal d'Audit** dans le menu. Filtres : action, type cible, UID auteur, ID cible.
+
+### Données volontairement exclues
+
+- Mots de passe
+- Tokens / secrets
+- Contenus de messages clients
+- Payloads complets
+
+### Diagnostic
+
+| Cas | Où regarder |
+|---|---|
+| Création agent/client | 🔍 Journal d'Audit → filtre action |
+| Changement MDP | 🔍 Journal d'Audit → `updateAgentPassword` |
+| Logs techniques functions | Firebase Console → Functions → Logs |
+| Erreurs UI | Console navigateur (diagnostics catégorisés `[DataProvider]`, `[Auth]`, `[Proxy]`) |
+
+## 8. Architecture technique
 
 - **Frontend** : React Admin + Material UI + Vite
 - **Backend** : Firebase (Firestore, Cloud Functions, Auth, Storage, Hosting)
