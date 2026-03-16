@@ -9,9 +9,9 @@ const consigneTypes = [
 ];
 
 const consigneStatuses = [
-    { id: 'pending', name: 'En attente' },
-    { id: 'approved', name: 'Validée' },
-    { id: 'rejected', name: 'Refusée' },
+    { id: 'pending', name: '🟡 En attente' },
+    { id: 'approved', name: '✅ Validée' },
+    { id: 'rejected', name: '❌ Refusée' },
 ];
 
 const sourceChoices = [

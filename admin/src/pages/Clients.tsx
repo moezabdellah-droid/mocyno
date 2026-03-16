@@ -13,14 +13,24 @@ import { getFunctions, httpsCallable } from 'firebase/functions';
  * Création via callable createClient (provisioning industrialisé).
  */
 
+const clientFilters = [
+    <TextInput key="companyName" source="companyName" label="Société" alwaysOn />,
+    <SelectInput key="status" source="status" label="Statut" choices={[
+        { id: 'active', name: '🟢 Actif' },
+        { id: 'inactive', name: '🔴 Inactif' },
+    ]} />,
+];
+
 export const ClientList = () => (
-    <List resource="clients" exporter={false} sort={{ field: 'provisionedAt', order: 'DESC' }}>
+    <List resource="clients" exporter={false} sort={{ field: 'provisionedAt', order: 'DESC' }} filters={clientFilters}>
         <Datagrid rowClick="show" bulkActionButtons={false}>
             <TextField source="firstName" label="Prénom" />
             <TextField source="lastName" label="Nom" />
             <EmailField source="email" />
             <TextField source="companyName" label="Société" />
-            <TextField source="status" label="Statut" />
+            <FunctionField label="Statut" render={(record: Record<string, unknown>) =>
+                record.status === 'active' ? '🟢 Actif' : '🔴 Inactif'
+            } />
             <FunctionField label="Accès portail" render={(record: Record<string, unknown>) =>
                 record.portalAccess ? '✅ Actif' : '❌ Désactivé'
             } />
