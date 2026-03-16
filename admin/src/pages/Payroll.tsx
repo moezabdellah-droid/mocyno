@@ -125,7 +125,20 @@ const Payroll = () => {
                 <Button
                     variant="contained"
                     startIcon={<DownloadIcon />}
-                    onClick={() => alert("csv export todo")}
+                    onClick={() => {
+                        if (!stats.length) return;
+                        const header = 'Nom;Prénom;Matricule;Email;Statut;Contrat;Heures effectuées;Heures planifiées;Heures nuit;Heures dimanche;Heures férié\n';
+                        const rows = stats.map(({ agent, totalDone, futureHours, nightHours, sundayHours, holidayHours }) =>
+                            `${agent.lastName || ''};${agent.firstName || ''};${agent.matricule || ''};${agent.email || ''};${agent.status || ''};${(agent as unknown as { contractNature?: string }).contractNature || ''};${totalDone.toFixed(1)};${futureHours.toFixed(1)};${nightHours.toFixed(1)};${sundayHours.toFixed(1)};${holidayHours.toFixed(1)}`
+                        ).join('\n');
+                        const blob = new Blob(['\uFEFF' + header + rows], { type: 'text/csv;charset=utf-8;' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `export-rh-${new Date().toISOString().slice(0, 10)}.csv`;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                    }}
                     sx={{ backgroundColor: '#CD1A20' }}
                 >
                     Export Global CSV
