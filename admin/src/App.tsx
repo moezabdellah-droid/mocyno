@@ -14,6 +14,7 @@ import { DocumentDownloadList } from './pages/DocumentDownloads';
 import { ClientRequestList, ClientRequestShow, ClientRequestEdit } from './pages/ClientRequests';
 import { ReportList, ReportShow, ReportEdit } from './pages/Reports';
 import { DocumentList, DocumentShow } from './pages/Documents';
+import { AuditLogList } from './pages/AuditLogs';
 
 // Debug proxy — active uniquement en développement local
 function withDebugProxy<T extends object>(provider: T): T {
@@ -70,6 +71,7 @@ const App = () => (
     <Resource name="documents" list={DocumentList} show={DocumentShow} options={{ label: '📄 Documents' }} />
     <Resource name="clientRequests" list={ClientRequestList} show={ClientRequestShow} edit={ClientRequestEdit} options={{ label: '📩 Demandes' }} />
     <Resource name="documentDownloads" list={DocumentDownloadList} options={{ label: '📥 Téléchargements' }} />
+    <Resource name="auditLogs" list={AuditLogList} options={{ label: '🔍 Journal d\'Audit' }} />
   </Admin>
 );
 
