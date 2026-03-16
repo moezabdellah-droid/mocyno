@@ -27,7 +27,6 @@ import { useRobustGetList } from '../hooks/useRobustGetList';
 import {
     getEventRange,
     calculateMissionPeriod,
-    calculateAgentDurationInMission,
     calculateMissionDuration
 } from '../utils/planningDurations';
 import rawDataProvider from '../providers/dataProvider'; // DIRECT IMPORT
@@ -407,21 +406,32 @@ const Planning = () => {
                     {tabValue === 1 && (
                         <List resource="planning" actions={false} title=" ">
                             <Datagrid bulkActionButtons={false} rowClick={handleRowClick}>
+                                <FunctionField
+                                    label="Statut"
+                                    render={(record: Mission) => {
+                                        const { start, end } = calculateMissionPeriod(record);
+                                        if (!start || !end) return <Typography variant="body2" sx={{ color: '#999' }}>⚪ Vide</Typography>;
+                                        const now = new Date();
+                                        if (now > end) return <Typography variant="body2" sx={{ color: '#2e7d32', fontWeight: 'bold' }}>✅ Terminée</Typography>;
+                                        if (now >= start && now <= end) return <Typography variant="body2" sx={{ color: '#ed6c02', fontWeight: 'bold' }}>🔥 En cours</Typography>;
+                                        return <Typography variant="body2" sx={{ color: '#1976d2', fontWeight: 'bold' }}>📅 À venir</Typography>;
+                                    }}
+                                />
+
                                 <RaTextField source="siteName" label="Site" />
 
                                 <FunctionField
                                     label="Période"
                                     render={(record: Mission) => {
                                         const { start, end } = calculateMissionPeriod(record);
-                                        if (!start || !end) return '-';
-
+                                        if (!start || !end) return '—';
                                         return (
                                             <Box>
                                                 <Typography variant="body2" component="div">
-                                                    Du {start.toLocaleDateString()} {start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                    {start.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })} {start.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
                                                 </Typography>
-                                                <Typography variant="body2" component="div">
-                                                    Au {end.toLocaleDateString()} {end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                <Typography variant="body2" component="div" color="text.secondary">
+                                                    → {end.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })} {end.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
                                                 </Typography>
                                             </Box>
                                         );
@@ -429,33 +439,27 @@ const Planning = () => {
                                 />
 
                                 <FunctionField
-                                    label="Agents & Heures"
+                                    label="Agents"
                                     render={(record: Mission) => {
+                                        const count = record.agentAssignments?.length || 0;
+                                        if (count === 0) return <Typography variant="body2" color="error">⚠️ Aucun</Typography>;
+                                        const names = record.agentAssignments?.map((a: AgentAssignment) => a.agentName || '?').join(', ');
                                         return (
-                                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                                                {record.agentAssignments?.map((assignment: AgentAssignment, idx: number) => {
-                                                    const { hours, minutes } = calculateAgentDurationInMission(record, assignment.agentId);
-                                                    const timeStr = minutes > 0 ? `${hours}h${minutes} ` : `${hours} h`;
-
-                                                    return (
-                                                        <Typography key={idx} variant="body2" noWrap>
-                                                            • <strong>{assignment.agentName}</strong>: {timeStr}
-                                                        </Typography>
-                                                    );
-                                                })}
+                                            <Box>
+                                                <Typography variant="body2" fontWeight="bold">{count} agent{count > 1 ? 's' : ''}</Typography>
+                                                <Typography variant="caption" color="text.secondary" noWrap sx={{ maxWidth: 200, display: 'block' }}>{names}</Typography>
                                             </Box>
                                         );
                                     }}
                                 />
 
                                 <FunctionField
-                                    label="Total Mission"
+                                    label="Total"
                                     render={(record: Mission) => {
                                         const { hours, minutes } = calculateMissionDuration(record);
-
                                         return (
                                             <Typography variant="body1" fontWeight="bold">
-                                                {minutes > 0 ? `${hours}h${minutes} ` : `${hours} h`}
+                                                {minutes > 0 ? `${hours}h${minutes}` : `${hours}h`}
                                             </Typography>
                                         );
                                     }}
