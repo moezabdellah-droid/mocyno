@@ -42,6 +42,26 @@ async function requireAdminOrManager(request) {
 }
 // ─────────────────────────────────────────────────────────────────────────────
 
+// ─── A27 — Audit Trail Helper ────────────────────────────────────────────────
+// Writes a structured, minimal audit entry to auditLogs collection.
+// Never logs secrets, passwords, tokens, or full payloads.
+async function writeAuditLog({ action, actorUid, actorRole, targetType, targetId, summary }) {
+  try {
+    await admin.firestore().collection("auditLogs").add({
+      action,
+      actorUid: actorUid || "system",
+      actorRole: actorRole || "unknown",
+      targetType: targetType || null,
+      targetId: targetId || null,
+      summary: summary || "",
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+  } catch (err) {
+    console.error("[AuditLog] Write failed (non-blocking):", err.message);
+  }
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 // Resend lazy init — key read at call time (compatible with Secret Manager)
 let _resend = null;
 function getResend() {
@@ -222,6 +242,16 @@ exports.createAgent = onCall({ region: "europe-west1" }, async (request) => {
 
     // A21 — Set custom claims for the new agent (aligns with token-based RBAC)
     await admin.auth().setCustomUserClaims(userRecord.uid, { role: "agent" });
+
+    // A27 — Audit trail
+    await writeAuditLog({
+      action: "createAgent",
+      actorUid: request.auth.uid,
+      actorRole: request.auth.token.role || "admin",
+      targetType: "agent",
+      targetId: userRecord.uid,
+      summary: `Agent ${firstName} ${lastName} (${email}) créé, matricule=${matricule}`,
+    });
 
     return {
       uid: userRecord.uid,
@@ -573,6 +603,17 @@ exports.generateMatricule = onCall({ region: "europe-west1" }, async (request) =
     });
 
     await agentRef.update({ matricule });
+
+    // A27 — Audit trail
+    await writeAuditLog({
+      action: "generateMatricule",
+      actorUid: request.auth.uid,
+      actorRole: request.auth.token.role || "admin",
+      targetType: "agent",
+      targetId: agentId,
+      summary: `Matricule ${matricule} généré`,
+    });
+
     return { matricule, message: "Matricule generated successfully." };
   } catch (error) {
     console.error("Error generating matricule:", error);
@@ -617,7 +658,16 @@ exports.updateAgentPassword = onCall({ region: "europe-west1" }, async (request)
     }
 
     await admin.auth().updateUser(agentId, { password: newPassword });
-    console.log(`[A21] Password updated for agent ${agentId} (role=${targetRole}) by ${request.auth.uid}`);
+
+    // A27 — Audit trail (password NOT logged)
+    await writeAuditLog({
+      action: "updateAgentPassword",
+      actorUid: request.auth.uid,
+      actorRole: request.auth.token.role || "admin",
+      targetType: "agent",
+      targetId: agentId,
+      summary: `Mot de passe agent (role=${targetRole}) modifié`,
+    });
 
     return { success: true, message: "Password updated successfully." };
   } catch (error) {
@@ -882,6 +932,16 @@ exports.createClient = onCall({ region: "europe-west1" }, async (request) => {
     });
 
     console.log(`[createClient] Success: ${email} → clients/${clientId}, site=${siteId}, ${isNewUser ? 'new' : 'existing'} auth user`);
+
+    // A27 — Audit trail
+    await writeAuditLog({
+      action: "createClient",
+      actorUid: caller,
+      actorRole: request.auth.token.role || "admin",
+      targetType: "client",
+      targetId: clientId,
+      summary: `Client ${firstName} ${lastName} (${email}) provisionné, site=${siteId}`,
+    });
 
     return {
       uid: userRecord.uid,
