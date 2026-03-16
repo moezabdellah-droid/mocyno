@@ -223,8 +223,27 @@ const AgentDownloadButtons = () => {
     );
 };
 
+const statusChoices = [
+    { id: 'active', name: '🟢 Actif' },
+    { id: 'inactive', name: '🔴 Inactif' },
+];
+
+const contractChoices = [
+    { id: 'CDI', name: 'CDI' },
+    { id: 'CDD', name: 'CDD' },
+    { id: 'SAISONNIER', name: 'Saisonnier' },
+    { id: 'EXTRA', name: 'Extra / Vacation' },
+    { id: 'INTERIM', name: 'Intérim' },
+];
+
+const agentFilters = [
+    <SelectInput key="status" source="status" label="Statut" choices={statusChoices} alwaysOn />,
+    <TextInput key="lastName" source="lastName" label="Nom" alwaysOn />,
+    <SelectInput key="contractNature" source="contractNature" label="Contrat" choices={contractChoices} />,
+];
+
 export const AgentList = () => (
-    <List resource="agents">
+    <List resource="agents" filters={agentFilters} sort={{ field: 'lastName', order: 'ASC' }}>
         <Datagrid rowClick="edit" bulkActionButtons={false}>
             <FunctionField label="Photo" render={(record: Agent) =>
                 record.photoURL ? <img src={record.photoURL} style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }} alt="" /> : null
@@ -232,10 +251,13 @@ export const AgentList = () => (
             <TextField source="matricule" label="Matricule" />
             <TextField source="firstName" label="Prénom" />
             <TextField source="lastName" label="Nom" />
+            <FunctionField label="Statut" render={(record: Agent) =>
+                record.status === 'active' ? '🟢 Actif' : '🔴 Inactif'
+            } />
             <TextField source="professionalCardNumber" label="Carte Pro" />
             <EmailField source="email" />
-            <FunctionField label="Spécialités" render={(record: Agent) => record.specialties ? record.specialties.join(', ') : ''} />
-            <TextField source="status" />
+            <FunctionField label="Spécialités" render={(record: Agent) => record.specialties ? record.specialties.join(', ') : '—'} />
+            <TextField source="contractNature" label="Contrat" />
             <DateField source="createdAt" label="Créé le" />
         </Datagrid>
     </List>
