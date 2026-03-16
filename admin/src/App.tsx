@@ -22,11 +22,11 @@ function withDebugProxy<T extends object>(provider: T): T {
       const value = target[prop as keyof typeof target];
       if (typeof value === 'function') {
         return async (...args: unknown[]) => {
-          console.log(`[Proxy] Calling ${String(prop)} with:`, args);
+          // Proxy intercept — only log errors, not every call
           try {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const result = await (value as (...a: unknown[]) => unknown).apply(target, args as any);
-            console.log(`[Proxy] ${String(prop)} returned:`, result);
+
             if (result === null || result === undefined) {
               console.error(`[Proxy] VIOLATION: ${String(prop)} returned null/undefined!`);
             }

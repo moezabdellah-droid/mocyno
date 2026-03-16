@@ -10,7 +10,7 @@ export const getEventRange = (date: string, startStr: string, endStr: string): {
     const start = new Date(`${date}T${startStr}`);
     let end = new Date(`${date}T${endStr}`);
 
-    // console.log(`[getEventRange] Parsing ${date} ${startStr}-${endStr} ->`, { start, end });
+
 
     // If end time is earlier than start time, it means it ends the next day
     if (end < start) {
