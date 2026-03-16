@@ -74,7 +74,7 @@ Le Dashboard est le cockpit principal. Il affiche :
 |---|---|---|
 | `admin` | Firestore `agents/{uid}.role` | ✅ Accès complet |
 | `agent` | Firestore `agents/{uid}.role` | ❌ Redirigé vers login |
-| `client` | Custom claim + Firestore `clients/{uid}` | ❌ Portail client uniquement |
+| `client` | Custom claims (`role`, `clientId`) + Firestore `clients/{clientId}` (avec `authUid` dans le doc) | ❌ Portail client uniquement |
 
 - `checkAuth` revalide le rôle Firestore à chaque navigation (A21)
 - `createAgent` Cloud Function pose le custom claim `role` + crée le document Firestore
@@ -84,7 +84,7 @@ Le Dashboard est le cockpit principal. Il affiche :
 | Symptôme | Cause probable | Action |
 |---|---|---|
 | Dashboard vide | Données non chargées | Vérifier connexion Firestore |
-| Agent non visible | `perPage` limit atteinte | Augmenter `perPage` ou paginer |
+| Agent non visible | Filtre actif ou page suivante | Vérifier les filtres, passer à la page suivante |
 | CSV vide | Aucun agent avec role ≠ admin | Vérifier que des agents existent |
 | Planning calendar vide | Aucune mission créée | Créer une mission |
 | Incident non visible | Filtre actif | Vérifier les filtres actifs |
@@ -96,4 +96,4 @@ Le Dashboard est le cockpit principal. Il affiche :
 - **Backend** : Firebase (Firestore, Cloud Functions, Auth, Storage, Hosting)
 - **Types** : `@mocyno/types` (monorepo packages/types)
 - **Build** : `cd admin && npx vite build` → output dans `public/admin/`
-- **Deploy** : `firebase deploy --only hosting` (admin + vitrine)
+- **Deploy** : `firebase deploy --only hosting` — après vérification stricte du diff et isolation des fichiers hors scope (cf. PROD-GATE)
