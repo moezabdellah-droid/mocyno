@@ -71,17 +71,30 @@ export interface Site {
     email?: string;
     requiredSpecialties?: string[];
     notes?: string;
+    /** Client linkage — used by Firestore rules and client portal */
+    clientId?: string;
+    clientIds?: string[];
+    authorizedClients?: string[];
+    primaryClientId?: string;
 }
 
 export interface Event {
     id: string;
-    type: string;
-    title: string;
+    type: 'MAIN_COURANTE' | 'INCIDENT' | 'OBSERVATION' | 'RDL_CHECKPOINT' | 'SOS' | 'SERVICE_START' | 'SERVICE_STOP' | string;
+    title?: string;
     description?: string;
+    authorId?: string;
     authorEmail: string;
+    agentName?: string;
+    siteId?: string;
+    siteName?: string;
     timestamp: Date | string;
     status: string;
     photo?: string;
+    photoPath?: string;
+    priority?: 'CRITICAL' | string;
+    location?: { lat: number; lng: number };
+    content?: string;
 }
 
 export interface Consigne {
@@ -96,6 +109,103 @@ export interface Consigne {
     createdAt?: Date | string;
     updatedAt?: Date | string;
 }
+
+// ── Client Portal types ───────────────────────────────────
+
+export interface Client {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    role: 'client';
+    company?: string;
+    phone?: string;
+    clientId?: string;
+    siteId?: string;
+    siteName?: string;
+    mustChangePassword?: boolean;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+}
+
+export interface Report {
+    id: string;
+    title?: string;
+    description?: string;
+    type?: string;
+    status?: string;
+    authorId?: string;
+    authorEmail?: string;
+    agentName?: string;
+    siteId?: string;
+    siteName?: string;
+    clientId?: string;
+    photo?: string;
+    photoPath?: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+}
+
+export interface ClientRequest {
+    id: string;
+    subject: string;
+    message: string;
+    status: 'pending' | 'in_progress' | 'resolved' | 'closed';
+    clientId: string;
+    clientName?: string;
+    siteId?: string;
+    siteName?: string;
+    responseMessage?: string;
+    respondedBy?: string;
+    respondedAt?: Date | string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+}
+
+export interface Document {
+    id: string;
+    titre: string;
+    storagePath: string;
+    clientId?: string;
+    category?: string;
+    visibility?: { client?: boolean };
+    uploadedBy?: string;
+    signedUrl?: string;
+    createdAt?: Date | string;
+}
+
+export interface DocumentDownload {
+    id: string;
+    documentId: string;
+    clientId: string;
+    downloadedAt?: Date | string;
+    userAgent?: string;
+}
+
+export interface ShiftSegment {
+    id: string;
+    agentId: string;
+    agentName?: string;
+    siteId?: string;
+    siteName?: string;
+    clientId?: string;
+    startTimestamp?: Date | string;
+    endTimestamp?: Date | string;
+    status?: string;
+}
+
+export interface AuditLog {
+    id: string;
+    action: string;
+    performedBy: string;
+    performedByEmail?: string;
+    targetCollection?: string;
+    targetId?: string;
+    details?: Record<string, unknown>;
+    timestamp?: Date | string;
+}
+
+// ── Planning & Payroll types ──────────────────────────────
 
 export interface PayrollStats {
     agent: Agent;
@@ -165,3 +275,4 @@ export interface DragEventData {
     resourceId?: string;
     isAllDay: boolean;
 }
+
