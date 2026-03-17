@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonBadge, IonIcon, IonButtons, IonBackButton } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonBadge, IonIcon, IonButtons, IonBackButton, IonToast } from '@ionic/react';
 import { calendarOutline, timeOutline, locationOutline, clipboardOutline } from 'ionicons/icons';
 import { useState, useEffect } from 'react';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
@@ -15,6 +15,7 @@ const MyMissions: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
     const [missions, setMissions] = useState<ExtendedMission[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const unsubscribeAuth = onAuthStateChanged(auth, (currentUser) => {
@@ -55,8 +56,9 @@ const MyMissions: React.FC = () => {
 
             setMissions(processedMissions);
             setLoading(false);
-        }, (error) => {
-            console.error("Error fetching missions:", error);
+        }, (err) => {
+            console.error("Error fetching missions:", err);
+            setError('Impossible de charger les missions. Vérifiez votre connexion.');
             setLoading(false);
         });
 
@@ -147,6 +149,8 @@ const MyMissions: React.FC = () => {
                     </div>
                 )}
             </IonContent>
+
+            <IonToast isOpen={!!error} message={error || ''} duration={3000} onDidDismiss={() => setError(null)} color="danger" />
         </IonPage>
     );
 };

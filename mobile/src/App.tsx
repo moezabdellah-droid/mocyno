@@ -8,8 +8,9 @@ import MyMissions from './pages/MyMissions';
 import ReportsPage from './pages/ReportsPage';
 import ScanPage from './pages/ScanPage';
 import { useEffect, useState } from 'react';
-import { auth } from './firebase';
-import { onAuthStateChanged, type User } from 'firebase/auth';
+import { auth, db } from './firebase';
+import { onAuthStateChanged, signOut, type User } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -24,13 +25,45 @@ import '@ionic/react/css/display.css';
 
 setupIonicReact();
 
+const ALLOWED_ROLES = ['agent', 'admin', 'manager'];
+
 const App: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [roleError, setRoleError] = useState<string | null>(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (!currentUser) {
+        setUser(null);
+        setRoleError(null);
+        setLoading(false);
+        return;
+      }
+
+      // Verify agent role
+      try {
+        const agentSnap = await getDoc(doc(db, 'agents', currentUser.uid));
+        if (!agentSnap.exists()) {
+          setRoleError('Aucun profil agent trouvé pour ce compte.');
+          await signOut(auth);
+          setLoading(false);
+          return;
+        }
+        const role = agentSnap.data()?.role;
+        if (!role || !ALLOWED_ROLES.includes(role)) {
+          setRoleError('Accès refusé. Ce compte n\'est pas autorisé sur l\'app mobile.');
+          await signOut(auth);
+          setLoading(false);
+          return;
+        }
+        setUser(currentUser);
+        setRoleError(null);
+      } catch (err) {
+        console.error('Role check error:', err);
+        setRoleError('Erreur de vérification du profil. Réessayez.');
+        await signOut(auth);
+      }
       setLoading(false);
     });
     return unsubscribe;
@@ -44,7 +77,7 @@ const App: React.FC = () => {
       <IonReactRouter basename="/mobile">
         <IonRouterOutlet>
           <Route exact path="/login">
-            {user ? <Redirect to="/home" /> : <Login />}
+            {user ? <Redirect to="/home" /> : <Login roleError={roleError} />}
           </Route>
           <Route exact path="/home">
             {user ? <Home /> : <Redirect to="/login" />}

@@ -4,11 +4,11 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useHistory } from 'react-router-dom';
 
-const Login: React.FC = () => {
+const Login: React.FC<{ roleError?: string | null }> = ({ roleError }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(roleError || null);
     const history = useHistory();
 
     const handleLogin = async () => {
