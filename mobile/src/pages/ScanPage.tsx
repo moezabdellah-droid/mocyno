@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonLoading, IonText } from '@ionic/react';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonLoading, IonText, IonButtons, IonBackButton, IonToast } from '@ionic/react';
 import { scan, close } from 'ionicons/icons';
 import { BarcodeScanner, BarcodeFormat } from '@capacitor-mlkit/barcode-scanning';
 import { db, auth } from '../firebase';
@@ -18,9 +18,9 @@ const ScanPage: React.FC = () => {
     const [isScanning, setIsScanning] = useState(false);
     const [loading, setLoading] = useState(false);
     const [agentMeta, setAgentMeta] = useState<AgentMeta>({});
+    const [toast, setToast] = useState<{ message: string; color: string } | null>(null);
     const history = useHistory();
 
-    // Load agent metadata
     useEffect(() => {
         const loadMeta = async () => {
             const user = auth.currentUser;
@@ -47,7 +47,7 @@ const ScanPage: React.FC = () => {
         try {
             const status = await BarcodeScanner.requestPermissions();
             if (status.camera !== 'granted' && status.camera !== 'limited') {
-                alert('Permission caméra refusée.');
+                setToast({ message: 'Permission caméra refusée. Activez-la dans les paramètres.', color: 'warning' });
                 return;
             }
 
@@ -64,7 +64,7 @@ const ScanPage: React.FC = () => {
             }
         } catch (error) {
             console.error('Scan error:', error);
-            alert("Erreur ou annulation du scan.");
+            setToast({ message: 'Scan annulé ou erreur.', color: 'medium' });
         } finally {
             stopScan();
         }
@@ -95,11 +95,11 @@ const ScanPage: React.FC = () => {
                 status: 'VALIDATED'
             });
 
-            alert(`✅ Point validé : ${content}`);
-            history.goBack();
+            setToast({ message: `✅ Point validé : ${content}`, color: 'success' });
+            setTimeout(() => history.goBack(), 1500);
         } catch (e) {
             console.error(e);
-            alert("Erreur de sauvegarde du checkpoint.");
+            setToast({ message: 'Erreur de sauvegarde du checkpoint.', color: 'danger' });
         } finally {
             setLoading(false);
         }
@@ -115,6 +115,11 @@ const ScanPage: React.FC = () => {
         <IonPage className={isScanning ? 'scanner-active' : ''}>
             <IonHeader>
                 <IonToolbar color={isScanning ? "transparent" : "primary"}>
+                    {!isScanning && (
+                        <IonButtons slot="start">
+                            <IonBackButton defaultHref="/home" />
+                        </IonButtons>
+                    )}
                     <IonTitle>Scan Ronde</IonTitle>
                     {isScanning && (
                         <IonButton slot="end" fill="clear" onClick={stopScan}>
@@ -136,7 +141,14 @@ const ScanPage: React.FC = () => {
                         </IonButton>
                     </div>
                 )}
-                <IonLoading isOpen={loading} message="Validation du point..." />
+                <IonLoading isOpen={loading} message="Validation du point…" />
+                <IonToast
+                    isOpen={!!toast}
+                    message={toast?.message || ''}
+                    duration={4000}
+                    onDidDismiss={() => setToast(null)}
+                    color={toast?.color || 'primary'}
+                />
             </IonContent>
         </IonPage>
     );

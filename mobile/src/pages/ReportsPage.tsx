@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonTextarea, IonButton, IonIcon, IonItem, IonLabel, IonLoading, IonSelect, IonSelectOption } from '@ionic/react';
-import { camera, send, chevronBack } from 'ionicons/icons';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonTextarea, IonButton, IonIcon, IonItem, IonLabel, IonLoading, IonSelect, IonSelectOption, IonButtons, IonBackButton, IonToast } from '@ionic/react';
+import { camera, send } from 'ionicons/icons';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { db, auth, storage } from '../firebase';
 import { collection, addDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore';
@@ -28,9 +28,9 @@ const ReportsPage: React.FC = () => {
     const [photoBase64, setPhotoBase64] = useState<string | undefined>(undefined);
     const [loading, setLoading] = useState(false);
     const [agentMeta, setAgentMeta] = useState<AgentMeta>({});
+    const [toast, setToast] = useState<{ message: string; color: string } | null>(null);
     const history = useHistory();
 
-    // Load agent metadata for enrichment
     useEffect(() => {
         const loadMeta = async () => {
             const user = auth.currentUser;
@@ -71,11 +71,11 @@ const ReportsPage: React.FC = () => {
 
     const submitReport = async () => {
         if (!title.trim() || !description.trim()) {
-            alert('Veuillez remplir le titre et la description.');
+            setToast({ message: 'Veuillez remplir le titre et la description.', color: 'warning' });
             return;
         }
         if (!reportType) {
-            alert('Veuillez sélectionner un type de rapport.');
+            setToast({ message: 'Veuillez sélectionner un type de rapport.', color: 'warning' });
             return;
         }
 
@@ -99,7 +99,7 @@ const ReportsPage: React.FC = () => {
                     photoPath = storagePath;
                 } catch (uploadError) {
                     console.error('Storage upload error:', uploadError);
-                    alert("Erreur lors de l'upload de la photo. Veuillez réessayer.");
+                    setToast({ message: "Erreur lors de l'upload de la photo. Réessayez.", color: 'danger' });
                     setLoading(false);
                     return;
                 }
@@ -122,11 +122,11 @@ const ReportsPage: React.FC = () => {
                 status: 'OPEN'
             });
 
-            alert('Rapport envoyé avec succès !');
-            history.goBack();
+            setToast({ message: '✅ Rapport envoyé avec succès.', color: 'success' });
+            setTimeout(() => history.goBack(), 1200);
         } catch (error) {
             console.error('Error submitting report:', error);
-            alert("Erreur lors de l'envoi du rapport.");
+            setToast({ message: "Erreur lors de l'envoi du rapport.", color: 'danger' });
         } finally {
             setLoading(false);
         }
@@ -136,9 +136,9 @@ const ReportsPage: React.FC = () => {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonButton slot="start" fill="clear" onClick={() => history.goBack()}>
-                        <IonIcon icon={chevronBack} />
-                    </IonButton>
+                    <IonButtons slot="start">
+                        <IonBackButton defaultHref="/home" />
+                    </IonButtons>
                     <IonTitle>Nouveau Rapport</IonTitle>
                 </IonToolbar>
             </IonHeader>
@@ -164,7 +164,7 @@ const ReportsPage: React.FC = () => {
                     {photo ? (
                         <img src={photo} alt="Preuve" style={{ maxWidth: '100%', borderRadius: '8px' }} />
                     ) : (
-                        <p style={{ color: '#666' }}>Aucune photo jointe</p>
+                        <p style={{ color: 'var(--ion-color-medium)' }}>Aucune photo jointe</p>
                     )}
                 </div>
 
@@ -178,7 +178,14 @@ const ReportsPage: React.FC = () => {
                     Envoyer Rapport
                 </IonButton>
 
-                <IonLoading isOpen={loading} message="Envoi en cours..." />
+                <IonLoading isOpen={loading} message="Envoi en cours…" />
+                <IonToast
+                    isOpen={!!toast}
+                    message={toast?.message || ''}
+                    duration={4000}
+                    onDidDismiss={() => setToast(null)}
+                    color={toast?.color || 'primary'}
+                />
             </IonContent>
         </IonPage>
     );
