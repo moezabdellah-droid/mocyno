@@ -297,7 +297,10 @@ const Supervision = () => {
                     {/* Exploitation */}
                     <SupervisionSection title="Exploitation" icon="📊" color="#ed6c02">
                         {exploitation.length === 0 ? (
-                            <Typography variant="body2" color="text.secondary">✅ Aucune alerte d'exploitation.</Typography>
+                            <Box sx={{ textAlign: 'center', py: 2, color: 'text.secondary' }}>
+                                <Typography variant="body1" sx={{ fontSize: '1.5rem', mb: 0.5 }}>✅</Typography>
+                                <Typography variant="body2">Aucune alerte d'exploitation.</Typography>
+                            </Box>
                         ) : (
                             <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
                                 {exploitation.map((item, i) => (
@@ -310,7 +313,10 @@ const Supervision = () => {
                     {/* Support */}
                     <SupervisionSection title="Support client" icon="🛎️" color="#d32f2f">
                         {support.length === 0 ? (
-                            <Typography variant="body2" color="text.secondary">✅ Aucune alerte support.</Typography>
+                            <Box sx={{ textAlign: 'center', py: 2, color: 'text.secondary' }}>
+                                <Typography variant="body1" sx={{ fontSize: '1.5rem', mb: 0.5 }}>✅</Typography>
+                                <Typography variant="body2">Aucune alerte support.</Typography>
+                            </Box>
                         ) : (
                             <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
                                 {support.map((item, i) => (
@@ -323,7 +329,10 @@ const Supervision = () => {
                     {/* Conformité */}
                     <SupervisionSection title="Conformité opérationnelle" icon="📋" color="#7b1fa2">
                         {complianceItems.length === 0 ? (
-                            <Typography variant="body2" color="text.secondary">✅ Aucun écart de conformité détecté.</Typography>
+                            <Box sx={{ textAlign: 'center', py: 2, color: 'text.secondary' }}>
+                                <Typography variant="body1" sx={{ fontSize: '1.5rem', mb: 0.5 }}>✅</Typography>
+                                <Typography variant="body2">Aucun écart de conformité détecté.</Typography>
+                            </Box>
                         ) : (
                             <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
                                 {complianceItems.map((item, i) => (
@@ -338,7 +347,10 @@ const Supervision = () => {
                 <Grid size={{ xs: 12, md: 5 }}>
                     <SupervisionSection title="Activité d'audit récente" icon="🔍" color="#1565c0">
                         {auditLogs.length === 0 ? (
-                            <Typography variant="body2" color="text.secondary">Aucune entrée d'audit disponible.</Typography>
+                            <Box sx={{ textAlign: 'center', py: 2, color: 'text.secondary' }}>
+                                <Typography variant="body1" sx={{ fontSize: '1.5rem', mb: 0.5 }}>📝</Typography>
+                                <Typography variant="body2">Aucune entrée d'audit disponible.</Typography>
+                            </Box>
                         ) : (
                             <List dense disablePadding>
                                 {auditLogs.slice(0, 10).map((log, i) => (
