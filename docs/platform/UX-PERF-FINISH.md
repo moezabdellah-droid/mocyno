@@ -1,6 +1,6 @@
 # Mo'Cyno — Standards de Finition UX & Performance
 
-> A35 — 17 mars 2026
+> A35bis — 17 mars 2026 (mise à jour après A35 + A36)
 
 ## Principes retenus
 
@@ -8,15 +8,28 @@
 2. **Pas de duplication de signal** — une information affichée une seule fois, au bon endroit
 3. **Feedback immédiat** — tout clic doit produire un retour visible (hover, spinner, transition)
 4. **Cohérence cross-surface** — mêmes conventions de statut, badges, loading/error/empty entre Admin, Client et Mobile
+5. **Empty states informatifs** — chaque page vide doit guider l'utilisateur avec icône + message + suggestion
 
 ## Loading States
 
 | État | Comportement attendu | Admin | Client |
 |---|---|---|---|
 | Chargement initial | Spinner centré | `<CircularProgress>` MUI | `.page-loading` avec `::before` spinner CSS |
-| Chargement partiel | Skeleton ou zone grisée | Non implémenté (hors scope A35) | Non implémenté |
+| Chargement partiel | Skeleton ou zone grisée | Non implémenté (hors scope) | Non implémenté |
 | Erreur réseau | Message rouge centré | `console.error` + fallback | `.page-error` rouge |
-| Données vides | Message informatif centré | `✅ Aucune alerte` | `.empty-state` ou `.empty-state-box` |
+| Données vides | Icône + message + aide | `✅ Aucune alerte` | `.empty-state-box` avec icône, message et détail |
+
+## Empty State Pattern (Client)
+
+```html
+<div class="empty-state-box">
+    <span class="empty-icon">📄</span>
+    <p>Message principal.</p>
+    <span class="empty-detail">Aide contextuelle.</span>
+</div>
+```
+
+Pages conformes : Documents ✅, Consignes ✅, Demandes ✅, Incidents ✅, Sites ✅, Planning ✅, Reporting ✅
 
 ## Status Badges
 
@@ -28,16 +41,6 @@
 | `closed`, `cancelled` | ⚪ Gris `#94a3b8` | Admin, Client |
 | `rejected` | 🔴 Rouge `#f87171` | Client |
 | Statut inconnu | ⚪ Gris fallback | Client (`.status-badge` default) |
-
-## Navigation
-
-| Convention | Implémenté |
-|---|---|
-| Raccourcis Dashboard → ressources | ✅ Admin + Client |
-| Alertes cliquables → ressource filtrée | ✅ Admin (Dashboard + Supervision) |
-| Deep links `/clients/:id` | ✅ Client portal |
-| Tab navigation mobile-friendly | ✅ Client (scroll horizontal) |
-| Shortcut hover feedback | ✅ Client (A35) |
 
 ## Niveaux d'alerte Admin
 
@@ -51,20 +54,14 @@
 
 | Optimisation | Surface | Effet |
 |---|---|---|
-| Déduplication alertes Dashboard | Admin | Supprimé ~130 lignes de useMemo redondants |
+| Déduplication alertes Dashboard | Admin | ~130 lignes de useMemo redondants supprimés |
 | Spinner CSS sur `.page-loading` | Client | Feedback visuel immédiat pendant le fetch |
-| Requêtes Firestore parallèles | Admin, Client | Toutes les données chargées en parallèle |
-| N+1 agent name resolution | Client planning | Déjà optimisé par `Set` + batch |
-
-## Critères de performance minimum
-
-- **First Contentful Paint** : le spinner doit apparaître avant les données
-- **Pas de flash blanc** : le dark mode est appliqué dès le body CSS
-- **Pas de re-render visible** : les useMemo protègent les calculs coûteux
+| Requêtes Firestore parallèles | Admin, Client | Données chargées en parallèle (Promise.all) |
+| Empty-state-box partout | Client | Pas de flash "texte brut" — état vide immédiatement lisible |
 
 ## Hors scope volontaire
 
-- Skeleton loading (nécessiterait MUI Skeleton pour chaque composant)
-- Lazy loading des routes (Vite code splitting — gain marginal sur un SPA)
-- Service Worker / cache offline (hors périmètre sécurité privée)
-- Optimisation images (pas d'images lourdes dans l'Admin ou le portail)
+- Skeleton loading (nécessiterait composants dédiés par page)
+- Lazy loading des routes (gain marginal sur SPA)
+- Service Worker / cache offline
+- Optimisation images (pas d'images lourdes dans l'Admin ou portail)
