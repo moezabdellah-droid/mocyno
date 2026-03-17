@@ -271,6 +271,10 @@
         "destination": "/clients/index.html"
       },
       {
+        "source": "/mobile",
+        "destination": "/mobile/index.html"
+      },
+      {
         "source": "/mobile/**",
         "destination": "/mobile/index.html"
       },
