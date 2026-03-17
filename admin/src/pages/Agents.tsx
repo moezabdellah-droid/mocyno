@@ -254,6 +254,9 @@ export const AgentList = () => (
             <FunctionField label="Statut" render={(record: Agent) =>
                 record.status === 'active' ? '🟢 Actif' : '🔴 Inactif'
             } />
+            <FunctionField label="En service" render={(record: Agent & { isServiceRunning?: boolean }) =>
+                record.isServiceRunning ? '🟢 Oui' : '—'
+            } />
             <TextField source="professionalCardNumber" label="Carte Pro" />
             <EmailField source="email" />
             <FunctionField label="Spécialités" render={(record: Agent) => record.specialties ? record.specialties.join(', ') : '—'} />
