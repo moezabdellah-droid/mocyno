@@ -1,13 +1,13 @@
 # Mo'Cyno Mobile Agent — Guide d'Exploitation Terrain
 
-> Version : A31 — 17 mars 2026
+> Version : M23 — 17 mars 2026
 
 ## Vue d'ensemble
 
 L'app Mobile Mo'Cyno est destinée aux agents de sécurité terrain. Elle permet :
 
 - Prise/fin de service avec tracking GPS (PTI)
-- Consultation du planning et des consignes
+- Consultation du planning et des consignes (bornés au site)
 - Création de rapports terrain (main courante, incidents, observations)
 - Scan de rondes (QR checkpoints)
 - Alerte SOS avec géolocalisation
@@ -60,26 +60,36 @@ L'app Mobile Mo'Cyno est destinée aux agents de sécurité terrain. Elle permet
    - agentName, siteId, siteName
    - location (si disponible)
 4. SMS envoyé au PC Sécurité : `+33666035116`
+5. Confirmation visuelle (alert natif)
 
 > **Note** : si la géolocalisation échoue, l'alerte est quand même envoyée (sans position).
 
 ## Missions (Planning)
 
 - **Source** : collection `planning`, filtrée par `assignedAgentIds array-contains uid`
-- **Affichage** : site, spécialité, dates et horaires par vacation
-- **Tri** : par date (première vacation)
-- **Empty state** : "Aucune mission planifiée."
-- **Erreur** : toast visible si la query échoue
+- **Borne temporelle** : fenêtre glissante 7 jours (J-7 minimum, filtrée côté client) — M22
+- **Catégorisation** : 📌 Aujourd'hui / 📅 À venir / 📋 Récentes — M22
+- **Badges contextuels** : 🟢 Aujourd'hui, 🔵 À venir, ⬜ Passée — M22
+- **Affichage** : site, spécialité, dates et horaires par vacation, notes
+- **Loading** : `IonSpinner crescent` + texte — M22
+- **Empty state** : icône calendrier + message — M22
+- **Pull-to-refresh** : disponible — M22
+- **Erreur** : toast danger 4s
 - **Temps réel** : onSnapshot (mises à jour automatiques)
 
 ## Consignes
 
-- **Source** : collection `consignes`, triée par `createdAt` desc
-- **Scope** : toutes les consignes (choix métier — les agents terrain ont accès à l'ensemble des consignes)
-- **Affichage** : liste avec titre et type, détail en modal avec contenu HTML (sanitisé via DOMPurify)
-- **Loading** : spinner pendant le chargement
-- **Empty state** : message si aucune consigne
-- **Erreur** : toast visible
+- **Source** : collection `consignes`, filtrée par `siteId == agents/{uid}.siteId` — M21
+- **Scope** : consignes du site de l'agent uniquement — M21
+- **Rule Firestore** : `resource.data.siteId == getUserData().siteId` pour agents — M21
+- **Agent sans siteId** : message explicite, aucune consigne chargée — M21
+- **Layout** : cards avec titre, type, date, badge priorité — M22
+- **Badges priorité** : 🔴 Urgent / 🟡 Important / 🔵 Info — M22
+- **Compteur** : « N consigne(s) pour votre site » — M22
+- **Détail** : modal avec badges (priorité + type + date) + contenu HTML (DOMPurify) — M22
+- **Loading** : `IonSpinner crescent` + texte — M22
+- **Pull-to-refresh** : disponible — M22
+- **Erreur** : toast danger 4s
 
 ## Rapports (Main courante)
 
@@ -99,19 +109,41 @@ L'app Mobile Mo'Cyno est destinée aux agents de sécurité terrain. Elle permet
 - Type obligatoire
 - Si upload photo échoue → soumission bloquée (pas d'envoi silencieux sans photo)
 
+### Feedback utilisateur
+- `IonLoading` pendant l'envoi
+- Alert succès ou erreur après soumission
+- Retour automatique à Home après succès
+
 ## Scan Ronde
 
 ### Flux
 1. Appuyer sur "Lancer le Scanner"
 2. Permission caméra demandée
-3. Scan QR Code / DataMatrix
+3. Scan QR Code / DataMatrix (MLKit barcode-scanning)
 4. Point de contrôle validé avec géolocalisation
 
 ### Données enregistrées
 - Collection : `events`
 - Champs : type `RDL_CHECKPOINT`, content (payload QR), authorId, authorEmail, agentName, siteId, siteName, location, timestamp, status `VALIDATED`
 
-## Métadonnées terrain → Admin
+### Feedback utilisateur
+- `IonLoading` pendant la validation
+- Alert confirmant le point validé ou l'erreur
+- Retour automatique à Home après succès
+
+## Signaux terrain — Types d'events
+
+| Type | Source | Priority | Status initial | Visible Admin |
+|---|---|---|---|---|
+| `SERVICE_START` | PTI | — | `CLOSED` | ✅ Main Courante |
+| `SERVICE_STOP` | PTI | — | `CLOSED` | ✅ Main Courante |
+| `SOS` | Bouton SOS | `CRITICAL` | `OPEN` | ✅ Main Courante |
+| `MAIN_COURANTE` | Rapport | — | `OPEN` | ✅ Main Courante |
+| `INCIDENT` | Rapport | — | `OPEN` | ✅ Main Courante |
+| `OBSERVATION` | Rapport | — | `OPEN` | ✅ Main Courante |
+| `RDL_CHECKPOINT` | Scan | — | `VALIDATED` | ✅ Main Courante |
+
+## Métadonnées communes terrain → Admin
 
 Tous les events créés par le mobile sont enrichis avec :
 
@@ -122,8 +154,10 @@ Tous les events créés par le mobile sont enrichis avec :
 | `agentName` | `agents/{uid}.firstName + lastName` | Nom lisible de l'agent |
 | `siteId` | `agents/{uid}.siteId` | Site assigné |
 | `siteName` | `agents/{uid}.siteName` | Nom du site |
-| `location` | GPS | Coordonnées lat/lng |
+| `location` | GPS | Coordonnées lat/lng (si disponible) |
 | `timestamp` | `serverTimestamp()` | Date serveur |
+
+> **Note** : `agentMeta` est chargé séparément dans ReportsPage, ScanPage et PtiService (pas de hook partagé — dette D1).
 
 ## Plugins Capacitor
 
@@ -131,14 +165,18 @@ Tous les events créés par le mobile sont enrichis avec :
 |---|---|---|
 | `@capacitor/camera` | Photos rapport | Caméra |
 | `@capacitor/geolocation` | PTI / SOS / Scan | Localisation |
-| `@capacitor/motion` | Détection chute (dev) | Motion |
 | `@capacitor-mlkit/barcode-scanning` | Scan QR ronde | Caméra |
 
 ## Limites connues
 
-- **Offline** : pas de support offline explicite (les données ne sont pas mises en cache localement)
-- **Background tracking** : le GPS watch fonctionne en foreground uniquement (limitation Capacitor web)
-- **Notifications push** : non implémentées
-- **Détection de chute** : simulée (bouton dev-only), pas de détection automatique via capteurs
-- **Consignes** : lecture globale — les agents voient toutes les consignes (toutes sites/clients). C'est un choix métier actuel.
-- **Filtrage site** : les missions sont filtrées par agent, mais les consignes sont globales
+| Élément | Détail |
+|---|---|
+| Offline | Pas de support offline (pas de queue d'écriture locale) |
+| Background tracking | GPS watch en foreground uniquement (limitation Capacitor web) |
+| Notifications push | Non implémentées |
+| Détection de chute | Simulée (bouton dev-only, gated `import.meta.env.DEV`) |
+| SOS feedback | `alert()` natif au lieu d'un composant Ionic structuré |
+| SOS SMS | `window.location.href = sms:` — interrompt l'app |
+| GPS throttle | `updateLocation` écrit à chaque tick GPS sans throttle |
+| AgentMeta | Chargé en 3 endroits séparés (pas de hook partagé) |
+| Event types | Constantes magiques — pas d'enum partagé |

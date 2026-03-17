@@ -1,20 +1,22 @@
 # Mo'Cyno — Documentation Transverse Plateforme
 
-> Dernière mise à jour : A29 — 17 mars 2026
+> Dernière mise à jour : M23 — 17 mars 2026
 
 ---
 
 ## 1. Vue d'ensemble
 
-La plateforme Mo'Cyno comprend trois surfaces applicatives :
+La plateforme Mo'Cyno comprend quatre surfaces applicatives :
 
 | Surface | URL | Rôles | Stack |
 |---|---|---|---|
 | Admin | `/admin/` | admin, manager | react-admin + MUI + Firebase |
 | Portail Client | `/clients/` | client (via claims) | React + Firebase |
+| Mobile Agent | `/mobile/` | agent, admin, manager | Ionic + Capacitor + Firebase |
 | Cloud Functions | — | backend | Firebase Functions (Node.js) |
 
-Les trois surfaces partagent le même projet Firebase, la même base Firestore et les mêmes Storage rules.
+Les quatre surfaces partagent le même projet Firebase, la même base Firestore et les mêmes Storage rules.
+
 
 ---
 
@@ -29,6 +31,12 @@ Les trois surfaces partagent le même projet Firebase, la même base Firestore e
 - Authentification Firebase Auth
 - Claims : `{ role: 'client', clientId: '<firestoreDocId>' }`
 - Accès : limité à ses propres données via les Firestore rules (`request.auth.token.clientId`)
+
+### Agent (Mobile)
+- Authentification Firebase Auth
+- Rôle vérifié via `agents/{uid}.role` (Firestore) — rôles : `agent`, `admin`, `manager`
+- Consignes bornées au site : `agents/{uid}.siteId` (M21)
+- Missions bornées par `assignedAgentIds` + fenêtre 7 jours (M22)
 
 ### Backend (Cloud Functions)
 - Admin SDK (pas de vérification rules)
