@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonPage, IonContent, IonInput, IonButton, IonItem, IonLabel, IonHeader, IonToolbar, IonTitle, IonLoading, IonToast } from '@ionic/react';
+import { IonPage, IonContent, IonInput, IonButton, IonItem, IonLabel, IonHeader, IonToolbar, IonTitle, IonLoading, IonToast, IonText } from '@ionic/react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useHistory } from 'react-router-dom';
@@ -28,26 +28,32 @@ const Login: React.FC<{ roleError?: string | null }> = ({ roleError }) => {
     return (
         <IonPage>
             <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Mo'Cyno Agent Login</IonTitle>
+                <IonToolbar color="dark">
+                    <IonTitle>Mo'Cyno Agent</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
-                <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem' }}>
+                <div style={{ textAlign: 'center', marginTop: '2rem', marginBottom: '1.5rem' }}>
+                    <IonText color="dark">
+                        <h2 style={{ fontWeight: 700, margin: 0 }}>Connexion</h2>
+                        <p style={{ color: 'var(--ion-color-medium)', margin: '0.5rem 0 0' }}>Portail Agent Terrain</p>
+                    </IonText>
+                </div>
+                <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                     <IonItem>
-                        <IonLabel position="floating">Email</IonLabel>
+                        <IonLabel position="floating">Adresse email</IonLabel>
                         <IonInput value={email} onIonChange={e => setEmail(e.detail.value!)} type="email" required />
                     </IonItem>
                     <IonItem>
-                        <IonLabel position="floating">Password</IonLabel>
+                        <IonLabel position="floating">Mot de passe</IonLabel>
                         <IonInput value={password} onIonChange={e => setPassword(e.detail.value!)} type="password" required />
                     </IonItem>
-                    <IonButton expand="block" type="submit">
-                        Login
+                    <IonButton expand="block" type="submit" style={{ marginTop: '0.5rem' }}>
+                        Se connecter
                     </IonButton>
                 </form>
-                <IonLoading isOpen={loading} message={'Logging in...'} />
-                <IonToast isOpen={!!error} message={error || ''} duration={2000} onDidDismiss={() => setError(null)} color="danger" />
+                <IonLoading isOpen={loading} message={'Connexion en cours…'} />
+                <IonToast isOpen={!!error} message={error || ''} duration={4000} onDidDismiss={() => setError(null)} color="danger" />
             </IonContent>
         </IonPage>
     );

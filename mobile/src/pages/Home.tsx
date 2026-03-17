@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonFabButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonGrid, IonRow, IonCol } from '@ionic/react';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonFabButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonGrid, IonRow, IonCol, IonSpinner, IonAlert } from '@ionic/react';
 import { warning, power, body, logOut, book, camera, scan, calendarOutline } from 'ionicons/icons';
 import { signOut } from 'firebase/auth';
 import { auth, db } from '../firebase';
@@ -8,30 +8,29 @@ import { PtiService } from '../services/PtiService';
 import type { Agent } from '@mocyno/types';
 
 const Home: React.FC = () => {
-    // Initialize state
     const [isServiceRunning, setIsServiceRunning] = useState(false);
     const [agentInfo, setAgentInfo] = useState<Agent | null>(null);
+    const [agentLoading, setAgentLoading] = useState(true);
+    const [showSosConfirm, setShowSosConfirm] = useState(false);
+    const [showSosSent, setShowSosSent] = useState(false);
 
-    // Subscribe to Agent Data (Real-time sync for Service Status)
     React.useEffect(() => {
         const user = auth.currentUser;
-        if (!user) return;
+        if (!user) { setAgentLoading(false); return; }
 
         const unsubscribe = onSnapshot(doc(db, 'agents', user.uid), (docSnap) => {
             if (docSnap.exists()) {
                 const data = docSnap.data() as Agent;
                 setAgentInfo(data);
 
-                // Sync service status from backend
                 if (data.isServiceRunning !== undefined) {
                     setIsServiceRunning(data.isServiceRunning);
-
-                    // Auto-resume service if backend says true
                     if (data.isServiceRunning) {
                         PtiService.resumeService().catch(console.error);
                     }
                 }
             }
+            setAgentLoading(false);
         });
 
         return () => unsubscribe();
@@ -40,17 +39,28 @@ const Home: React.FC = () => {
     const toggleService = async () => {
         if (isServiceRunning) {
             await PtiService.stopService();
-            // isServiceRunning will be updated by onSnapshot
         } else {
             await PtiService.startService();
-            // isServiceRunning will be updated by onSnapshot
         }
     };
 
     const handleSOS = async () => {
         await PtiService.sendSOS();
-        alert("SOS ENVOYÉ ! Le PC Sécurité a été notifié.");
+        setShowSosSent(true);
     };
+
+    if (agentLoading) {
+        return (
+            <IonPage>
+                <IonContent className="ion-padding ion-text-center" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ marginTop: '40%' }}>
+                        <IonSpinner name="crescent" />
+                        <p>Chargement…</p>
+                    </div>
+                </IonContent>
+            </IonPage>
+        );
+    }
 
     return (
         <IonPage>
@@ -76,7 +86,7 @@ const Home: React.FC = () => {
                 {/* Status Card */}
                 <IonCard color={isServiceRunning ? "success" : "medium"}>
                     <IonCardHeader>
-                        <IonCardSubtitle>Status du Service</IonCardSubtitle>
+                        <IonCardSubtitle>Statut du Service</IonCardSubtitle>
                         <IonCardTitle>{isServiceRunning ? "EN SERVICE (ACTIF)" : "HORS SERVICE"}</IonCardTitle>
                     </IonCardHeader>
                     <IonCardContent>
@@ -97,13 +107,34 @@ const Home: React.FC = () => {
 
                 {/* SOS Button */}
                 <div style={{ display: 'flex', justifyContent: 'center', margin: '3rem 0' }}>
-                    <IonFabButton color="danger" style={{ width: '160px', height: '160px' }} onClick={handleSOS}>
+                    <IonFabButton color="danger" style={{ width: '160px', height: '160px' }} onClick={() => setShowSosConfirm(true)}>
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <IonIcon icon={warning} style={{ fontSize: '4.5rem' }} />
                             <span style={{ fontWeight: 'bold', fontSize: '1.2rem', marginTop: '5px' }}>SOS</span>
                         </div>
                     </IonFabButton>
                 </div>
+
+                {/* SOS Confirmation Alert */}
+                <IonAlert
+                    isOpen={showSosConfirm}
+                    onDidDismiss={() => setShowSosConfirm(false)}
+                    header="Confirmer SOS"
+                    message="Envoyer une alerte SOS au PC Sécurité ? Cette action est immédiate."
+                    buttons={[
+                        { text: 'Annuler', role: 'cancel' },
+                        { text: 'Envoyer SOS', cssClass: 'danger', handler: handleSOS }
+                    ]}
+                />
+
+                {/* SOS Sent Alert */}
+                <IonAlert
+                    isOpen={showSosSent}
+                    onDidDismiss={() => setShowSosSent(false)}
+                    header="SOS Envoyé"
+                    message="Le PC Sécurité a été notifié. Restez en sécurité."
+                    buttons={['OK']}
+                />
 
                 {/* Controls Grid */}
                 <IonGrid>
