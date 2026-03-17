@@ -238,115 +238,7 @@ const Dashboard = () => {
         };
     }, [reports, requests, consignes, clients, days]);
 
-    // ─── A28 FIX 1: Watchlist signals ────────────────────────────────────────
-    const watchlist = useMemo(() => {
-        const items: { label: string; count: number; to: string; icon: string }[] = [];
-        const now = moment();
 
-        // 1. Missions futures sans agent
-        if (planning) {
-            const missionsNoAgent = planning.filter(m => {
-                if (!m.agentAssignments || m.agentAssignments.length === 0) return true;
-                return m.agentAssignments.every((a: AgentAssignment) => !a.agentId);
-            });
-            const futureMissionsNoAgent = missionsNoAgent.filter(m => {
-                if (!m.agentAssignments || m.agentAssignments.length === 0) return true;
-                let latestEnd = 0;
-                m.agentAssignments.forEach((a: AgentAssignment) => {
-                    a.vacations.forEach((v: Vacation) => {
-                        const end = moment(`${v.date}T${v.end}`).valueOf();
-                        if (end > latestEnd) latestEnd = end;
-                    });
-                });
-                return latestEnd === 0 || latestEnd > now.valueOf();
-            });
-            if (futureMissionsNoAgent.length > 0) {
-                items.push({ label: 'mission(s) sans agent affecté', count: futureMissionsNoAgent.length, to: '/planning?view=list', icon: '⚠️' });
-            }
-        }
-
-        // 2. Consignes client en attente > 7 jours
-        const oldPendingConsignes = consignes.filter(c => {
-            if (c.source !== 'client' || c.status !== 'pending') return false;
-            if (!c.createdAt) return false;
-            const created = typeof c.createdAt === 'string' ? moment(c.createdAt) : (c.createdAt.seconds ? moment(c.createdAt.seconds * 1000) : null);
-            return created ? now.diff(created, 'days') >= 7 : false;
-        });
-        if (oldPendingConsignes.length > 0) {
-            items.push({ label: 'consigne(s) client en attente > 7j', count: oldPendingConsignes.length, to: '/consignes?filter=%7B%22source%22%3A%22client%22%2C%22status%22%3A%22pending%22%7D', icon: '⏳' });
-        }
-
-        // 3. Incidents ouverts haute/critique
-        const criticalOpen = reports.filter(r => r.status === 'open' && (r.severity === 'critical' || r.severity === 'high'));
-        if (criticalOpen.length > 0) {
-            items.push({ label: 'incident(s) critique/élevé ouvert(s)', count: criticalOpen.length, to: '/reports?filter=%7B%22status%22%3A%22open%22%7D', icon: '🔥' });
-        }
-
-        // 4. Demandes urgentes non closes
-        const urgentOpen = requests.filter(r => r.priority === 'urgent' && r.status !== 'closed');
-        if (urgentOpen.length > 0) {
-            items.push({ label: 'demande(s) urgente(s) non close(s)', count: urgentOpen.length, to: '/clientRequests?filter=%7B%22priority%22%3A%22urgent%22%7D', icon: '🚨' });
-        }
-
-        // 5. Clients sans site rattaché
-        const clientsNoSite = clients.filter(c => !c.siteId && (!c.siteIds || c.siteIds.length === 0));
-        if (clientsNoSite.length > 0) {
-            items.push({ label: 'client(s) sans site rattaché', count: clientsNoSite.length, to: '/clients', icon: '🔗' });
-        }
-
-        return items;
-    }, [planning, consignes, reports, requests, clients]);
-
-    // ─── A28 FIX 2: Compliance signals ───────────────────────────────────────
-    const compliance = useMemo(() => {
-        const items: { label: string; count: number; to: string; icon: string }[] = [];
-        const now = moment();
-
-        // 1. Agents actifs sans carte professionnelle
-        const activeAgents = agents.filter(a => a.status === 'active');
-        const agentsNoCard = activeAgents.filter(a => !a.professionalCardNumber);
-        if (agentsNoCard.length > 0) {
-            items.push({ label: 'agent(s) actif(s) sans carte pro', count: agentsNoCard.length, to: '/agents?filter=%7B%22status%22%3A%22active%22%7D', icon: '🪪' });
-        }
-
-        // 2. Agents actifs sans matricule
-        const agentsNoMatricule = activeAgents.filter(a => !a.matricule);
-        if (agentsNoMatricule.length > 0) {
-            items.push({ label: 'agent(s) actif(s) sans matricule', count: agentsNoMatricule.length, to: '/agents?filter=%7B%22status%22%3A%22active%22%7D', icon: '🔢' });
-        }
-
-        // 3. SST expirée (seulement si la donnée a été renseignée)
-        const agentsExpiredSST = activeAgents.filter(a => {
-            if (!a.sstExpiresAt) return false;
-            return moment(a.sstExpiresAt).isBefore(now);
-        });
-        if (agentsExpiredSST.length > 0) {
-            items.push({ label: 'agent(s) avec SST expirée', count: agentsExpiredSST.length, to: '/agents?filter=%7B%22status%22%3A%22active%22%7D', icon: '🏥' });
-        }
-
-        // 4. Missions sans affectation (futures/en cours)
-        if (planning) {
-            const missionsNoAssignment = planning.filter(m => {
-                if (!m.agentAssignments || m.agentAssignments.length === 0) return true;
-                const allEmpty = m.agentAssignments.every((a: AgentAssignment) => !a.agentId);
-                if (!allEmpty) return false;
-                // Check if mission is future or active
-                let latestEnd = 0;
-                m.agentAssignments.forEach((a: AgentAssignment) => {
-                    a.vacations.forEach((v: Vacation) => {
-                        const end = moment(`${v.date}T${v.end}`).valueOf();
-                        if (end > latestEnd) latestEnd = end;
-                    });
-                });
-                return latestEnd === 0 || latestEnd > now.valueOf();
-            });
-            if (missionsNoAssignment.length > 0) {
-                items.push({ label: 'mission(s) sans affectation', count: missionsNoAssignment.length, to: '/planning?view=list', icon: '📋' });
-            }
-        }
-
-        return items;
-    }, [agents, planning]);
 
     // ─── A28 FIX 3: Categorized alerts ───────────────────────────────────────
     const categorizedAlerts = useMemo(() => {
@@ -386,11 +278,17 @@ const Dashboard = () => {
                 items.push({ label: `${activeFutureMissionsNoAgent.length} mission(s) sans agent affecté`, badge: '🔵', to: '/planning?view=list', color: '#1976d2', level: 'watch' });
         }
 
-        if (compliance.length > 0)
-            items.push({ label: `${compliance.reduce((s, c) => s + c.count, 0)} écart(s) de conformité opérationnelle`, badge: '🔵', to: '/supervision', color: '#1976d2', level: 'watch' });
+        // Inline compliance check (signals moved from removed compliance useMemo)
+        const activeAgents = agents.filter(a => a.status === 'active');
+        const complianceCount = activeAgents.filter(a => !a.professionalCardNumber).length
+            + activeAgents.filter(a => !a.matricule).length
+            + activeAgents.filter(a => a.sstExpiresAt && moment(a.sstExpiresAt).isBefore(moment())).length;
+
+        if (complianceCount > 0)
+            items.push({ label: `${complianceCount} écart(s) de conformité opérationnelle`, badge: '🔵', to: '/supervision', color: '#1976d2', level: 'watch' });
 
         return items;
-    }, [supportStats, planning, compliance]);
+    }, [supportStats, planning, agents]);
 
     // ─── A28 FIX 3: Audit log signals (last 24h) ────────────────────────────
     const auditSignals = useMemo(() => {
@@ -436,7 +334,7 @@ const Dashboard = () => {
             <Card sx={{ mb: 3 }}>
                 <CardHeader
                     title="Mo'Cyno — Cockpit Admin"
-                    subheader={`${moment().format('dddd D MMMM YYYY')} — v2.0.0-A28`}
+                    subheader={`${moment().format('dddd D MMMM YYYY')} — v2.0.0-A35`}
                 />
                 <CardContent sx={{ pt: 0, display: 'flex', alignItems: 'center', gap: 2 }}>
                     <Typography color="text.secondary" sx={{ flexGrow: 1 }}>
@@ -492,33 +390,7 @@ const Dashboard = () => {
                 </Paper>
             )}
 
-            {/* ── A28 FIX 1: Watchlist ── */}
-            {watchlist.length > 0 && (
-                <Paper elevation={2} sx={{ p: 2, mb: 3, bgcolor: '#e3f2fd', borderLeft: '4px solid #1565c0' }}>
-                    <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1 }}>🔍 À surveiller</Typography>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                        {watchlist.map((item, i) => (
-                            <Link key={i} to={item.to} style={{ textDecoration: 'none' }}>
-                                <Chip label={`${item.icon} ${item.count} ${item.label}`} clickable sx={{ bgcolor: 'white', border: '1px solid #1565c0' }} />
-                            </Link>
-                        ))}
-                    </Box>
-                </Paper>
-            )}
 
-            {/* ── A28 FIX 2: Compliance ── */}
-            {compliance.length > 0 && (
-                <Paper elevation={2} sx={{ p: 2, mb: 3, bgcolor: '#f3e5f5', borderLeft: '4px solid #7b1fa2' }}>
-                    <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1 }}>📋 Conformité opérationnelle</Typography>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                        {compliance.map((item, i) => (
-                            <Link key={i} to={item.to} style={{ textDecoration: 'none' }}>
-                                <Chip label={`${item.icon} ${item.count} ${item.label}`} clickable sx={{ bgcolor: 'white', border: '1px solid #7b1fa2' }} />
-                            </Link>
-                        ))}
-                    </Box>
-                </Paper>
-            )}
 
             {/* ── Section: Exploitation ── */}
             <Typography variant="h6" sx={{ mb: 1.5, mt: 1 }}>📊 Exploitation</Typography>
@@ -573,7 +445,7 @@ const Dashboard = () => {
                         <Typography variant="h6" gutterBottom>🔗 Raccourcis</Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                             {[
-                                { label: 'Créer une mission', to: '/planning', icon: '➕' },
+                                { label: 'Créer une mission', to: '/planning?view=calendar', icon: '➕' },
                                 { label: 'Voir les incidents', to: '/reports', icon: '🔴' },
                                 { label: 'Voir les demandes', to: '/clientRequests', icon: '📝' },
                                 { label: 'Gérer les consignes', to: '/consignes', icon: '📋' },
