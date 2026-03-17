@@ -63,6 +63,7 @@ interface AgentItem {
     professionalCardNumber?: string;
     matricule?: string;
     sstExpiresAt?: string;
+    isServiceRunning?: boolean;
 }
 
 interface ClientItem {
@@ -268,6 +269,16 @@ const Supervision = () => {
                     to: '/planning?view=list', category: 'exploitation'
                 });
             }
+        }
+
+        // --- AGENTS EN SERVICE (M24) ---
+        const onDutyAgents = agents.filter(a => a.isServiceRunning === true);
+        if (onDutyAgents.length > 0) {
+            alerts.push({
+                level: 'watch', icon: '📡', count: onDutyAgents.length,
+                label: 'agent(s) actuellement en service', action: 'Voir',
+                to: '/agents', category: 'exploitation'
+            });
         }
 
         // --- SUPPORT ---
