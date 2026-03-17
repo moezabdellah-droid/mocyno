@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
+import { collection, query, where, getDocs, orderBy, doc, getDoc } from 'firebase/firestore';
 import { httpsCallable } from 'firebase/functions';
 import { db, functions } from '../firebase';
 import { logger, classifyError, formatDate, formatTime } from '../utils/logger';
@@ -44,6 +44,32 @@ const PlanningPage: React.FC<PlanningPageProps> = ({ clientId }) => {
                 );
                 const snapshot = await getDocs(q);
                 const data = snapshot.docs.map(d => ({ id: d.id, ...d.data() } as ShiftSegment));
+
+                // Resolve agent names for segments missing agentName
+                const unresolvedIds = [...new Set(
+                    data.filter(s => !s.agentName && s.agentId).map(s => s.agentId)
+                )];
+                if (unresolvedIds.length > 0) {
+                    const nameMap = new Map<string, string>();
+                    await Promise.all(
+                        unresolvedIds.map(async (aid) => {
+                            try {
+                                const agentSnap = await getDoc(doc(db, 'agents', aid));
+                                if (agentSnap.exists()) {
+                                    const ad = agentSnap.data();
+                                    const name = [ad.firstName, ad.lastName].filter(Boolean).join(' ');
+                                    if (name) nameMap.set(aid, name);
+                                }
+                            } catch { /* agent not readable by client — expected */ }
+                        })
+                    );
+                    data.forEach(s => {
+                        if (!s.agentName && nameMap.has(s.agentId)) {
+                            s.agentName = nameMap.get(s.agentId);
+                        }
+                    });
+                }
+
                 setSegments(data);
             } catch (err) {
                 logger.error('PlanningPage.fetch', err);
@@ -102,7 +128,7 @@ const PlanningPage: React.FC<PlanningPageProps> = ({ clientId }) => {
                 <td>${csvDateTime(s.startTimestamp).split(' ')[0] || ''}</td>
                 <td>${csvDateTime(s.startTimestamp).split(' ')[1] || ''}</td>
                 <td>${csvDateTime(s.endTimestamp).split(' ')[1] || ''}</td>
-                <td>${s.agentName || s.agentId}</td>
+                <td>${s.agentName || 'Agent affecté'}</td>
                 <td>${s.siteName || s.siteId}</td>
                 <td>${s.status}</td>
             </tr>`).join('');
@@ -159,7 +185,7 @@ const PlanningPage: React.FC<PlanningPageProps> = ({ clientId }) => {
                                     <td>{formatDate(seg.startTimestamp)}</td>
                                     <td>{formatTime(seg.startTimestamp)}</td>
                                     <td>{formatTime(seg.endTimestamp)}</td>
-                                    <td>{seg.agentName || seg.agentId}</td>
+                                    <td>{seg.agentName || 'Agent affecté'}</td>
                                     <td>{seg.siteName || seg.siteId}</td>
                                     <td><span className={`status-badge status-${seg.status}`}>{seg.status}</span></td>
                                     <td>
