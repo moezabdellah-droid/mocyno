@@ -82,3 +82,6 @@ functions/keys/
 
 # dataconnect generated files
 .dataconnect
+
+# Generated build artefacts (A33 housekeeping)
+packages/types/dist/
