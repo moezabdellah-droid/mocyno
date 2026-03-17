@@ -48,11 +48,8 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ clientId }) => {
     const [submitting, setSubmitting] = useState(false);
     const [sitesMap, setSitesMap] = useState<Map<string, string>>(new Map());
 
-
-
-    useEffect(() => {
-        const fetchConsignes = async () => {
-            try {
+    const fetchConsignes = async () => {
+        try {
                 // 1. Fetch client's sites (same 4-query approach as SitesPage)
                 const sitesCol = collection(db, 'sites');
                 const siteQueries = [
@@ -111,15 +108,17 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ clientId }) => {
                     return db2.getTime() - da.getTime();
                 });
 
-                setConsignes(allConsignes);
-                setSitesMap(sitesMap);
-            } catch (err) {
-                logger.error('ConsignesPage.fetch', err);
-                setError(classifyError(err));
-            } finally {
-                setLoading(false);
-            }
-        };
+            setConsignes(allConsignes);
+            setSitesMap(sitesMap);
+        } catch (err) {
+            logger.error('ConsignesPage.fetch', err);
+            setError(classifyError(err));
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
         fetchConsignes();
     }, [clientId]);
 
@@ -144,9 +143,8 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ clientId }) => {
             setFormSiteId('');
             setShowForm(false);
             showToast('Votre consigne a été enregistrée et sera examinée.');
-            // Refetch
             setLoading(true);
-            window.location.reload();
+            await fetchConsignes();
         } catch (err) {
             logger.error('ConsignesPage.create', err);
             alert('Erreur lors de la cr\u00e9ation de la consigne.');
@@ -224,7 +222,11 @@ const ConsignesPage: React.FC<ConsignesPageProps> = ({ clientId }) => {
                 <span className="filter-count">{consignes.filter(c => typeFilter === 'all' || c.type === typeFilter).length} / {consignes.length}</span>
             </div>
             {consignes.length === 0 ? (
-                <p className="empty-state">Aucune consigne disponible pour vos sites.</p>
+                <div className="empty-state-box">
+                    <span className="empty-icon">📋</span>
+                    <p>Aucune consigne disponible pour vos sites.</p>
+                    {sitesMap.size > 0 && <button onClick={() => setShowForm(true)} className="action-btn primary">Ajouter une consigne</button>}
+                </div>
             ) : (
                 <div className="consignes-list">
                     {consignes.filter(c => typeFilter === 'all' || c.type === typeFilter).map(c => (
