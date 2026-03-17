@@ -69,7 +69,7 @@ const App: React.FC = () => {
     return unsubscribe;
   }, []);
 
-  if (loading) return <div style={{ padding: 20, textAlign: 'center' }}>Loading Firebase...</div>;
+  if (loading) return <div style={{ padding: 20, textAlign: 'center' }}>Chargement…</div>;
 
   return (
     <IonApp>
