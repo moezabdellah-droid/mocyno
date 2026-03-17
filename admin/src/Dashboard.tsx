@@ -41,6 +41,47 @@ interface SupportItem {
     type?: string;
 }
 
+interface AgentItem {
+    id: string;
+    status?: string;
+    firstName?: string;
+    lastName?: string;
+    professionalCardNumber?: string;
+    matricule?: string;
+    sstExpiresAt?: string;
+    email?: string;
+}
+
+interface ClientItem {
+    id: string;
+    companyName?: string;
+    siteId?: string;
+    siteIds?: string[];
+    portalAccess?: boolean;
+    status?: string;
+}
+
+interface AuditLogItem {
+    id: string;
+    action?: string;
+    actorUid?: string;
+    actorRole?: string;
+    targetType?: string;
+    summary?: string;
+    createdAt?: { seconds?: number } | string;
+}
+
+// ─── Alert level type (A28 FIX 3) ───────────────────────────────────────────
+type AlertLevel = 'urgent' | 'action' | 'watch';
+
+interface CategorizedAlert {
+    label: string;
+    badge: string;
+    to: string;
+    color: string;
+    level: AlertLevel;
+}
+
 // ─── KPI Card Component ─────────────────────────────────────────────────────
 const KpiCard = ({ value, label, icon, color, to }: {
     value: string | number; label: string; icon: string; color: string; to: string;
@@ -91,31 +132,44 @@ const isInPeriod = (createdAt: SupportItem['createdAt'], days: number | null): b
     return false;
 };
 
+// ─── Alert level config (A28 FIX 3) ─────────────────────────────────────────
+const ALERT_LEVEL_CONFIG: Record<AlertLevel, { emoji: string; title: string; bgcolor: string; border: string }> = {
+    urgent: { emoji: '🔴', title: 'Urgent', bgcolor: '#ffeaea', border: '#d32f2f' },
+    action: { emoji: '🟡', title: 'À traiter', bgcolor: '#fff8e1', border: '#f9a825' },
+    watch: { emoji: '🔵', title: 'À surveiller', bgcolor: '#e3f2fd', border: '#1976d2' },
+};
+
 // ─── Dashboard ───────────────────────────────────────────────────────────────
 const Dashboard = () => {
     const [planning, setPlanning] = useState<Mission[] | null>(null);
     const [reports, setReports] = useState<SupportItem[]>([]);
     const [requests, setRequests] = useState<SupportItem[]>([]);
     const [consignes, setConsignes] = useState<SupportItem[]>([]);
-    const [clients, setClients] = useState<SupportItem[]>([]);
+    const [clients, setClients] = useState<ClientItem[]>([]);
+    const [agents, setAgents] = useState<AgentItem[]>([]);
+    const [auditLogs, setAuditLogs] = useState<AuditLogItem[]>([]);
     const [loading, setLoading] = useState(true);
     const [period, setPeriod] = useState<Period>('30d');
 
     useEffect(() => {
         const fetchAll = async () => {
             try {
-                const [planRes, repRes, reqRes, conRes, cliRes] = await Promise.all([
+                const [planRes, repRes, reqRes, conRes, cliRes, agtRes, audRes] = await Promise.all([
                     dataProvider.getList('planning', { pagination: { page: 1, perPage: 200 }, sort: { field: 'createdAt', order: 'DESC' }, filter: {} }),
                     dataProvider.getList('reports', { pagination: { page: 1, perPage: 50 }, sort: { field: 'createdAt', order: 'DESC' }, filter: {} }),
                     dataProvider.getList('clientRequests', { pagination: { page: 1, perPage: 50 }, sort: { field: 'createdAt', order: 'DESC' }, filter: {} }),
                     dataProvider.getList('consignes', { pagination: { page: 1, perPage: 50 }, sort: { field: 'createdAt', order: 'DESC' }, filter: {} }),
                     dataProvider.getList('clients', { pagination: { page: 1, perPage: 100 }, sort: { field: 'provisionedAt', order: 'DESC' }, filter: {} }),
+                    dataProvider.getList('agents', { pagination: { page: 1, perPage: 200 }, sort: { field: 'lastName', order: 'ASC' }, filter: {} }),
+                    dataProvider.getList('auditLogs', { pagination: { page: 1, perPage: 20 }, sort: { field: 'createdAt', order: 'DESC' }, filter: {} }).catch(() => ({ data: [], total: 0 })),
                 ]);
                 setPlanning(planRes.data as Mission[]);
                 setReports(repRes.data as SupportItem[]);
                 setRequests(reqRes.data as SupportItem[]);
                 setConsignes(conRes.data as SupportItem[]);
-                setClients(cliRes.data as SupportItem[]);
+                setClients(cliRes.data as ClientItem[]);
+                setAgents(agtRes.data as AgentItem[]);
+                setAuditLogs(audRes.data as AuditLogItem[]);
             } catch (error) {
                 console.error('[Dashboard] fetch error:', error);
             } finally {
@@ -179,16 +233,138 @@ const Dashboard = () => {
             urgentRequests: filteredRequests.filter(r => r.priority === 'urgent' && r.status !== 'closed').length,
             pendingConsignes: filteredConsignes.filter(c => c.source === 'client' && c.status === 'pending').length,
             totalConsignes: filteredConsignes.length,
-            activeClients: clients.filter(c => (c as unknown as { portalAccess?: boolean }).portalAccess).length,
+            activeClients: clients.filter(c => c.portalAccess).length,
             totalClients: clients.length,
         };
     }, [reports, requests, consignes, clients, days]);
 
-    // ─── Alerts — support + exploitation anomalies (A24 FIX 4 + A25 FIX 3) ────
-    const alerts = useMemo(() => {
-        const items: { label: string; badge: string; to: string; color: string }[] = [];
+    // ─── A28 FIX 1: Watchlist signals ────────────────────────────────────────
+    const watchlist = useMemo(() => {
+        const items: { label: string; count: number; to: string; icon: string }[] = [];
+        const now = moment();
 
-        // Exploitation anomalies (A25)
+        // 1. Missions futures sans agent
+        if (planning) {
+            const missionsNoAgent = planning.filter(m => {
+                if (!m.agentAssignments || m.agentAssignments.length === 0) return true;
+                return m.agentAssignments.every((a: AgentAssignment) => !a.agentId);
+            });
+            const futureMissionsNoAgent = missionsNoAgent.filter(m => {
+                if (!m.agentAssignments || m.agentAssignments.length === 0) return true;
+                let latestEnd = 0;
+                m.agentAssignments.forEach((a: AgentAssignment) => {
+                    a.vacations.forEach((v: Vacation) => {
+                        const end = moment(`${v.date}T${v.end}`).valueOf();
+                        if (end > latestEnd) latestEnd = end;
+                    });
+                });
+                return latestEnd === 0 || latestEnd > now.valueOf();
+            });
+            if (futureMissionsNoAgent.length > 0) {
+                items.push({ label: 'mission(s) sans agent affecté', count: futureMissionsNoAgent.length, to: '/planning?view=list', icon: '⚠️' });
+            }
+        }
+
+        // 2. Consignes client en attente > 7 jours
+        const oldPendingConsignes = consignes.filter(c => {
+            if (c.source !== 'client' || c.status !== 'pending') return false;
+            if (!c.createdAt) return false;
+            const created = typeof c.createdAt === 'string' ? moment(c.createdAt) : (c.createdAt.seconds ? moment(c.createdAt.seconds * 1000) : null);
+            return created ? now.diff(created, 'days') >= 7 : false;
+        });
+        if (oldPendingConsignes.length > 0) {
+            items.push({ label: 'consigne(s) client en attente > 7j', count: oldPendingConsignes.length, to: '/consignes?filter=%7B%22source%22%3A%22client%22%2C%22status%22%3A%22pending%22%7D', icon: '⏳' });
+        }
+
+        // 3. Incidents ouverts haute/critique
+        const criticalOpen = reports.filter(r => r.status === 'open' && (r.severity === 'critical' || r.severity === 'high'));
+        if (criticalOpen.length > 0) {
+            items.push({ label: 'incident(s) critique/élevé ouvert(s)', count: criticalOpen.length, to: '/reports?filter=%7B%22status%22%3A%22open%22%7D', icon: '🔥' });
+        }
+
+        // 4. Demandes urgentes non closes
+        const urgentOpen = requests.filter(r => r.priority === 'urgent' && r.status !== 'closed');
+        if (urgentOpen.length > 0) {
+            items.push({ label: 'demande(s) urgente(s) non close(s)', count: urgentOpen.length, to: '/clientRequests?filter=%7B%22priority%22%3A%22urgent%22%7D', icon: '🚨' });
+        }
+
+        // 5. Clients sans site rattaché
+        const clientsNoSite = clients.filter(c => !c.siteId && (!c.siteIds || c.siteIds.length === 0));
+        if (clientsNoSite.length > 0) {
+            items.push({ label: 'client(s) sans site rattaché', count: clientsNoSite.length, to: '/clients', icon: '🔗' });
+        }
+
+        return items;
+    }, [planning, consignes, reports, requests, clients]);
+
+    // ─── A28 FIX 2: Compliance signals ───────────────────────────────────────
+    const compliance = useMemo(() => {
+        const items: { label: string; count: number; to: string; icon: string }[] = [];
+        const now = moment();
+
+        // 1. Agents actifs sans carte professionnelle
+        const activeAgents = agents.filter(a => a.status === 'active');
+        const agentsNoCard = activeAgents.filter(a => !a.professionalCardNumber);
+        if (agentsNoCard.length > 0) {
+            items.push({ label: 'agent(s) actif(s) sans carte pro', count: agentsNoCard.length, to: '/agents?filter=%7B%22status%22%3A%22active%22%7D', icon: '🪪' });
+        }
+
+        // 2. Agents actifs sans matricule
+        const agentsNoMatricule = activeAgents.filter(a => !a.matricule);
+        if (agentsNoMatricule.length > 0) {
+            items.push({ label: 'agent(s) actif(s) sans matricule', count: agentsNoMatricule.length, to: '/agents?filter=%7B%22status%22%3A%22active%22%7D', icon: '🔢' });
+        }
+
+        // 3. SST expirée (seulement si la donnée a été renseignée)
+        const agentsExpiredSST = activeAgents.filter(a => {
+            if (!a.sstExpiresAt) return false;
+            return moment(a.sstExpiresAt).isBefore(now);
+        });
+        if (agentsExpiredSST.length > 0) {
+            items.push({ label: 'agent(s) avec SST expirée', count: agentsExpiredSST.length, to: '/agents?filter=%7B%22status%22%3A%22active%22%7D', icon: '🏥' });
+        }
+
+        // 4. Missions sans affectation (futures/en cours)
+        if (planning) {
+            const missionsNoAssignment = planning.filter(m => {
+                if (!m.agentAssignments || m.agentAssignments.length === 0) return true;
+                const allEmpty = m.agentAssignments.every((a: AgentAssignment) => !a.agentId);
+                if (!allEmpty) return false;
+                // Check if mission is future or active
+                let latestEnd = 0;
+                m.agentAssignments.forEach((a: AgentAssignment) => {
+                    a.vacations.forEach((v: Vacation) => {
+                        const end = moment(`${v.date}T${v.end}`).valueOf();
+                        if (end > latestEnd) latestEnd = end;
+                    });
+                });
+                return latestEnd === 0 || latestEnd > now.valueOf();
+            });
+            if (missionsNoAssignment.length > 0) {
+                items.push({ label: 'mission(s) sans affectation', count: missionsNoAssignment.length, to: '/planning?view=list', icon: '📋' });
+            }
+        }
+
+        return items;
+    }, [agents, planning]);
+
+    // ─── A28 FIX 3: Categorized alerts ───────────────────────────────────────
+    const categorizedAlerts = useMemo(() => {
+        const items: CategorizedAlert[] = [];
+
+        // 🔴 URGENT
+        if (supportStats.criticalIncidents > 0)
+            items.push({ label: `${supportStats.criticalIncidents} incident(s) critique(s) ouvert(s)`, badge: '🔴', to: '/reports?filter=%7B%22status%22%3A%22open%22%7D', color: '#d32f2f', level: 'urgent' });
+        if (supportStats.urgentRequests > 0)
+            items.push({ label: `${supportStats.urgentRequests} demande(s) urgente(s)`, badge: '🔴', to: '/clientRequests?filter=%7B%22priority%22%3A%22urgent%22%7D', color: '#d32f2f', level: 'urgent' });
+
+        // 🟡 À TRAITER
+        if (supportStats.pendingConsignes > 0)
+            items.push({ label: `${supportStats.pendingConsignes} consigne(s) client en attente`, badge: '🟡', to: '/consignes?filter=%7B%22source%22%3A%22client%22%2C%22status%22%3A%22pending%22%7D', color: '#f9a825', level: 'action' });
+        if (supportStats.pendingRequests > 0)
+            items.push({ label: `${supportStats.pendingRequests} demande(s) en attente de traitement`, badge: '🟡', to: '/clientRequests?filter=%7B%22status%22%3A%22pending%22%7D', color: '#ed6c02', level: 'action' });
+
+        // 🔵 À SURVEILLER
         if (planning) {
             const now = moment();
             const missionsNoAgent = planning.filter(m => {
@@ -207,20 +383,28 @@ const Dashboard = () => {
                 return latestEnd === 0 || latestEnd > now.valueOf();
             });
             if (activeFutureMissionsNoAgent.length > 0)
-                items.push({ label: `${activeFutureMissionsNoAgent.length} mission(s) sans agent affecté`, badge: '⚠️', to: '/planning?view=list', color: '#e65100' });
+                items.push({ label: `${activeFutureMissionsNoAgent.length} mission(s) sans agent affecté`, badge: '🔵', to: '/planning?view=list', color: '#1976d2', level: 'watch' });
         }
 
-        // Support alerts
-        if (supportStats.criticalIncidents > 0)
-            items.push({ label: `${supportStats.criticalIncidents} incident(s) critique(s) ouvert(s)`, badge: '🔴', to: '/reports?filter=%7B%22status%22%3A%22open%22%7D', color: '#d32f2f' });
-        if (supportStats.urgentRequests > 0)
-            items.push({ label: `${supportStats.urgentRequests} demande(s) urgente(s)`, badge: '🟠', to: '/clientRequests?filter=%7B%22priority%22%3A%22urgent%22%7D', color: '#ed6c02' });
-        if (supportStats.pendingConsignes > 0)
-            items.push({ label: `${supportStats.pendingConsignes} consigne(s) client en attente`, badge: '🟡', to: '/consignes?filter=%7B%22source%22%3A%22client%22%2C%22status%22%3A%22pending%22%7D', color: '#f9a825' });
-        if (supportStats.pendingRequests > 0)
-            items.push({ label: `${supportStats.pendingRequests} demande(s) en attente de traitement`, badge: '📋', to: '/clientRequests?filter=%7B%22status%22%3A%22pending%22%7D', color: '#1976d2' });
+        if (compliance.length > 0)
+            items.push({ label: `${compliance.reduce((s, c) => s + c.count, 0)} écart(s) de conformité opérationnelle`, badge: '🔵', to: '/supervision', color: '#1976d2', level: 'watch' });
+
         return items;
-    }, [supportStats, planning]);
+    }, [supportStats, planning, compliance]);
+
+    // ─── A28 FIX 3: Audit log signals (last 24h) ────────────────────────────
+    const auditSignals = useMemo(() => {
+        const cutoff = moment().subtract(24, 'hours');
+        const recent = auditLogs.filter(log => {
+            if (!log.createdAt) return false;
+            const ts = typeof log.createdAt === 'string' ? moment(log.createdAt) : (log.createdAt.seconds ? moment(log.createdAt.seconds * 1000) : null);
+            return ts ? ts.isAfter(cutoff) : false;
+        });
+        const agentCreations = recent.filter(l => l.action === 'createAgent').length;
+        const clientCreations = recent.filter(l => l.action === 'createClient').length;
+        const passwordChanges = recent.filter(l => l.action === 'updateAgentPassword').length;
+        return { agentCreations, clientCreations, passwordChanges, total: recent.length };
+    }, [auditLogs]);
 
     // ─── Recent activity (FIX 4) ─────────────────────────────────────────────
     const recentActivity = useMemo(() => {
@@ -239,6 +423,11 @@ const Dashboard = () => {
         );
     }
 
+    // Group alerts by level (A28 FIX 3)
+    const alertsByLevel = (['urgent', 'action', 'watch'] as AlertLevel[])
+        .map(level => ({ level, items: categorizedAlerts.filter(a => a.level === level) }))
+        .filter(g => g.items.length > 0);
+
     return (
         <Box>
             <Title title="Tableau de Bord" />
@@ -247,11 +436,11 @@ const Dashboard = () => {
             <Card sx={{ mb: 3 }}>
                 <CardHeader
                     title="Mo'Cyno — Cockpit Admin"
-                    subheader={`${moment().format('dddd D MMMM YYYY')} — v2.0.0-A24`}
+                    subheader={`${moment().format('dddd D MMMM YYYY')} — v2.0.0-A28`}
                 />
                 <CardContent sx={{ pt: 0, display: 'flex', alignItems: 'center', gap: 2 }}>
                     <Typography color="text.secondary" sx={{ flexGrow: 1 }}>
-                        Vue consolidée exploitation & support client.
+                        Vue consolidée exploitation, support client & supervision.
                     </Typography>
                     <ToggleButtonGroup
                         value={period}
@@ -266,14 +455,65 @@ const Dashboard = () => {
                 </CardContent>
             </Card>
 
-            {/* ── Alerts ── */}
-            {alerts.length > 0 && (
-                <Paper elevation={2} sx={{ p: 2, mb: 3, bgcolor: '#fff3e0', borderLeft: '4px solid #ed6c02' }}>
-                    <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1 }}>⚠️ À traiter</Typography>
+            {/* ── A28 FIX 3: Categorized alerts ── */}
+            {alertsByLevel.length > 0 && (
+                <Paper elevation={2} sx={{ p: 2, mb: 3 }}>
+                    <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1.5 }}>⚡ Alertes & Supervision</Typography>
+                    {alertsByLevel.map(group => {
+                        const cfg = ALERT_LEVEL_CONFIG[group.level];
+                        return (
+                            <Box key={group.level} sx={{ mb: 1.5, p: 1.5, bgcolor: cfg.bgcolor, borderLeft: `4px solid ${cfg.border}`, borderRadius: 1 }}>
+                                <Typography variant="body2" fontWeight="bold" sx={{ mb: 0.5 }}>{cfg.emoji} {cfg.title}</Typography>
+                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                    {group.items.map((a, i) => (
+                                        <Link key={i} to={a.to} style={{ textDecoration: 'none' }}>
+                                            <Chip label={`${a.badge} ${a.label}`} clickable size="small" sx={{ bgcolor: 'white', border: `1px solid ${a.color}`, fontSize: '0.8rem' }} />
+                                        </Link>
+                                    ))}
+                                </Box>
+                            </Box>
+                        );
+                    })}
+                    {/* A28 FIX 3: Audit signals (last 24h) */}
+                    {auditSignals.total > 0 && (
+                        <Box sx={{ mt: 1, pt: 1, borderTop: '1px solid #e0e0e0', display: 'flex', gap: 1.5, alignItems: 'center', flexWrap: 'wrap' }}>
+                            <Typography variant="caption" color="text.secondary">🔍 Dernières 24h :</Typography>
+                            {auditSignals.agentCreations > 0 && (
+                                <Chip label={`${auditSignals.agentCreations} création(s) agent`} size="small" variant="outlined" sx={{ fontSize: '0.7rem' }} />
+                            )}
+                            {auditSignals.clientCreations > 0 && (
+                                <Chip label={`${auditSignals.clientCreations} création(s) client`} size="small" variant="outlined" sx={{ fontSize: '0.7rem' }} />
+                            )}
+                            {auditSignals.passwordChanges > 0 && (
+                                <Chip label={`${auditSignals.passwordChanges} changement(s) MDP`} size="small" variant="outlined" sx={{ fontSize: '0.7rem' }} />
+                            )}
+                        </Box>
+                    )}
+                </Paper>
+            )}
+
+            {/* ── A28 FIX 1: Watchlist ── */}
+            {watchlist.length > 0 && (
+                <Paper elevation={2} sx={{ p: 2, mb: 3, bgcolor: '#e3f2fd', borderLeft: '4px solid #1565c0' }}>
+                    <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1 }}>🔍 À surveiller</Typography>
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                        {alerts.map((a, i) => (
-                            <Link key={i} to={a.to} style={{ textDecoration: 'none' }}>
-                                <Chip label={`${a.badge} ${a.label}`} clickable sx={{ bgcolor: 'white', border: `1px solid ${a.color}` }} />
+                        {watchlist.map((item, i) => (
+                            <Link key={i} to={item.to} style={{ textDecoration: 'none' }}>
+                                <Chip label={`${item.icon} ${item.count} ${item.label}`} clickable sx={{ bgcolor: 'white', border: '1px solid #1565c0' }} />
+                            </Link>
+                        ))}
+                    </Box>
+                </Paper>
+            )}
+
+            {/* ── A28 FIX 2: Compliance ── */}
+            {compliance.length > 0 && (
+                <Paper elevation={2} sx={{ p: 2, mb: 3, bgcolor: '#f3e5f5', borderLeft: '4px solid #7b1fa2' }}>
+                    <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1 }}>📋 Conformité opérationnelle</Typography>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                        {compliance.map((item, i) => (
+                            <Link key={i} to={item.to} style={{ textDecoration: 'none' }}>
+                                <Chip label={`${item.icon} ${item.count} ${item.label}`} clickable sx={{ bgcolor: 'white', border: '1px solid #7b1fa2' }} />
                             </Link>
                         ))}
                     </Box>
@@ -339,6 +579,7 @@ const Dashboard = () => {
                                 { label: 'Gérer les consignes', to: '/consignes', icon: '📋' },
                                 { label: 'Gérer les documents', to: '/documents', icon: '📄' },
                                 { label: 'Nouveau client', to: '/clients/create', icon: '🤝' },
+                                { label: 'Supervision', to: '/supervision', icon: '🛡️' },
                             ].map((s, i) => (
                                 <Link key={i} to={s.to} style={{ textDecoration: 'none' }}>
                                     <Chip label={`${s.icon} ${s.label}`} clickable variant="outlined" sx={{ width: '100%', justifyContent: 'flex-start', py: 1 }} />
