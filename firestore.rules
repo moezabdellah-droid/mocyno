@@ -37,9 +37,11 @@ service cloud.firestore {
 
     // --- COLLECTIONS ---
 
-    // 1. CONSIGNES
+    // 1. CONSIGNES — agent scoped to siteId (M21)
     match /consignes/{consigneId} {
-      allow read: if (isAuthenticated() && !isClient())
+      allow read: if isAdminOrManager()
+                  || (isAuthenticated() && !isClient() && !isAdminOrManager()
+                      && resource.data.siteId == getUserData().siteId)
                   || (isClient() && resource.data.targetId == clientSiteId());
       allow create: if isAdminOrManager()
                     || (isClient()
