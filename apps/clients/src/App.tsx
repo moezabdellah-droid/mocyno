@@ -37,6 +37,13 @@ const App: React.FC = () => {
     const { user, clientId, clientProfile, loading, error } = useClientData();
     const [activeTab, setActiveTab] = useState<Tab>('dashboard');
 
+    /** Defensive display name — never shows 'undefined undefined' */
+    const clientDisplayName = clientProfile
+        ? (clientProfile.firstName && clientProfile.lastName
+            ? `${clientProfile.firstName} ${clientProfile.lastName}`
+            : clientProfile.companyName || clientProfile.email || 'Client')
+        : 'Client';
+
     // Loading
     if (loading) {
         return (
@@ -78,7 +85,7 @@ const App: React.FC = () => {
             <header className="dashboard-header">
                 <h1>MoCyno — Portail Client</h1>
                 <div className="header-user">
-                    <span>{clientProfile.firstName} {clientProfile.lastName}</span>
+                    <span>{clientDisplayName}</span>
                     <button onClick={() => signOut(auth)} className="logout-btn">Déconnexion</button>
                 </div>
             </header>
@@ -94,7 +101,7 @@ const App: React.FC = () => {
                 ))}
             </nav>
             <main className="dashboard-main">
-                {activeTab === 'dashboard' && <DashboardPage clientId={clientId} clientName={`${clientProfile.firstName} ${clientProfile.lastName}`} onNavigate={(tab) => setActiveTab(tab as Tab)} />}
+                {activeTab === 'dashboard' && <DashboardPage clientId={clientId} clientName={clientDisplayName} onNavigate={(tab) => setActiveTab(tab as Tab)} />}
                 {activeTab === 'planning' && <PlanningPage clientId={clientId} />}
                 {activeTab === 'sites' && <SitesPage clientId={clientId} />}
                 {activeTab === 'documents' && <DocumentsPage clientId={clientId} />}
