@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonTextarea, IonButton, IonIcon, IonItem, IonLabel, IonLoading, IonSelect, IonSelectOption, IonButtons, IonBackButton, IonToast } from '@ionic/react';
 import { camera, send } from 'ionicons/icons';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { db, auth, storage } from '../firebase';
-import { collection, addDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore';
+import { db, storage } from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { ref, uploadString, getDownloadURL } from 'firebase/storage';
 import { useHistory } from 'react-router-dom';
-
-interface AgentMeta {
-    firstName?: string;
-    lastName?: string;
-    siteId?: string;
-    siteName?: string;
-}
+import { useAgentMeta } from '../hooks/useAgentMeta';
 
 const REPORT_TYPES = [
     { value: 'MAIN_COURANTE', label: 'Main courante' },
@@ -27,31 +21,9 @@ const ReportsPage: React.FC = () => {
     const [photo, setPhoto] = useState<string | undefined>(undefined);
     const [photoBase64, setPhotoBase64] = useState<string | undefined>(undefined);
     const [loading, setLoading] = useState(false);
-    const [agentMeta, setAgentMeta] = useState<AgentMeta>({});
     const [toast, setToast] = useState<{ message: string; color: string } | null>(null);
     const history = useHistory();
-
-    useEffect(() => {
-        const loadMeta = async () => {
-            const user = auth.currentUser;
-            if (!user) return;
-            try {
-                const agentSnap = await getDoc(doc(db, 'agents', user.uid));
-                if (agentSnap.exists()) {
-                    const d = agentSnap.data();
-                    setAgentMeta({
-                        firstName: d.firstName,
-                        lastName: d.lastName,
-                        siteId: d.siteId,
-                        siteName: d.siteName,
-                    });
-                }
-            } catch (e) {
-                console.error('Failed to load agent metadata:', e);
-            }
-        };
-        loadMeta();
-    }, []);
+    const agentMeta = useAgentMeta();
 
     const takePhoto = async () => {
         try {
@@ -81,8 +53,7 @@ const ReportsPage: React.FC = () => {
 
         setLoading(true);
         try {
-            const user = auth.currentUser;
-            if (!user) return;
+            if (!agentMeta.authorId) return;
 
             let photoUrl: string | null = null;
             let photoPath: string | null = null;
@@ -90,7 +61,7 @@ const ReportsPage: React.FC = () => {
             if (photoBase64) {
                 try {
                     const filename = `${Date.now()}.jpg`;
-                    const storagePath = `report_photos/${user.uid}/${filename}`;
+                    const storagePath = `report_photos/${agentMeta.authorId}/${filename}`;
                     const storageRef = ref(storage, storagePath);
                     const snapshot = await uploadString(storageRef, photoBase64, 'base64', {
                         contentType: 'image/jpeg'
@@ -105,19 +76,17 @@ const ReportsPage: React.FC = () => {
                 }
             }
 
-            const agentName = [agentMeta.firstName, agentMeta.lastName].filter(Boolean).join(' ') || null;
-
             await addDoc(collection(db, 'events'), {
                 type: reportType,
                 title: title.trim(),
                 description: description.trim(),
                 photo: photoUrl,
                 photoPath: photoPath,
-                authorId: user.uid,
-                authorEmail: user.email,
-                agentName,
-                siteId: agentMeta.siteId || null,
-                siteName: agentMeta.siteName || null,
+                authorId: agentMeta.authorId,
+                authorEmail: agentMeta.authorEmail,
+                agentName: agentMeta.agentName,
+                siteId: agentMeta.siteId,
+                siteName: agentMeta.siteName,
                 timestamp: serverTimestamp(),
                 status: 'OPEN'
             });

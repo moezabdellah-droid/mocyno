@@ -2,46 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, IonLoading, IonText, IonButtons, IonBackButton, IonToast } from '@ionic/react';
 import { scan, close } from 'ionicons/icons';
 import { BarcodeScanner, BarcodeFormat } from '@capacitor-mlkit/barcode-scanning';
-import { db, auth } from '../firebase';
-import { collection, addDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useHistory } from 'react-router-dom';
 import { PtiService } from '../services/PtiService';
-
-interface AgentMeta {
-    firstName?: string;
-    lastName?: string;
-    siteId?: string;
-    siteName?: string;
-}
+import { useAgentMeta } from '../hooks/useAgentMeta';
 
 const ScanPage: React.FC = () => {
     const [isScanning, setIsScanning] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [agentMeta, setAgentMeta] = useState<AgentMeta>({});
     const [toast, setToast] = useState<{ message: string; color: string } | null>(null);
     const history = useHistory();
-
-    useEffect(() => {
-        const loadMeta = async () => {
-            const user = auth.currentUser;
-            if (!user) return;
-            try {
-                const agentSnap = await getDoc(doc(db, 'agents', user.uid));
-                if (agentSnap.exists()) {
-                    const d = agentSnap.data();
-                    setAgentMeta({
-                        firstName: d.firstName,
-                        lastName: d.lastName,
-                        siteId: d.siteId,
-                        siteName: d.siteName,
-                    });
-                }
-            } catch (e) {
-                console.error('Failed to load agent metadata:', e);
-            }
-        };
-        loadMeta();
-    }, []);
+    const agentMeta = useAgentMeta();
 
     const startScan = async () => {
         try {
@@ -78,18 +50,16 @@ const ScanPage: React.FC = () => {
     const handleScanResult = async (content: string) => {
         setLoading(true);
         try {
-            const user = auth.currentUser;
             const position = await PtiService.getCurrentPosition();
-            const agentName = [agentMeta.firstName, agentMeta.lastName].filter(Boolean).join(' ') || null;
 
             await addDoc(collection(db, 'events'), {
                 type: 'RDL_CHECKPOINT',
                 content,
-                authorId: user?.uid,
-                authorEmail: user?.email,
-                agentName,
-                siteId: agentMeta.siteId || null,
-                siteName: agentMeta.siteName || null,
+                authorId: agentMeta.authorId,
+                authorEmail: agentMeta.authorEmail,
+                agentName: agentMeta.agentName,
+                siteId: agentMeta.siteId,
+                siteName: agentMeta.siteName,
                 location: position ? { lat: position.coords.latitude, lng: position.coords.longitude } : null,
                 timestamp: serverTimestamp(),
                 status: 'VALIDATED'
