@@ -1,20 +1,57 @@
-import React, { useState } from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonTextarea, IonButton, IonIcon, IonItem, IonLabel, IonLoading } from '@ionic/react';
+import React, { useState, useEffect } from 'react';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonTextarea, IonButton, IonIcon, IonItem, IonLabel, IonLoading, IonSelect, IonSelectOption } from '@ionic/react';
 import { camera, send, chevronBack } from 'ionicons/icons';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { db, auth, storage } from '../firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore';
 import { ref, uploadString, getDownloadURL } from 'firebase/storage';
 import { useHistory } from 'react-router-dom';
+
+interface AgentMeta {
+    firstName?: string;
+    lastName?: string;
+    siteId?: string;
+    siteName?: string;
+}
+
+const REPORT_TYPES = [
+    { value: 'MAIN_COURANTE', label: 'Main courante' },
+    { value: 'INCIDENT', label: 'Incident' },
+    { value: 'OBSERVATION', label: 'Observation' },
+];
 
 const ReportsPage: React.FC = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [reportType, setReportType] = useState<string>('MAIN_COURANTE');
     const [photo, setPhoto] = useState<string | undefined>(undefined);
-    // Stores the raw base64 string (no data: prefix) for Storage upload
     const [photoBase64, setPhotoBase64] = useState<string | undefined>(undefined);
     const [loading, setLoading] = useState(false);
+    const [agentMeta, setAgentMeta] = useState<AgentMeta>({});
     const history = useHistory();
+
+    // Load agent metadata for enrichment
+    useEffect(() => {
+        const loadMeta = async () => {
+            const user = auth.currentUser;
+            if (!user) return;
+            try {
+                const agentSnap = await getDoc(doc(db, 'agents', user.uid));
+                if (agentSnap.exists()) {
+                    const d = agentSnap.data();
+                    setAgentMeta({
+                        firstName: d.firstName,
+                        lastName: d.lastName,
+                        siteId: d.siteId,
+                        siteName: d.siteName,
+                    });
+                }
+            } catch (e) {
+                console.error('Failed to load agent metadata:', e);
+            }
+        };
+        loadMeta();
+    }, []);
 
     const takePhoto = async () => {
         try {
@@ -25,7 +62,6 @@ const ReportsPage: React.FC = () => {
                 source: CameraSource.Camera,
                 width: 800
             });
-            // Keep data URL for preview only; store raw base64 for upload
             setPhoto(`data:image/jpeg;base64,${image.base64String}`);
             setPhotoBase64(image.base64String);
         } catch (error) {
@@ -34,8 +70,12 @@ const ReportsPage: React.FC = () => {
     };
 
     const submitReport = async () => {
-        if (!title || !description) {
+        if (!title.trim() || !description.trim()) {
             alert('Veuillez remplir le titre et la description.');
+            return;
+        }
+        if (!reportType) {
+            alert('Veuillez sélectionner un type de rapport.');
             return;
         }
 
@@ -47,7 +87,6 @@ const ReportsPage: React.FC = () => {
             let photoUrl: string | null = null;
             let photoPath: string | null = null;
 
-            // Upload photo to Storage if one was taken
             if (photoBase64) {
                 try {
                     const filename = `${Date.now()}.jpg`;
@@ -62,18 +101,23 @@ const ReportsPage: React.FC = () => {
                     console.error('Storage upload error:', uploadError);
                     alert("Erreur lors de l'upload de la photo. Veuillez réessayer.");
                     setLoading(false);
-                    return; // Block submission — do not save silently without photo
+                    return;
                 }
             }
 
+            const agentName = [agentMeta.firstName, agentMeta.lastName].filter(Boolean).join(' ') || null;
+
             await addDoc(collection(db, 'events'), {
-                type: 'MAIN_COURANTE',
-                title,
-                description,
-                photo: photoUrl,         // Storage URL (null if no photo)
-                photoPath: photoPath,    // Storage path for future ops
+                type: reportType,
+                title: title.trim(),
+                description: description.trim(),
+                photo: photoUrl,
+                photoPath: photoPath,
                 authorId: user.uid,
                 authorEmail: user.email,
+                agentName,
+                siteId: agentMeta.siteId || null,
+                siteName: agentMeta.siteName || null,
                 timestamp: serverTimestamp(),
                 status: 'OPEN'
             });
@@ -82,7 +126,7 @@ const ReportsPage: React.FC = () => {
             history.goBack();
         } catch (error) {
             console.error('Error submitting report:', error);
-            alert("Erreur lors de l'envoi.");
+            alert("Erreur lors de l'envoi du rapport.");
         } finally {
             setLoading(false);
         }
@@ -99,6 +143,14 @@ const ReportsPage: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
+                <IonItem>
+                    <IonLabel>Type</IonLabel>
+                    <IonSelect value={reportType} onIonChange={e => setReportType(e.detail.value)} interface="popover">
+                        {REPORT_TYPES.map(t => (
+                            <IonSelectOption key={t.value} value={t.value}>{t.label}</IonSelectOption>
+                        ))}
+                    </IonSelect>
+                </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Titre de l'événement</IonLabel>
                     <IonInput value={title} onIonChange={e => setTitle(e.detail.value!)} />

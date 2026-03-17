@@ -3,27 +3,55 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIco
 import { scan, close } from 'ionicons/icons';
 import { BarcodeScanner, BarcodeFormat } from '@capacitor-mlkit/barcode-scanning';
 import { db, auth } from '../firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore';
 import { useHistory } from 'react-router-dom';
 import { PtiService } from '../services/PtiService';
+
+interface AgentMeta {
+    firstName?: string;
+    lastName?: string;
+    siteId?: string;
+    siteName?: string;
+}
 
 const ScanPage: React.FC = () => {
     const [isScanning, setIsScanning] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [agentMeta, setAgentMeta] = useState<AgentMeta>({});
     const history = useHistory();
+
+    // Load agent metadata
+    useEffect(() => {
+        const loadMeta = async () => {
+            const user = auth.currentUser;
+            if (!user) return;
+            try {
+                const agentSnap = await getDoc(doc(db, 'agents', user.uid));
+                if (agentSnap.exists()) {
+                    const d = agentSnap.data();
+                    setAgentMeta({
+                        firstName: d.firstName,
+                        lastName: d.lastName,
+                        siteId: d.siteId,
+                        siteName: d.siteName,
+                    });
+                }
+            } catch (e) {
+                console.error('Failed to load agent metadata:', e);
+            }
+        };
+        loadMeta();
+    }, []);
 
     const startScan = async () => {
         try {
-            // Request permissions
             const status = await BarcodeScanner.requestPermissions();
             if (status.camera !== 'granted' && status.camera !== 'limited') {
                 alert('Permission caméra refusée.');
                 return;
             }
 
-            // Start Scanner
             setIsScanning(true);
-            // Hide webview to see camera (Capacitor specific)
             document.body.classList.add('scanner-active');
 
             const { barcodes } = await BarcodeScanner.scan({
@@ -36,7 +64,7 @@ const ScanPage: React.FC = () => {
             }
         } catch (error) {
             console.error('Scan error:', error);
-            alert("Erreur/Annulation du scan.");
+            alert("Erreur ou annulation du scan.");
         } finally {
             stopScan();
         }
@@ -45,7 +73,6 @@ const ScanPage: React.FC = () => {
     const stopScan = async () => {
         setIsScanning(false);
         document.body.classList.remove('scanner-active');
-        // BarcodeScanner.stopScan(); // Not always needed depending on plugin update, but good practice
     };
 
     const handleScanResult = async (content: string) => {
@@ -53,22 +80,26 @@ const ScanPage: React.FC = () => {
         try {
             const user = auth.currentUser;
             const position = await PtiService.getCurrentPosition();
+            const agentName = [agentMeta.firstName, agentMeta.lastName].filter(Boolean).join(' ') || null;
 
             await addDoc(collection(db, 'events'), {
                 type: 'RDL_CHECKPOINT',
-                content: content, // The QR payload (e.g., "CP_HALL_ENTREE")
+                content,
                 authorId: user?.uid,
                 authorEmail: user?.email,
+                agentName,
+                siteId: agentMeta.siteId || null,
+                siteName: agentMeta.siteName || null,
                 location: position ? { lat: position.coords.latitude, lng: position.coords.longitude } : null,
                 timestamp: serverTimestamp(),
                 status: 'VALIDATED'
             });
 
-            alert(`Point Pointé : ${content}`);
+            alert(`✅ Point validé : ${content}`);
             history.goBack();
         } catch (e) {
             console.error(e);
-            alert("Erreur de sauvegarde.");
+            alert("Erreur de sauvegarde du checkpoint.");
         } finally {
             setLoading(false);
         }
@@ -76,7 +107,7 @@ const ScanPage: React.FC = () => {
 
     useEffect(() => {
         return () => {
-            stopScan(); // Cleanup on unmount
+            stopScan();
         };
     }, []);
 
@@ -95,7 +126,7 @@ const ScanPage: React.FC = () => {
             <IonContent className="ion-padding" style={{ '--background': isScanning ? 'transparent' : '' }}>
                 {!isScanning && (
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-                        <IonIcon icon={scan} style={{ fontSize: '6rem', color: '#var(--ion-color-primary)' }} />
+                        <IonIcon icon={scan} style={{ fontSize: '6rem', color: 'var(--ion-color-primary)' }} />
                         <IonText>
                             <h3>Prêt à scanner</h3>
                             <p>Visez le QR Code du point de contrôle.</p>
