@@ -1,6 +1,6 @@
 # Portail Client — Guide d'exploitation et support
 
-> Dernière mise à jour : R13, 15 mars 2026
+> Dernière mise à jour : A29, 17 mars 2026
 
 ---
 
