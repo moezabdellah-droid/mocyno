@@ -42,22 +42,6 @@
       ]
     },
     {
-      "collectionGroup": "documentReceipts",
-      "queryScope": "COLLECTION",
-      "fields": [
-        { "fieldPath": "status", "order": "ASCENDING" },
-        { "fieldPath": "assignedAt", "order": "DESCENDING" }
-      ]
-    },
-    {
-      "collectionGroup": "documentReceipts",
-      "queryScope": "COLLECTION",
-      "fields": [
-        { "fieldPath": "status", "order": "ASCENDING" },
-        { "fieldPath": "ackedAt", "order": "DESCENDING" }
-      ]
-    },
-    {
       "collectionGroup": "shiftSegments",
       "queryScope": "COLLECTION_GROUP",
       "fields": [
