@@ -165,6 +165,12 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    // 14. AUTOMATION LOGS — lecture admin/manager, écriture via Admin SDK uniquement (A38)
+    match /automationLogs/{logId} {
+      allow read: if isAdminOrManager();
+      allow write: if false;
+    }
+
     // Default
     match /{document=**} {
       allow read, write: if false;
