@@ -90,11 +90,6 @@
         "type": 301
       },
       {
-        "source": "/mobile",
-        "destination": "/fr/",
-        "type": 301
-      },
-      {
         "source": "/services",
         "destination": "/fr/services/",
         "type": 301
@@ -253,6 +248,16 @@
         "source": "/client/**",
         "destination": "/clients/",
         "type": 301
+      },
+      {
+        "source": "/fr/services/gardiennage-statique-mobile",
+        "destination": "/fr/services/surveillance-humaine/",
+        "type": 301
+      },
+      {
+        "source": "/fr/services/intervention-sur-alarme",
+        "destination": "/fr/services/surveillance-humaine/",
+        "type": 301
       }
     ],
     "rewrites": [
@@ -264,6 +269,10 @@
       {
         "source": "/clients/**",
         "destination": "/clients/index.html"
+      },
+      {
+        "source": "/mobile/**",
+        "destination": "/mobile/index.html"
       },
       {
         "source": "/api/**",
