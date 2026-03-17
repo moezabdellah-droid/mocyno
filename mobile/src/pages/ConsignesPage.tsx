@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import DOMPurify from 'dompurify';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonBadge, IonModal, IonButton, IonIcon, IonButtons, IonBackButton, IonSpinner, IonToast } from '@ionic/react';
 import { book, close } from 'ionicons/icons';
-import { db } from '../firebase';
-import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
+import { db, auth } from '../firebase';
+import { collection, query, where, orderBy, onSnapshot, doc, getDoc } from 'firebase/firestore';
 
 import type { Consigne } from '@mocyno/types';
 
@@ -14,18 +14,48 @@ const ConsignesPage: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const q = query(collection(db, 'consignes'), orderBy('createdAt', 'desc'));
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-            const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Consigne[];
-            setConsignes(data);
-            setLoading(false);
-        }, (err) => {
-            console.error('ConsignesPage error:', err);
-            setError('Impossible de charger les consignes.');
-            setLoading(false);
-        });
-        return unsubscribe;
+        const user = auth.currentUser;
+        if (!user) { setLoading(false); return; }
+
+        // Load agent siteId, then scope consignes query
+        const loadConsignes = async () => {
+            try {
+                const agentSnap = await getDoc(doc(db, 'agents', user.uid));
+                const siteId = agentSnap.exists() ? agentSnap.data()?.siteId : null;
+
+                if (!siteId) {
+                    setError('Aucun site assigné. Contactez votre responsable.');
+                    setLoading(false);
+                    return;
+                }
+
+                const q = query(
+                    collection(db, 'consignes'),
+                    where('siteId', '==', siteId),
+                    orderBy('createdAt', 'desc')
+                );
+                const unsubscribe = onSnapshot(q, (snapshot) => {
+                    const data = snapshot.docs.map(d => ({ id: d.id, ...d.data() })) as Consigne[];
+                    setConsignes(data);
+                    setLoading(false);
+                }, (err) => {
+                    console.error('ConsignesPage error:', err);
+                    setError('Impossible de charger les consignes.');
+                    setLoading(false);
+                });
+                return unsubscribe;
+            } catch (e) {
+                console.error('ConsignesPage init error:', e);
+                setError('Erreur de chargement. Réessayez.');
+                setLoading(false);
+            }
+        };
+
+        let unsubscribe: (() => void) | undefined;
+        loadConsignes().then(unsub => { unsubscribe = unsub; });
+        return () => { if (unsubscribe) unsubscribe(); };
     }, []);
+
 
     return (
         <IonPage>
