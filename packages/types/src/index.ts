@@ -59,6 +59,8 @@ export interface Agent {
     isServiceRunning?: boolean;
     mustChangePassword?: boolean;
     siteId?: string;
+    siteName?: string;
+    location?: { lat: number; lng: number; lastUpdated?: Date | string };
 }
 
 export interface Site {

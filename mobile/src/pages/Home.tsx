@@ -84,6 +84,17 @@ const Home: React.FC = () => {
                     </IonCardContent>
                 </IonCard>
 
+                {/* Assigned Site */}
+                {agentInfo?.siteName && (
+                    <IonCard>
+                        <IonCardContent>
+                            <p style={{ margin: 0, fontSize: '0.9rem' }}>
+                                <strong>Site assigné :</strong> {agentInfo.siteName}
+                            </p>
+                        </IonCardContent>
+                    </IonCard>
+                )}
+
                 {/* SOS Button */}
                 <div style={{ display: 'flex', justifyContent: 'center', margin: '3rem 0' }}>
                     <IonFabButton color="danger" style={{ width: '160px', height: '160px' }} onClick={handleSOS}>
@@ -105,12 +116,14 @@ const Home: React.FC = () => {
                         </IonCol>
                     </IonRow>
                     <IonRow>
+                        {import.meta.env.DEV && (
                         <IonCol>
                             <IonButton expand="block" fill="outline" shape="round" onClick={() => PtiService.simulateFall()}>
                                 <IonIcon slot="start" icon={body} />
                                 Simuler Chute
                             </IonButton>
                         </IonCol>
+                        )}
                         <IonCol>
                             <IonButton expand="block" fill="solid" color="dark" shape="round" routerLink="/scan">
                                 <IonIcon slot="start" icon={scan} />

@@ -1,11 +1,12 @@
 import { Geolocation } from '@capacitor/geolocation';
 import { db, auth } from '../firebase';
-import { collection, addDoc, serverTimestamp, doc, updateDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { SOS_PHONE_NUMBER } from '../constants';
 
 export class PtiService {
     private static watchId: string | null = null;
     private static isServiceActive = false;
+    private static agentMeta: { agentName?: string; siteId?: string; siteName?: string } = {};
 
     // Start Background Tracking (Simulated Background)
     static async startService() {
@@ -21,6 +22,19 @@ export class PtiService {
         }
 
         this.isServiceActive = true;
+
+        // Cache agent metadata for event enrichment
+        try {
+            const agentSnap = await getDoc(doc(db, 'agents', user.uid));
+            if (agentSnap.exists()) {
+                const d = agentSnap.data();
+                this.agentMeta = {
+                    agentName: [d.firstName, d.lastName].filter(Boolean).join(' ') || undefined,
+                    siteId: d.siteId,
+                    siteName: d.siteName,
+                };
+            }
+        } catch { /* metadata fetch optional */ }
 
         // Persist State to Firestore
         try {
@@ -92,9 +106,12 @@ export class PtiService {
             type,
             authorId: user.uid,
             authorEmail: user.email,
+            agentName: this.agentMeta.agentName || null,
+            siteId: this.agentMeta.siteId || null,
+            siteName: this.agentMeta.siteName || null,
             location: position ? { lat: position.coords.latitude, lng: position.coords.longitude } : null,
             timestamp: serverTimestamp(),
-            status: 'CLOSED' // System events are closed by default
+            status: 'CLOSED'
         });
     }
 
@@ -146,6 +163,9 @@ export class PtiService {
                 type: 'SOS',
                 authorId: user.uid,
                 authorEmail: user.email,
+                agentName: this.agentMeta.agentName || null,
+                siteId: this.agentMeta.siteId || null,
+                siteName: this.agentMeta.siteName || null,
                 location: location,
                 timestamp: serverTimestamp(),
                 status: 'OPEN',
