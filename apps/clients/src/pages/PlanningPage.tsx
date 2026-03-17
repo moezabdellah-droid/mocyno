@@ -164,7 +164,11 @@ const PlanningPage: React.FC<PlanningPageProps> = ({ clientId }) => {
                 )}
             </div>
             {segments.length === 0 ? (
-                <p className="empty-state">Aucun créneau planifié pour le moment.</p>
+                <div className="empty-state-box">
+                    <span className="empty-icon">📅</span>
+                    <p>Aucun créneau planifié pour le moment.</p>
+                    <span className="empty-detail">Les prochains créneaux apparaîtront ici automatiquement.</span>
+                </div>
             ) : (
                 <div className="table-wrapper">
                     <table className="data-table">

@@ -67,7 +67,11 @@ const SitesPage: React.FC<SitesPageProps> = ({ clientId }) => {
         <div className="page-content">
             <h2>Mes sites</h2>
             {sites.length === 0 ? (
-                <p className="empty-state">Aucun site rattaché à votre compte.</p>
+                <div className="empty-state-box">
+                    <span className="empty-icon">📍</span>
+                    <p>Aucun site rattaché à votre compte.</p>
+                    <span className="empty-detail">Contactez votre gestionnaire pour ajouter vos sites.</span>
+                </div>
             ) : (
                 <div className="cards-grid">
                     {sites.map(site => (
