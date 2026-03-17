@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from './firebase';
 import { useClientData } from './hooks/useClientData';
@@ -17,6 +17,8 @@ import './index.css';
 
 type Tab = 'dashboard' | 'planning' | 'sites' | 'documents' | 'consignes' | 'requests' | 'reports' | 'reporting';
 
+const tabKeys: Tab[] = ['dashboard', 'planning', 'sites', 'documents', 'consignes', 'requests', 'reports', 'reporting'];
+
 const tabs: { key: Tab; label: string }[] = [
     { key: 'dashboard', label: 'Accueil' },
     { key: 'planning', label: 'Planning' },
@@ -28,14 +30,36 @@ const tabs: { key: Tab; label: string }[] = [
     { key: 'reporting', label: 'Reporting' },
 ];
 
+/** Read active tab from the current URL path */
+const getTabFromPath = (): Tab => {
+    const path = window.location.pathname.replace(/\/clients\/?/, '').replace(/\/$/, '');
+    if (path && tabKeys.includes(path as Tab)) return path as Tab;
+    return 'dashboard';
+};
+
 /**
  * R10C — App.tsx reconstruit
  * Modèle: claims { role:'client', clientId } + clients/{docId}
  * Pages: Planning, Sites, Documents, Demandes, Incidents
+ * A30: URL-synced deep links
  */
 const App: React.FC = () => {
     const { user, clientId, clientProfile, loading, error } = useClientData();
-    const [activeTab, setActiveTab] = useState<Tab>('dashboard');
+    const [activeTab, setActiveTab] = useState<Tab>(getTabFromPath);
+
+    /** Push URL when tab changes */
+    const navigateTab = useCallback((tab: Tab) => {
+        setActiveTab(tab);
+        const url = tab === 'dashboard' ? '/clients/' : `/clients/${tab}`;
+        window.history.pushState(null, '', url);
+    }, []);
+
+    /** Listen for browser back/forward */
+    useEffect(() => {
+        const onPopState = () => setActiveTab(getTabFromPath());
+        window.addEventListener('popstate', onPopState);
+        return () => window.removeEventListener('popstate', onPopState);
+    }, []);
 
     /** Defensive display name — never shows 'undefined undefined' */
     const clientDisplayName = clientProfile
@@ -94,14 +118,14 @@ const App: React.FC = () => {
                     <button
                         key={t.key}
                         className={`nav-btn${activeTab === t.key ? ' active' : ''}`}
-                        onClick={() => setActiveTab(t.key)}
+                        onClick={() => navigateTab(t.key)}
                     >
                         {t.label}
                     </button>
                 ))}
             </nav>
             <main className="dashboard-main">
-                {activeTab === 'dashboard' && <DashboardPage clientId={clientId} clientName={clientDisplayName} onNavigate={(tab) => setActiveTab(tab as Tab)} />}
+                {activeTab === 'dashboard' && <DashboardPage clientId={clientId} clientName={clientDisplayName} onNavigate={(tab) => navigateTab(tab as Tab)} />}
                 {activeTab === 'planning' && <PlanningPage clientId={clientId} />}
                 {activeTab === 'sites' && <SitesPage clientId={clientId} />}
                 {activeTab === 'documents' && <DocumentsPage clientId={clientId} />}
