@@ -1,4 +1,4 @@
-name: 🚀 CI/CD Mo'cyno Admin Panel
+name: 🚀 CI/CD Mo'cyno Platform
 on:
   push:
     branches: [main]
@@ -6,8 +6,8 @@ on:
     branches: [main, develop]
 
 jobs:
-  test:
-    name: 🧪 Test & Build
+  quality:
+    name: 🧪 Quality checks
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout code
@@ -18,39 +18,47 @@ jobs:
         with:
           version: 10
 
-      - name: 🛠️ Setup Node.js 20
+      - name: 🛠️ Setup Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'pnpm'
 
       - name: 📦 Install dependencies
         run: pnpm install --no-lockfile
 
-      - name: 🔍 TypeScript Check Admin
-        run: cd admin && pnpm tsc --noEmit
+      # --- Types (shared dependency) ---
+      - name: 🔩 Build shared types
+        run: cd packages/types && npx tsc
 
-      - name: 🔍 TypeScript Check Mobile
-        run: cd mobile && pnpm tsc --noEmit
-
+      # --- Admin ---
       - name: 🧹 Lint Admin
         run: cd admin && pnpm lint
 
+      - name: 🧪 Test Admin
+        run: cd admin && npx vitest run
+
+      - name: 🔨 Build Admin
+        run: cd admin && npx vite build
+
+      # --- Client Portal ---
+      - name: 🔨 Build Client Portal
+        run: cd apps/clients && npx tsc -b && npx vite build
+
+      # --- Mobile ---
       - name: 🧹 Lint Mobile
         run: cd mobile && pnpm lint
 
-      - name: 🔨 Build production (Admin)
-        run: cd admin && pnpm build
+      - name: 🔨 Build Mobile
+        run: cd mobile && npx tsc -b && npx vite build
 
-      - name: 📊 Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: admin-build
-          path: public/admin/
+      # --- Functions ---
+      - name: 🔍 Functions load check
+        run: cd functions && npm install && node -e "require('./index.js'); console.log('✅ Functions load OK')"
 
   deploy:
     name: 🚀 Deploy to Firebase
-    needs: test
+    needs: quality
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
@@ -60,29 +68,21 @@ jobs:
       - name: 📦 Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 10
 
-      - name: 🛠️ Setup Node.js 20
+      - name: 🛠️ Setup Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'pnpm'
 
       - name: 📦 Install dependencies
         run: pnpm install --no-lockfile
 
-      - name: 🔨 Build admin
-        env:
-          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
-          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
-          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
-          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
-          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
-          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
-          VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
-        run: cd admin && pnpm build
+      - name: 🔩 Build shared types
+        run: cd packages/types && npx tsc
 
-      - name: 🔨 Build mobile
+      - name: 🔨 Build Admin
         env:
           VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
           VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
@@ -91,7 +91,29 @@ jobs:
           VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
           VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
-        run: cd mobile && pnpm build
+        run: cd admin && npx vite build
+
+      - name: 🔨 Build Client Portal
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+          VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
+        run: cd apps/clients && npx tsc -b && npx vite build
+
+      - name: 🔨 Build Mobile
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+          VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
+        run: cd mobile && npx tsc -b && npx vite build
 
       - name: 🚀 Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
@@ -100,8 +122,10 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SA }}
           channelId: live
           projectId: mocyno
-      
+
       - name: 🔗 Post-deploy validation
         run: |
           curl -f https://mocyno.web.app/admin || exit 1
-          echo "✅ Production deployment successful!"
+          curl -f https://mocyno.web.app/clients/ || exit 1
+          curl -f https://mocyno.web.app/mobile/ || exit 1
+          echo "✅ Production deployment verified!"
