@@ -7,7 +7,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "predeploy": "python scripts/validate_seo_tags.py",
-    "deploy": "firebase deploy --only hosting"
+    "deploy": "firebase deploy --only hosting",
+    "qa:types": "cd packages/types && npx tsc",
+    "qa:admin": "cd admin && npx vitest run && npx vite build",
+    "qa:client": "cd apps/clients && npx tsc -b && npx vite build",
+    "qa:mobile": "cd mobile && npx tsc -b && npx vite build",
+    "qa:functions": "cd functions && node -e \"require('./index.js'); console.log('Functions load OK')\"",
+    "qa:platform": "pnpm qa:types && pnpm qa:admin && pnpm qa:client && pnpm qa:mobile && pnpm qa:functions && echo '✅ All QA gates passed'"
   },
   "repository": {
     "type": "git",
