@@ -1,39 +1,43 @@
-# Mo'Cyno — UX & Performance Baseline
+# Mo'Cyno — UX & Performance Baseline (passe 2)
 
-> A35 — 17 mars 2026
+> A35bis — 17 mars 2026  
+> Mise à jour après A35 + A36
 
-## Micro-frictions identifiées
+## Frictions corrigées (A35 passe 1)
 
-### Admin (Dashboard / Supervision / Resources)
+- ~~A1~~ Déduplication alertes Dashboard ✅
+- ~~A2~~ Version label → A35 ✅
+- ~~C1~~ Loading spinner CSS ✅
+- ~~C2~~ Status badge fallback ✅
+- ~~C3~~ Shortcut hover feedback ✅
+
+## Nouvelles frictions identifiées
+
+### Admin
 
 | # | Type | Description | Priorité |
 |---|---|---|---|
-| A1 | Navigation / lecture | Dashboard : 3 blocs alerte se chevauchent (Alertes, Watchlist, Conformité) — signal dupliqué | 🔴 |
-| A2 | Lecture | Dashboard version label encore `A28` | 🟡 |
-| A3 | Performance | Dashboard : 7 requêtes Firestore parallèles, spinner unique sans skeleton | 🟡 |
-| A4 | Lecture | Alertes Dashboard : pas de lien Supervision visible depuis le bloc alertes | 🟡 |
-| A5 | Cohérence | Dashboard raccourcis : « Créer une mission » pointe vers `/planning` au lieu de `/planning?view=calendar` | 🟢 |
+| A6 | Navigation | Dashboard manque un raccourci vers la Supervision | 🟡 |
+| A7 | Cohérence | Dashboard version devrait refléter A35bis | 🟢 |
 
 ### Client Portal
 
 | # | Type | Description | Priorité |
 |---|---|---|---|
-| C1 | Feedback | Loading states sont du texte brut sans spinner | 🟡 |
-| C2 | Lecture | Status badges utilisent des CSS classes dynamiques sans fallback couleur | 🟡 |
-| C3 | Navigation | Dashboard shortcuts n'ont pas d'icône de feedback au hover | 🟢 |
-| C4 | Performance | PlanningPage résout les noms agents un par un (N+1) — déjà optimisé par Set | 🟢 |
+| C5 | Cohérence | ConsignesPage, RequestsPage, ReportsPage : empty state hétérogène (texte vs empty-state-box) | 🔴 |
+| C6 | Lecture | Toutes les pages client loading disent un texte différent — harmoniser | 🟡 |
+| C7 | Feedback | Formulaires : pas de feedback visuel au submit réussi (seul toast, pas de reset visuel) | 🟡 |
+| C8 | Navigation | Dashboard recent activity manque le lien vers la page concernée | 🟢 |
 
 ### Mobile
 
 | # | Type | Description | Priorité |
 |---|---|---|---|
-| M1 | Cohérence | Loading/error states hétérogènes entre pages (IonLoading vs spinner inline) | 🟡 |
-| M2 | Feedback | Toast messages disparaissent trop vite (1s) | 🟢 |
+| M3 | Cohérence | Loading/error states acceptables (Ionic natif) — pas de friction visible | 🟢 |
 
-## Priorités retenues pour A35
+## Priorités retenues pour A35bis
 
-1. **A1** — Dédupliquer les blocs alertes dans le Dashboard Admin
-2. **A2** — Mettre à jour le version label
-3. **C1** — Améliorer les loading states client avec spinner CSS
-4. **C2** — Harmoniser les status badges client
-5. **A3** — Améliorer le feedback loading admin
+1. **C5** — Harmoniser les empty states sur toutes les pages client
+2. **C6** — Harmoniser les loading text messages
+3. **A6** — Ajouter raccourci Supervision dans Dashboard Admin
+4. **A7** — Version label → A35bis
