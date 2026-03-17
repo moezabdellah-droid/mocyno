@@ -84,6 +84,17 @@ interface AuditLogItem {
     createdAt?: { seconds?: number } | string;
 }
 
+interface AutomationLogItem {
+    id: string;
+    type?: string;
+    status?: string;
+    totalIssues?: number;
+    signals?: { type: string; count: number; level: string; detail: string }[];
+    auditSummary?: { total: number; agentCreations: number; clientCreations: number; passwordChanges: number };
+    runAt?: { seconds?: number } | string;
+    version?: string;
+}
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 const formatTimestamp = (d: SupportItem['createdAt']): string => {
     if (!d) return '—';
@@ -169,12 +180,13 @@ const Supervision = () => {
     const [clients, setClients] = useState<ClientItem[]>([]);
     const [agents, setAgents] = useState<AgentItem[]>([]);
     const [auditLogs, setAuditLogs] = useState<AuditLogItem[]>([]);
+    const [automationLogs, setAutomationLogs] = useState<AutomationLogItem[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchAll = async () => {
             try {
-                const [planRes, repRes, reqRes, conRes, cliRes, agtRes, audRes] = await Promise.all([
+                const [planRes, repRes, reqRes, conRes, cliRes, agtRes, audRes, autoRes] = await Promise.all([
                     dataProvider.getList('planning', { pagination: { page: 1, perPage: 200 }, sort: { field: 'createdAt', order: 'DESC' }, filter: {} }),
                     dataProvider.getList('reports', { pagination: { page: 1, perPage: 50 }, sort: { field: 'createdAt', order: 'DESC' }, filter: {} }),
                     dataProvider.getList('clientRequests', { pagination: { page: 1, perPage: 50 }, sort: { field: 'createdAt', order: 'DESC' }, filter: {} }),
@@ -182,6 +194,7 @@ const Supervision = () => {
                     dataProvider.getList('clients', { pagination: { page: 1, perPage: 100 }, sort: { field: 'provisionedAt', order: 'DESC' }, filter: {} }),
                     dataProvider.getList('agents', { pagination: { page: 1, perPage: 200 }, sort: { field: 'lastName', order: 'ASC' }, filter: {} }),
                     dataProvider.getList('auditLogs', { pagination: { page: 1, perPage: 25 }, sort: { field: 'createdAt', order: 'DESC' }, filter: {} }).catch(() => ({ data: [], total: 0 })),
+                    dataProvider.getList('automationLogs', { pagination: { page: 1, perPage: 5 }, sort: { field: 'runAt', order: 'DESC' }, filter: {} }).catch(() => ({ data: [], total: 0 })),
                 ]);
                 setPlanning(planRes.data as Mission[]);
                 setReports(repRes.data as SupportItem[]);
@@ -190,6 +203,7 @@ const Supervision = () => {
                 setClients(cliRes.data as ClientItem[]);
                 setAgents(agtRes.data as AgentItem[]);
                 setAuditLogs(audRes.data as AuditLogItem[]);
+                setAutomationLogs(autoRes.data as AutomationLogItem[]);
             } catch (error) {
                 console.error('[Supervision] fetch error:', error);
             } finally {
@@ -571,6 +585,54 @@ const Supervision = () => {
                                     </div>
                                 ))}
                             </List>
+                        )}
+                    </SupervisionSection>
+
+                    {/* A36 — Automation visibility */}
+                    <SupervisionSection title="Automatisations" icon="⚙️" color="#00796b">
+                        {automationLogs.length === 0 ? (
+                            <Typography variant="body2" color="text.secondary">Aucun run d'automatisation enregistré.</Typography>
+                        ) : (
+                            <Box>
+                                {(() => {
+                                    const lastRun = automationLogs[0];
+                                    const runTime = lastRun?.runAt ? formatTimestamp(lastRun.runAt as any) : '—';
+                                    return (
+                                        <Box>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                                                <Chip
+                                                    label={lastRun?.status === 'all_clear' ? '✅ OK' : lastRun?.status === 'issues_found' ? '⚠️ Signaux' : '❌ Erreur'}
+                                                    size="small"
+                                                    sx={{
+                                                        bgcolor: lastRun?.status === 'all_clear' ? '#e8f5e9' : lastRun?.status === 'issues_found' ? '#fff3e0' : '#ffebee',
+                                                        color: lastRun?.status === 'all_clear' ? '#2e7d32' : lastRun?.status === 'issues_found' ? '#e65100' : '#c62828',
+                                                        fontWeight: 'bold'
+                                                    }}
+                                                />
+                                                <Typography variant="caption" color="text.secondary">
+                                                    Dernier run : {runTime}
+                                                </Typography>
+                                            </Box>
+                                            {lastRun?.signals && lastRun.signals.length > 0 && (
+                                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                                                    {lastRun.signals.map((sig, i) => (
+                                                        <Typography key={i} variant="body2" sx={{ fontSize: '0.8rem' }}>
+                                                            {sig.level === 'critical' ? '🔴' : sig.level === 'high' ? '🟠' : '🔵'} {sig.count} {sig.detail}
+                                                        </Typography>
+                                                    ))}
+                                                </Box>
+                                            )}
+                                            {lastRun?.auditSummary && (
+                                                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
+                                                    Audit 24h : {lastRun.auditSummary.total} action(s)
+                                                    {lastRun.auditSummary.agentCreations > 0 && ` · ${lastRun.auditSummary.agentCreations} création(s) agent`}
+                                                    {lastRun.auditSummary.passwordChanges > 0 && ` · ${lastRun.auditSummary.passwordChanges} changement(s) MDP`}
+                                                </Typography>
+                                            )}
+                                        </Box>
+                                    );
+                                })()}
+                            </Box>
                         )}
                     </SupervisionSection>
 
