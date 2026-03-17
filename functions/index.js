@@ -10,6 +10,7 @@ require("dotenv").config();
 const admin = require("firebase-admin");
 const { onRequest, onCall, HttpsError } = require("firebase-functions/v2/https");
 const { onDocumentCreated } = require("firebase-functions/v2/firestore");
+const { onSchedule } = require("firebase-functions/v2/scheduler");
 const { Resend } = require("resend");
 
 admin.initializeApp();
@@ -1119,6 +1120,151 @@ exports.getAgentBadgeSignedUrl = onCall({ region: "europe-west1" }, async (reque
   console.log(`[getAgentBadgeSignedUrl] Success: agentId=${agentId}, caller=${caller}`);
   return { url };
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ─── A36 — Scheduled Operational Automation ───────────────────────────────────
+
+/**
+ * dailyOperationalCheck (A36 FIX 2+3)
+ * Runs daily at 08:00 Europe/Paris.
+ * Scans for operational signals and writes a summary to automationLogs.
+ * 
+ * Signals checked:
+ *   - Consignes client pending > 3 days (stale)
+ *   - Client requests with priority=urgent, status ≠ closed
+ *   - Incidents with severity=critical|high, status=open
+ *   - Agents with expired SST
+ *   - Daily audit activity summary (24h)
+ * 
+ * This function is READ-ONLY: it never modifies operational data.
+ * It only writes to automationLogs for traceability.
+ * To disable: comment out the export below.
+ */
+exports.dailyOperationalCheck = onSchedule(
+  {
+    schedule: "0 8 * * *",
+    timeZone: "Europe/Paris",
+    region: "europe-west1",
+  },
+  async () => {
+    const db = admin.firestore();
+    const now = new Date();
+    const signals = [];
+    let totalIssues = 0;
+
+    try {
+      // 1. Stale consignes client (pending > 3 days)
+      const consignesSnap = await db.collection("consignes")
+        .where("source", "==", "client")
+        .where("status", "==", "pending")
+        .get();
+      
+      const threeDaysAgo = new Date(now.getTime() - 3 * 24 * 60 * 60 * 1000);
+      const staleConsignes = consignesSnap.docs.filter(doc => {
+        const data = doc.data();
+        if (!data.createdAt) return false;
+        const created = data.createdAt.toDate ? data.createdAt.toDate() : new Date(data.createdAt);
+        return created < threeDaysAgo;
+      });
+      
+      if (staleConsignes.length > 0) {
+        signals.push({ type: "stale_consignes", count: staleConsignes.length, level: "high", detail: "Consignes client en attente > 3 jours" });
+        totalIssues += staleConsignes.length;
+      }
+
+      // 2. Urgent open requests
+      const urgentReqSnap = await db.collection("clientRequests")
+        .where("priority", "==", "urgent")
+        .get();
+      
+      const urgentOpen = urgentReqSnap.docs.filter(doc => doc.data().status !== "closed");
+      
+      if (urgentOpen.length > 0) {
+        signals.push({ type: "urgent_requests", count: urgentOpen.length, level: "critical", detail: "Demandes urgentes non closées" });
+        totalIssues += urgentOpen.length;
+      }
+
+      // 3. Critical/high open incidents
+      const incidentsSnap = await db.collection("reports")
+        .where("status", "==", "open")
+        .get();
+      
+      const criticalIncidents = incidentsSnap.docs.filter(doc => {
+        const sev = doc.data().severity;
+        return sev === "critical" || sev === "high";
+      });
+      
+      if (criticalIncidents.length > 0) {
+        signals.push({ type: "critical_incidents", count: criticalIncidents.length, level: "critical", detail: "Incidents critique/élevé ouverts" });
+        totalIssues += criticalIncidents.length;
+      }
+
+      // 4. SST compliance (expired)
+      const agentsSnap = await db.collection("agents")
+        .where("status", "==", "active")
+        .get();
+      
+      const expiredSST = agentsSnap.docs.filter(doc => {
+        const sst = doc.data().sstExpiresAt;
+        if (!sst) return false;
+        const expiry = typeof sst === "string" ? new Date(sst) : (sst.toDate ? sst.toDate() : new Date(sst));
+        return expiry < now;
+      });
+      
+      const noCard = agentsSnap.docs.filter(doc => !doc.data().professionalCardNumber);
+
+      if (expiredSST.length > 0) {
+        signals.push({ type: "sst_expired", count: expiredSST.length, level: "critical", detail: "Agents avec SST expirée" });
+        totalIssues += expiredSST.length;
+      }
+      if (noCard.length > 0) {
+        signals.push({ type: "no_pro_card", count: noCard.length, level: "high", detail: "Agents actifs sans carte professionnelle" });
+        totalIssues += noCard.length;
+      }
+
+      // 5. Audit activity summary (last 24h)
+      const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+      const auditSnap = await db.collection("auditLogs")
+        .where("createdAt", ">=", oneDayAgo)
+        .get();
+      
+      const auditSummary = {
+        total: auditSnap.size,
+        agentCreations: auditSnap.docs.filter(d => d.data().action === "createAgent").length,
+        clientCreations: auditSnap.docs.filter(d => d.data().action === "createClient").length,
+        passwordChanges: auditSnap.docs.filter(d => d.data().action === "updateAgentPassword").length,
+      };
+
+      // Write automation log entry
+      await db.collection("automationLogs").add({
+        type: "dailyOperationalCheck",
+        runAt: admin.firestore.FieldValue.serverTimestamp(),
+        signals,
+        totalIssues,
+        auditSummary,
+        status: totalIssues > 0 ? "issues_found" : "all_clear",
+        version: "A36",
+      });
+
+      console.log(`[dailyOperationalCheck] Completed: ${totalIssues} issues, ${signals.length} signals, audit=${auditSummary.total} actions (24h)`);
+    } catch (err) {
+      console.error("[dailyOperationalCheck] Error:", err);
+      // Write error entry for traceability
+      try {
+        await db.collection("automationLogs").add({
+          type: "dailyOperationalCheck",
+          runAt: admin.firestore.FieldValue.serverTimestamp(),
+          status: "error",
+          error: err.message,
+          version: "A36",
+        });
+      } catch (writeErr) {
+        console.error("[dailyOperationalCheck] Failed to write error log:", writeErr);
+      }
+    }
+  }
+);
 
 // ─────────────────────────────────────────────────────────────────────────────
 
