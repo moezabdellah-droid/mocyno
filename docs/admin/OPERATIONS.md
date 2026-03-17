@@ -141,75 +141,85 @@ Accessible via 🔍 **Journal d'Audit** dans le menu. Filtres : action, type cib
 - **Build** : `cd admin && npx vite build` → output dans `public/admin/`
 - **Deploy** : `firebase deploy --only hosting` — après vérification stricte du diff et isolation des fichiers hors scope (cf. PROD-GATE)
 
-## 9. Supervision proactive & Conformité (A28)
+## 9. Supervision avancée & Conformité (A28 → A34)
 
-### Bloc "À surveiller" (Dashboard)
+### Niveaux d'alerte (hiérarchie A34)
 
-Le Dashboard affiche un bloc bleu **🔍 À surveiller** qui remonte les points d'attention proactifs :
+| Niveau | Couleur | Usage | Exemples |
+|---|---|---|---|
+| 🔴 Critique | Rouge `#d32f2f` | Action immédiate requise | SST expirée, incident critique ouvert, demande urgente |
+| 🟠 Élevé | Orange `#ed6c02` | Action sous 24-48h | Mission sans agent, consigne > 3 jours, agent sans carte pro |
+| 🔵 Modéré | Bleu `#1976d2` | À suivre cette semaine | Demandes pending, incidents standards, agent sans matricule |
+| 🟣 Surveillance | Violet `#7b1fa2` | Information / veille | Missions en cours, SST expire sous 30 jours |
 
-| Signal | Condition | Navigation |
+### Vue Supervision (🛡️) — Triage A34
+
+Page dédiée accessible via le menu latéral. Restructurée en 3 sections de triage :
+
+| Section | Contenu | Actions disponibles |
 |---|---|---|
-| Missions sans agent | `agentAssignments` vides sur missions futures | Planning → Liste |
-| Consignes client > 7j | `source=client`, `status=pending`, créée > 7 jours | Consignes filtrées |
-| Incidents critique/élevé | `status=open`, `severity` in [high, critical] | Incidents filtrés |
-| Demandes urgentes | `priority=urgent`, `status ≠ closed` | Demandes filtrées |
-| Clients sans site | Ni `siteId` ni `siteIds` renseigné | Clients |
+| **🚨 À traiter maintenant** | Alertes critiques + élevées | Liens vers Incidents, Demandes, Agents |
+| **📊 À suivre** | Alertes modérées | Liens vers Consignes, Agents |
+| **👁️ Surveillance** | Points de veille | Liens vers Planning, Clients |
 
-Le bloc est masqué si tous les compteurs sont à zéro.
+Chaque alerte indique :
+- Le **nombre** d'éléments concernés
+- Un **libellé actionnable** décrivant quoi faire
+- Un **lien direct** vers la ressource filtrée
 
-### Signaux de conformité
+### Signaux de conformité enrichis (A34)
 
-Bloc violet **📋 Conformité opérationnelle** avec signaux provables :
+| Signal | Condition | Niveau | Limite connue |
+|---|---|---|---|
+| SST expirée | `sstExpiresAt < today` | 🔴 Critique | Seulement si renseigné |
+| Agent(s) sans carte pro | `status=active`, `professionalCardNumber` vide | 🟠 Élevé | Peut inclure agents récents |
+| Agent(s) sans matricule | `status=active`, `matricule` vide | 🔵 Modéré | Normal si pas encore généré |
+| SST expire sous 30j | `sstExpiresAt` dans les 30 prochains jours | 🟣 Surveillance | Anticipation |
+| Consigne client > 3j | `source=client`, `status=pending`, > 3 jours | 🟠 Élevé | Seuil configurable |
+| Client(s) sans site | Ni `siteId` ni `siteIds` | 🔵 Modéré | Provisioning en cours |
 
-| Signal | Condition | Limite connue |
-|---|---|---|
-| Agent(s) sans carte pro | `status=active`, `professionalCardNumber` vide | Peut inclure des agents récents non encore documentés |
-| Agent(s) sans matricule | `status=active`, `matricule` vide | Normal si matricule non encore généré |
-| SST expirée | `sstExpiresAt < today` | Seulement si le champ a été renseigné — pas de faux rouge si vide |
-| Client(s) sans site | Ni `siteId` ni `siteIds` | Peut être normal pour un client en cours de provisioning |
-| Mission(s) sans affectation | Missions futures sans aucun `agentId` | Doublon visuel avec le watchlist |
+### Activité sensible (audit trail dans Supervision)
 
-### Niveaux d'alerte (Dashboard)
+La colonne droite affiche :
+- **Compteurs 24h / 7 jours** pour l'ensemble des actions d'audit
+- **Résumé activité** : créations agent/client, changements MDP
+- **5 dernières entrées** du journal d'audit (action, résumé, date, auteur)
+- Lien **Journal complet →** vers la ressource dédiée
 
-Le bloc **⚡ Alertes & Supervision** regroupe toutes les alertes en 3 niveaux :
+### Synthèse managériale
 
-| Niveau | Couleur | Exemples |
-|---|---|---|
-| 🔴 Urgent | Rouge | Incidents critiques ouverts, demandes urgentes |
-| 🟡 À traiter | Jaune / Orange | Consignes en attente, demandes pending |
-| 🔵 À surveiller | Bleu | Missions sans agent, écarts conformité |
+En bas de la supervision, une carte consolidée affiche :
+- Nombre d'alertes urgentes (rouge ou vert)
+- Points par catégorie : Exploitation / Support / Conformité
+- Compteurs audit 24h + 7 jours
+- Boutons d'accès rapide : Incidents, Demandes, Agents, Journal
 
-Un compteur discret affiche les actions sensibles des dernières 24h (créations agents, changements MDP) depuis le journal d'audit.
+### Différences entre les vues
 
-### Comment traiter une alerte
+| Vue | But | Données | Quand y aller |
+|---|---|---|---|
+| **Dashboard** | Cockpit opérationnel | KPI, alertes, activité récente | Chaque matin, ouverture de session |
+| **Supervision** | Arbitrage managérial | Alertes priorisées, conformité, audit | Revue hebdo, situations sensibles |
+| **Journal d'Audit** | Traçabilité détaillée | Toutes les actions horodatées | Investigation, audit externe |
 
-1. **Cliquer** sur le chip d'alerte → navigation vers la ressource filtrée
-2. **Traiter** l'élément (changer statut, affecter un agent, valider une consigne…)
-3. Le compteur se met à jour au prochain rechargement du Dashboard
+### Comment arbitrer une alerte
 
-### Vue Supervision (🛡️)
+1. **Identifier le niveau** : la couleur et la section indiquent la priorité
+2. **Cliquer** sur l'alerte → navigation directe vers les éléments concernés
+3. **Traiter** : changer le statut, affecter un agent, valider une consigne, compléter un profil…
+4. Le compteur se met à jour au prochain chargement
 
-Page dédiée accessible via le menu latéral. Centralise en lecture seule :
+### Quand consulter le Journal d'Audit
 
-- **Exploitation** : missions sans agent, missions en cours
-- **Support client** : incidents ouverts, demandes urgentes/en attente, consignes client
-- **Conformité** : agents sans carte pro/matricule, SST expirée, clients sans site
-- **Activité d'audit** : 10 dernières entrées du journal d'audit avec détails
-
-Le résumé en bas à droite indique l'état global (✅ OK ou ⚠️ points à traiter).
-
-### Lien avec l'audit trail (A27)
-
-La vue Supervision complète l'audit trail :
-
-- **Audit trail** = traçabilité des actions passées (qui a fait quoi, quand)
-- **Supervision** = état actuel des points d'attention (qu'est-ce qui nécessite une action)
-
-Pour une investigation complète : utiliser la Supervision pour identifier le problème, puis le Journal d'Audit pour comprendre le contexte.
+- Après une alerte de sécurité (qui a fait quoi ?)
+- Lors d'un audit de conformité externe
+- Pour tracer les créations agents/clients récentes
+- Pour vérifier les changements de mots de passe
 
 ### Limites connues
 
-- Les signaux conformité dépendent des données renseignées — un champ vide ne génère un signal que si le contexte le justifie (ex: SST expirée seulement si `sstExpiresAt` est renseigné)
-- Les compteurs du Dashboard ne sont pas en temps réel — ils se mettent à jour au chargement de la page
+- Les signaux conformité dépendent des données renseignées — un champ vide ne génère un signal que si le contexte le justifie
+- Les compteurs ne sont pas en temps réel — mise à jour au chargement de la page
 - La supervision ne remplace pas un audit de conformité réglementaire — elle fournit des indicateurs opérationnels simples
+- Le seuil des consignes "stale" (> 3 jours) est codé en dur
 
