@@ -195,7 +195,7 @@
     var acceptBtn = mkBtn(en ? 'Accept' : 'Accepter', true);
     var refuseBtn = mkBtn(en ? 'Refuse' : 'Refuser', false);
     var policyLink = DOC.createElement('a');
-    policyLink.href = en ? '/en/privacy.html' : '/politique-confidentialite.html';
+    policyLink.href = en ? '/en/privacy/' : '/fr/politique-confidentialite/';
     policyLink.textContent = en ? 'Learn more' : 'En savoir plus';
     policyLink.style.color = '#cbe0ff';
     policyLink.style.textDecoration = 'underline';

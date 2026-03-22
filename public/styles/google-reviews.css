@@ -1,0 +1,217 @@
+/* ============================================
+   Google Reviews Premium Block — MO'CYNO V1
+   ============================================ */
+
+.gr-section {
+  padding: 3rem 0;
+  background: #f8fafc;
+}
+.gr-section.gr-compact {
+  padding: 2rem 0;
+}
+.gr-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+.gr-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #8a9bb0;
+  margin-bottom: 8px;
+}
+.gr-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #022C51;
+  margin: 0 0 8px;
+}
+.gr-subtitle {
+  color: #4a5568;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 6px;
+  max-width: 700px;
+}
+/* Rating summary bar */
+.gr-summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.gr-rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #022C51;
+}
+.gr-rating-badge svg {
+  flex-shrink: 0;
+}
+.gr-stars {
+  display: inline-flex;
+  gap: 2px;
+}
+.gr-star {
+  color: #FBBC04;
+  font-size: 1rem;
+  line-height: 1;
+}
+.gr-count {
+  font-size: 0.85rem;
+  color: #666;
+}
+.gr-google-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+/* Cards grid */
+.gr-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 1.5rem;
+}
+.gr-card {
+  background: #fff;
+  border: 1px solid #e8ecf1;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: box-shadow 0.2s ease;
+}
+.gr-card:hover {
+  box-shadow: 0 4px 16px rgba(2, 44, 81, 0.08);
+}
+.gr-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.gr-card-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.gr-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #022C51;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+.gr-author-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #022C51;
+}
+.gr-author-source {
+  font-size: 0.75rem;
+  color: #8a9bb0;
+}
+.gr-card-stars {
+  display: flex;
+  gap: 1px;
+}
+.gr-card-stars .gr-star {
+  font-size: 0.85rem;
+}
+.gr-card-text {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #334155;
+  margin: 0;
+}
+.gr-card-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+.gr-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: #f0f5fa;
+  color: #4a6fa5;
+}
+/* CTA buttons */
+.gr-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.gr-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #022C51;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.gr-cta-primary:hover {
+  background: #034175;
+}
+.gr-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: transparent;
+  color: #022C51;
+  border: 1.5px solid #d0d9e4;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.2s ease;
+}
+.gr-cta-secondary:hover {
+  border-color: #022C51;
+}
+/* Responsive */
+@media (max-width: 640px) {
+  .gr-cards {
+    grid-template-columns: 1fr;
+  }
+  .gr-title {
+    font-size: 1.25rem;
+  }
+  .gr-actions {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .gr-cta-primary,
+  .gr-cta-secondary {
+    justify-content: center;
+  }
+}
