@@ -6,9 +6,13 @@
 (function () {
   'use strict';
 
+  var LANG = (document.documentElement.lang || 'fr').substring(0, 2);
+  var isEN = LANG === 'en';
+
   var PROFILE_URL = 'https://maps.app.goo.gl/uPTTaChzKy37RtESA';
-  var RATING = '5,0';
+  var RATING = isEN ? '5.0' : '5,0';
   var REVIEW_COUNT = 11;
+  var CONTACT_URL = isEN ? '/en/contact/' : '/fr/contact/';
 
   var ALL_REVIEWS = [
     {
@@ -44,17 +48,19 @@
   /* Variants config */
   var VARIANTS = {
     home: {
-      eyebrow: 'Avis Google',
-      title: 'La confiance se construit sur le terrain',
-      subtitle: "Prestations de sécurité privée, cynophile, SSIAP et dispositifs sur mesure\u00a0: découvrez quelques retours de clients ayant fait appel à MO\u2019CYNO.",
+      eyebrow: isEN ? 'Google Reviews' : 'Avis Google',
+      title: isEN ? 'Trust is built in the field' : 'La confiance se construit sur le terrain',
+      subtitle: isEN
+        ? "Private security, K9, SSIAP and bespoke security solutions\u00a0: read what our clients say about MO\u2019CYNO."
+        : "Prestations de sécurité privée, cynophile, SSIAP et dispositifs sur mesure\u00a0: découvrez quelques retours de clients ayant fait appel à MO\u2019CYNO.",
       count: 3,
       indices: [0, 1, 2],
       showSecondaryCta: true
     },
     contact: {
-      eyebrow: 'Réassurance',
-      title: 'Une équipe reconnue pour sa réactivité',
-      subtitle: "Nos clients témoignent de la qualité de nos interventions.",
+      eyebrow: isEN ? 'Reassurance' : 'Réassurance',
+      title: isEN ? 'A team renowned for its responsiveness' : 'Une équipe reconnue pour sa réactivité',
+      subtitle: isEN ? "Our clients testify to the quality of our services." : "Nos clients témoignent de la qualité de nos interventions.",
       count: 1,
       indices: [0],
       showSecondaryCta: false,
@@ -110,7 +116,7 @@
           '<div class="gr-avatar">' + initials + '</div>' +
           '<div>' +
             '<div class="gr-author-name">' + review.author + '</div>' +
-            '<div class="gr-author-source">Avis Google</div>' +
+            '<div class="gr-author-source">' + (isEN ? 'Google Review' : 'Avis Google') + '</div>' +
           '</div>' +
         '</div>' +
         '<div class="gr-card-stars">' + stars(review.stars) + '</div>' +
@@ -158,17 +164,17 @@
             '<span>' + RATING + '</span>' +
             '<span class="gr-stars">' + stars(5) + '</span>' +
           '</div>' +
-          '<span class="gr-count">' + REVIEW_COUNT + ' avis Google</span>' +
+          '<span class="gr-count">' + REVIEW_COUNT + (isEN ? ' Google reviews' : ' avis Google') + '</span>' +
         '</div>' +
         '<div class="gr-cards">' +
           reviews.map(renderCard).join('') +
         '</div>' +
         '<div class="gr-actions">' +
           '<a class="gr-cta-primary" href="' + PROFILE_URL + '" target="_blank" rel="noopener noreferrer">' +
-            googleIcon() + ' Voir tous les avis Google' +
+            googleIcon() + (isEN ? ' See all Google reviews' : ' Voir tous les avis Google') +
           '</a>' +
           (cfg.showSecondaryCta
-            ? '<a class="gr-cta-secondary" href="/fr/contact/">Demander un devis</a>'
+            ? '<a class="gr-cta-secondary" href="' + CONTACT_URL + '">' + (isEN ? 'Request a quote' : 'Demander un devis') + '</a>'
             : '') +
         '</div>' +
       '</div>' +
