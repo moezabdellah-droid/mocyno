@@ -3,6 +3,40 @@
 <html lang="en">
 
 <head>
+  
+  <!-- MO'CYNO_CONSENT_DEFAULT_START -->
+  <script defer src="/consent-ga.js"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'denied',
+      personalization_storage: 'denied',
+      security_storage: 'granted',
+      wait_for_update: 500
+    });
+
+    try {
+      var s = localStorage.getItem('mocyno_consent_state');
+      if (s === 'granted') {
+        gtag('consent', 'update', {
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted',
+          analytics_storage: 'granted',
+          functionality_storage: 'granted',
+          personalization_storage: 'granted',
+          security_storage: 'granted'
+        });
+      }
+    } catch (e) { }
+  </script>
+  <!-- MO'CYNO_CONSENT_DEFAULT_END -->
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
   <title>Luxury Retail Security — MO'CYNO</title>
@@ -20,7 +54,6 @@
   <link href="https://mocyno.com/fr/services/luxe-boutiques/" hreflang="x-default" rel="alternate" />
   <!-- SEO:END -->
   <!-- SAFE GTM - No insertBefore dependency -->
-  <script defer src="/consent-ga.js"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
@@ -42,6 +75,11 @@
     <link href="/styles.css?v=2.7" rel="stylesheet" />
   </noscript>
   <link href="/styles-compat-patch.css?v=2.7" rel="stylesheet" />
+  <meta content="MO'CYNO" property="og:site_name">
+
+  <link rel="stylesheet" href="/styles/visual-polish.css">
+  <link rel="stylesheet" href="/styles/sticky-cta.css">
+  <script defer src="/scripts/sticky-cta.js"></script>
   
   <meta content="G-E5JX7DYYYN" name="ga-measurement-id" />
   <!-- MO'CYNO_JSONLD_START -->
@@ -145,7 +183,6 @@
 }
   </script>
   <!-- MO'CYNO_JSONLD_END -->
-  <script defer src="/tawk-consent.js"></script>
 </head>
 
 <body>
@@ -375,6 +412,8 @@
     </div>
   </footer>
   
+  <script defer="" src="/tawk-consent.js"></script>
+
 </body>
 
 </html>
