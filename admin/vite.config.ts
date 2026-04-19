@@ -30,13 +30,14 @@ export default defineConfig({
     global: 'globalThis',
   },
   resolve: {
-    dedupe: ['react', 'react-dom', 'react-router', 'react-router-dom', 'react-admin', '@mui/material'],
+    dedupe: ['react', 'react-dom', 'react-router', 'react-router-dom', 'react-admin', 'ra-core', '@mui/material'],
     alias: {
       'react': path.resolve(__dirname, 'node_modules/react'),
       'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
       'react-router': path.resolve(__dirname, 'node_modules/react-router'),
       'react-router-dom': path.resolve(__dirname, 'node_modules/react-router-dom'),
       'react-admin': path.resolve(__dirname, 'node_modules/react-admin'),
+      'ra-core': path.resolve(__dirname, '../node_modules/.pnpm/ra-core@5.13.3_@tanstack+re_83e092df709851695a958cc90fefc759/node_modules/ra-core'),
       buffer: 'buffer',
     },
   },

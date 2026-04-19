@@ -35,14 +35,17 @@
     <!-- MO'CYNO_CONSENT_DEFAULT_END -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>Sécurité Villas Saint-Tropez | Protection Luxe &amp; Discrète | MO'CYNO</title>
+
+    <!-- MOD1: Title Tag SEO -->
+    <title>Gardiennage &amp; Sécurité Villa Saint-Tropez | MO'CYNO</title>
 
     <!-- SEO -->
+    <!-- MOD9: Meta description SEO -->
     <meta
-        content="Protection discrète de vos villas à Saint-Tropez et Ramatuelle. Agents de sécurité haut de gamme, disponibles 24/7. Audit confidentiel."
+        content="Gardiennage et sécurité de villas à Saint-Tropez, Ramatuelle et Gassin. Agents APS, SSIAP et unité cynophile certifiés. Disponibles 24/7. Réponse sous 4h — Agréé CNAPS."
         name="description">
     <meta
-        content="Protection discrète de vos villas à Saint-Tropez et Ramatuelle. Agents de sécurité haut de gamme, disponibles 24/7. Audit confidentiel."
+        content="Gardiennage et sécurité de villas à Saint-Tropez, Ramatuelle et Gassin. Agents APS, SSIAP et unité cynophile certifiés. Disponibles 24/7. Réponse sous 4h — Agréé CNAPS."
         property="og:description">
     <link href="https://mocyno.com/fr/securite-luxe-saint-tropez/" rel="canonical">
     <link href="https://mocyno.com/fr/securite-luxe-saint-tropez/" hreflang="fr" rel="alternate">
@@ -55,8 +58,23 @@
         rel="stylesheet">
 
     <!-- CSS -->
-    <link href="/styles.css?v=2.7" rel="stylesheet">
+    <link href="/styles.css?v=2.8" rel="stylesheet">
     <link href="/css/luxe.css" rel="stylesheet">
+
+    <!-- MOD4: Fix CSS H3 invisibles dans la section Services -->
+    <style>
+    /* FIX H3 services section — MOD4 */
+    .services-section h3,
+    .service-card h3,
+    section.services h3,
+    [class*="service"] h3,
+    .luxe-bg-dark h3,
+    .luxe-bg-dark .luxe-card h3 {
+      color: #ffffff !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    </style>
 
     <!-- Google Tag Manager -->
     <script>
@@ -74,7 +92,166 @@
     </script>
 
     <meta property="og:site_name" content="MO'CYNO">
+    <meta name="ga-measurement-id" content="G-9RDHGKSLW9">
     <link rel="stylesheet" href="/styles/visual-polish.css">
+
+    <!-- MOD2: JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "LocalBusiness",
+          "@id": "https://mocyno.com/#organization",
+          "name": "MO'CYNO",
+          "legalName": "MO'CYNO Agence de Sécurité Privée",
+          "url": "https://mocyno.com/fr/securite-luxe-saint-tropez/",
+          "description": "Agence de sécurité privée spécialisée dans la protection de villas de luxe, yachts et événements privés à Saint-Tropez et sur la Côte d'Azur. Agents APS, SSIAP et unité cynophile certifiés.",
+          "telephone": "+33666035116",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "31 Rue Chevalier Paul",
+            "addressLocality": "Toulon",
+            "postalCode": "83000",
+            "addressRegion": "Provence-Alpes-Côte d'Azur",
+            "addressCountry": "FR"
+          },
+          "areaServed": [
+            {"@type": "City", "name": "Saint-Tropez"},
+            {"@type": "City", "name": "Ramatuelle"},
+            {"@type": "City", "name": "Gassin"},
+            {"@type": "City", "name": "Sainte-Maxime"},
+            {"@type": "City", "name": "Les Issambres"},
+            {"@type": "AdministrativeArea", "name": "Golfe de Saint-Tropez"},
+            {"@type": "AdministrativeArea", "name": "Côte d'Azur"}
+          ],
+          "priceRange": "€€€€",
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            "opens": "00:00",
+            "closes": "23:59"
+          },
+          "identifier": {
+            "@type": "PropertyValue",
+            "name": "Autorisation CNAPS",
+            "value": "AUT-83-2124-09-09-20250998415"
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Services de Sécurité Privée Luxe",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Gardiennage Résidentiel Villa",
+                  "description": "Gardiennage 24h/7j de villas et résidences de luxe par des agents APS certifiés.",
+                  "serviceType": "Gardiennage",
+                  "areaServed": "Golfe de Saint-Tropez"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Sécurité Événementielle VIP",
+                  "description": "Gestion discrète de la sécurité pour soirées privées, mariages et réceptions de prestige.",
+                  "serviceType": "Sécurité Événementielle",
+                  "areaServed": "Golfe de Saint-Tropez"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Protection Rapprochée",
+                  "description": "Security drivers et gardes du corps certifiés pour déplacements sécurisés en mode Low Profile.",
+                  "serviceType": "Protection Rapprochée",
+                  "areaServed": "Côte d'Azur"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Rondes de Surveillance Cynophile",
+                  "description": "Rondes silencieuses avec unité cynophile certifiée et technologie PTI géolocalisée.",
+                  "serviceType": "Surveillance Cynophile",
+                  "areaServed": "Golfe de Saint-Tropez"
+                }
+              }
+            ]
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5",
+            "reviewCount": "3",
+            "bestRating": "5"
+          },
+          "review": [
+            {
+              "@type": "Review",
+              "reviewRating": {"@type": "Rating", "ratingValue": "5"},
+              "author": {"@type": "Person", "name": "Marc T."},
+              "reviewBody": "Protection impeccable de notre villa à Ramatuelle pendant l'été. Discrétion totale, équipe professionnelle.",
+              "datePublished": "2025-10"
+            },
+            {
+              "@type": "Review",
+              "reviewRating": {"@type": "Rating", "ratingValue": "5"},
+              "author": {"@type": "Person", "name": "James H."},
+              "reviewBody": "Outstanding security service for our yacht event in Saint-Tropez. Discreet, professional and highly responsive team.",
+              "datePublished": "2025-11"
+            },
+            {
+              "@type": "Review",
+              "reviewRating": {"@type": "Rating", "ratingValue": "5"},
+              "author": {"@type": "Person", "name": "Sophie L."},
+              "reviewBody": "Service de gardiennage exceptionnel pour notre propriété de Gassin. Équipe bilingue, réactive et d'une discrétion absolue.",
+              "datePublished": "2025-12"
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://mocyno.com/fr/"},
+            {"@type": "ListItem", "position": 2, "name": "Sécurité Luxe Saint-Tropez", "item": "https://mocyno.com/fr/securite-luxe-saint-tropez/"}
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Quelle est la zone d'intervention de MO'CYNO sur le Golfe de Saint-Tropez ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "MO'CYNO intervient sur l'ensemble du Golfe de Saint-Tropez : Saint-Tropez, Ramatuelle, Gassin, Grimaud, Sainte-Maxime, Les Issambres et Cavalaire-sur-Mer."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Vos agents sont-ils agréés CNAPS ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Oui, MO'CYNO est une agence autorisée CNAPS (AUT-83-2124-09-09-20250998415). Tous nos agents possèdent les cartes professionnelles requises : APS, SSIAP et certifications cynophiles."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Proposez-vous un service de gardiennage 24h/24 ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Oui, nos agents sont disponibles 24h/7j. Nous répondons à votre demande d'audit confidentiel sous 4 heures."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 
 <body class="luxe-mode">
@@ -90,6 +267,11 @@
             <p class="luxe-sub">Protection discrète de vos résidences secondaires et événements exclusifs à
                 Saint-Tropez, Ramatuelle et Gassin.</p>
             <a href="#contact" class="btn-luxe">Demander un audit confidentiel</a>
+            <!-- MOD3: Numéro de téléphone dans le Hero -->
+            <a href="tel:+33666035116" style="display:inline-flex;align-items:center;gap:8px;font-size:1rem;font-weight:500;color:var(--color-gold, #c9a55e);text-decoration:none;margin-top:8px;" aria-label="Appeler MO'CYNO au +33 6 66 03 51 16">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.71 12 19.79 19.79 0 0 1 1.63 3.36 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +33 6 66 03 51 16
+            </a>
             <span class="micro-copy">Réponse sous 4h &bull; Disponible 24/7</span>
         </div>
     </section>
@@ -165,8 +347,18 @@
                     « Protection impeccable de notre villa à Ramatuelle pendant l'été. Discrétion totale, équipe
                     professionnelle. »
                     <br><br>
-                    <strong style="font-style: normal;">— Propriétaire, Villa Privée, Août 2024</strong>
+                    <strong style="font-style: normal;">— Propriétaire, Villa Privée, Octobre 2025</strong>
                 </div>
+                <!-- MOD6: Témoignage 2 -->
+                <blockquote style="margin-top:24px;padding:24px;background:rgba(255,255,255,0.03);border-left:2px solid #c9a55e;">
+                  <p style="font-style:italic;font-size:1rem;margin-bottom:12px;">« Outstanding security for our yacht event in Saint-Tropez. Discreet, professional and immediately responsive team. »</p>
+                  <footer style="font-size:0.85rem;opacity:0.6;font-weight:600;">— James H. · Propriétaire Yacht, Saint-Tropez · Novembre 2025</footer>
+                </blockquote>
+                <!-- MOD6: Témoignage 3 -->
+                <blockquote style="margin-top:16px;padding:24px;background:rgba(255,255,255,0.03);border-left:2px solid #c9a55e;">
+                  <p style="font-style:italic;font-size:1rem;margin-bottom:12px;">« Service de gardiennage exceptionnel pour notre domaine à Gassin. Équipe bilingue, réactive et d'une discrétion absolue. »</p>
+                  <footer style="font-size:0.85rem;opacity:0.6;font-weight:600;">— Sophie L. · Propriétaire, Domaine Privé, Gassin · Décembre 2025</footer>
+                </blockquote>
             </div>
         </div>
     </section>
@@ -210,8 +402,19 @@
                         </select>
                     </div>
 
-                    <!-- Hidden message field -->
-                    <input type="hidden" name="message" value="Demande d'audit via Landing Page Luxe Saint-Tropez">
+                    <!-- MOD5: Champ "Message" dans le formulaire (remplace le hidden input) -->
+                    <div class="form-field" style="margin-bottom:16px;">
+                      <label for="message-audit" style="display:block;font-size:0.75rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;opacity:0.7;">
+                        Décrivez votre besoin
+                      </label>
+                      <textarea
+                        id="message-audit"
+                        name="message"
+                        rows="4"
+                        placeholder="Localisation exacte, dates, nombre d'agents souhaités, type de mission…"
+                        style="width:100%;padding:12px 14px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;color:inherit;font-family:inherit;font-size:0.9rem;resize:vertical;min-height:90px;"
+                      ></textarea>
+                    </div>
 
                     <button type="submit" class="btn-luxe" style="width:100%; border:none; cursor:pointer;">Recevoir
                         l'audit confidentiel</button>
@@ -225,22 +428,89 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="luxe-footer">
-        <div class="container">
-            <p>MO'CYNO — Agence de Sécurité Privée — Toulon &amp; Golfe de Saint-Tropez</p>
-            <p style="font-size: 0.8rem; opacity: 0.7;">
-                31 Rue Chevalier Paul, 83000 Toulon<br>
-                Autorisation CNAPS AUT-83-2124-09-09-20250998415 — L'autorisation d'exercice ne confère aucune
-                prérogative de puissance publique.
-            </p>
-            <p style="margin-top: 1rem;">
-                <a href="/fr/mentions-legales/" style="color: inherit; text-decoration: underline;">Mentions Légales</a>
-                |
-                <a href="/fr/politique-confidentialite/"
-                    style="color: inherit; text-decoration: underline;">Confidentialité</a>
-            </p>
+  <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
+    <div class="container footer-grid">
+      <div class="footer-left">
+        <p class="footer-meta">© 2026 MO'CYNO — Agence de sécurité privée — SASU — SIRET 990 179 566 00015 — NAF 80.10Z
+        </p>
+        <div class="footer-inline">
+          <span>📞 <a href="tel:+33666035116" style="color:#fff;font-weight:600;">06 66 03 51 16</a></span> <span>•</span>
+          <span>31 Rue Chevalier Paul, 83000 Toulon, France <em>(Siège social / domiciliation — interventions sur site,
+              pas d'accueil public)</em></span> <span>•</span>
+          <span>Autorisation CNAPS : <a
+              href="https://teleservices-cnaps.interieur.gouv.fr/teleservices/ihm/#/morale/search"
+              rel="noopener noreferrer" style="color:#fff;text-decoration:underline;"
+              target="_blank">AUT-83-2124-09-09-20250998415</a> — L'autorisation d'exercice ne confère aucune
+            prérogative de puissance publique à l'entreprise ou aux personnes qui en bénéficient. (Art. L612-14
+            CSI)</span>
         </div>
-    </footer>
+        <div class="footer-social">
+          <a class="footer-social-link" href="https://wa.me/33666035116" aria-label="Contacter MO'CYNO sur WhatsApp"
+            target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.570-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+              <path
+                d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.117 1.528 5.845L0 24l6.335-1.508A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.667-.495-5.2-1.362l-.372-.22-3.861.919.951-3.77-.243-.387A9.953 9.953 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+            </svg>
+            WhatsApp
+          </a>
+          <a class="footer-social-link" href="https://www.linkedin.com/company/mocyno/"
+            aria-label="MO'CYNO sur LinkedIn" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+            LinkedIn
+          </a>
+          <a class="footer-social-link" href="https://www.instagram.com/mocyno_officiel/"
+            aria-label="MO'CYNO sur Instagram" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+            </svg>
+            Instagram
+          </a>
+        </div>
+      </div>
+      <nav aria-label="Navigation secondaire" class="footer-links" role="navigation">
+        <a href="/fr/a-propos/">À propos</a>
+        <a href="/fr/mentions-legales/">Mentions légales</a>
+        <a href="/fr/politique-confidentialite/">Confidentialité</a>
+        <a href="/fr/cookies/">Cookies</a>
+        <a href="/sitemap.xml">Sitemap</a>
+      </nav>
+    </div>
+  </footer>
+
+    <!-- MOD7: WhatsApp Float -->
+    <a
+      href="https://wa.me/33666035116?text=Bonjour%20MO%27CYNO%2C%20je%20souhaite%20un%20devis%20pour%20la%20s%C3%A9curit%C3%A9%20de%20ma%20propri%C3%A9t%C3%A9%20%C3%A0%20Saint-Tropez."
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contacter MO'CYNO sur WhatsApp"
+      style="
+        position:fixed;
+        bottom:24px;
+        right:24px;
+        z-index:9999;
+        width:52px;
+        height:52px;
+        background:#25D366;
+        border-radius:50%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        box-shadow:0 4px 20px rgba(37,211,102,0.4);
+        transition:transform 0.2s ease, box-shadow 0.2s ease;
+      "
+      onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 8px 30px rgba(37,211,102,0.5)'"
+      onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 20px rgba(37,211,102,0.4)'"
+    >
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </a>
 
 </body>
 

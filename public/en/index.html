@@ -5,6 +5,8 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="preload" as="image" type="image/webp" href="/images/hero-home-main-villa-premium.webp">
   <title>MO'CYNO — Private Security, K9, Fire Safety &amp; Event Security (PACA)</title>
 
   <meta content="website" property="og:type" />
@@ -18,15 +20,19 @@
   <link href="https://mocyno.com/en/" hreflang="en" rel="alternate" />
   <link href="https://mocyno.com/fr/" hreflang="x-default" rel="alternate" />
   <!-- SEO:END -->
-  <!-- SAFE GTM - No insertBefore dependency -->
+  <!-- SAFE GTM - No insertBefore dependency & Deferred Event -->
   <script defer src="/consent-ga.js"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    var scriptTag = document.createElement('script');
-    scriptTag.async = true;
-    scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
-    document.head.appendChild(scriptTag);
+  <script>
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var scriptTag = document.createElement('script');
+        scriptTag.async = true;
+        scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
+        document.head.appendChild(scriptTag);
+      }, 100);
+    });
   </script>
   <meta
     content="MO'CYNO: private security, K9 units, fire safety (SSIAP) and event security in the PACA region. Fast quote, 24/7 responsive team."
@@ -42,15 +48,15 @@
     property="og:description" />
   <link href="/favicon.ico" rel="icon" />
   <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
-  <link as="style" href="/styles.css?v=2.7" onload="this.onload=null;this.rel='stylesheet'" rel="preload" />
+  <link as="style" href="/styles.css?v=2.8" onload="this.onload=null;this.rel='stylesheet'" rel="preload" />
   <noscript>
-    <link href="/styles.css?v=2.7" rel="stylesheet" />
+    <link href="/styles.css?v=2.8" rel="stylesheet" />
   </noscript>
 
   <!-- Open Graph / Twitter -->
   <meta content="#022C51" name="theme-color" />
   <!-- Google Analytics via Consent Mode V2 -->
-  <meta content="G-E5JX7DYYYN" name="ga-measurement-id" />
+  <meta name="ga-measurement-id" content="G-9RDHGKSLW9">
   
   <!-- Structured data: LocalBusiness / SecurityService -->
   <script type="application/ld+json">
@@ -60,7 +66,7 @@
   "name": "MO'CYNO",
   "url": "https://mocyno.com/en/",
   "image": "https://mocyno.com/mocyno-logo.webp",
-  "telephone": "+33 6 66 03 51 16",
+  "telephone": "+33666035116",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "31 Rue Chevalier Paul",
@@ -185,10 +191,13 @@
   </script>
 
   <link rel="stylesheet" href="/styles/visual-polish.css">
-  <link rel="stylesheet" href="/styles/sticky-cta.css">
+  <link rel="preload" as="style" href="/styles/sticky-cta.css" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="/styles/google-reviews.css?v=1.1">
+  <noscript>
+    <link rel="stylesheet" href="/styles/sticky-cta.css">
+  </noscript>
   <script defer src="/scripts/sticky-cta.js"></script>
   <script defer src="/tawk-consent.js"></script>
-  <link rel="stylesheet" href="/styles/google-reviews.css?v=1.1">
 </head>
 
 <body>
@@ -261,14 +270,13 @@
   </header>
   <main>
     <!-- HERO -->
-    <section class="hero-premium">
-      <div class="hero-image-wrapper">
+    <section class="hero-premium" style="position:relative;min-height:480px;overflow:hidden;background:#0f3552">
+      <div class="hero-image-wrapper" style="position:absolute;inset:0">
         <picture>
           <source srcset="/images/hero-home-main-villa-premium.webp" type="image/webp">
           <img src="/images/hero-home-main-villa-premium.png"
           alt="Luxury private security — MO'CYNO K9 & SSIAP in Côte d'Azur" class="hero-img" width="1200" height="600"
-          loading="eager" fetchpriority="high" decoding="async">
-        </picture>
+          loading="eager" fetchpriority="high" >
         </picture>
         <div class="hero-overlay-dark"></div>
       </div>
@@ -623,14 +631,25 @@
       </div>
     </section>
 
+    <!-- NAP / Local Signal -->
+    <section class="container section" id="contact-local" style="text-align:center;background:#f0f5fa;border-radius:12px;padding:2rem;margin-bottom:2rem;">
+      <h2 style="margin-top:0;">Contact Us</h2>
+      <p style="font-size:1.05rem;line-height:1.6;color:#334155;max-width:600px;margin:0 auto 1rem;">
+        📍 31 Rue Chevalier Paul, 83000 Toulon, France<br>
+        📞 <a href="tel:+33666035116" style="color:#022C51;font-weight:700;">+33 6 66 03 51 16</a>
+      </p>
+      <p style="font-size:0.9rem;color:#4a5568;">Service area: Var, Toulon, Saint-Tropez, Cannes, Nice, Fréjus</p>
+    </section>
+
     <!-- CTA -->
     <section class="cta container section" style="text-align:center">
       <p class="kicker"
         style="font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8a9bb0;margin-bottom:8px;">
         FREE — NO OBLIGATION</p>
-      <h2>Ready to secure your project?</h2>
+      <h2>Request your free quote</h2>
       <p>Our experts respond within 24 business hours.</p>
       <a class="btn primary" href="/en/contact/">Request my free security assessment</a>
+      <p style="margin-top:16px;font-size:0.95rem;color:#64748b;">Or call us at <a href="tel:+33666035116" style="color:#022C51;font-weight:700;">+33 6 66 03 51 16</a></p>
     </section>
   </main>
   
@@ -643,6 +662,7 @@
         <p class="footer-meta">© 2026 MO'CYNO — Private security agency — SASU — SIRET 990 179 566 00015 — NAF 80.10Z
         </p>
         <div class="footer-inline">
+          <span>📞 <a href="tel:+33666035116" style="color:#fff;font-weight:600;">+33 6 66 03 51 16</a></span> <span>•</span>
           <span>31 Rue Chevalier Paul, 83000 Toulon, France <em>(Registered office — on-site operations only, no public
               reception)</em></span> <span>•</span>
           <span>CNAPS licence: <a href="https://teleservices-cnaps.interieur.gouv.fr/teleservices/ihm/#/morale/search"
@@ -688,36 +708,8 @@
       </nav>
     </div>
   </footer>
-
-  <!-- Script Toggle Mobile Menu - Services & Areas -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // Toggle Services Menu
-      var servicesTrigger = document.querySelector('.services-trigger');
-      var servicesNav = document.querySelector('.services-nav');
-      if (servicesTrigger && servicesNav) {
-        servicesTrigger.addEventListener('click', function (e) {
-          if (window.innerWidth <= 920) {
-            e.preventDefault();
-            servicesNav.classList.toggle('is-open');
-          }
-        });
-      }
-
-      // Toggle Areas Menu
-      var areasTrigger = document.querySelector('.areas-trigger');
-      var areasNav = document.querySelector('.areas-nav');
-      if (areasTrigger && areasNav) {
-        areasTrigger.addEventListener('click', function (e) {
-          if (window.innerWidth <= 920) {
-            e.preventDefault();
-            areasNav.classList.toggle('is-open');
-          }
-        });
-      }
-    });
-  </script>
   <script defer src="/scripts/google-reviews.js?v=1.1"></script>
+  <script defer src="/scripts/mobile-dropdown.js"></script>
 </body>
 
 </html>

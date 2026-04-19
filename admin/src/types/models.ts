@@ -31,7 +31,11 @@ export interface Agent {
     role: 'admin' | 'agent' | 'manager';
     specialties?: string[];
     status: 'active' | 'inactive';
-    photoURL?: string;
+    photoURL?: string | null;
+    photoPath?: string | null;
+    photoUpdatedAt?: string | null;
+    photoMimeType?: string | null;
+    photoFileName?: string | null;
     matricule?: string;
     birthDate?: string;
     birthPlace?: string;

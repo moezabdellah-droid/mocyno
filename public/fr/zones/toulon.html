@@ -5,16 +5,20 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <title>Agence de Sécurité Toulon &amp; Gardiennage Chantier — MO'CYNO</title>
+  <link rel="preload" as="image" imagesrcset="/assets/zones/zone_toulon_port_mobile.webp 600w, /assets/zones/zone_toulon_port_opt.webp 1200w" imagesizes="(max-width: 768px) 100vw, 1200px" fetchpriority="high" />
+  <title>Agence de Sécurité Toulon (83000) &amp; Gardiennage Chantier — MO'CYNO</title>
   <meta
     content="Agence de sécurité à Toulon (83) : surveillance portuaire, industrielle et événementielle. Maîtres-chiens et agents qualifiés CNAPS MO'CYNO. Devis gratuit."
     name="description" />
   <meta content="website" property="og:type" />
-  <meta content="Agence de Sécurité Toulon &amp; Gardiennage Chantier — MO'CYNO" property="og:title" />
+  <meta content="Agence de Sécurité Toulon (83000) &amp; Gardiennage Chantier — MO'CYNO" property="og:title" />
   <meta
     content="Agence de sécurité à Toulon (83) : surveillance portuaire, industrielle et événementielle. Maîtres-chiens et agents qualifiés CNAPS MO'CYNO. Devis gratuit."
     property="og:description" />
   <meta content="https://mocyno.com/fr/zones/toulon/" property="og:url" />
+  <link rel="preload" as="image" href="/assets/zones/zone_toulon_port_mobile.webp" type="image/webp" media="(max-width: 768px)" fetchpriority="high" />
+  <link rel="preload" as="image" href="/assets/zones/zone_toulon_port_opt.webp" type="image/webp" media="(min-width: 769px)" fetchpriority="high" />
+
   <meta content="https://mocyno.com/og-image.png" property="og:image" />
   <!-- SEO:BEGIN -->
   <link href="https://mocyno.com/fr/zones/toulon/" rel="canonical" />
@@ -22,23 +26,11 @@
   <link href="https://mocyno.com/en/zones/toulon/" hreflang="en" rel="alternate" />
   <link href="https://mocyno.com/fr/zones/toulon/" hreflang="x-default" rel="alternate" />
   <!-- SEO:END -->
-  <!-- SAFE GTM - No insertBefore dependency -->
-  <script defer src="/consent-ga.js"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    var scriptTag = document.createElement('script');
-    scriptTag.async = true;
-    scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
-    document.head.appendChild(scriptTag);
-  </script>
   <meta content="index, follow" name="robots" />
+  <meta name="ga-measurement-id" content="G-9RDHGKSLW9">
   <!-- OG Tags -->
   <link href="/favicon.ico" rel="icon" />
-  <link as="style" href="/styles.css" onload="this.onload=null;this.rel='stylesheet'" rel="preload" />
-  <noscript>
-    <link href="/styles.css" rel="stylesheet" />
-  </noscript>
+  <link rel="stylesheet" href="/styles.css" />
   <!-- Schema LocalBusiness -->
   <script type="application/ld+json">
   {
@@ -180,10 +172,38 @@
     }
   </style>
   
-  <link rel="stylesheet" href="/styles/visual-polish.css">
-  <link rel="stylesheet" href="/styles/sticky-cta.css">
-  <script defer src="/scripts/sticky-cta.js"></script>
-  <script defer src="/tawk-consent.js"></script>
+  <link rel="preload" href="/styles/visual-polish.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/styles/visual-polish.css"></noscript>
+
+  <!-- SAFE GTM - No insertBefore dependency -->
+  <!-- SAFE GTM - No insertBefore dependency & Deferred Event -->
+  <script defer src="/consent-ga.js"></script>
+  <script>
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var scriptTag = document.createElement('script');
+        scriptTag.async = true;
+        scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
+        document.head.appendChild(scriptTag);
+      }, 100);
+    });
+  </script>
+
+  <style>
+    /* Phase 3: Réservation géométrique du Hero pour prévenir le CLS sur mobile */
+    @media (max-width: 768px) {
+      .hero-premium {
+        min-height: 550px !important;
+      }
+      .hero-content-premium {
+        min-height: 550px !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -257,13 +277,17 @@
     <!-- HERO SECTION -->
     <section class="hero-premium">
       <div class="hero-image-wrapper">
-        <img src="/assets/zones/zone_toulon_port_1768907714645.webp"
-          alt="Sécurité Privée à Toulon – Port &amp; Chantiers Naval" class="hero-img" width="1200" height="600"
-          loading="eager" fetchpriority="high" decoding="async">
+        <picture>
+          <source media="(max-width: 768px)" srcset="/assets/zones/zone_toulon_port_mobile.webp">
+          <img src="/assets/zones/zone_toulon_port_opt.webp"
+               alt="Sécurité Privée à Toulon – Port &amp; Chantiers Naval"
+               class="hero-img" width="1200" height="600"
+               loading="eager" fetchpriority="high">
+        </picture>
         <div class="hero-overlay-dark"></div>
       </div>
       <div class="container hero-content-premium">
-        <h1>Sécurité Privée à Toulon – Port &amp; Chantiers Naval</h1>
+        <h1>Sécurité Privée à Toulon (83000) – Port &amp; Chantiers Naval</h1>
         <p class="hero-subtitle-premium">Gardiennage, rondes et maîtres-chiens pour la Rade de Toulon. Expertise
           militaire et industrielle.</p>
         <div class="hero-actions-premium">
@@ -353,7 +377,7 @@
     <!-- ZONES SECTION -->
     <section class="section bg-dark text-white">
       <div class="container">
-        <h2>Toulon Provence Méditerranée (TPM)</h2>
+        <h2 class="text-white">Toulon Provence Méditerranée (TPM)</h2>
         <p>Notre ancrage local nous permet de couvrir toute l'aire toulonnaise :</p>
         <ul class="zones-grid-list">
           <li>📍 <strong>Toulon Centre &amp; Mourillon</strong> (Commerces, Événements)</li>
@@ -490,6 +514,28 @@
       </nav>
     </div>
   </footer>
+  <script>
+    (function(){
+      var loaded = false;
+      function fw() {
+        if(loaded) return; loaded = true;
+        var s = document.createElement('script'); s.src = '/tawk-consent.js'; s.defer = true; document.body.appendChild(s);
+      }
+      var events = ['click','touchstart','pointerdown','scroll','wheel'];
+      events.forEach(function(e){ window.addEventListener(e, fw, {once: true, passive: true}); });
+    })();
+  </script>
 </body>
-
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -4,16 +4,22 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="preload" as="image" type="image/webp" href="/images/hero-home-main-villa-premium-opt.webp">
   <title>Sécurité Cynophile &amp; SSIAP Var | MO'CYNO Toulon St-Tropez Cannes</title>
-  <!-- SAFE GTM - No insertBefore dependency -->
+  <!-- SAFE GTM - No insertBefore dependency & Deferred Event -->
   <script defer src="/consent-ga.js"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    var scriptTag = document.createElement('script');
-    scriptTag.async = true;
-    scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
-    document.head.appendChild(scriptTag);
+  <script>
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var scriptTag = document.createElement('script');
+        scriptTag.async = true;
+        scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
+        document.head.appendChild(scriptTag);
+      }, 100);
+    });
   </script>
   <meta
     content="Sécurité cynophile &amp; privée MO'CYNO (Var). Maîtres-chiens, gardiennage, SSIAP 24/7 à Toulon, St-Tropez, Nice. Devis gratuit CNAPS."
@@ -38,14 +44,12 @@
   <link href="https://mocyno.com/fr/" hreflang="x-default" rel="alternate" />
   <link href="/favicon.ico" rel="icon" />
   <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
-  <link as="style" href="/styles.css?v=2.7" onload="this.onload=null;this.rel='stylesheet'" rel="preload" />
-  <noscript>
-    <link href="/styles.css?v=2.7" rel="stylesheet" />
-  </noscript>
+  <link rel="stylesheet" href="/styles.css?v=2.8" />
+  
 
   <meta content="summary_large_image" name="twitter:card" />
   <meta content="#022C51" name="theme-color" />
-  <meta content="G-E5JX7DYYYN" name="ga-measurement-id" />
+  <meta name="ga-measurement-id" content="G-9RDHGKSLW9">
   
   <!-- Schema.org LocalBusiness & SecurityService -->
   <script type="application/ld+json">
@@ -190,14 +194,317 @@
     }]
   }
   </script>
-  </link>
-  </meta>
-  </meta>
 
-  <link rel="stylesheet" href="/styles/visual-polish.css">
-  <link rel="stylesheet" href="/styles/sticky-cta.css">
-  <script defer src="/scripts/sticky-cta.js"></script>
-  <link rel="stylesheet" href="/styles/google-reviews.css?v=1.1">
+  <style>
+/* ==========================================================
+   MO'CYNO — Visual Polish — Hero Premium Styles
+   Ce fichier définit la mise en page immersive des pages services
+   ========================================================== */
+
+/* Hero Wrapper */
+.hero-premium {
+    position: relative;
+    width: 100%;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: #0f3552;
+}
+
+@media (min-width: 768px) {
+    .hero-premium {
+        min-height: 580px;
+    }
+}
+
+/* Image de fond full-bleed */
+.hero-image-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* Overlay sombre */
+.hero-overlay-dark {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(2, 44, 81, 0.88) 0%,
+            rgba(15, 53, 82, 0.72) 60%,
+            rgba(0, 0, 0, 0.55) 100%);
+    z-index: 1;
+}
+
+/* Contenu texte au-dessus */
+.hero-content-premium {
+    position: relative;
+    z-index: 2;
+    padding: 80px 24px 60px;
+    color: #fff;
+    max-width: 760px;
+}
+
+@media (min-width: 768px) {
+    .hero-content-premium {
+        padding: 100px 24px 80px;
+    }
+}
+
+.hero-content-premium h1 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle-premium {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+    max-width: 600px;
+}
+
+.hero-actions-premium {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.hero-actions-premium .btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-actions-premium .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.hero-actions-premium .btn.primary {
+    background: #d4af37;
+    color: #022C51;
+}
+
+.hero-actions-premium .btn.secondary {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+/* ==========================================================
+   Zone "Quel est votre besoin ?" — Homes FR/EN
+   ========================================================== */
+
+.hero-needs-selector {
+    margin-top: 2.5rem;
+    margin-bottom: 0;
+}
+
+.selector-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 1rem;
+}
+
+.needs-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    margin-bottom: 0;
+}
+
+.need-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.75rem 1.25rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.2s ease;
+    backdrop-filter: blur(4px);
+}
+
+.need-item:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-2px);
+    color: #fff;
+}
+
+.need-item .icon {
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.need-item .label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* CTA group — séparer du bloc besoins */
+.hero-actions-premium {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* ==========================================================
+   Responsive heroes
+   ========================================================== */
+
+@media (max-width: 480px) {
+    .hero-content-premium {
+        padding: 70px 16px 50px;
+    }
+
+    .needs-grid {
+        gap: 0.5rem;
+    }
+
+    .need-item {
+        padding: 0.6rem 0.9rem;
+        font-size: 0.8rem;
+    }
+
+    .hero-actions-premium {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .hero-actions-premium .btn {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+/* ==========================================================
+   Hero image wrapper (utilisé par homes + services)
+   Guarantee fullscreen cover
+   ========================================================== */
+
+.hero-premium>.hero-image-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.hero-premium>.hero-image-wrapper>.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+}
+
+.hero-premium>.hero-image-wrapper>.hero-overlay-dark {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(2, 44, 81, 0.88) 0%,
+            rgba(15, 53, 82, 0.72) 55%,
+            rgba(0, 0, 0, 0.50) 100%);
+    z-index: 1;
+}
+
+.hero-premium>.hero-content-premium {
+    position: relative;
+    z-index: 2;
+}
+
+/* ==========================================================
+   Social Links - Contact page + Footer
+   ========================================================== */
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1.5px solid #dde3ec;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #022C51;
+    text-decoration: none;
+    background: #fff;
+    transition: border-color .2s, background .2s;
+    white-space: nowrap;
+}
+
+.social-link:hover {
+    border-color: #022C51;
+    background: #f0f5fa;
+}
+
+.footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.footer-social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    transition: color .2s;
+}
+
+.footer-social-link:hover {
+    color: #fff;
+}
+
+.footer-social-link svg {
+    opacity: .75;
+    transition: opacity .2s;
+}
+
+.footer-social-link:hover svg {
+    opacity: 1;
+}
+  </style>
 </head>
 
 <body>
@@ -248,7 +555,7 @@
               <li><a href="/fr/services/surveillance-humaine/">Surveillance humaine</a></li>
               <li><a href="/fr/services/securite-cynophile/">Sécurité cynophile</a></li>
               <li><a href="/fr/services/securite-incendie-ssiap/">Sécurité incendie (SSIAP)</a></li>
-              <li><a href="/fr/services/securite-evenementielle/">Sûreté Événementielle</a></li>
+              <li><a href="/fr/services/securite-evenementielle/">Sécurité événementielle</a></li>
 <li><a href="/fr/services/protection-luxe/">Protection du luxe</a></li>
               <li><a href="/fr/services/luxe-boutiques/">Luxe & Boutiques</a></li>
               <li><a href="/fr/services/residentiel/">Résidentiel & Villas</a></li>
@@ -269,21 +576,23 @@
   </header>
   <main>
     <!-- HERO -->
-    <section class="hero-premium">
-      <div class="hero-image-wrapper">
+    <section class="hero-premium" style="position:relative;min-height:480px;overflow:hidden;background:#0f3552">
+      <div class="hero-image-wrapper" style="position:absolute;inset:0">
         <picture>
-          <source srcset="/images/hero-home-main-villa-premium.webp" type="image/webp">
+          <source srcset="/images/hero-home-main-villa-premium-opt.webp" type="image/webp">
           <img src="/images/hero-home-main-villa-premium.png"
           alt="Sécurité privée de luxe — MO'CYNO maîtres-chiens et SSIAP Côte d'Azur" class="hero-img" width="1200"
-          height="600" loading="eager" fetchpriority="high" decoding="async">
-        </picture>
+          height="600" loading="eager" fetchpriority="high" >
         </picture>
         <div class="hero-overlay-dark"></div>
       </div>
       <div class="container hero-content-premium">
-        <h1>Votre sécurité, à la hauteur de vos exigences.</h1>
-        <p class="hero-subtitle-premium">Villa, événement, chantier ou hôtel — nos équipes interviennent sous 1h sur la
-          Côte d'Azur et le Var.</p>
+        <h1>Sécurité privée, cynophile &amp; SSIAP dans le Var</h1>
+        <p class="hero-subtitle-premium">Intervention rapide en sécurité privée, cynophile et SSIAP à Toulon, Saint-Tropez, Cannes, Nice et Fréjus.</p>
+      </div>
+    </section>
+    <section class="hero-needs-standalone" style="background: #071825;">
+      <div class="container hero-content-premium" style="padding-top: 20px;">
         <div class="hero-needs-selector" id="needs">
           <span class="selector-label">Quel est votre besoin ?</span>
           <div class="needs-grid">
@@ -373,7 +682,7 @@
       <p class="kicker"
         style="font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8a9bb0;margin-bottom:8px;">
         9 EXPERTISES — VAR &amp; CÔTE D'AZUR</p>
-      <h2>Nos Expertises de Sécurité</h2>
+      <h2>Sécurité privée, cynophile et SSIAP dans le Var</h2>
       <div class="expertises-grid">
 
         <article class="card">
@@ -389,7 +698,7 @@
             <h3>Surveillance Humaine</h3>
             <p>Gardiennage professionnel, contrôle d'accès et rondes pour sites industriels, tertiaires et résidentiels.
             </p>
-            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">En savoir plus →</span>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Découvrir →</span>
           </a>
         </article>
 
@@ -405,7 +714,7 @@
             </div>
             <h3>Sécurité Cynophile (Maître-Chien)</h3>
             <p>Binômes homme-chien pour la prévention, dissuasion et protection de sites sensibles.</p>
-            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">En savoir plus →</span>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Découvrir →</span>
           </a>
         </article>
 
@@ -421,7 +730,7 @@
             </div>
             <h3>Sécurité Incendie (SSIAP)</h3>
             <p>Agents SSIAP 1/2/3 : prévention incendie, gestion d'évacuation, conformité ERP/IGH dans le Var.</p>
-            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">En savoir plus →</span>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Découvrir →</span>
           </a>
         </article>
 
@@ -435,9 +744,9 @@
                   d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
               </svg>
             </div>
-            <h3>Sûreté Événementielle</h3>
+            <h3>Sécurité événementielle</h3>
             <p>Contrôle d'accès, gestion des flux et sécurité pour soirées, festivals et congrès professionnels.</p>
-            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">En savoir plus →</span>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Découvrir →</span>
           </a>
         </article>
 
@@ -452,7 +761,7 @@
             </div>
             <h3>Protection du Luxe</h3>
             <p>Sécurité discrète pour joailleries, magasins haut de gamme, villas privées et événements VIP.</p>
-            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">En savoir plus →</span>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Découvrir →</span>
           </a>
         </article>
 
@@ -467,7 +776,7 @@
             </div>
             <h3>Résidentiel &amp; Villas</h3>
             <p>Gardiennage continu et rondes de nuit pour résidences privées et propriétés saisonnières.</p>
-            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">En savoir plus →</span>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Découvrir →</span>
           </a>
         </article>
 
@@ -482,7 +791,7 @@
             </div>
             <h3>Hôtellerie</h3>
             <p>Sécurité sur-mesure pour hôtels de luxe, resorts et établissements d'accueil de prestige.</p>
-            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">En savoir plus →</span>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Découvrir →</span>
           </a>
         </article>
 
@@ -497,7 +806,7 @@
             </div>
             <h3>Chantiers &amp; BTP</h3>
             <p>Surveillance de nuit et week-end contre le vol et l'intrusion sur les sites de construction.</p>
-            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">En savoir plus →</span>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Découvrir →</span>
           </a>
         </article>
 
@@ -512,7 +821,7 @@
             </div>
             <h3>Marinas &amp; Ports</h3>
             <p>Surveillance des quais, contrôle d'accès pour marinas et protection de yachts.</p>
-            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">En savoir plus →</span>
+            <span style="font-weight:600;color:var(--red);margin-top:12px;display:block;">Découvrir →</span>
           </a>
         </article>
 
@@ -632,14 +941,25 @@
       </div>
     </section>
 
+    <!-- NAP / Signal Local -->
+    <section class="container section" id="contact-local" style="text-align:center;background:#f0f5fa;border-radius:12px;padding:2rem;margin-bottom:2rem;">
+      <h2 style="margin-top:0;">Nous contacter</h2>
+      <p style="font-size:1.05rem;line-height:1.6;color:#334155;max-width:600px;margin:0 auto 1rem;">
+        📍 31 Rue Chevalier Paul, 83000 Toulon<br>
+        📞 <a href="tel:+33666035116" style="color:#022C51;font-weight:700;">06 66 03 51 16</a>
+      </p>
+      <p style="font-size:0.9rem;color:#4a5568;">Zone d'intervention : Var, Toulon, Saint-Tropez, Cannes, Nice, Fréjus</p>
+    </section>
+
     <!-- CTA -->
     <section class="cta container section" style="text-align:center">
       <p class="kicker"
         style="font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#8a9bb0;margin-bottom:8px;">
         GRATUIT — SANS ENGAGEMENT</p>
-      <h2>Prêt à sécuriser votre projet ?</h2>
+      <h2>Demandez votre devis gratuit</h2>
       <p>Nos experts vous répondent sous 24 heures ouvrées.</p>
       <a class="btn primary" href="/fr/contact/">Demander mon audit sécurité offert</a>
+      <p style="margin-top:16px;font-size:0.95rem;color:#64748b;">Ou appelez-nous au <a href="tel:+33666035116" style="color:#022C51;font-weight:700;">06 66 03 51 16</a></p>
     </section>
   </main>
 
@@ -652,6 +972,7 @@
         <p class="footer-meta">© 2026 MO'CYNO — Agence de sécurité privée — SASU — SIRET 990 179 566 00015 — NAF 80.10Z
         </p>
         <div class="footer-inline">
+          <span>📞 <a href="tel:+33666035116" style="color:#fff;font-weight:600;">06 66 03 51 16</a></span> <span>•</span>
           <span>31 Rue Chevalier Paul, 83000 Toulon, France <em>(Siège social / domiciliation — interventions sur site,
               pas d'accueil public)</em></span> <span>•</span>
           <span>Autorisation CNAPS : <a
@@ -700,7 +1021,26 @@
     </div>
   </footer>
   <script defer src="/tawk-consent.js"></script>
-  <script defer src="/scripts/google-reviews.js?v=1.1"></script>
+  <script>
+    (function(){
+      var loaded = false;
+      function fw() {
+        if(loaded) return; loaded = true;
+        var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/styles/google-reviews.css?v=1.2'; document.head.appendChild(l);
+        var s1 = document.createElement('script'); s1.src = '/scripts/google-reviews.js?v=1.2'; s1.defer = true; document.body.appendChild(s1);
+        var s2 = document.createElement('script'); s2.src = '/scripts/mobile-dropdown.js'; s2.defer = true; document.body.appendChild(s2);
+        ['click','touchstart','pointerdown'].forEach(function(e){ window.removeEventListener(e, fw); });
+      }
+      ['click','touchstart','pointerdown'].forEach(function(e){ window.addEventListener(e, fw, {once: true, passive: true}); });
+    })();
+  </script>
 </body>
 
 </html>
+
+
+
+
+
+
+

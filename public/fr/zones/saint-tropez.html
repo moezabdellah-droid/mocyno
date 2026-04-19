@@ -3,8 +3,10 @@
 <html lang="fr">
 
 <head>
+  
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link rel="preload" as="image" type="image/webp" href="/assets/zones/zone_st_tropez_luxury_1768907661056_opt.webp" fetchpriority="high">
   <title>Sécurité Saint-Tropez Maître-Chien Villa Luxe | MO'Cyno</title>
   <meta
     content="Agence sécurité Saint-Tropez : maîtres-chiens K9, protection villas luxe, événementiel VIP. Intervention 24/7 Ramatuelle et Gassin. Devis gratuit."
@@ -22,22 +24,25 @@
   <link href="https://mocyno.com/en/zones/saint-tropez/" hreflang="en" rel="alternate" />
   <link href="https://mocyno.com/fr/zones/saint-tropez.html/" hreflang="x-default" rel="alternate" />
   <!-- SEO:END -->
-  <!-- SAFE GTM - No insertBefore dependency -->
+    <!-- SAFE GTM - No insertBefore dependency & Deferred Event -->
   <script defer src="/consent-ga.js"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    var scriptTag = document.createElement('script');
-    scriptTag.async = true;
-    scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
-    document.head.appendChild(scriptTag);
+  <script>
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var scriptTag = document.createElement('script');
+        scriptTag.async = true;
+        scriptTag.src = "https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3";
+        document.head.appendChild(scriptTag);
+      }, 100);
+    });
   </script>
   <meta content="index, follow" name="robots" />
+  <meta name="ga-measurement-id" content="G-9RDHGKSLW9">
   <link href="/favicon.ico" rel="icon" />
-  <link as="style" href="/styles.css" onload="this.onload=null;this.rel='stylesheet'" rel="preload" />
-  <noscript>
-    <link href="/styles.css" rel="stylesheet" />
-  </noscript>
+  <link rel="stylesheet" href="/styles.css" />
+  
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -64,34 +69,95 @@
     }
     </script>
   <!-- Schema LocalBusiness -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "MO'CYNO Saint-Tropez",
-    "image": "https://mocyno.com/hero-mocyno.webp",
-    "url": "https://mocyno.com/fr/zones/saint-tropez/",
-    "telephone": "+33666035116",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Saint-Tropez",
-      "addressRegion": "PACA",
-      "addressCountry": "FR"
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "MO'CYNO â€“ SÃ©curitÃ© PrivÃ©e & Cynophile Saint-Tropez",
+  "description": "Agence de sÃ©curitÃ© cynophile Ã  Saint-Tropez (83990). MaÃ®tres-chiens, gardiennage de villas de luxe, sÃ©curitÃ© Ã©vÃ©nementielle VIP et rondes 24h/24 Ã  Ramatuelle, Gassin et Golfe de Saint-Tropez. AgrÃ©Ã© CNAPS.",
+  "url": "https://mocyno.com/fr/zones/saint-tropez/",
+  "telephone": "+33666035116",
+  "email": "contact@mocyno.com",
+  "priceRange": "â‚¬â‚¬â‚¬",
+  "currenciesAccepted": "EUR",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "00:00",
+    "closes": "23:59"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "31 Rue Chevalier Paul",
+    "addressLocality": "Toulon",
+    "postalCode": "83000",
+    "addressCountry": "FR"
+  },
+  "areaServed": [
+    {
+      "@type": "Place",
+      "name": "Saint-Tropez",
+      "address": {
+        "@type": "PostalAddress",
+        "postalCode": "83990",
+        "addressCountry": "FR"
+      }
     },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "43.2677",
-      "longitude": "6.6407"
+    {
+      "@type": "Place",
+      "name": "Ramatuelle",
+      "address": {
+        "@type": "PostalAddress",
+        "postalCode": "83350",
+        "addressCountry": "FR"
+      }
     },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-      "opens": "00:00",
-      "closes": "23:59"
+    {
+      "@type": "Place",
+      "name": "Gassin",
+      "address": {
+        "@type": "PostalAddress",
+        "postalCode": "83580",
+        "addressCountry": "FR"
+      }
     },
-    "priceRange": "€€€"
-  }
-  </script>
+    {
+      "@type": "Place",
+      "name": "La Croix-Valmer",
+      "address": {
+        "@type": "PostalAddress",
+        "postalCode": "83420",
+        "addressCountry": "FR"
+      }
+    },
+    {
+      "@type": "Place",
+      "name": "Cogolin",
+      "address": {
+        "@type": "PostalAddress",
+        "postalCode": "83310",
+        "addressCountry": "FR"
+      }
+    }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services de sÃ©curitÃ© Ã  Saint-Tropez",
+    "itemListElement": [
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "SÃ©curitÃ© Cynophile (MaÃ®tre-Chien) Saint-Tropez"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Gardiennage de Villas de Luxe Saint-Tropez"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "SÃ©curitÃ© Ã‰vÃ©nementielle VIP Saint-Tropez"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Rondes de SÃ©curitÃ© Saint-Tropez"}}
+    ]
+  },
+  "sameAs": [
+    "https://www.google.com/maps?cid=1923001679797881211",
+    "https://www.facebook.com/people/MoCyno/61576483779028/",
+    "https://www.linkedin.com/company/mocyno/",
+    "https://www.instagram.com/mocyno_officiel/"
+  ]
+}
+</script>
   <!-- Schema Service -->
   <script type="application/ld+json">
   {
@@ -119,7 +185,7 @@
   }
   </script>
   
-  <link rel="stylesheet" href="/styles/visual-polish.css">
+  <link rel="preload" href="/styles/visual-polish.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="preload" href="/styles/visual-polish.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/styles/visual-polish.css"></noscript></noscript>
   <link rel="stylesheet" href="/styles/sticky-cta.css">
   <script defer src="/scripts/sticky-cta.js"></script>
   <script defer src="/tawk-consent.js"></script>
@@ -173,7 +239,7 @@
               <li><a href="/fr/services/surveillance-humaine/">Surveillance humaine</a></li>
               <li><a href="/fr/services/securite-cynophile/">Sécurité cynophile</a></li>
               <li><a href="/fr/services/securite-incendie-ssiap/">Sécurité incendie (SSIAP)</a></li>
-              <li><a href="/fr/services/securite-evenementielle/">Sûreté Événementielle</a></li>
+              <li><a href="/fr/services/securite-evenementielle/">Sécurité événementielle</a></li>
 <li><a href="/fr/services/protection-luxe/">Protection du luxe</a></li>
               <li><a href="/fr/services/luxe-boutiques/">Luxe & Boutiques</a></li>
               <li><a href="/fr/services/residentiel/">Résidentiel & Villas</a></li>
@@ -205,8 +271,8 @@
     <!-- HERO SECTION -->
     <section class="hero-premium">
       <div class="hero-image-wrapper">
-        <img alt="Vue aérienne du port de Saint-Tropez" class="hero-img" height="1024"
-          src="/assets/zones/zone_st_tropez_luxury_1768907661056.webp" width="1024">
+        <img alt="Vue aérienne du port de Saint-Tropez" class="hero-img" height="600"
+          src="/assets/zones/zone_st_tropez_luxury_1768907661056_opt.webp" width="1200" loading="eager" fetchpriority="high">
         <div class="hero-overlay-dark"></div>
       </div>
       <div class="container hero-content-premium">
@@ -321,7 +387,7 @@
     <!-- ZONES SECTION -->
     <section class="section bg-dark text-white">
       <div class="container">
-        <h2>Zones d'Intervention : Presqu'île de Saint-Tropez</h2>
+        <h2 class="text-white">Zones d'Intervention : Presqu'île de Saint-Tropez</h2>
         <p>Nos équipes sont mobiles et interviennent rapidement sur l'ensemble du Golfe :</p>
         <ul class="zones-grid-list">
           <li>📍 <strong>Saint-Tropez Centre &amp; Port</strong> (Sécurité commerces, yachts)</li>
@@ -479,6 +545,13 @@
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M7 18v-6a5 5 0 1 1 10 0v6" />  <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" />  <path d="M21 12h1" />  <path d="M18.5 4.5 18 5" />  <path d="M2 12h1" />  <path d="M12 2v1" />  <path d="m4.929 4.929.707.707" />  <path d="M12 12v6" /></svg> Urgence / Devis 24/7
   </a>
 
+  <script defer src="/scripts/mobile-dropdown.js"></script>
 </body>
 
 </html>
+
+
+
+
+
+

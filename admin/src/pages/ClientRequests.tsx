@@ -1,8 +1,9 @@
 import {
     Datagrid, List, TextField, DateField, SelectInput, TextInput,
     FunctionField, Show, SimpleShowLayout, Edit, SimpleForm,
-    ShowButton, EditButton, useRecordContext
+    ShowButton, EditButton, useRecordContext, useListContext,
 } from 'react-admin';
+import { Alert, Box, Typography } from '@mui/material';
 import { AdminCommentThread } from '../components/AdminCommentThread';
 
 const statusChoices = [
@@ -28,27 +29,75 @@ const priorityLabel = (priority: string | undefined): string => {
     return s ? s.name : (priority || '—');
 };
 
+// priority, category, siteName retirés des filtres serveur :
+// champs texte libres non couverts par index composite, exact-match fragile.
+// Colonnes conservées dans le tableau pour la lecture.
 const filters = [
     <TextInput key="clientId" source="clientId" label="Client ID" alwaysOn />,
     <SelectInput key="status" source="status" label="Statut" choices={statusChoices} alwaysOn />,
-    <SelectInput key="priority" source="priority" label="Priorité" choices={priorityChoices} />,
-    <TextInput key="category" source="category" label="Catégorie" />,
-    <TextInput key="siteName" source="siteName" label="Site" />,
 ];
+
+/**
+ * Affiche une vraie erreur Firestore ou un message "aucune demande" propre.
+ * Évite le masquage silencieux d'une erreur backend en faux résultat vide.
+ */
+const ClientRequestsEmptyOrError = () => {
+    const { error, isPending } = useListContext();
+
+    if (isPending) return null;
+
+    if (error) {
+        const message =
+            error instanceof Error
+                ? error.message
+                : 'Erreur inconnue lors du chargement des demandes.';
+
+        return (
+            <Box p={2}>
+                <Alert severity="error">
+                    <Typography variant="body1" fontWeight={600}>
+                        Impossible de charger les demandes client.
+                    </Typography>
+                    <Typography variant="body2" sx={{ mt: 1 }}>
+                        La requête Firestore a échoué. Vérifie les index composites de la collection <strong>clientRequests</strong>.
+                    </Typography>
+                    <Typography variant="body2" sx={{ mt: 1, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+                        {message}
+                    </Typography>
+                </Alert>
+            </Box>
+        );
+    }
+
+    return (
+        <Box p={2}>
+            <Alert severity="info">
+                Aucune demande ne correspond aux filtres actuels.
+            </Alert>
+        </Box>
+    );
+};
 
 /**
  * A23 — Enhanced ClientRequests with show + edit for treatment workflow
  */
 export const ClientRequestList = () => (
-    <List resource="clientRequests" filters={filters} sort={{ field: 'createdAt', order: 'DESC' }} perPage={25}>
+    <List
+        resource="clientRequests"
+        filters={filters}
+        sort={{ field: 'createdAt', order: 'DESC' }}
+        perPage={25}
+        empty={<ClientRequestsEmptyOrError />}
+        queryOptions={{ retry: false }}
+    >
         <Datagrid rowClick="show" bulkActionButtons={false}>
-            <TextField source="title" label="Titre" />
-            <FunctionField label="Statut" render={(r: { status?: string }) => statusLabel(r.status)} />
-            <FunctionField label="Priorité" render={(r: { priority?: string }) => priorityLabel(r.priority)} />
-            <TextField source="category" label="Catégorie" />
-            <TextField source="siteName" label="Site" />
-            <TextField source="clientId" label="Client ID" />
-            <FunctionField label="📎" render={(r: { attachmentUrl?: string }) => r.attachmentUrl ? '📎' : ''} />
+            <TextField source="title" label="Titre" sortable={false} />
+            <FunctionField label="Statut" render={(r: { status?: string }) => statusLabel(r.status)} sortable={false} />
+            <FunctionField label="Priorité" render={(r: { priority?: string }) => priorityLabel(r.priority)} sortable={false} />
+            <TextField source="category" label="Catégorie" sortable={false} />
+            <TextField source="siteName" label="Site" sortable={false} />
+            <TextField source="clientId" label="Client ID" sortable={false} />
+            <FunctionField label="📎" render={(r: { attachmentUrl?: string }) => r.attachmentUrl ? '📎' : ''} sortable={false} />
             <DateField source="createdAt" label="Date" showTime />
             <ShowButton />
             <EditButton />

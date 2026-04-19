@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preload" as="image" type="image/webp" href="/assets/zones/zone_cannes_croisette_1768907677264.webp" fetchpriority="high">
     <title>Sécurité Privée à Cannes – Événementiel & Villas | MO'Cyno</title>
     <meta name="description"
         content="Société de sécurité à Cannes : gardiennage villas, sécurité Festival et Congrès, maîtres-chiens. Protection premium 24/7. Devis gratuit.">
@@ -19,15 +20,19 @@
   <link href="https://mocyno.com/en/zones/cannes/" hreflang="en" rel="alternate" />
   <link href="https://mocyno.com/fr/zones/cannes.html/" hreflang="x-default" rel="alternate" />
   <!-- SEO:END -->
-  <!-- SAFE GTM - No insertBefore dependency -->
+  <!-- SAFE GTM - No insertBefore dependency & Deferred Event -->
     <script defer src="/consent-ga.js"></script>
-<script>
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-        var scriptTag = document.createElement('script');
-        scriptTag.async = true;
-        scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
-        document.head.appendChild(scriptTag);
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                var scriptTag = document.createElement('script');
+                scriptTag.async = true;
+                scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
+                document.head.appendChild(scriptTag);
+            }, 100);
+        });
     </script>
     <meta name="robots" content="index, follow">
 
@@ -117,7 +122,9 @@
   }
   </script>
     
-    <link rel="stylesheet" href="/styles/visual-polish.css">
+    
+    <link rel="preload" href="/styles/visual-polish.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/styles/visual-polish.css"></noscript>
     <link rel="stylesheet" href="/styles/sticky-cta.css">
     <script defer src="/scripts/sticky-cta.js"></script>
   <script defer src="/tawk-consent.js"></script>
@@ -321,7 +328,7 @@
         <!-- ZONES SECTION -->
         <section class="section bg-dark text-white">
             <div class="container">
-                <h2>Zones d'Intervention : Bassin Cannois</h2>
+                <h2 class="text-white">Zones d'Intervention : Bassin Cannois</h2>
                 <p>Nous couvrons l'intégralité de la ville et les communes limitrophes les plus prisées :</p>
                 <ul class="zones-grid-list">
                     <li>📍 <strong>La Croisette & Centre-Ville</strong> (Hôtels, Plages, Boutiques)</li>

@@ -7,7 +7,7 @@
    * =========================== */
   var LS_KEY = 'mocyno_consent_state'; // 'granted' | 'denied'
   var LS_TS = 'mocyno_consent_ts';
-  var FALLBACK_GA4 = 'G-E5JX7DYYYN';   // remplace si besoin
+  var FALLBACK_GA4 = '';               // ID supprimé — fournir via <meta name="ga-measurement-id">
   var FALLBACK_ADS = null;             // ID Google Ads optionnel (null = désactivé)
   var DOC = document;
   var WIN = window;

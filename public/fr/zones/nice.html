@@ -22,16 +22,20 @@
   <link href="https://mocyno.com/en/zones/nice/" hreflang="en" rel="alternate" />
   <link href="https://mocyno.com/fr/zones/nice/" hreflang="x-default" rel="alternate" />
   <!-- SEO:END -->
-  <!-- SAFE GTM - No insertBefore dependency -->
-  <script defer src="/consent-ga.js"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    var scriptTag = document.createElement('script');
-    scriptTag.async = true;
-    scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
-    document.head.appendChild(scriptTag);
-  </script>
+  <!-- SAFE GTM - No insertBefore dependency & Deferred Event -->
+    <script defer src="/consent-ga.js"></script>
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                var scriptTag = document.createElement('script');
+                scriptTag.async = true;
+                scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
+                document.head.appendChild(scriptTag);
+            }, 100);
+        });
+    </script>
   <meta content="index, follow" name="robots" />
   <link href="/favicon.ico" rel="icon" />
   <link as="style" href="/styles.css" onload="this.onload=null;this.rel='stylesheet'" rel="preload" />
@@ -198,7 +202,9 @@
     }
   </style>
   
-  <link rel="stylesheet" href="/styles/visual-polish.css">
+  
+    <link rel="preload" href="/styles/visual-polish.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/styles/visual-polish.css"></noscript>
   <link rel="stylesheet" href="/styles/sticky-cta.css">
   <script defer src="/scripts/sticky-cta.js"></script>
   <script defer src="/tawk-consent.js"></script>
@@ -285,7 +291,7 @@
     <section class="hero-premium">
       <div class="hero-image-wrapper">
         <img src="/assets/zones/zone_nice_promenade_1768907695355.webp" alt="Sécurité Privée à Nice &amp; Gardiennage"
-          class="hero-img" width="1200" height="600" loading="eager" fetchpriority="high" decoding="async">
+          class="hero-img" width="1200" height="600" loading="eager" fetchpriority="high" >
         <div class="hero-overlay-dark"></div>
       </div>
       <div class="container hero-content-premium">

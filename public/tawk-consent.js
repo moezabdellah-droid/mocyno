@@ -17,8 +17,7 @@
         s0.parentNode.insertBefore(s1, s0);
     }
 
-    // Chargement après 3 secondes
-    setTimeout(loadTawk, 3000);
+    // Chargement sur première interaction uniquement (perf SEO)
 
     // OU chargement sur première interaction
     var events = ['scroll', 'mousemove', 'touchstart', 'click'];

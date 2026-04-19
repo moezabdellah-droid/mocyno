@@ -215,3 +215,10 @@
     justify-content: center;
   }
 }
+
+/* P0.6 — CLS fix: reserve space for reviews on mobile */
+@media (max-width: 768px) {
+  #google-reviews[data-variant="home"] {
+    min-height: 1000px;
+  }
+}

@@ -130,6 +130,13 @@ body.luxe-mode {
   color: var(--gold);
 }
 
+/* H3 services — fix visibilité sur fond sombre */
+.luxe-bg-dark .luxe-card h3 {
+  color: #ffffff;
+  display: block;
+  opacity: 1;
+}
+
 /* Form */
 .luxe-form {
   max-width: 500px;

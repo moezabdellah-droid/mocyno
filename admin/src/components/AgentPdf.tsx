@@ -195,14 +195,20 @@ export const AgentBadgePdf = ({ agent, photoBase64, logoBase64 }: AgentPdfProps)
                             <Text style={styles.badgeValueRed}>{agent.professionalCardNumber || 'N/A'}</Text>
 
                             <Text style={styles.badgeLabel}>Activités</Text>
-                            <Text style={styles.badgeValue} wrap={false}>
-                                {agent.specialties?.join(', ') || 'Surveillance Humaine'}
+                            <Text style={{ ...styles.badgeValue, fontSize: 7 }}>
+                                {agent.specialties
+                                    ?.map(s => s === 'CYNO' ? 'Agent de sécurité cynophile' : s)
+                                    .join(', ') || 'Surveillance Humaine'}
                             </Text>
 
                             {agent.specialties?.includes('CYNO') && agent.dogIds && (
                                 <>
                                     <Text style={styles.badgeLabel}>Numéros Chiens</Text>
-                                    <Text style={{ ...styles.badgeValue, fontSize: 6 }}>{agent.dogIds}</Text>
+                                    <Text style={{ ...styles.badgeValue, fontSize: 6 }}>
+                                        {[agent.dogIds, (agent as Record<string, unknown>).dog2Id, (agent as Record<string, unknown>).dog3Id]
+                                            .filter(Boolean)
+                                            .join(' / ')}
+                                    </Text>
                                 </>
                             )}
                         </View>
@@ -349,7 +355,11 @@ export const AgentProfilePdf = ({ agent, photoBase64 }: AgentPdfProps) => (
                 {agent.dogIds && (
                     <View style={styles.row}>
                         <Text style={styles.fieldLabel}>Chiens (ID 250...):</Text>
-                        <Text style={styles.fieldValue}>{agent.dogIds}</Text>
+                        <Text style={styles.fieldValue}>
+                            {[agent.dogIds, (agent as Record<string, unknown>).dog2Id, (agent as Record<string, unknown>).dog3Id]
+                                .filter(Boolean)
+                                .join(' / ')}
+                        </Text>
                     </View>
                 )}
             </View>

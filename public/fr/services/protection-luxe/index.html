@@ -68,13 +68,15 @@
     <link href="/favicon.ico" rel="icon">
     <link href="/favicon.svg" rel="icon" type="image/svg+xml">
     <meta content="#022C51" name="theme-color">
-    <link as="style" href="/styles.css?v=2.7" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
+  <link rel="preload" as="image" type="image/webp" href="/assets/luxe.webp">
+    <link as="style" href="/styles.css?v=2.8" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
     <noscript>
-        <link href="/styles.css?v=2.7" rel="stylesheet" />
+        <link href="/styles.css?v=2.8" rel="stylesheet" />
     </noscript>
     <link href="/styles-compat-patch.css?v=2.7" rel="stylesheet">
 
     <meta content="MO'CYNO" property="og:site_name">
+    <meta name="ga-measurement-id" content="G-9RDHGKSLW9">
 
     <link rel="stylesheet" href="/styles/visual-polish.css">
     <link rel="stylesheet" href="/styles/sticky-cta.css">
@@ -193,7 +195,7 @@
               <li><a href="/fr/services/surveillance-humaine/">Surveillance humaine</a></li>
               <li><a href="/fr/services/securite-cynophile/">Sécurité cynophile</a></li>
               <li><a href="/fr/services/securite-incendie-ssiap/">Sécurité incendie (SSIAP)</a></li>
-              <li><a href="/fr/services/securite-evenementielle/">Sûreté Événementielle</a></li>
+              <li><a href="/fr/services/securite-evenementielle/">Sécurité événementielle</a></li>
 <li><a href="/fr/services/protection-luxe/">Protection du luxe</a></li>
               <li><a href="/fr/services/luxe-boutiques/">Luxe & Boutiques</a></li>
               <li><a href="/fr/services/residentiel/">Résidentiel & Villas</a></li>
@@ -220,7 +222,7 @@
                 <picture>
           <source srcset="/assets/luxe.webp" type="image/webp">
           <img alt="Agent de protection discrète devant une villa de luxe" class="hero-img" height="1024"
-                    src="/assets/luxe.png" width="1024">
+                    src="/assets/luxe.png" width="1024" loading="eager" fetchpriority="high" decoding="async">
         </picture>
                 <div class="hero-overlay-dark"></div>
             </div>
@@ -305,6 +307,8 @@
             <h2>Besoin d'une protection discrète ?</h2>
             <p>Contactez notre direction pour une étude confidentielle.</p>
             <p><a class="btn primary" href="/fr/contact/">Demander mon Audit</a></p>
+            <p style="margin-top:16px;font-size:0.95rem;color:#64748b;">Ou appelez-nous au <a href="tel:+33666035116" style="color:#022C51;font-weight:700;">06 66 03 51 16</a></p>
+            <p style="margin-top:12px;font-size:0.85rem;color:#4a5568;">Zone d'intervention : Toulon, Saint-Tropez, Cannes, Nice, Fréjus et l'ensemble du Var.</p>
         </section>
     </main>
 
@@ -314,6 +318,7 @@
                 <p class="footer-meta">© 2026 MO'CYNO — Agence de sécurité privée — SASU — SIRET 990 179 566 00015 — NAF
                     80.10Z</p>
                 <div class="footer-inline">
+                    <span>📞 <a href="tel:+33666035116" style="color:#fff;font-weight:600;">06 66 03 51 16</a></span> <span>•</span>
                     <span>31 Rue Chevalier Paul, 83000 Toulon, France <em>(Siège social / domiciliation — interventions
                             sur site, pas d'accueil public)</em></span> <span>•</span>
                     <span>Autorisation CNAPS : <a
@@ -367,6 +372,7 @@
 
     <script defer="" src="/tawk-consent.js"></script>
 
+  <script defer src="/scripts/mobile-dropdown.js"></script>
 </body>
 
 </html>

@@ -85,31 +85,105 @@ const sanitizePayload = (obj: any): any => {
 const resourceAlias: Record<string, string> = {};
 const resolveResource = (resource: string) => resourceAlias[resource] || resource;
 
+// ─── A24 — Allowlist des filtres et tris serveur par ressource ───────────────
+// Seuls ces champs déclenchent un where() Firestore.
+// Tout autre champ est silencieusement ignoré (évite les index fantômes).
+const ALLOWED_FILTERS: Record<string, string[]> = {
+    reports:           ['status', 'source', 'severity', 'type', 'clientId'],
+    consignes:         ['targetId', 'siteId', 'source', 'status'],
+    clientRequests:    ['clientId', 'status'],
+    documents:         ['clientId'],
+    documentDownloads: ['clientId', 'callerRole'],
+    events:            ['type', 'status'],
+    agents:            ['status', 'contractNature'],
+    auditLogs:         ['action', 'targetType'],
+    // P1 : companyName retiré (TextInput libre), status seul conservé (SelectInput borné)
+    clients:           ['status'],
+};
+
+// Ordre canonique des filtres : convention interne pour la lisibilité.
+// Ne force pas le matching Firestore, mais garantit un comportement stable.
+const FILTER_ORDER: Record<string, string[]> = {
+    reports:           ['clientId', 'source', 'status', 'severity', 'type'],
+    consignes:         ['targetId', 'siteId', 'source', 'status'],
+    clientRequests:    ['clientId', 'status'],
+    events:            ['type', 'status'],
+    agents:            ['status', 'contractNature'],
+    documentDownloads: ['clientId', 'callerRole'],
+    auditLogs:         ['action', 'targetType'],
+    clients:           ['status'],
+};
+
+// Seuls ces champs sont autorisés comme champ de tri serveur.
+// Tout autre tri (ex: clic sur colonne 'title') est ignoré silencieusement.
+const ALLOWED_SORTS: Record<string, string[]> = {
+    reports:           ['createdAt'],
+    consignes:         ['createdAt'],
+    clientRequests:    ['createdAt'],
+    events:            ['timestamp'],
+    agents:            ['lastName'],
+    documents:         ['createdAt'],
+    documentDownloads: ['downloadedAt'],
+    auditLogs:         ['createdAt'],
+    // clients : tri RH canonique sur provisionedAt (date d'onboarding)
+    clients:           ['provisionedAt'],
+};
+
+/**
+ * Retourne true uniquement si la valeur est exploitable comme contrainte Firestore.
+ * Rejette : undefined, null, chaîne vide ou blanche, tableau vide.
+ */
+const isValidFilterValue = (value: unknown): boolean => {
+    if (value === undefined || value === null) return false;
+    if (typeof value === 'string' && value.trim() === '') return false;
+    if (Array.isArray(value) && value.length === 0) return false;
+    return true;
+};
+// ─────────────────────────────────────────────────────────────────────────────
+
 // Build filter+sort constraints WITHOUT pagination limit (for counting)
 const buildFilterQuery = (resource: string, params: GetListParams) => {
     const resolved = resolveResource(resource);
+    const resourceKey = resolved;
     const { filter, sort } = params;
     const { field, order } = sort || { field: 'id', order: 'ASC' };
 
     const constraints: QueryConstraint[] = [];
 
     if (filter) {
-        Object.keys(filter).forEach(key => {
+        const allowedKeys = ALLOWED_FILTERS[resourceKey] ?? [];
+        const canonicalOrder = FILTER_ORDER[resourceKey] ?? allowedKeys;
+
+        // Tri canonique des clés avant construction des contraintes
+        const sortedKeys = Object.keys(filter).sort((a, b) => {
+            const ia = canonicalOrder.indexOf(a);
+            const ib = canonicalOrder.indexOf(b);
+            return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+        });
+
+        sortedKeys.forEach(key => {
+            // Rejeter les champs non autorisés pour cette ressource
+            if (allowedKeys.length > 0 && !allowedKeys.includes(key)) return;
+
             const value = filter[key];
-            if (typeof value === 'object' && value !== null && (value.$gte || value.$lte)) {
+
+            if (typeof value === 'object' && value !== null && ('$gte' in value || '$lte' in value)) {
                 if (!key.includes('.')) {
-                    if (value.$gte) constraints.push(where(key, '>=', value.$gte));
-                    if (value.$lte) constraints.push(where(key, '<=', value.$lte));
+                    const rangeValue = value as { $gte?: unknown; $lte?: unknown };
+                    if (isValidFilterValue(rangeValue.$gte)) constraints.push(where(key, '>=', rangeValue.$gte));
+                    if (isValidFilterValue(rangeValue.$lte)) constraints.push(where(key, '<=', rangeValue.$lte));
                 }
             } else if (Array.isArray(value)) {
-                if (value.length > 0) constraints.push(where(key, 'in', value.slice(0, 10)));
-            } else if (value !== undefined && value !== null && typeof value !== 'object') {
+                if (isValidFilterValue(value)) constraints.push(where(key, 'in', value.slice(0, 10)));
+            } else if (isValidFilterValue(value) && typeof value !== 'object') {
                 constraints.push(where(key, '==', value));
             }
         });
     }
 
-    if (field && field !== 'id') {
+    // Tri serveur : ignoré si le champ n'est pas dans l'allowlist de la ressource
+    const allowedSorts = ALLOWED_SORTS[resourceKey] ?? [];
+    if (field && field !== 'id' && (allowedSorts.length === 0 || allowedSorts.includes(field))) {
         constraints.push(orderBy(field, order.toLowerCase() as 'asc' | 'desc'));
     }
 
@@ -153,7 +227,7 @@ const dataProvider: DataProvider = {
     ): Promise<GetListResult<RecordType>> => {
         try {
             const { pagination } = params;
-            const { page, perPage } = pagination || { page: 1, perPage: 10 };
+            const { page, perPage: _perPage } = pagination || { page: 1, perPage: 10 };
             const cursorKey = getCursorKey(params);
 
             // Get or initialize cursor entry for this resource
@@ -222,9 +296,13 @@ const dataProvider: DataProvider = {
 
         const idString = params.id.toString();
 
+        console.log(`[DP getOne] start resource=${resource} id=${idString}`);
+
         try {
             const docRef = doc(db, resolveResource(resource), idString);
             const docSnap = await getDoc(docRef);
+
+            console.log(`[DP getOne] snap resource=${resource} id=${idString} exists=${docSnap.exists()} rawData=${docSnap.exists() ? JSON.stringify(Object.keys(docSnap.data() ?? {})) : 'null'}`);
 
             if (docSnap.exists()) {
                 const data = docSnap.data();
@@ -232,6 +310,8 @@ const dataProvider: DataProvider = {
                     console.error(`[DataProvider] getOne ERROR: Document exists but data is empty! ${resource}/${idString}`);
                     throw new Error(`Document data is empty: ${resource}/${idString}`);
                 }
+
+                console.log(`[DP getOne] return resource=${resource} id=${idString} hasData=true keys=${Object.keys(data).join(',')}`);
 
                 return {
                     data: {
@@ -241,6 +321,7 @@ const dataProvider: DataProvider = {
                 };
             }
 
+            console.log(`[DP getOne] not found resource=${resource} id=${idString}`);
             // React Admin expects a rejected promise for 404.
             throw new Error(`Document not found: ${resource}/${idString}`);
         } catch (error) {
@@ -248,6 +329,7 @@ const dataProvider: DataProvider = {
             throw error;
         }
     },
+
 
     getMany: async <RecordType extends RaRecord = RaRecord>(
         resource: string,

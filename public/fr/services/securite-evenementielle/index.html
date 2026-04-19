@@ -66,17 +66,17 @@
   <meta content="index,follow" name="robots">
   <link href="/favicon.ico" rel="icon">
   <link href="/favicon.svg" rel="icon" type="image/svg+xml">
-  <link as="image" href="/images/service-event-security-cannes.png" rel="preload">
-  <link as="style" href="/styles.css?v=2.7" rel="preload">
+  <link as="image" href="/images/service-event-security-cannes.webp" type="image/webp" rel="preload">
   <meta content="#022C51" name="theme-color">
 
-  <link as="style" href="/styles.css?v=2.7" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
+  <link as="style" href="/styles.css?v=2.8" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
   <noscript>
-    <link href="/styles.css?v=2.7" rel="stylesheet" />
+    <link href="/styles.css?v=2.8" rel="stylesheet" />
   </noscript>
   <link href="/styles-compat-patch.css?v=2.7" rel="stylesheet">
 
   <meta content="MO'CYNO" property="og:site_name">
+  <meta name="ga-measurement-id" content="G-9RDHGKSLW9">
 
   <link rel="stylesheet" href="/styles/visual-polish.css">
   <link rel="stylesheet" href="/styles/sticky-cta.css">
@@ -202,7 +202,7 @@
               <li><a href="/fr/services/surveillance-humaine/">Surveillance humaine</a></li>
               <li><a href="/fr/services/securite-cynophile/">Sécurité cynophile</a></li>
               <li><a href="/fr/services/securite-incendie-ssiap/">Sécurité incendie (SSIAP)</a></li>
-              <li><a href="/fr/services/securite-evenementielle/">Sûreté Événementielle</a></li>
+              <li><a href="/fr/services/securite-evenementielle/">Sécurité événementielle</a></li>
 <li><a href="/fr/services/protection-luxe/">Protection du luxe</a></li>
               <li><a href="/fr/services/luxe-boutiques/">Luxe & Boutiques</a></li>
               <li><a href="/fr/services/residentiel/">Résidentiel & Villas</a></li>
@@ -228,7 +228,7 @@
         <picture>
           <source srcset="/images/service-event-security-cannes.webp" type="image/webp">
           <img alt="Sécurité événementielle premium à Cannes par les agents MO'CYNO" class="hero-img" height="1024"
-          src="/images/service-event-security-cannes.png" width="1024">
+          src="/images/service-event-security-cannes.png" width="1024" loading="eager" fetchpriority="high" decoding="async">
         </picture>
         <div class="hero-overlay-dark"></div>
       </div>
@@ -241,7 +241,7 @@
         <form action="/api/contact" class="lead-form-hero" method="POST"
           style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 20px; max-width: 500px; margin-top: 20px;">
           <input autocomplete="off" name="website" style="display:none" tabindex="-1" type="text">
-          <input name="service" type="hidden" value="Sûreté Événementielle">
+          <input name="service" type="hidden" value="Sécurité événementielle">
           <h3 style="margin-top:0; font-size: 1.1rem;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" /></svg> Devis Express (Réponse 24h)</h3>
           <div class="lead-form-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
             <input name="name" placeholder="Nom / Société" required=""
@@ -270,7 +270,7 @@
     </nav>
     <section class="section container">
       <div class="intro-block">
-        <h2>Expertise en Sûreté Événementielle</h2>
+        <h2>Expertise en Sécurité événementielle</h2>
         <p>
           MO'CYNO conçoit et déploie des dispositifs de <strong>sécurité événementielle</strong> pour vos événements
           professionnels ou privés : soirées, lancements de marque, salons, concerts, mariages, festivals, événements
@@ -318,9 +318,11 @@
       <a aria-label="Retour à tous les services" href="/fr/services/">← Tous nos services</a>
     </nav>
     <section class="cta container section" style="text-align:center; margin-top:32px;">
-      <h2>Un besoin ?</h2>
+      <h2>Demandez votre devis gratuit</h2>
       <p>Réponse sous 24 h ouvrées.</p>
       <p><a class="btn primary" href="/fr/contact/">Contact &amp; Devis</a></p>
+      <p style="margin-top:16px;font-size:0.95rem;color:#64748b;">Ou appelez-nous au <a href="tel:+33666035116" style="color:#022C51;font-weight:700;">06 66 03 51 16</a></p>
+      <p style="margin-top:12px;font-size:0.85rem;color:#4a5568;">Zone d'intervention : Toulon, Saint-Tropez, Cannes, Nice, Fréjus et l'ensemble du Var.</p>
     </section>
   </main>
   <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
@@ -329,6 +331,7 @@
         <p class="footer-meta">© 2026 MO'CYNO — Agence de sécurité privée — SASU — SIRET 990 179 566 00015 — NAF 80.10Z
         </p>
         <div class="footer-inline">
+          <span>📞 <a href="tel:+33666035116" style="color:#fff;font-weight:600;">06 66 03 51 16</a></span> <span>•</span>
           <span>31 Rue Chevalier Paul, 83000 Toulon, France <em>(Siège social / domiciliation — interventions sur site,
               pas d'accueil public)</em></span> <span>•</span>
           <span>Autorisation CNAPS : <a
@@ -382,6 +385,7 @@
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M7 18v-6a5 5 0 1 1 10 0v6" />  <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" />  <path d="M21 12h1" />  <path d="M18.5 4.5 18 5" />  <path d="M2 12h1" />  <path d="M12 2v1" />  <path d="m4.929 4.929.707.707" />  <path d="M12 12v6" /></svg> Urgence / Devis 24/7
   </a>
 
+  <script defer src="/scripts/mobile-dropdown.js"></script>
 </body>
 
 </html>

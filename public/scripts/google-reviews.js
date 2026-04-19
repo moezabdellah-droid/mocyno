@@ -184,8 +184,14 @@
   }
 
   /* Init — silent fallback if container absent */
-  document.addEventListener('DOMContentLoaded', function () {
+  function init() {
     var el = document.getElementById('google-reviews');
     if (el) render(el);
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();

@@ -5,7 +5,7 @@ import Planning from './pages/Planning';
 import { ConsigneList, ConsigneCreate, ConsigneEdit, ConsigneShow } from './pages/Consignes';
 import { EventList, EventShow } from './pages/Events';
 import Payroll from './pages/Payroll';
-import { AgentList, AgentCreate, AgentEdit } from './pages/Agents';
+import { AgentList, AgentCreate, AgentEdit, AgentShow } from './pages/Agents';
 import Dashboard from './Dashboard';
 import { mocynoTheme } from './theme';
 import { SiteList, SiteCreate, SiteEdit } from './pages/Sites';
@@ -62,7 +62,7 @@ const App = () => (
       options={{ label: '📅 Planning' }}
     />
     <Resource name="payroll" list={Payroll} options={{ label: '💰 RH & Export' }} />
-    <Resource name="agents" list={AgentList} create={AgentCreate} edit={AgentEdit} options={{ label: '👥 Agents' }} />
+    <Resource name="agents" list={AgentList} create={AgentCreate} edit={AgentEdit} show={AgentShow} options={{ label: '👥 Agents' }} />
     <Resource name="sites" list={SiteList} create={SiteCreate} edit={SiteEdit} options={{ label: '🏢 Sites' }} />
     <Resource name="consignes" list={ConsigneList} create={ConsigneCreate} edit={ConsigneEdit} show={ConsigneShow} options={{ label: '📋 Consignes' }} />
     <Resource name="events" list={EventList} show={EventShow} options={{ label: '📝 Main Courante' }} />

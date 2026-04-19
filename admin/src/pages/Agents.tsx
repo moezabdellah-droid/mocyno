@@ -3,21 +3,25 @@ import {
     List, Datagrid, TextField, EmailField, DateField, Create, SimpleForm,
     TextInput, required, useNotify, useRedirect, SelectArrayInput,
     FunctionField, SelectInput, TabbedForm, FormTab, DateInput, ImageField, ImageInput,
-    FormDataConsumer, regex, useRefresh, useRecordContext,
-    Toolbar, SaveButton, DeleteButton, Edit
+    FormDataConsumer, regex, useRefresh, useRecordContext, useListContext,
+    Toolbar, SaveButton, DeleteButton, Edit,
+    SimpleShowLayout, TopToolbar, EditButton, RecordContextProvider,
 } from 'react-admin';
 import { getFunctions, httpsCallable } from 'firebase/functions';
-import { PDFDownloadLink } from '@react-pdf/renderer';
+import { PDFDownloadLink, pdf } from '@react-pdf/renderer';
 import type { Agent } from '@mocyno/types';
-import { Button, TextField as MuiTextField } from '@mui/material';
+import { Button, TextField as MuiTextField, Alert, Box, Typography, CircularProgress } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import GenerateIcon from '@mui/icons-material/Autorenew';
+import EditIcon from '@mui/icons-material/Edit';
 import { AgentBadgePdf, AgentProfilePdf } from '../components/AgentPdf';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { storage } from '../firebase.config';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { storage, db } from '../firebase.config';
 import { useParams } from 'react-router-dom';
 import logoUrl from '../assets/mocyno-logo.png';
 import { imageUrlToPngBase64 } from '../utils/imageUtils';
+import { resolveAgentPhotoBase64 } from '../utils/agentPhotoUtils';
 
 // Basic validation for professional card
 const validateCardPro = (value: string) => {
@@ -236,35 +240,172 @@ const contractChoices = [
     { id: 'INTERIM', name: 'Intérim' },
 ];
 
+// lastName retiré des filtres serveur : TextInput exact-match libre, aucun index
+// agents/lastName+lastName ASC déclaré. Tri alphabétique conservé via sort={{ field: 'lastName' }}.
 const agentFilters = [
     <SelectInput key="status" source="status" label="Statut" choices={statusChoices} alwaysOn />,
-    <TextInput key="lastName" source="lastName" label="Nom" alwaysOn />,
     <SelectInput key="contractNature" source="contractNature" label="Contrat" choices={contractChoices} />,
 ];
 
+/**
+ * Affiche une vraie erreur Firestore ou un message "aucun agent" propre.
+ * Évite le masquage silencieux d'une erreur backend en faux résultat vide.
+ */
+const AgentsEmptyOrError = () => {
+    const { error, isPending } = useListContext();
+
+    if (isPending) return null;
+
+    if (error) {
+        const message =
+            error instanceof Error
+                ? error.message
+                : 'Erreur inconnue lors du chargement des agents.';
+
+        return (
+            <Box p={2}>
+                <Alert severity="error">
+                    <Typography variant="body1" fontWeight={600}>
+                        Impossible de charger la liste des agents.
+                    </Typography>
+                    <Typography variant="body2" sx={{ mt: 1 }}>
+                        La requête Firestore a échoué. Vérifie les index composites de la collection <strong>agents</strong>.
+                    </Typography>
+                    <Typography variant="body2" sx={{ mt: 1, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+                        {message}
+                    </Typography>
+                </Alert>
+            </Box>
+        );
+    }
+
+    return (
+        <Box p={2}>
+            <Alert severity="info">
+                Aucun agent ne correspond aux filtres actuels.
+            </Alert>
+        </Box>
+    );
+};
+
 export const AgentList = () => (
-    <List resource="agents" filters={agentFilters} sort={{ field: 'lastName', order: 'ASC' }}>
-        <Datagrid rowClick="edit" bulkActionButtons={false}>
-            <FunctionField label="Photo" render={(record: Agent) =>
+    <List
+        resource="agents"
+        filters={agentFilters}
+        sort={{ field: 'lastName', order: 'ASC' }}
+        empty={<AgentsEmptyOrError />}
+        queryOptions={{ retry: false }}
+    >
+        <Datagrid rowClick="show" bulkActionButtons={false}>
+            <FunctionField label="Photo" sortable={false} render={(record: Agent) =>
                 record.photoURL ? <img src={record.photoURL} style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }} alt="" /> : null
             } />
-            <TextField source="matricule" label="Matricule" />
-            <TextField source="firstName" label="Prénom" />
+            <TextField source="matricule" label="Matricule" sortable={false} />
+            <TextField source="firstName" label="Prénom" sortable={false} />
             <TextField source="lastName" label="Nom" />
-            <FunctionField label="Statut" render={(record: Agent) =>
+            <FunctionField label="Statut" sortable={false} render={(record: Agent) =>
                 record.status === 'active' ? '🟢 Actif' : '🔴 Inactif'
             } />
-            <FunctionField label="En service" render={(record: Agent & { isServiceRunning?: boolean }) =>
+            <FunctionField label="En service" sortable={false} render={(record: Agent & { isServiceRunning?: boolean }) =>
                 record.isServiceRunning ? '🟢 Oui' : '—'
             } />
-            <TextField source="professionalCardNumber" label="Carte Pro" />
-            <EmailField source="email" />
-            <FunctionField label="Spécialités" render={(record: Agent) => record.specialties ? record.specialties.join(', ') : '—'} />
-            <TextField source="contractNature" label="Contrat" />
-            <DateField source="createdAt" label="Créé le" />
+            <TextField source="professionalCardNumber" label="Carte Pro" sortable={false} />
+            <EmailField source="email" sortable={false} />
+            <FunctionField label="Spécialités" sortable={false} render={(record: Agent) => record.specialties ? record.specialties.join(', ') : '—'} />
+            <TextField source="contractNature" label="Contrat" sortable={false} />
+            <DateField source="createdAt" label="Créé le" sortable={false} />
+            <EditButton />
         </Datagrid>
     </List>
 );
+
+/** Extension du type form photo pour AgentEdit */
+interface AgentEditFormData extends Omit<Partial<Agent>, 'photoURL'> {
+    photoPath?: string | null;
+    photoURL?: string | { rawFile: File; src?: string; title?: string } | null;
+}
+
+/**
+ * transformAgentEdit — intercepte le rawFile photo avant le dataProvider.
+ * Upload vers chemin canonique agent_photos/{agentId}/profile_{ts}.{ext}.
+ *
+ * React-Admin passe `previousData` en second argument via l'option `transform`.
+ * On utilise previousData.id en priorité (source fiable) pour construire le chemin.
+ *
+ * En cas d'échec upload : retire le rawFile non sérialisable, restaure l'URL
+ * depuis photoPath existant. Ne perd jamais la photo existante.
+ */
+const transformAgentEdit = async (
+    data: Partial<Agent>,
+    options?: { previousData?: Partial<Agent> }
+): Promise<Partial<Agent>> => {
+    const formData = data as AgentEditFormData;
+    let cleaned: Partial<Agent> = { ...data };
+
+    // Source fiable de l'UID : previousData.id injecté par React-Admin, data.id en fallback
+    const agentId = options?.previousData?.id ?? data.id;
+
+    if (
+        formData.photoURL &&
+        typeof formData.photoURL !== 'string' &&
+        'rawFile' in (formData.photoURL as object)
+    ) {
+        const rawFile = (formData.photoURL as { rawFile: File }).rawFile;
+
+        // Garde : si l'UID est introuvable, ne pas tenter l'upload
+        if (!agentId) {
+            console.warn('[AgentEdit] Missing agent id for photo upload — skipping');
+            const { photoURL: _rawObj, ...dataWithoutRaw } = cleaned as Record<string, unknown>;
+            const existingPhotoPath = formData.photoPath;
+            if (existingPhotoPath) {
+                try {
+                    const restoredUrl = await getDownloadURL(ref(storage, existingPhotoPath));
+                    return { ...(dataWithoutRaw as Partial<Agent>), photoURL: restoredUrl };
+                } catch {
+                    return dataWithoutRaw as Partial<Agent>;
+                }
+            }
+            return dataWithoutRaw as Partial<Agent>;
+        }
+
+        try {
+            const mimeToExt: Record<string, string> = {
+                'image/jpeg': 'jpg', 'image/jpg': 'jpg',
+                'image/png': 'png',  'image/webp': 'webp',
+            };
+            const ext = mimeToExt[rawFile.type] ?? (rawFile.name.split('.').pop() ?? 'jpg');
+            const ts  = new Date().toISOString().replace(/[:.]/g, '-');
+            const storagePath = `agent_photos/${agentId}/profile_${ts}.${ext}`;
+            const storageRef  = ref(storage, storagePath);
+            await uploadBytes(storageRef, rawFile, { contentType: rawFile.type });
+            const photoURL = await getDownloadURL(storageRef);
+            cleaned = {
+                ...cleaned,
+                photoURL,
+                photoPath:     storagePath,
+                photoFileName: rawFile.name,
+                photoMimeType: rawFile.type,
+                photoUpdatedAt: new Date().toISOString(),
+            } as Partial<Agent>;
+        } catch (err) {
+            console.warn('[AgentEdit] Photo upload failed (non-blocking):', err);
+            const { photoURL: _rawObj, ...dataWithoutRaw } = cleaned as Record<string, unknown>;
+            const existingPhotoPath = formData.photoPath;
+            if (existingPhotoPath) {
+                try {
+                    const restoredUrl = await getDownloadURL(ref(storage, existingPhotoPath));
+                    cleaned = { ...(dataWithoutRaw as Partial<Agent>), photoURL: restoredUrl };
+                } catch {
+                    cleaned = dataWithoutRaw as Partial<Agent>;
+                }
+            } else {
+                cleaned = dataWithoutRaw as Partial<Agent>;
+            }
+        }
+    }
+
+    return cleaned;
+};
 
 // Custom Robust Edit Component
 
@@ -282,7 +423,7 @@ const AgentEditToolbar = () => (
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const AgentEdit = (props: any) => {
     return (
-        <Edit {...props} resource="agents" mutationMode="pessimistic">
+        <Edit {...props} resource="agents" mutationMode="pessimistic" transform={transformAgentEdit}>
             <TabbedForm toolbar={<AgentEditToolbar />}>
                 <FormTab label="Identité">
                     <TextInput source="id" disabled />
@@ -333,15 +474,37 @@ export const AgentEdit = (props: any) => {
 
                     <FormDataConsumer>
                         {({ formData, ...rest }) =>
-                            formData.specialties && formData.specialties.includes('CYNO') &&
-                            <TextInput
-                                source="dogIds"
-                                label="Numéro(s) d'identification Chien (250...)"
-                                validate={validateDogId}
-                                fullWidth
-                                helperText="15 chiffres (Ex: 250 268 780 869 046)"
-                                {...rest}
-                            />
+                            formData.specialties && formData.specialties.includes('CYNO') && (
+                                <Box sx={{ width: '100%' }}>
+                                    <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: 'block' }}>
+                                        Identifications chiens — tous reportés sur le badge (1 obligatoire, 3 maximum)
+                                    </Typography>
+                                    <TextInput
+                                        source="dogIds"
+                                        label="Chien 1 — Numéro d'identification"
+                                        validate={[required(), validateDogId]}
+                                        fullWidth
+                                        helperText="15 chiffres (Ex: 250 268 780 869 046)"
+                                        {...rest}
+                                    />
+                                    <TextInput
+                                        source="dog2Id"
+                                        label="Chien 2 — Numéro d'identification (optionnel)"
+                                        validate={validateDogId}
+                                        fullWidth
+                                        helperText="15 chiffres — laisser vide si pas de 2ème chien"
+                                        {...rest}
+                                    />
+                                    <TextInput
+                                        source="dog3Id"
+                                        label="Chien 3 — Numéro d'identification (optionnel)"
+                                        validate={validateDogId}
+                                        fullWidth
+                                        helperText="15 chiffres — laisser vide si pas de 3ème chien"
+                                        {...rest}
+                                    />
+                                </Box>
+                            )
                         }
                     </FormDataConsumer>
 
@@ -412,23 +575,48 @@ export const AgentCreate = () => {
         const formData = data as AgentFormData;
         setLoading(true);
         try {
-            // Handle Photo Upload Manually first
-            let photoUrl = null;
+            // Temps 1 — extraire rawFile sans uploader, créer l'agent via callable
+            let rawFile: File | null = null;
             if (formData.photoURL && typeof formData.photoURL !== 'string' && 'rawFile' in formData.photoURL) {
-                const file = formData.photoURL.rawFile;
-                const storageRef = ref(storage, `agents/photos/${file.name}`);
-                await uploadBytes(storageRef, file);
-                photoUrl = await getDownloadURL(storageRef);
+                rawFile = formData.photoURL.rawFile;
             }
 
             const functions = getFunctions(undefined, 'europe-west1');
-            const createAgent = httpsCallable(functions, 'createAgent');
+            const createAgentFn = httpsCallable(functions, 'createAgent');
 
-            await createAgent({
-                ...data,
-                photoURL: photoUrl
-            });
-            notify('Agent créé avec succès');
+            // createAgent retourne { uid } — utilisé pour le chemin canonique
+            const result = await createAgentFn({ ...data, photoURL: null }) as { data: { uid: string } };
+            const agentUid = result.data.uid;
+
+            // Temps 2 — upload photo vers chemin canonique post-création
+            let successMessage = 'Agent créé avec succès';
+            if (rawFile && agentUid) {
+                try {
+                    const mimeToExt: Record<string, string> = {
+                        'image/jpeg': 'jpg', 'image/jpg': 'jpg',
+                        'image/png': 'png',  'image/webp': 'webp',
+                    };
+                    const ext = mimeToExt[rawFile.type] ?? (rawFile.name.split('.').pop() ?? 'jpg');
+                    const ts  = new Date().toISOString().replace(/[:.]/g, '-');
+                    const storagePath = `agent_photos/${agentUid}/profile_${ts}.${ext}`;
+                    const storageRef  = ref(storage, storagePath);
+                    await uploadBytes(storageRef, rawFile, { contentType: rawFile.type });
+                    const photoURL = await getDownloadURL(storageRef);
+                    // setDoc merge:true — robuste même si le doc n'est pas encore stable
+                    await setDoc(doc(db, 'agents', agentUid), {
+                        photoURL,
+                        photoPath:     storagePath,
+                        photoFileName: rawFile.name,
+                        photoMimeType: rawFile.type,
+                        photoUpdatedAt: new Date().toISOString(),
+                    }, { merge: true });
+                } catch (photoErr) {
+                    console.warn('[AgentCreate] Photo upload failed (non-blocking):', photoErr);
+                    successMessage = "Agent créé. La photo n'a pas pu être chargée.";
+                }
+            }
+
+            notify(successMessage, successMessage.includes('photo') ? { type: 'warning' } : undefined);
             redirect('/agents');
         } catch (error: unknown) {
             console.error(error);
@@ -460,5 +648,242 @@ export const AgentCreate = () => {
                 ]} fullWidth />
             </SimpleForm>
         </Create>
+    );
+};
+
+// ─── Agent Show ────────────────────────────────────────────────────────────────────────────
+
+/**
+ * downloadPdfBlob — génère un PDF à la demande et déclenche le téléchargement.
+ * Remplace PDFDownloadLink (pré-rendu au mount) qui bloquait la toolbar
+ * sur "ÉCHARGEMENT..." dès que le document PDF avait un souci interne.
+ */
+const downloadPdfBlob = async (element: React.ReactElement, fileName: string) => {
+    // @react-pdf/renderer pdf() attend <Document>, mais le JSX est inféré <unknown> :
+    // cast as any est le pattern recommandé pour lever ce mismatch de types.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const blob = await pdf(element as any).toBlob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+};
+
+/**
+ * AgentShowContent — contenu de la fiche agent.
+ * Reçoit record et isPending en props explicites.
+ * Aucune dépendance à useShowContext ou au ShowContextProvider de React-Admin.
+ */
+const AgentShowContent = ({
+    record,
+    isPending,
+}: {
+    record: Agent | undefined;
+    isPending: boolean;
+}) => {
+    const [generating, setGenerating] = useState<'badge' | 'fiche' | null>(null);
+    const redirect = useRedirect();
+
+    const handleBadge = async () => {
+        if (!record) return;
+        setGenerating('badge');
+        try {
+            let logoBase64: string | null = null;
+            try { logoBase64 = await imageUrlToPngBase64(logoUrl); } catch { /* logo optionnel */ }
+            const photoBase64 = await resolveAgentPhotoBase64(record);
+            await downloadPdfBlob(
+                <AgentBadgePdf agent={record} photoBase64={photoBase64} logoBase64={logoBase64} />,
+                `Badge-${record.lastName ?? 'Agent'}-${record.firstName ?? ''}.pdf`
+            );
+        } catch (err) {
+            console.error('Erreur génération badge PDF:', err);
+        } finally {
+            setGenerating(null);
+        }
+    };
+
+    const handleFiche = async () => {
+        if (!record) return;
+        setGenerating('fiche');
+        try {
+            const photoBase64 = await resolveAgentPhotoBase64(record);
+            await downloadPdfBlob(
+                <AgentProfilePdf agent={record} photoBase64={photoBase64} />,
+                `Fiche-${record.lastName ?? 'Agent'}-${record.firstName ?? ''}.pdf`
+            );
+        } catch (err) {
+            console.error('Erreur génération fiche PDF:', err);
+        } finally {
+            setGenerating(null);
+        }
+    };
+
+    return (
+        <>
+            <TopToolbar>
+                <Button
+                    variant="outlined"
+                    color="inherit"
+                    startIcon={<EditIcon />}
+                    onClick={() => {
+                        if (!record?.id) return;
+                        redirect(`/agents/${record.id}`);
+                    }}
+                    disabled={!record || isPending || !!generating}
+                    size="small"
+                >
+                    EDIT
+                </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={generating === 'badge' ? <CircularProgress size={16} color="inherit" /> : <DownloadIcon />}
+                    onClick={handleBadge}
+                    disabled={!record || isPending || !!generating}
+                    size="small"
+                >
+                    {generating === 'badge' ? 'Génération...' : 'Badge PDF'}
+                </Button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    startIcon={generating === 'fiche' ? <CircularProgress size={16} color="inherit" /> : <DownloadIcon />}
+                    onClick={handleFiche}
+                    disabled={!record || isPending || !!generating}
+                    size="small"
+                >
+                    {generating === 'fiche' ? 'Génération...' : 'Fiche PDF'}
+                </Button>
+            </TopToolbar>
+
+            <RecordContextProvider value={record}>
+                <SimpleShowLayout record={record}>
+                    <FunctionField
+                        label="Photo"
+                        render={(record: Agent) =>
+                            record.photoURL
+                                ? <img src={record.photoURL as string} style={{ width: 80, height: 80, borderRadius: '50%', objectFit: 'cover' }} alt="" />
+                                : '—'
+                        }
+                    />
+                    <TextField source="matricule"              label="Matricule" />
+                    <TextField source="firstName"              label="Prénom" />
+                    <TextField source="lastName"               label="Nom" />
+                    <EmailField source="email" />
+                    <FunctionField
+                        label="Statut"
+                        render={(record: Agent) => record.status === 'active' ? '🟢 Actif' : '🔴 Inactif'}
+                    />
+                    <FunctionField
+                        label="En service"
+                        render={(record: Agent & { isServiceRunning?: boolean }) =>
+                            record.isServiceRunning ? '🟢 Oui' : '—'
+                        }
+                    />
+                    <FunctionField
+                        label="Spécialités"
+                        render={(record: Agent) => record.specialties ? record.specialties.join(', ') : '—'}
+                    />
+                    <TextField source="contractNature"         label="Contrat" />
+                    <TextField source="professionalCardNumber" label="Carte Pro" />
+                    <FunctionField
+                        label="Validité Carte Pro"
+                        render={(record: Agent) => {
+                            if (!record.professionalCardObtainedAt) return '—';
+                            const d = new Date(record.professionalCardObtainedAt);
+                            d.setFullYear(d.getFullYear() + 5);
+                            return d.toLocaleDateString();
+                        }}
+                    />
+                    <TextField source="sstNumber"              label="Numéro SST" />
+                    <DateField  source="sstExpiresAt"          label="SST expire le" />
+                    <TextField source="phone"                  label="Téléphone" />
+                    <TextField source="city"                   label="Ville" />
+                    <DateField  source="createdAt"             label="Créé le" showTime />
+                </SimpleShowLayout>
+            </RecordContextProvider>
+        </>
+    );
+};
+
+/**
+ * AgentShow — fiche de consultation (lecture seule).
+ * Chargement déterministe via useDataProvider + useEffect.
+ * Élimine le cache optimiste instable de useGetOne hors <Show>.
+ * États explicites : chargement / erreur / not found / succès.
+ */
+export const AgentShow = () => {
+    const { id } = useParams<{ id: string }>();
+
+    const [record, setRecord]       = useState<Agent | undefined>(undefined);
+    const [isPending, setIsPending] = useState(true);
+    const [error, setError]         = useState<string | null>(null);
+
+    useEffect(() => {
+        let cancelled = false;
+
+        const load = async () => {
+            if (!id) {
+                if (!cancelled) {
+                    setError('Identifiant agent introuvable.');
+                    setIsPending(false);
+                }
+                return;
+            }
+
+            setIsPending(true);
+            setError(null);
+
+            try {
+                const snap = await getDoc(doc(db, 'agents', id));
+
+                console.log(
+                    `[AgentShow direct] id=${id} | exists=${snap.exists()} | keys=${snap.exists() ? Object.keys(snap.data() ?? {}).join(',') : 'null'}`
+                );
+
+                if (!cancelled) {
+                    if (snap.exists()) {
+                        setRecord({
+                            id: snap.id,
+                            ...(snap.data() as Omit<Agent, 'id'>),
+                        });
+                    } else {
+                        setRecord(undefined);
+                    }
+                }
+            } catch (err) {
+                if (!cancelled) {
+                    setError(err instanceof Error ? err.message : 'Erreur inconnue.');
+                    setRecord(undefined);
+                }
+            } finally {
+                if (!cancelled) setIsPending(false);
+            }
+        };
+
+        load();
+        return () => { cancelled = true; };
+    }, [id]);
+
+    if (error) {
+        return <div style={{ padding: 24, color: 'red' }}>Erreur : {error}</div>;
+    }
+
+    if (isPending) {
+        return <AgentShowContent record={undefined} isPending={true} />;
+    }
+
+    if (!record) {
+        return <div style={{ padding: 24 }}>Agent introuvable.</div>;
+    }
+
+    return (
+        <RecordContextProvider value={record}>
+            <AgentShowContent record={record} isPending={false} />
+        </RecordContextProvider>
     );
 };
