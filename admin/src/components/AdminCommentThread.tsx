@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { collection, query, orderBy, getDocs, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase.config';
 import { Box, Typography, TextField, Button, Chip, Paper, Divider } from '@mui/material';
@@ -26,7 +26,7 @@ export const AdminCommentThread = ({ parentCollection, parentId }: AdminCommentT
     const [newComment, setNewComment] = useState('');
     const [sending, setSending] = useState(false);
 
-    const loadComments = async () => {
+    const loadComments = useCallback(async () => {
         try {
             const q = query(
                 collection(db, parentCollection, parentId, 'comments'),
@@ -39,11 +39,11 @@ export const AdminCommentThread = ({ parentCollection, parentId }: AdminCommentT
         } finally {
             setLoading(false);
         }
-    };
+    }, [parentCollection, parentId]);
 
     useEffect(() => {
         if (parentId) loadComments();
-    }, [parentCollection, parentId]);
+    }, [parentId, loadComments]);
 
     const handleSend = async () => {
         if (!newComment.trim()) return;

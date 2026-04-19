@@ -607,7 +607,7 @@ const Supervision = () => {
                             <Box>
                                 {(() => {
                                     const lastRun = automationLogs[0];
-                                    const runTime = lastRun?.runAt ? formatTimestamp(lastRun.runAt as any) : '—';
+                                    const runTime = lastRun?.runAt ? formatTimestamp(lastRun.runAt as SupportItem['createdAt']) : '—';
                                     return (
                                         <Box>
                                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
