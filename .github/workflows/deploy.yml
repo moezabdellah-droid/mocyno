@@ -122,10 +122,13 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SA }}
           channelId: live
           projectId: mocyno
+          target: prodsite
 
       - name: 🔗 Post-deploy validation
         run: |
-          curl -f https://mocyno.web.app/admin || exit 1
-          curl -f https://mocyno.web.app/clients/ || exit 1
-          curl -f https://mocyno.web.app/mobile/ || exit 1
+          test "$(curl -sI https://mocyno.com/ | tr -d '\r' | awk '/^[Ll]ocation:/ {print $2}')" = "https://mocyno.com/fr/"
+          test "$(curl -sI https://mocyno.com/services/ | tr -d '\r' | awk '/^[Ll]ocation:/ {print $2}')" = "https://mocyno.com/fr/services/"
+          test "$(curl -sI https://mocyno.com/contact/ | tr -d '\r' | awk '/^[Ll]ocation:/ {print $2}')" = "https://mocyno.com/fr/contact/"
+          test "$(curl -sI https://mocyno.com/zones/toulon/ | tr -d '\r' | awk '/^[Ll]ocation:/ {print $2}')" = "https://mocyno.com/fr/zones/toulon/"
+          curl -fsS https://mocyno.com/fr/ > /dev/null
           echo "✅ Production deployment verified!"

@@ -1,6 +1,8 @@
 {
-  "hosting": {
-    "public": "public",
+  "hosting": [
+    {
+      "target": "prodsite",
+      "public": "public",
     "cleanUrls": true,
     "trailingSlash": true,
     "ignore": [
@@ -375,7 +377,7 @@
         ]
       }
     ]
-  },
+  }],
   "emulators": {
     "hosting": {
       "port": 5000

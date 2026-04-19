@@ -3,6 +3,14 @@
     "default": "mocyno",
     "prod": "mocyno"
   },
-  "targets": {},
+  "targets": {
+    "mocyno": {
+      "hosting": {
+        "prodsite": [
+          "mocyno-e3f5a"
+        ]
+      }
+    }
+  },
   "etags": {}
 }
