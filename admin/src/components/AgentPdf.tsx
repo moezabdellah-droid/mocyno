@@ -205,7 +205,7 @@ export const AgentBadgePdf = ({ agent, photoBase64, logoBase64 }: AgentPdfProps)
                                 <>
                                     <Text style={styles.badgeLabel}>Numéros Chiens</Text>
                                     <Text style={{ ...styles.badgeValue, fontSize: 6 }}>
-                                        {[agent.dogIds, (agent as Record<string, unknown>).dog2Id, (agent as Record<string, unknown>).dog3Id]
+                                        {[agent.dogIds, (agent as unknown as Record<string, unknown>).dog2Id, (agent as unknown as Record<string, unknown>).dog3Id]
                                             .filter(Boolean)
                                             .join(' / ')}
                                     </Text>
@@ -356,7 +356,7 @@ export const AgentProfilePdf = ({ agent, photoBase64 }: AgentPdfProps) => (
                     <View style={styles.row}>
                         <Text style={styles.fieldLabel}>Chiens (ID 250...):</Text>
                         <Text style={styles.fieldValue}>
-                            {[agent.dogIds, (agent as Record<string, unknown>).dog2Id, (agent as Record<string, unknown>).dog3Id]
+                            {[agent.dogIds, (agent as unknown as Record<string, unknown>).dog2Id, (agent as unknown as Record<string, unknown>).dog3Id]
                                 .filter(Boolean)
                                 .join(' / ')}
                         </Text>
