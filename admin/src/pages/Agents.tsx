@@ -26,9 +26,10 @@ import { resolveAgentPhotoBase64 } from '../utils/agentPhotoUtils';
 // Basic validation for professional card
 const validateCardPro = (value: string) => {
     if (!value) return undefined;
-    // Format: CAR-083-2030-03-18-XXXXXXXXXXX (Example)
-    const regex = /^CAR-\d{3}-\d{4}-\d{2}-\d{2}-\d{11}$/;
-    return regex.test(value) ? undefined : 'Format invalide (Ex: CAR-083-2030-03-18-...)';
+    // Format 1 (ancien): CAR-083-2030-03-18-XXXXXXXXXXX
+    // Format 2 (CNAPS moderne): 2026-0033653-CAR CYNO-0137749
+    const regex = /^(CAR-\d{3}-\d{4}-\d{2}-\d{2}-\d{11}|\d{4}-\d+-[A-Z]+(?: [A-Z]+)+-\d+)$/;
+    return regex.test(value) ? undefined : 'Format invalide (Ex: CAR-083-2030-03-18-... ou 2026-0033653-CAR CYNO-0137749)';
 };
 
 // Validation for Dog ID: 250 268 780 869 046 (15 digits usually displayed in groups)
