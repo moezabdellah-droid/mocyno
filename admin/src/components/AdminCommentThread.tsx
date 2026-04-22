@@ -42,6 +42,8 @@ export const AdminCommentThread = ({ parentCollection, parentId }: AdminCommentT
     }, [parentCollection, parentId]);
 
     useEffect(() => {
+        // Faux positif : setState appelé uniquement après await dans loadComments
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         if (parentId) loadComments();
     }, [parentId, loadComments]);
 
