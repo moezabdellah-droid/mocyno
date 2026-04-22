@@ -126,9 +126,9 @@ jobs:
 
       - name: 🔗 Post-deploy validation
         run: |
-          test "$(curl -sI https://mocyno.com/ | tr -d '\r' | awk '/^[Ll]ocation:/ {print $2}')" = "https://mocyno.com/fr/"
-          test "$(curl -sI https://mocyno.com/services/ | tr -d '\r' | awk '/^[Ll]ocation:/ {print $2}')" = "https://mocyno.com/fr/services/"
-          test "$(curl -sI https://mocyno.com/contact/ | tr -d '\r' | awk '/^[Ll]ocation:/ {print $2}')" = "https://mocyno.com/fr/contact/"
-          test "$(curl -sI https://mocyno.com/zones/toulon/ | tr -d '\r' | awk '/^[Ll]ocation:/ {print $2}')" = "https://mocyno.com/fr/zones/toulon/"
+          test "$(curl -sI https://mocyno.com/ | tr -d '\r' | awk '/^[Ll]ocation:/ {sub("https://mocyno.com", "", $2); print $2}')" = "/fr/"
+          test "$(curl -sI https://mocyno.com/services/ | tr -d '\r' | awk '/^[Ll]ocation:/ {sub("https://mocyno.com", "", $2); print $2}')" = "/fr/services/"
+          test "$(curl -sI https://mocyno.com/contact/ | tr -d '\r' | awk '/^[Ll]ocation:/ {sub("https://mocyno.com", "", $2); print $2}')" = "/fr/contact/"
+          test "$(curl -sI https://mocyno.com/zones/toulon/ | tr -d '\r' | awk '/^[Ll]ocation:/ {sub("https://mocyno.com", "", $2); print $2}')" = "/fr/zones/toulon/"
           curl -fsS https://mocyno.com/fr/ > /dev/null
           echo "✅ Production deployment verified!"
