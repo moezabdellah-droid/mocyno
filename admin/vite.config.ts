@@ -2,6 +2,12 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import path from 'path';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const reactAdminPath = require.resolve('react-admin');
+const raCoreEntry = require.resolve('ra-core', { paths: [reactAdminPath] });
+const raCorePath = raCoreEntry.match(new RegExp('.*[\\\\/]node_modules[\\\\/]ra-core'))?.[0] || 'ra-core';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -37,7 +43,7 @@ export default defineConfig({
       'react-router': path.resolve(__dirname, 'node_modules/react-router'),
       'react-router-dom': path.resolve(__dirname, 'node_modules/react-router-dom'),
       'react-admin': path.resolve(__dirname, 'node_modules/react-admin'),
-      'ra-core': path.resolve(__dirname, '../node_modules/.pnpm/ra-core@5.13.3_@tanstack+re_83e092df709851695a958cc90fefc759/node_modules/ra-core'),
+      'ra-core': raCorePath,
       buffer: 'buffer',
     },
   },
