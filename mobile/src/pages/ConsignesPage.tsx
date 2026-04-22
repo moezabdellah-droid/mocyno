@@ -27,7 +27,7 @@ const formatConsigneDate = (d: Date | string | undefined) => {
 const ConsignesPage: React.FC = () => {
     const [consignes, setConsignes] = useState<Consigne[]>([]);
     const [selectedConsigne, setSelectedConsigne] = useState<Consigne | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(!!auth.currentUser);
     const [error, setError] = useState<string | null>(null);
     const [siteId, setSiteId] = useState<string | null>(null);
 
@@ -44,7 +44,7 @@ const ConsignesPage: React.FC = () => {
 
     useEffect(() => {
         const user = auth.currentUser;
-        if (!user) { setLoading(false); return; }
+        if (!user) return;
 
         let unsubscribe: (() => void) | undefined;
 
