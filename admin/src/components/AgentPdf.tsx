@@ -179,7 +179,7 @@ export const AgentBadgePdf = ({ agent, photoBase64, logoBase64 }: AgentPdfProps)
                     <View style={styles.badgeFront}>
                         <View style={styles.badgePhotoContainer}>
                             {agent.matricule ? (
-                                <View style={{ marginBottom: 4 }}>
+                                <View style={{ marginBottom: 4, marginTop: -4 }}>
                                     <Text style={styles.badgeLabel}>MATRICULE</Text>
                                     <Text style={styles.badgeValueRed}>{agent.matricule}</Text>
                                 </View>
@@ -244,7 +244,7 @@ export const AgentBadgePdf = ({ agent, photoBase64, logoBase64 }: AgentPdfProps)
 
                     <View style={styles.badgeBack}>
                         <Text style={styles.badgeLegalTitle}>MO'CYNO - Agence de Sécurité Privée</Text>
-                        <Text style={styles.badgeBackText}>SASU au capital social de 1000€</Text>
+                        <Text style={styles.badgeBackText}>SASU au capital social de 100€</Text>
                         <Text style={styles.badgeBackText}>SIRET 990 179 566 00015 — NAF 80.10Z</Text>
 
                         <Text style={{ ...styles.badgeBackText, marginTop: 5 }}>31 Rue Chevalier Paul</Text>
