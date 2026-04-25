@@ -178,6 +178,12 @@ export const AgentBadgePdf = ({ agent, photoBase64, logoBase64 }: AgentPdfProps)
                     )}
                     <View style={styles.badgeFront}>
                         <View style={styles.badgePhotoContainer}>
+                            {agent.matricule ? (
+                                <View style={{ marginBottom: 4 }}>
+                                    <Text style={styles.badgeLabel}>MATRICULE</Text>
+                                    <Text style={styles.badgeValueRed}>{agent.matricule}</Text>
+                                </View>
+                            ) : null}
                             {photoSrc ? (
                                 <Image src={photoSrc} style={styles.badgePhoto} />
                             ) : (
