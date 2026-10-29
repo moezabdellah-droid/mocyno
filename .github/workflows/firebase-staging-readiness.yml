@@ -1,0 +1,58 @@
+name: Firebase staging — accès en lecture seule
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.github/workflows/firebase-staging-readiness.yml']
+permissions:
+  contents: read
+jobs:
+  staging-readiness:
+    if: github.event.pull_request.number == 1 && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Vérifier uniquement la lecture du site mocyno-staging
+        env:
+          FIREBASE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SA }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/mocyno-staging-readiness.json"
+          trap 'rm -f "$GOOGLE_APPLICATION_CREDENTIALS" "$RUNNER_TEMP/firebase-readiness-output.json" "$RUNNER_TEMP/firebase-readiness-error.log"' EXIT
+          python - <<'PY'
+          import json, os
+          value = os.environ.get("FIREBASE_ACCOUNT_JSON", "")
+          if not value:
+              raise SystemExit("FIREBASE_SA absent : accès non vérifié.")
+          try:
+              data = json.loads(value)
+              assert data.get("type") == "service_account"
+          except Exception:
+              raise SystemExit("FIREBASE_SA invalide : accès non vérifié.")
+          path = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
+          descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+          with os.fdopen(descriptor, "w") as handle:
+              json.dump(data, handle)
+          PY
+          unset FIREBASE_ACCOUNT_JSON
+          if ! npx -y firebase-tools@latest hosting:sites:list --project mocyno-staging --json --non-interactive > "$RUNNER_TEMP/firebase-readiness-output.json" 2> "$RUNNER_TEMP/firebase-readiness-error.log"; then
+            echo "::error::Le compte technique existant ne permet pas de confirmer la lecture de mocyno-staging. Aucun déploiement tenté."
+            exit 1
+          fi
+          python - <<'PY'
+          import json, os
+          with open(os.path.join(os.environ["RUNNER_TEMP"], "firebase-readiness-output.json")) as handle:
+              value = json.load(handle)
+          def contains_site(node):
+              if isinstance(node, dict):
+                  return any(contains_site(v) for v in node.values())
+              if isinstance(node, list):
+                  return any(contains_site(v) for v in node)
+              return isinstance(node, str) and node in ("mocyno-staging", "projects/mocyno-staging/sites/mocyno-staging", "https://mocyno-staging.web.app")
+          if value.get("status") != "success" or not contains_site(value.get("result")):
+              raise SystemExit("Site mocyno-staging non confirmé. Aucun déploiement tenté.")
+          print("Lecture du site mocyno-staging confirmée. Aucun déploiement ni changement de permissions.")
+          PY
