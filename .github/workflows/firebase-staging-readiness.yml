@@ -37,6 +37,14 @@ jobs:
           with os.fdopen(descriptor, "w") as handle:
               json.dump(data, handle)
           PY
+          python - <<'PY'
+          import json, os, re
+          with open(os.environ["GOOGLE_APPLICATION_CREDENTIALS"]) as handle:
+              principal = json.load(handle).get("client_email", "")
+          if not re.fullmatch(r"[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.iam\\.gserviceaccount\\.com", principal):
+              raise SystemExit("Identite du compte technique non reconnue.")
+          print("Compte technique a verifier sur mocyno-staging : " + principal)
+          PY
           unset FIREBASE_ACCOUNT_JSON
           if ! npx -y firebase-tools@latest hosting:sites:list --project mocyno-staging --json --non-interactive > "$RUNNER_TEMP/firebase-readiness-output.json" 2> "$RUNNER_TEMP/firebase-readiness-error.log"; then
             python - <<'PY'
