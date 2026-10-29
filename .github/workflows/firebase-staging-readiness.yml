@@ -39,7 +39,25 @@ jobs:
           PY
           unset FIREBASE_ACCOUNT_JSON
           if ! npx -y firebase-tools@latest hosting:sites:list --project mocyno-staging --json --non-interactive > "$RUNNER_TEMP/firebase-readiness-output.json" 2> "$RUNNER_TEMP/firebase-readiness-error.log"; then
-            echo "::error::Le compte technique existant ne permet pas de confirmer la lecture de mocyno-staging. Aucun déploiement tenté."
+            python - <<'PY'
+          import os
+          text = ""
+          for filename in ("firebase-readiness-output.json", "firebase-readiness-error.log"):
+              try:
+                  with open(os.path.join(os.environ["RUNNER_TEMP"], filename)) as handle:
+                      text += handle.read().lower()
+              except OSError:
+                  pass
+          categories = {
+              "HTTP 403 / permissions": ("403", "permission_denied", "permission denied", "does not have permission"),
+              "HTTP 401 / authentification": ("401", "unauthenticated", "invalid_grant", "invalid jwt", "invalid credentials"),
+              "HTTP 404 / ressource absente": ("404", "not_found"),
+              "Reseau / registre npm": ("enotfound", "etimedout", "econnreset", "npm error"),
+          }
+          matched = [label for label, tokens in categories.items() if any(token in text for token in tokens)]
+          print("Diagnostic normalise : " + (", ".join(matched) if matched else "cause non classee"))
+          PY
+            echo "::error::Lecture de mocyno-staging non confirmee. Aucun deploiement tente."
             exit 1
           fi
           python - <<'PY'
