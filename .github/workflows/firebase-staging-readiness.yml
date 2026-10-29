@@ -41,7 +41,7 @@ jobs:
           import json, os, re
           with open(os.environ["GOOGLE_APPLICATION_CREDENTIALS"]) as handle:
               principal = json.load(handle).get("client_email", "")
-          if not re.fullmatch(r"[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.iam\\.gserviceaccount\\.com", principal):
+          if not re.fullmatch(r"[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.iam\.gserviceaccount\.com", principal):
               raise SystemExit("Identite du compte technique non reconnue.")
           print("Compte technique a verifier sur mocyno-staging : " + principal)
           PY
