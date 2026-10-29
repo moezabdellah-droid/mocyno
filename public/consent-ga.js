@@ -7,6 +7,7 @@
    * =========================== */
   var LS_KEY = 'mocyno_consent_state'; // 'granted' | 'denied'
   var LS_TS = 'mocyno_consent_ts';
+  var OPENAI_KEY = 'mocyno_openai_consent_v1';
   var FALLBACK_GA4 = '';               // ID supprimé — fournir via <meta name="ga-measurement-id">
   var FALLBACK_ADS = null;             // ID Google Ads optionnel (null = désactivé)
   var DOC = document;
@@ -40,10 +41,21 @@
     } catch (e) { }
   }
 
+  function openAIChoice() {
+    try { return localStorage.getItem(OPENAI_KEY); } catch (_) { return null; }
+  }
+  function saveOpenAIConsent(value) {
+    try { localStorage.setItem(OPENAI_KEY, value); } catch (_) { }
+    WIN.dispatchEvent(new Event('mocyno:openai-consent'));
+  }
+
   /* Expose un mini-API pour révoquer facilement depuis le site */
   WIN.MOCYNO_CONSENT = {
     revoke: function () {
       saveConsent('denied');
+      saveOpenAIConsent('denied');
+      if (WIN.oaiq) WIN.oaiq('consent', false);
+      try { localStorage.removeItem(OPENAI_KEY); } catch (_) { }
       // Recharger pour repartir en mode "denied"
       location.reload();
     }
@@ -116,9 +128,8 @@
   function buildBanner() {
     // Si déjà choisi -> rien
     var state = readConsent();
-    if (state === 'granted') {
-      grantConsent();
-      loadAnalytics();
+    if (openAIChoice() !== null) {
+      if (state === 'granted') { grantConsent(); loadAnalytics(); }
       return;
     }
     // state 'denied' : on affiche la bannière
@@ -139,7 +150,10 @@
     box.style.padding = '14px 16px';
     box.style.zIndex = '99999';
     box.style.display = 'grid';
-    box.style.gridTemplateColumns = '1fr auto';
+    box.style.gridTemplateColumns = 'minmax(0, 1fr)';
+    box.style.maxHeight = '70vh';
+    box.style.overflowY = 'auto';
+    box.style.boxSizing = 'border-box';
     box.style.gap = '12px';
     box.style.alignItems = 'center';
     box.style.maxWidth = '980px';
@@ -156,8 +170,8 @@
     txt.style.fontSize = '14px';
     txt.style.lineHeight = '1.45';
     txt.textContent = en
-      ? "We use analytics cookies (GA4) only after your consent. You can revoke anytime."
-      : "Nous utilisons des cookies d'analyse (GA4) uniquement après votre consentement. Vous pouvez le révoquer à tout moment.";
+      ? "Choose GA4 analytics only, or also OpenAI advertising measurement. OpenAI may receive browser identifiers and hashed contact information detected in forms. You can refuse or withdraw your consent."
+      : "Choisissez la mesure d’audience GA4 seule, ou également la mesure publicitaire OpenAI. OpenAI peut recevoir des identifiants de navigateur et des coordonnées hachées détectées dans les formulaires. Vous pouvez refuser ou retirer votre consentement.";
 
     var textContainer = DOC.createElement('div');
     textContainer.appendChild(title);
@@ -192,8 +206,9 @@
       return b;
     }
 
-    var acceptBtn = mkBtn(en ? 'Accept' : 'Accepter', true);
-    var refuseBtn = mkBtn(en ? 'Refuse' : 'Refuser', false);
+    var acceptBtn = mkBtn(en ? 'Accept all' : 'Tout accepter', false);
+    var analyticsBtn = mkBtn(en ? 'GA4 only' : 'GA4 uniquement', false);
+    var refuseBtn = mkBtn(en ? 'Refuse all' : 'Tout refuser', false);
     var policyLink = DOC.createElement('a');
     policyLink.href = en ? '/en/privacy/' : '/fr/politique-confidentialite/';
     policyLink.textContent = en ? 'Learn more' : 'En savoir plus';
@@ -203,16 +218,26 @@
 
     acceptBtn.addEventListener('click', function () {
       saveConsent('granted');
+      saveOpenAIConsent('granted');
       grantConsent();
       loadAnalytics();
       if (box && box.parentNode) box.parentNode.removeChild(box);
     });
     refuseBtn.addEventListener('click', function () {
       saveConsent('denied'); // restera en denied (aucun chargement de GA)
+      saveOpenAIConsent('denied');
+      if (box && box.parentNode) box.parentNode.removeChild(box);
+    });
+    analyticsBtn.addEventListener('click', function () {
+      saveConsent('granted');
+      saveOpenAIConsent('denied');
+      grantConsent();
+      loadAnalytics();
       if (box && box.parentNode) box.parentNode.removeChild(box);
     });
 
     actions.appendChild(acceptBtn);
+    actions.appendChild(analyticsBtn);
     actions.appendChild(refuseBtn);
     actions.appendChild(policyLink);
     box.appendChild(textContainer);
@@ -251,14 +276,18 @@
    *  Boot
    * ========================================= */
   function start() {
+    // First-party helper loads without contacting OpenAI. It only loads the
+    // external Pixel after the separate advertising choice is explicitly granted.
+    var measurement = DOC.createElement('script');
+    measurement.src = '/scripts/openai-measurement.js?v=20261029-1';
+    measurement.async = true;
+    DOC.head.appendChild(measurement);
     // Si l'utilisateur avait déjà accepté, on charge directement
     if (readConsent() === 'granted') {
       grantConsent();
       loadAnalytics();
-    } else {
-      // Sinon, on affiche la bannière
-      buildBanner();
     }
+    buildBanner();
   }
 
   if (DOC.readyState !== 'loading') start();

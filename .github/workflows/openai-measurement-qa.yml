@@ -1,0 +1,36 @@
+name: OpenAI devis — recette sans déploiement
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'functions/index.js'
+      - 'public/**'
+      - 'scripts/test-openai-*.cjs'
+      - '.github/workflows/openai-measurement-qa.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  quote-measurement:
+    name: Tests devis et consentement (Node 22)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Vérifier la syntaxe
+        run: |
+          node --check functions/index.js
+          node --check public/consent-ga.js
+          node --check public/scripts/openai-measurement.js
+          python -m json.tool firebase.json > /dev/null
+      - name: Installer le DOM de test isolé
+        run: npm install --prefix "$RUNNER_TEMP/mocyno-dom-qa" --ignore-scripts --no-audit --no-fund jsdom@30.1.3
+      - name: Tester les devis sans e-mails ni conversions réels
+        run: |
+          export MOCYNO_JSDOM_MODULE="$RUNNER_TEMP/mocyno-dom-qa/node_modules/jsdom"
+          node --test scripts/test-openai-measurement.cjs scripts/test-openai-dom.cjs

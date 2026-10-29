@@ -694,9 +694,17 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
   // Honeypot anti-spam
   const lang = String(req.body?.lang || "fr").trim().toLowerCase();
   const merciUrl = lang === "en" ? "/en/merci/" : "/fr/merci/";
+  // Enhanced forms request a machine-readable confirmation. Native forms keep
+  // their existing redirect; visiting the thank-you page is never proof of a lead.
+  const wantsJson = /application\/json/i.test(req.headers.accept || "");
+  res.set("Cache-Control", "no-store");
 
   if (website) {
     console.log(`Spam détecté (honeypot) depuis IP: ${ip}`);
+    if (wantsJson) {
+      res.status(200).json({ accepted: false });
+      return;
+    }
     res.redirect(merciUrl);
     return;
   }
@@ -756,8 +764,8 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
       `,
     });
 
-    if (adminEmail.error) {
-      console.error("Resend Admin Error:", adminEmail.error);
+    if (!adminEmail || adminEmail.error || !adminEmail.data || !adminEmail.data.id) {
+      console.error("Resend Admin Error:", adminEmail && adminEmail.error || "Missing delivery acceptance ID");
       // We continue even if admin email fails, to try telling the user or at least redirecting?
       // But standard practice is to fail if admin notification fails.
       res.status(500).send("Erreur lors de l'envoi de l'email.");
@@ -825,6 +833,13 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
     } // End user confirmation
 
     console.log(`Contact email sent from ${emailStr}`, adminEmail.data);
+    if (wantsJson) {
+      res.status(200).json({
+        accepted: true,
+        event_id: require("node:crypto").randomUUID(),
+      });
+      return;
+    }
     res.redirect(merciUrl);
   } catch (err) {
     console.error("Server Error:", err);

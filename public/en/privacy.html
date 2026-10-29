@@ -18,7 +18,7 @@
   <link href="https://mocyno.com/fr/politique-confidentialite/" hreflang="x-default" rel="alternate" />
   <!-- SEO:END -->
   <!-- SAFE GTM - No insertBefore dependency -->
-  <script defer src="/consent-ga.js"></script>
+  <script defer src="/consent-ga.js?v=20261029-openai-1"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
@@ -159,7 +159,13 @@
     <p>A consent banner allows you to accept or refuse non-essential cookies. You can modify your choice anytime on the
       <a href="/en/cookies/">Cookies</a> page.
     </p>
-  </main>
+  <section aria-labelledby="openai-measurement-policy"><h2 id="openai-measurement-policy">OpenAI advertising measurement</h2>
+<p>With your specific consent, the OpenAI Pixel measures successfully sent quote enquiries. Clicking Send or visiting a thank-you page is not this conversion. Choosing GA4 only does not grant advertising measurement consent.</p>
+<p>OpenAI receives an event identifier, browser technical information and the oppref click reference when available. Automatic matching may also send contact details detected in forms after SHA-256 hashing in the browser. We do not add free-text messages or protected property addresses to our measurement calls.</p>
+<p>The OpenAI cookies __oppref and __obref request lifetimes of 30 and 365 days respectively. Withdrawing consent deletes these cookies and blocks future events; it does not retroactively erase previously transmitted data.</p>
+<p>You can refuse this measurement and still request a quote. See <a href="https://openai.com/policies/privacy-policy/" rel="noopener">OpenAI’s privacy policy</a> for information about its processing.</p>
+<button type="button" onclick="window.MOCYNO_CONSENT &amp;&amp; window.MOCYNO_CONSENT.revoke()">Change my cookie choices</button></section>
+</main>
   <!-- ======= Footer (blue band) ======= -->
   <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
     <div class="container footer-grid">
