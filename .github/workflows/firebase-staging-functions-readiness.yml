@@ -66,6 +66,18 @@ jobs:
             const data = await response.json();
             const config = data.serviceConfig || {};
             const env = config.environmentVariables || {};
+          const generation = String(data.buildConfig?.source?.storageSource?.generation || '');
+            console.log('Staging source generation : '+generation);
+            if(data.state!=='ACTIVE'||!generation||generation==='1769952652475953') throw new Error('New active source not confirmed');
+            const uri=new URL(config.uri);
+            if(uri.protocol!=='https:'||!uri.hostname.endsWith('.run.app')) throw new Error('Unexpected runtime URL');
+            const invalid=await fetch(uri,{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json'},body:'{}'});
+            console.log('Invalid form HTTP : '+invalid.status);
+            if(invalid.status!==400)throw new Error('Invalid form behavior unexpected');
+            const honey=await fetch(uri,{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json'},body:JSON.stringify({website:'qa-honeypot'})});
+            const receipt=await honey.json();
+            if(receipt.accepted!==false||receipt.event_id)throw new Error('Honeypot JSON receipt unexpected');
+            console.log('Verified updated staging: invalid form rejected; honeypot accepted false; no successful form or email requested.');
           const runtimeAccount = config.serviceAccountEmail;
             if (!runtimeAccount || !/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+gserviceaccount\.com$/.test(runtimeAccount)) throw new Error('Runtime account not recognized');
             console.log('Runtime staging account : '+runtimeAccount);
