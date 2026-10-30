@@ -66,6 +66,19 @@ jobs:
             const data = await response.json();
             const config = data.serviceConfig || {};
             const env = config.environmentVariables || {};
+          const logsResponse = await fetch('https://logging.googleapis.com/v2/entries:list',{method:'POST',headers,body:JSON.stringify({resourceNames:['projects/mocyno-staging'],filter:'resource.type="cloud_run_revision" AND resource.labels.service_name="contactform" AND timestamp>="2026-10-30T11:12:00Z" AND timestamp<="2026-10-30T11:14:00Z"',pageSize:100,orderBy:'timestamp desc'})});
+            console.log('Test-only logs HTTP : '+logsResponse.status);
+            if(logsResponse.ok){
+              const entries=(await logsResponse.json()).entries||[];
+              console.log('Test-window log count : '+entries.length);
+              for(const entry of entries){
+                if(entry.httpRequest)console.log('Test-window HTTP status : '+entry.httpRequest.status);
+                const content=JSON.stringify(entry.jsonPayload||entry.textPayload||'').toLowerCase();
+                for(const marker of ['resend admin error','server error','invalid api key','api key is invalid','validation_error','rate_limit_exceeded','missing delivery acceptance id','confirmation email sent','contact email sent','unauthorized','403','401','500']){
+                  if(content.includes(marker))console.log('Test-window marker : '+marker);
+                }
+              }
+            }
           const generation = String(data.buildConfig?.source?.storageSource?.generation || '');
             console.log('Staging source generation : '+generation);
             if(data.state!=='ACTIVE'||!generation||generation==='1769952652475953') throw new Error('New active source not confirmed');
