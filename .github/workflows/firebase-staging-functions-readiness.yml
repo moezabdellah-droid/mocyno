@@ -66,6 +66,12 @@ jobs:
             const data = await response.json();
             const config = data.serviceConfig || {};
             const env = config.environmentVariables || {};
+          const runtimeAccount = config.serviceAccountEmail;
+            if (!runtimeAccount || !/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+gserviceaccount\.com$/.test(runtimeAccount)) throw new Error('Runtime account not recognized');
+            console.log('Runtime staging account : '+runtimeAccount);
+            const actor = await fetch('https://iam.googleapis.com/v1/projects/-/serviceAccounts/'+encodeURIComponent(runtimeAccount)+':testIamPermissions',{method:'POST',headers,body:JSON.stringify({permissions:['iam.serviceAccounts.actAs']})});
+            console.log('Runtime permission check HTTP : '+actor.status);
+            if (actor.ok) console.log('Runtime iam.serviceAccounts.actAs : '+Boolean(((await actor.json()).permissions || []).includes('iam.serviceAccounts.actAs')));
             console.log('RESEND_API_KEY environment present : '+Boolean(env.RESEND_API_KEY));
             console.log('RESEND_API_KEY secret mounted : '+Boolean((config.secretEnvironmentVariables || []).some(x => x.key === 'RESEND_API_KEY')));
             console.log('Previous source reference present : '+Boolean(data.buildConfig?.source?.storageSource?.object));
