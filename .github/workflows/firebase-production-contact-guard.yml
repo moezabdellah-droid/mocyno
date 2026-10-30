@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   deploy:
-    if: github.event.pull_request.number == 1 && github.event.pull_request.head.repo.full_name == github.repository && github.event.before == 'b8923db9624c11d67681fb9075d5c7bb68d7adf3'
+    if: github.event.pull_request.number == 1 && github.event.pull_request.head.repo.full_name == github.repository && github.event.before == '144235476c5221b1e05196aa018c6bc42696d0ac'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:

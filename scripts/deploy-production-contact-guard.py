@@ -166,24 +166,28 @@ def main():
                 target.writestr(item, patched.encode() if item.filename == 'index.js' else archive.read(item))
         target.writestr('contact-guard.js', (ROOT / 'functions/contact-guard.js').read_bytes())
     print('Verified live baseline; preparing eight Hosting files and contactForm only.', flush=True)
-    clone = poll(HOST, api(HOST, SITE + '/versions:clone', 'POST', {'sourceVersion': old_version, 'finalize': False}))
-    version = clone['name']
+    original_config = api(HOST, old_version).get('config', {})
+    version = api(HOST, SITE + '/versions', 'POST', {'config': original_config})['name']
     packed = {path: compressed(data) for path, data in changes.items()}
     hashes = {path: hashlib.sha256(data).hexdigest() for path, data in packed.items()}
-    upload = api(HOST, version + ':populateFiles', 'POST', {'files': hashes})
     by_hash = {hashes[path]: data for path, data in packed.items()}
-    for digest in upload.get('uploadRequiredHashes', []):
-        url = upload['uploadUrl'].rstrip('/') + '/' + digest
-        host = urllib.parse.urlsplit(url).hostname
-        if not url.startswith('https://') or not (host.endswith('.googleapis.com') or host.endswith('.firebaseapp.com')):
-            raise RuntimeError('Unexpected Hosting upload destination')
-        request(url, 'POST', by_hash[digest], content_type='application/octet-stream')
+    expected_files = {**old_files, **hashes}
+    entries = list(expected_files.items())
+    for offset in range(0, len(entries), 500):
+        upload = api(HOST, version + ':populateFiles', 'POST', {'files': dict(entries[offset:offset+500])})
+        for digest in upload.get('uploadRequiredHashes', []):
+            if digest not in by_hash:
+                raise RuntimeError('An unchanged live file requires re-upload; release refused')
+            url = upload['uploadUrl'].rstrip('/') + '/' + digest
+            host = urllib.parse.urlsplit(url).hostname
+            if not url.startswith('https://') or not (host.endswith('.googleapis.com') or host.endswith('.firebaseapp.com')):
+                raise RuntimeError('Unexpected Hosting upload destination')
+            request(url, 'POST', by_hash[digest], content_type='application/octet-stream')
     api(HOST, version + '?updateMask=status', 'PATCH', {'status': 'FINALIZED'})
     new_files = files(version)
-    expected_files = {**old_files, **hashes}
     if new_files != expected_files:
+        print('Inventory difference counts: ' + json.dumps({'missing':len(set(expected_files)-set(new_files)), 'extra':len(set(new_files)-set(expected_files)), 'different_hash':sum(new_files.get(k)!=v for k,v in expected_files.items() if k in new_files)}), flush=True)
         raise RuntimeError('Unexpected Hosting files changed; no release made')
-    original_config = api(HOST, old_version).get('config', {})
     if api(HOST, version).get('config', {}) != original_config:
         raise RuntimeError('Hosting config changed; no release made')
     env = {**old_env, 'CONTACT_GUARD_MODE': 'enforce', 'CONTACT_GUARD_HOSTNAMES': 'mocyno.com'}
