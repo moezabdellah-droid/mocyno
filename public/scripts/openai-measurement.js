@@ -79,6 +79,11 @@
               reject(new Error('Confirmation timeout'));
             }, REQUEST_TIMEOUT_MS);
           })]);
+          if (result && result.accepted === false && result.security_check === 'passed') {
+            status.textContent = en ? 'Security test passed. No enquiry was sent.' : 'Test de protection réussi. Aucun devis transmis.';
+            form.reset();
+            return;
+          }
           if (!result || result.accepted !== true || typeof result.event_id !== 'string' || !result.event_id) {
             throw new Error('No server confirmation');
           }

@@ -105,3 +105,22 @@ test('enforced handler rejects guard failures before requesting any email', asyn
     assert.equal(result.status, code); assert.equal(sends, 0);
   }
 });
+
+test('staging security-only recipe returns no lead and requests no email', async () => {
+  const fs = require('node:fs'), path = require('node:path'), vm = require('node:vm');
+  const backend = fs.readFileSync(path.join(__dirname, '../functions/index.js'), 'utf8');
+  const handler = backend.slice(backend.indexOf('exports.contactForm ='), backend.indexOf('// ─── CLIENT PORTAL'));
+  let sends = 0;
+  const context = { exports: {}, console,
+    process: { env: { CONTACT_GUARD_MODE: 'enforce', GCLOUD_PROJECT: 'mocyno-staging', CONTACT_GUARD_DRY_RUN: 'true' } },
+    admin: { firestore() {} }, onRequest: (_, fn) => fn,
+    require: () => ({ createContactGuard: () => ({ reserve: async () => ({ eventId: 'must-not-be-returned', accepted: async () => { throw Error('Not a lead'); } }) }) }),
+    getResend: () => { sends++; throw Error('Mail must not be requested'); } };
+  vm.runInNewContext(handler, context);
+  const result = {};
+  const res = { set() {}, status(code) { result.status = code; return this; }, json(value) { result.body = value; } };
+  await context.exports.contactForm({ method: 'POST', headers: {}, body: { name: 'Synthetic', email: 'qa@example.invalid', message: 'Synthetic' } }, res);
+  assert.equal(result.status, 200); assert.equal(result.body.accepted, false);
+  assert.equal(result.body.security_check, 'passed'); assert.equal(result.body.event_id, undefined);
+  assert.equal(sends, 0);
+});

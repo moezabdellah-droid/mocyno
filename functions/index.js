@@ -743,6 +743,11 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
       const { createContactGuard } = require("./contact-guard");
       const guard = createContactGuard({ db: admin.firestore(), env: process.env });
       guardReservation = await guard.reserve(req.body || {});
+      // Explicit staging-only security recipe: never send mail or report a lead.
+      if (process.env.GCLOUD_PROJECT === "mocyno-staging" && process.env.CONTACT_GUARD_DRY_RUN === "true") {
+        res.status(200).json({ accepted: false, security_check: "passed" });
+        return;
+      }
     } catch (error) {
       const status = [403, 409, 429, 503].includes(error.status) ? error.status : 503;
       if (status === 429) res.set("Retry-After", String(error.retryAfter || 900));

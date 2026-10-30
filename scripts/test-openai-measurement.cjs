@@ -261,3 +261,10 @@ test('a stalled response body also times out without measuring a lead', async ()
   assert.equal(b.button.disabled, false);
   assert.equal(b.events().length, 0);
 });
+test('security-only staging receipt never becomes an OpenAI lead', async () => {
+  const b = browser({ consent: 'granted', fetchImpl: async () => ({ ok: true, json: async () => ({ accepted: false, security_check: 'passed' }) }) });
+  await b.submit();
+  assert.equal(b.events().length, 0);
+  assert.equal(b.form.resetCount, 1);
+  assert.match(b.form.children[0].textContent, /Test de protection réussi/);
+});
