@@ -46,17 +46,21 @@ jobs:
           print("Compte technique a verifier sur mocyno-staging : " + principal)
           PY
           unset FIREBASE_ACCOUNT_JSON
-          if ! npx -y firebase-tools@latest functions:list --project mocyno-staging --json --non-interactive > "$RUNNER_TEMP/firebase-readiness-output.json" 2> "$RUNNER_TEMP/firebase-readiness-error.log"; then
+          if ! npx -y firebase-tools@latest functions:list --debug --project mocyno-staging --json --non-interactive > "$RUNNER_TEMP/firebase-readiness-output.json" 2> "$RUNNER_TEMP/firebase-readiness-error.log"; then
             python - <<'PY'
           import os
           text = ""
-          for filename in ("firebase-readiness-output.json", "firebase-readiness-error.log"):
+          for filename in ("firebase-readiness-output.json", "firebase-readiness-error.log", "firebase-debug.log"):
               try:
-                  with open(os.path.join(os.environ["RUNNER_TEMP"], filename)) as handle:
+                  with open((filename if filename == "firebase-debug.log" else os.path.join(os.environ["RUNNER_TEMP"], filename))) as handle:
                       text += handle.read().lower()
               except OSError:
                   pass
           import re, json
+          for code in sorted(set(re.findall(r"\b(?:401|403|404|429|500|503)\b", text))):
+              print("Code HTTP mentionne : " + code)
+          for permission in sorted(set(re.findall(r"(?:cloudfunctions|run|serviceusage|resourcemanager)\.[a-z0-9_.]+", text))):
+              print("Permission ou methode mentionnee : " + permission)
           try:
               with open(os.path.join(os.environ["RUNNER_TEMP"], "firebase-readiness-output.json")) as handle:
                   payload = json.load(handle)
