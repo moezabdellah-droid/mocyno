@@ -1,0 +1,153 @@
+name: Firebase staging — protection formulaire sans email
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.github/workflows/firebase-staging-guard-activate.yml']
+permissions:
+  contents: read
+jobs:
+  deploy-contact-staging:
+    if: github.event.pull_request.number == 1 && github.event.pull_request.head.repo.full_name == github.repository && github.event.before == 'b29b857e2431acd5df26f9d0935bc78c012677f9'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: b29b857e2431acd5df26f9d0935bc78c012677f9
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Tester et préparer uniquement le paquet de recette
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --test scripts/test-openai-measurement.cjs scripts/test-openai-staging.cjs scripts/test-contact-guard.cjs
+          node scripts/prepare-openai-staging.cjs "$RUNNER_TEMP/mocyno-contact-source"
+          node --check "$RUNNER_TEMP/mocyno-contact-source/index.js"
+          python - <<'PY'
+          import os,zipfile
+          folder=os.path.join(os.environ["RUNNER_TEMP"],"mocyno-contact-source")
+          with zipfile.ZipFile(os.path.join(os.environ["RUNNER_TEMP"],"mocyno-staging-contact.zip"),"w",zipfile.ZIP_DEFLATED) as z:
+              for name in ("index.js","package.json","package-lock.json","contact-guard.js"):
+                  z.write(os.path.join(folder,name),name)
+          PY
+      - name: Mettre à jour seulement la source de contactForm staging et relire
+        env:
+          FIREBASE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SA }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/contact-staging-auth.json"
+          trap 'rm -f "$GOOGLE_APPLICATION_CREDENTIALS"' EXIT
+          python - <<'PY'
+          import os,json
+          data=json.loads(os.environ["FIREBASE_ACCOUNT_JSON"])
+          assert data.get("type")=="service_account"
+          fd=os.open(os.environ["GOOGLE_APPLICATION_CREDENTIALS"],os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
+          with os.fdopen(fd,"w") as handle: json.dump(data,handle)
+          PY
+          unset FIREBASE_ACCOUNT_JSON
+          node <<'NODE'
+          const fs=require('node:fs'),crypto=require('node:crypto');
+          const name='projects/mocyno-staging/locations/europe-west1/functions/contactForm';
+          const origin='https://cloudfunctions.googleapis.com/v2/';
+          const pause=ms=>new Promise(r=>setTimeout(r,ms));
+          (async()=>{
+           const c=JSON.parse(fs.readFileSync(process.env.GOOGLE_APPLICATION_CREDENTIALS,'utf8'));
+           const enc=x=>Buffer.from(JSON.stringify(x)).toString('base64url'),now=Math.floor(Date.now()/1000);
+           const u=enc({alg:'RS256',typ:'JWT'})+'.'+enc({iss:c.client_email,scope:'https://www.googleapis.com/auth/cloud-platform',aud:'https://oauth2.googleapis.com/token',iat:now,exp:now+3600});
+           const signed=u+'.'+crypto.sign('RSA-SHA256',Buffer.from(u),c.private_key).toString('base64url');
+           const auth=await fetch('https://oauth2.googleapis.com/token',{method:'POST',body:new URLSearchParams({grant_type:'urn:ietf:params:oauth:grant-type:jwt-bearer',assertion:signed})});
+           if(!auth.ok)throw Error('OAuth HTTP '+auth.status);
+           const token=(await auth.json()).access_token;if(!token)throw Error('Token absent');
+           async function api(path,method='GET',body){
+            const r=await fetch(origin+path,{method,headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});
+            if(!r.ok){console.log('API failure HTTP '+r.status); const text=await r.text();const permissions=[...new Set(text.match(/(?:iam|cloudfunctions|cloudbuild|run|storage|artifactregistry)\.[A-Za-z0-9_.]+/g)||[])];console.log('Permissions mentioned: '+JSON.stringify(permissions));throw Error('Google API request failed');}
+            return r.json();
+           }
+           const before=await api(name);
+           if(before.name!==name||before.state!=='ACTIVE'||before.buildConfig?.entryPoint!=='contactForm'||before.buildConfig?.runtime!=='nodejs22')throw Error('Unexpected function metadata; deployment refused');
+           const oldSource=before.buildConfig?.source?.storageSource;if(!oldSource?.object)throw Error('Previous source reference absent');
+           fs.writeFileSync(process.env.RUNNER_TEMP+'/guard-previous-source.json',JSON.stringify(oldSource),{mode:0o600});
+           const envAfter={...(before.serviceConfig.environmentVariables||{}),CONTACT_GUARD_MODE:'enforce',CONTACT_GUARD_DRY_RUN:'true',CONTACT_GUARD_HOSTNAMES:'mocyno-staging--ads-recette-mr3npd59.web.app'};
+           const mounted=(before.serviceConfig.secretEnvironmentVariables||[]).filter(x=>!['TURNSTILE_SECRET_KEY','CONTACT_GUARD_HASH_KEY'].includes(x.key));
+           for(const key of ['TURNSTILE_SECRET_KEY','CONTACT_GUARD_HASH_KEY'])mounted.push({key,projectId:'922849429001',secret:key,version:'1'});
+           const configBefore=JSON.stringify(envAfter);
+           const accountBefore=before.serviceConfig.serviceAccountEmail;
+           if(!before.serviceConfig.environmentVariables?.RESEND_API_KEY)throw Error('Mail configuration absent; deployment refused');
+           const upload=await api('projects/mocyno-staging/locations/europe-west1/functions:generateUploadUrl','POST',{environment:'GEN_2'});
+           const target=new URL(upload.uploadUrl);if(target.protocol!=='https:'||!target.hostname.endsWith('.googleapis.com')||!upload.storageSource)throw Error('Unexpected upload destination');
+           const put=await fetch(target,{method:'PUT',headers:{'Content-Type':'application/zip'},body:fs.readFileSync(process.env.RUNNER_TEMP+'/mocyno-staging-contact.zip')});
+           if(!put.ok)throw Error('Source upload HTTP '+put.status);
+           const operation=await api(name+'?updateMask=buildConfig.source,serviceConfig.environmentVariables,serviceConfig.secretEnvironmentVariables','PATCH',{name,buildConfig:{source:{storageSource:upload.storageSource}},serviceConfig:{environmentVariables:envAfter,secretEnvironmentVariables:mounted}});
+           if(!operation.name?.startsWith('projects/mocyno-staging/locations/europe-west1/operations/'))throw Error('Unexpected operation');
+           console.log('Source update accepted for contactForm staging only.');
+           let done;
+           for(let i=0;i<150;i++){done=await api(operation.name);if(done.done)break;if(i%6===0)console.log('Staging build/deploy in progress.');await pause(5000);}
+           if(!done?.done)throw Error('Operation still running; do not retry blindly');
+           if(done.error){console.log('Operation failure code: '+done.error.code);throw Error('Deployment operation failed');}
+           const after=await api(name);
+           if(after.state!=='ACTIVE'||JSON.stringify(after.serviceConfig.environmentVariables||{})!==configBefore||after.serviceConfig.serviceAccountEmail!==accountBefore)throw Error('Post-deployment verification failed');
+           if(String(after.buildConfig.source.storageSource.generation)===String(oldSource.generation))throw Error('Source generation unchanged');
+           for(const key of ['TURNSTILE_SECRET_KEY','CONTACT_GUARD_HASH_KEY']){if(!(after.serviceConfig.secretEnvironmentVariables||[]).some(x=>x.key===key&&x.secret===key&&String(x.version)==='1'))throw Error('Secret mount not confirmed');}
+           console.log('Verified: contactForm ACTIVE, new source, guard enforcing, security-only recipe, both secret mounts and runtime identity confirmed.');
+           const uri=new URL(after.serviceConfig.uri);if(uri.protocol!=='https:'||!uri.hostname.endsWith('.run.app'))throw Error('Unexpected function URL');
+           const get=await fetch(uri);console.log('Function GET check HTTP '+get.status);if(get.status!==405)throw Error('GET behavior unexpected');
+           const invalid=await fetch(uri,{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json'},body:'{}'});console.log('Invalid form HTTP '+invalid.status);if(invalid.status!==400)throw Error('Validation check failed');
+           const honey=await fetch(uri,{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json'},body:JSON.stringify({website:'qa-honeypot'})});const receipt=await honey.json();if(receipt.accepted!==false||receipt.event_id)throw Error('Honeypot check failed');
+           const blocked=await fetch(uri,{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json'},body:JSON.stringify({name:'Synthetic QA',email:'qa@example.invalid',message:'Security-only test'})});if(blocked.status!==403)throw Error('Missing challenge not rejected: '+blocked.status);
+           console.log('Verified: missing challenge HTTP 403; no successful lead receipt or email requested.');
+          })().catch(e=>{console.error('Staging deployment/check stopped: '+e.message);process.exitCode=1;});
+          NODE
+
+  recipe-preview:
+    needs: deploy-contact-staging
+    if: github.event.pull_request.number == 1 && github.event.pull_request.head.repo.full_name == github.repository && github.event.before == 'b29b857e2431acd5df26f9d0935bc78c012677f9'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: b29b857e2431acd5df26f9d0935bc78c012677f9
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Préparer le canal de recette devis avec backend staging
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          Path("public/contact-guard-config.json").write_text(json.dumps({"enabled":True,"siteKey":"0x4AAAAAAFtDWekXHbp5hkX_"}))
+          for page in Path("public").rglob("*.html"):
+              content=page.read_text()
+              if "20261029-openai-1" in content:
+                  page.write_text(content.replace("20261029-openai-1","20261030-guard-recipe-1"))
+          consent=Path("public/consent-ga.js")
+          consent.write_text(consent.read_text().replace("20261029-1","20261030-guard-recipe-1"))
+          h=json.loads(Path("firebase.json").read_text())["hosting"][0]
+          h.pop("target",None)
+          h["site"]="mocyno-staging"
+          h["rewrites"]=[{"source":"/api/contact","function":{"functionId":"contactForm","region":"europe-west1"}}]
+          h["ignore"]+=["admin/**","clients/**","mobile/**"]
+          h["headers"].append({"source":"**","headers":[
+            {"key":"X-Robots-Tag","value":"noindex, nofollow, noarchive"},
+            {"key":"Content-Security-Policy","value":"default-src 'self'; script-src 'self' 'unsafe-inline' https://bzrcdn.openai.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' data: https:; connect-src 'self' https://bzr.openai.com https://bzrcdn.openai.com https://challenges.cloudflare.com; form-action 'self'; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'"}]})
+          Path("firebase.preview.json").write_text(json.dumps({"hosting":h}))
+          PY
+      - name: Déployer uniquement le canal temporaire de staging
+        env:
+          FIREBASE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SA }}
+        run: |
+          set -euo pipefail
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/staging-preview-account.json"
+          trap 'rm -f "$GOOGLE_APPLICATION_CREDENTIALS"' EXIT
+          python - <<'PY'
+          import os,json
+          data=json.loads(os.environ["FIREBASE_ACCOUNT_JSON"])
+          fd=os.open(os.environ["GOOGLE_APPLICATION_CREDENTIALS"],os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
+          with os.fdopen(fd,"w") as f: json.dump(data,f)
+          PY
+          unset FIREBASE_ACCOUNT_JSON
+          npx -y firebase-tools@latest hosting:channel:deploy ads-recette --project mocyno-staging --config firebase.preview.json --expires 1d --no-authorized-domains --non-interactive
