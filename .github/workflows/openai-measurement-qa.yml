@@ -7,6 +7,7 @@ on:
       - 'functions/index.js'
       - 'public/**'
       - 'scripts/test-openai-*.cjs'
+      - 'scripts/prepare-openai-staging.cjs'
       - '.github/workflows/openai-measurement-qa.yml'
 
 permissions:
@@ -33,4 +34,4 @@ jobs:
       - name: Tester les devis sans e-mails ni conversions réels
         run: |
           export MOCYNO_JSDOM_MODULE="$RUNNER_TEMP/mocyno-dom-qa/node_modules/jsdom"
-          node --test scripts/test-openai-measurement.cjs scripts/test-openai-dom.cjs
+          node --test scripts/test-openai-measurement.cjs scripts/test-openai-dom.cjs scripts/test-openai-staging.cjs
