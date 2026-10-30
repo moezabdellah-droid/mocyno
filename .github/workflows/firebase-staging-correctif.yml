@@ -1,0 +1,50 @@
+name: Firebase staging — aperçu visuel du correctif
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.github/workflows/firebase-staging-correctif.yml']
+permissions:
+  contents: read
+jobs:
+  baseline-preview:
+    if: github.event.pull_request.number == 1 && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: afc877171de156db9dfa088c1ee5cd5d16471afe
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Préparer Hosting isolé sans backend ni suivi
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          h=json.loads(Path("firebase.json").read_text())["hosting"][0]
+          h.pop("target",None)
+          h["site"]="mocyno-staging"
+          h["rewrites"]=[]
+          h["ignore"]+=["admin/**","clients/**","mobile/**"]
+          h["headers"].append({"source":"**","headers":[
+            {"key":"X-Robots-Tag","value":"noindex, nofollow, noarchive"},
+            {"key":"Content-Security-Policy","value":"default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' data: https:; connect-src 'none'; form-action 'none'; frame-src 'none'; object-src 'none'; base-uri 'self'"}]})
+          Path("firebase.preview.json").write_text(json.dumps({"hosting":h}))
+          PY
+      - name: Déployer uniquement le canal temporaire de staging
+        env:
+          FIREBASE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SA }}
+        run: |
+          set -euo pipefail
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/staging-preview-account.json"
+          trap 'rm -f "$GOOGLE_APPLICATION_CREDENTIALS"' EXIT
+          python - <<'PY'
+          import os,json
+          data=json.loads(os.environ["FIREBASE_ACCOUNT_JSON"])
+          fd=os.open(os.environ["GOOGLE_APPLICATION_CREDENTIALS"],os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
+          with os.fdopen(fd,"w") as f: json.dump(data,f)
+          PY
+          unset FIREBASE_ACCOUNT_JSON
+          npx -y firebase-tools@latest hosting:channel:deploy ads-correctif --project mocyno-staging --config firebase.preview.json --expires 1d --no-authorized-domains --non-interactive
