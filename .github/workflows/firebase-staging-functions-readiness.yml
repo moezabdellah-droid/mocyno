@@ -106,5 +106,20 @@ jobs:
               return isinstance(node, str) and node in ("mocyno-staging", "projects/mocyno-staging/sites/mocyno-staging", "https://mocyno-staging.web.app")
           if value.get("status") != "success":
               raise SystemExit("Site mocyno-staging non confirmé. Aucun déploiement tenté.")
+          result = value.get("result", [])
+          if isinstance(result, dict):
+              result = result.get("functions", [])
+          if not isinstance(result, list):
+              raise SystemExit("Format inventaire inattendu.")
+          import re
+          print("Nombre de fonctions staging : " + str(len(result)))
+          for item in result:
+              if not isinstance(item, dict): continue
+              safe = {}
+              for key in ("id", "name", "region", "runtime", "platform", "state", "entryPoint"):
+                  field = item.get(key)
+                  if isinstance(field, str) and re.fullmatch(r"[A-Za-z0-9_./-]{1,250}", field):
+                      safe[key] = field
+              print("Fonction staging : " + json.dumps(safe, sort_keys=True))
           print("Inventaire Functions staging accessible. Aucun déploiement.")
           PY
