@@ -56,6 +56,13 @@ jobs:
                       text += handle.read().lower()
               except OSError:
                   pass
+          import re
+          for marker in ("service_disabled", "access_token_scope_insufficient", "consumer_invalid", "billing_disabled", "iam_permission_denied"):
+              if marker in text: print("Motif Google : " + marker)
+          for permission in sorted(set(re.findall(r"(?:firebasehosting|firebase|resourcemanager|serviceusage)\\.[a-z0-9_.]+", text))):
+              print("Permission mentionnee : " + permission)
+          for service in sorted(set(re.findall(r"[a-z0-9-]+\\.googleapis\\.com", text))):
+              print("API mentionnee : " + service)
           categories = {
               "HTTP 403 / permissions": ("403", "permission_denied", "permission denied", "does not have permission"),
               "HTTP 401 / authentification": ("401", "unauthenticated", "invalid_grant", "invalid jwt", "invalid credentials"),
