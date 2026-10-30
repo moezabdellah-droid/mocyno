@@ -1,0 +1,71 @@
+name: Firebase production — contrôle antispam lecture seule
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.github/workflows/firebase-production-contact-readiness.yml']
+permissions:
+  contents: read
+jobs:
+  production-readiness:
+    if: github.event.pull_request.number == 1 && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Vérifier les droits et versions sans modification
+        env:
+          FIREBASE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SA }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/mocyno-readiness.json"
+          trap 'rm -f "$GOOGLE_APPLICATION_CREDENTIALS" "$RUNNER_TEMP/firebase-readiness-output.json" "$RUNNER_TEMP/firebase-readiness-error.log"' EXIT
+          python - <<'PY'
+          import json, os
+          value = os.environ.get("FIREBASE_ACCOUNT_JSON", "")
+          if not value:
+              raise SystemExit("FIREBASE_SA absent : accès non vérifié.")
+          try:
+              data = json.loads(value)
+              assert data.get("type") == "service_account"
+          except Exception:
+              raise SystemExit("FIREBASE_SA invalide : accès non vérifié.")
+          path = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
+          descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+          with os.fdopen(descriptor, "w") as handle:
+              json.dump(data, handle)
+          PY
+          python - <<'PY'
+          import json, os, re
+          with open(os.environ["GOOGLE_APPLICATION_CREDENTIALS"]) as handle:
+              principal = json.load(handle).get("client_email", "")
+          if not re.fullmatch(r"[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.iam\.gserviceaccount\.com", principal):
+              raise SystemExit("Identite du compte technique non reconnue.")
+          print("Compte technique a verifier sur mocyno : " + principal)
+          PY
+          unset FIREBASE_ACCOUNT_JSON
+          node <<'NODE'
+          const fs=require('node:fs'),crypto=require('node:crypto');
+          (async()=>{
+           const c=JSON.parse(fs.readFileSync(process.env.GOOGLE_APPLICATION_CREDENTIALS,'utf8'));
+           const enc=x=>Buffer.from(JSON.stringify(x)).toString('base64url'),now=Math.floor(Date.now()/1000);
+           const unsigned=enc({alg:'RS256',typ:'JWT'})+'.'+enc({iss:c.client_email,scope:'https://www.googleapis.com/auth/cloud-platform',aud:'https://oauth2.googleapis.com/token',iat:now,exp:now+300});
+           const assertion=unsigned+'.'+crypto.sign('RSA-SHA256',Buffer.from(unsigned),c.private_key).toString('base64url');
+           const auth=await fetch('https://oauth2.googleapis.com/token',{method:'POST',body:new URLSearchParams({grant_type:'urn:ietf:params:oauth:grant-type:jwt-bearer',assertion})});if(!auth.ok)throw Error('OAuth HTTP '+auth.status);
+           const token=(await auth.json()).access_token;
+           const headers={Authorization:'Bearer '+token,'Content-Type':'application/json'};
+           const request=async(url,body)=>fetch(url,{method:body?'POST':'GET',headers,body:body?JSON.stringify(body):undefined});
+           const f=await request('https://cloudfunctions.googleapis.com/v2/projects/mocyno/locations/europe-west1/functions/contactForm');
+           console.log('Function metadata HTTP '+f.status);
+           if(f.ok){const data=await f.json();console.log('Function state '+data.state);console.log('Runtime identity expected '+(data.serviceConfig?.serviceAccountEmail==='962385123794-compute@developer.gserviceaccount.com'));console.log('Function source available '+Boolean(data.buildConfig?.source?.storageSource?.object));}
+           const permissions=['cloudfunctions.functions.get','cloudfunctions.functions.update','cloudfunctions.functions.sourceCodeSet','cloudfunctions.operations.get','cloudbuild.builds.create','firebasehosting.sites.get','firebasehosting.versions.create','firebasehosting.versions.update','firebasehosting.releases.create','serviceusage.services.use'];
+           const p=await request('https://cloudresourcemanager.googleapis.com/v1/projects/mocyno:testIamPermissions',{permissions});console.log('Permission read HTTP '+p.status);
+           if(p.ok){const granted=(await p.json()).permissions||[];for(const x of permissions)console.log('Permission '+x+' '+granted.includes(x));}
+           const a=await request('https://iam.googleapis.com/v1/projects/-/serviceAccounts/962385123794-compute@developer.gserviceaccount.com:testIamPermissions',{permissions:['iam.serviceAccounts.actAs']});console.log('Runtime access check HTTP '+a.status);
+           if(a.ok)console.log('Runtime actAs '+(((await a.json()).permissions||[]).includes('iam.serviceAccounts.actAs')));
+           const s=await request('https://firebasehosting.googleapis.com/v1beta1/projects/mocyno/sites');console.log('Hosting sites HTTP '+s.status);
+           if(s.ok){for(const site of (await s.json()).sites||[])console.log('Hosting site '+site.name);}
+          })().catch(e=>{console.error('Read-only check failed '+e.message);process.exitCode=1;});
+          NODE

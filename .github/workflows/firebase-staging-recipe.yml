@@ -1,0 +1,50 @@
+name: Firebase staging — recette devis et Pixel
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.github/workflows/firebase-staging-recipe.yml']
+permissions:
+  contents: read
+jobs:
+  recipe-preview:
+    if: github.event.pull_request.number == 1 && github.event.pull_request.head.repo.full_name == github.repository && github.event.before == '73be1bbd33d71b34eb535b9a4bc3bbf46acd8bd9'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ce1b82734fce92b59e1d3e2093af936e84d8c90b
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Préparer le canal de recette devis avec backend staging
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          h=json.loads(Path("firebase.json").read_text())["hosting"][0]
+          h.pop("target",None)
+          h["site"]="mocyno-staging"
+          h["rewrites"]=[{"source":"/api/contact","function":{"functionId":"contactForm","region":"europe-west1"}}]
+          h["ignore"]+=["admin/**","clients/**","mobile/**"]
+          h["headers"].append({"source":"**","headers":[
+            {"key":"X-Robots-Tag","value":"noindex, nofollow, noarchive"},
+            {"key":"Content-Security-Policy","value":"default-src 'self'; script-src 'self' 'unsafe-inline' https://bzrcdn.openai.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' data: https:; connect-src 'self' https://bzr.openai.com https://bzrcdn.openai.com; form-action 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'"}]})
+          Path("firebase.preview.json").write_text(json.dumps({"hosting":h}))
+          PY
+      - name: Déployer uniquement le canal temporaire de staging
+        env:
+          FIREBASE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SA }}
+        run: |
+          set -euo pipefail
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/staging-preview-account.json"
+          trap 'rm -f "$GOOGLE_APPLICATION_CREDENTIALS"' EXIT
+          python - <<'PY'
+          import os,json
+          data=json.loads(os.environ["FIREBASE_ACCOUNT_JSON"])
+          fd=os.open(os.environ["GOOGLE_APPLICATION_CREDENTIALS"],os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
+          with os.fdopen(fd,"w") as f: json.dump(data,f)
+          PY
+          unset FIREBASE_ACCOUNT_JSON
+          npx -y firebase-tools@latest hosting:channel:deploy ads-recette --project mocyno-staging --config firebase.preview.json --expires 1d --no-authorized-domains --non-interactive
