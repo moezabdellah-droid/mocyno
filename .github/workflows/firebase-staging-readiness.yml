@@ -56,7 +56,22 @@ jobs:
                       text += handle.read().lower()
               except OSError:
                   pass
-          import re
+          import re, json
+          try:
+              with open(os.path.join(os.environ["RUNNER_TEMP"], "firebase-readiness-output.json")) as handle:
+                  payload = json.load(handle)
+              error = payload.get("error", "")
+              message = error.get("message", "") if isinstance(error, dict) else str(error)
+              with open(os.environ["GOOGLE_APPLICATION_CREDENTIALS"]) as handle:
+                  credentials = json.load(handle)
+              for key in ("private_key", "private_key_id", "client_id"):
+                  secret = credentials.get(key)
+                  if secret: message = message.replace(secret, "[REDACTED]")
+              message = re.sub(r"https?://[^\\s]+", "[URL]", message)
+              message = re.sub(r"(?:Bearer\\s+|ya29\\.|AIza)[A-Za-z0-9._~+/-]+", "[REDACTED]", message)
+              print("Erreur Firebase nettoyee : " + message[:1500].replace("\\n", " "))
+          except Exception:
+              print("Erreur Firebase : detail JSON indisponible.")
           for marker in ("service_disabled", "access_token_scope_insufficient", "consumer_invalid", "billing_disabled", "iam_permission_denied"):
               if marker in text: print("Motif Google : " + marker)
           for permission in sorted(set(re.findall(r"(?:firebasehosting|firebase|resourcemanager|serviceusage)\\.[a-z0-9_.]+", text))):
