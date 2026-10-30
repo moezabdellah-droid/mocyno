@@ -46,6 +46,37 @@ jobs:
           print("Compte technique a verifier sur mocyno-staging : " + principal)
           PY
           unset FIREBASE_ACCOUNT_JSON
+          node <<'NODE'
+          const fs = require('node:fs');
+          const crypto = require('node:crypto');
+          (async () => {
+            const credentials = JSON.parse(fs.readFileSync(process.env.GOOGLE_APPLICATION_CREDENTIALS, 'utf8'));
+            const enc = value => Buffer.from(JSON.stringify(value)).toString('base64url');
+            const now = Math.floor(Date.now()/1000);
+            const unsigned = enc({alg:'RS256',typ:'JWT'}) + '.' + enc({iss:credentials.client_email,scope:'https://www.googleapis.com/auth/cloud-platform',aud:'https://oauth2.googleapis.com/token',iat:now,exp:now+300});
+            const signature = crypto.sign('RSA-SHA256',Buffer.from(unsigned),credentials.private_key).toString('base64url');
+            const auth = await fetch('https://oauth2.googleapis.com/token',{method:'POST',body:new URLSearchParams({grant_type:'urn:ietf:params:oauth:grant-type:jwt-bearer',assertion:unsigned+'.'+signature})});
+            if (!auth.ok) throw new Error('OAuth HTTP '+auth.status);
+            const token = (await auth.json()).access_token;
+            if (!token) throw new Error('OAuth token absent');
+            const headers = {Authorization:'Bearer '+token,'Content-Type':'application/json'};
+            const response = await fetch('https://cloudfunctions.googleapis.com/v2/projects/mocyno-staging/locations/europe-west1/functions/contactForm',{headers});
+            console.log('Metadata contactForm HTTP : '+response.status);
+            if (!response.ok) throw new Error('Metadata HTTP '+response.status);
+            const data = await response.json();
+            const config = data.serviceConfig || {};
+            const env = config.environmentVariables || {};
+            console.log('RESEND_API_KEY environment present : '+Boolean(env.RESEND_API_KEY));
+            console.log('RESEND_API_KEY secret mounted : '+Boolean((config.secretEnvironmentVariables || []).some(x => x.key === 'RESEND_API_KEY')));
+            console.log('Previous source reference present : '+Boolean(data.buildConfig?.source?.storageSource?.object));
+            const permissions = ['cloudfunctions.functions.update','cloudfunctions.functions.get','cloudfunctions.operations.get','cloudbuild.builds.create','serviceusage.services.use'];
+            const check = await fetch('https://cloudresourcemanager.googleapis.com/v1/projects/mocyno-staging:testIamPermissions',{method:'POST',headers,body:JSON.stringify({permissions})});
+            console.log('Permission preflight HTTP : '+check.status);
+            if (!check.ok) throw new Error('Permissions HTTP '+check.status);
+            const granted = (await check.json()).permissions || [];
+            for (const p of permissions) console.log('Permission '+p+' : '+granted.includes(p));
+          })().catch(error => { console.error('Read-only preflight failed: '+String(error.message).replace(/https?:\/\/\S+/g,'[URL]'));process.exitCode=1;});
+          NODE
           if ! npx -y firebase-tools@latest functions:list --debug --project mocyno-staging --json --non-interactive > "$RUNNER_TEMP/firebase-readiness-output.json" 2> "$RUNNER_TEMP/firebase-readiness-error.log"; then
             python - <<'PY'
           import os
