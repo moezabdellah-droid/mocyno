@@ -57,8 +57,20 @@ def patch_handler(source):
     start = source.index('exports.contactForm = onRequest(')
     prefix, contact = source[:start], source[start:]
     anchor = '  try {\n    // 1. Send Admin Notification'
+    if 'createContactGuard' in contact:
+        reference = (ROOT / 'functions/index.js').read_text()
+        def handler(text):
+            a = text.index('exports.contactForm =')
+            b = text.find('// ─── CLIENT PORTAL', a)
+            if b < 0:
+                raise RuntimeError('Unexpected handler boundary')
+            return text[a:b]
+        if handler(source) != handler(reference):
+            raise RuntimeError('Existing guard handler differs from tested reference')
+        print('Existing deployed contact handler matches tested guard reference.', flush=True)
+        return source
     if contact.count(anchor) != 1 or 'createContactGuard' in contact:
-        raise RuntimeError('Unexpected contact handler; refusing blind patch')
+        raise RuntimeError('Unexpected contact handler; mail-anchor count=' + str(contact.count(anchor)))
     guard = '''  let guardReservation;
   if (process.env.CONTACT_GUARD_MODE === "enforce") {
     try {
