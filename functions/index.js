@@ -737,6 +737,20 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
     return;
   }
 
+  let guardReservation;
+  if (typeof process !== "undefined" && process.env.CONTACT_GUARD_MODE === "enforce") {
+    try {
+      const { createContactGuard } = require("./contact-guard");
+      const guard = createContactGuard({ db: admin.firestore(), env: process.env });
+      guardReservation = await guard.reserve(req.body || {});
+    } catch (error) {
+      const status = [403, 409, 429, 503].includes(error.status) ? error.status : 503;
+      if (status === 429) res.set("Retry-After", String(error.retryAfter || 900));
+      res.status(status).send("Envoi non autorisé ou temporairement indisponible. Contactez-nous par téléphone.");
+      return;
+    }
+  }
+
   try {
     // 1. Send Admin Notification (to Mo'Cyno Team)
     const adminEmail = await getResend().emails.send({
@@ -771,6 +785,8 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
       res.status(500).send("Erreur lors de l'envoi de l'email.");
       return;
     }
+
+    if (guardReservation) await guardReservation.accepted();
 
     // 2. Send User Confirmation (to the sender)
     // We do not block execution on error for this one (fire and forget logic or loose coupling)
@@ -836,7 +852,7 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
     if (wantsJson) {
       res.status(200).json({
         accepted: true,
-        event_id: require("node:crypto").randomUUID(),
+        event_id: guardReservation ? guardReservation.eventId : require("node:crypto").randomUUID(),
       });
       return;
     }

@@ -27,7 +27,7 @@ if (require.main === module) {
   const source = prepare(fs.readFileSync(path.join(root, 'functions/index.js'), 'utf8'));
   fs.mkdirSync(output, { recursive: true, mode: 0o700 });
   fs.writeFileSync(path.join(output, 'index.js'), source);
-  for (const name of ['package.json', 'package-lock.json']) {
+  for (const name of ['package.json', 'package-lock.json', 'contact-guard.js']) {
     fs.copyFileSync(path.join(root, 'functions', name), path.join(output, name));
   }
   console.log('Staging-only artifact prepared; no deployment.');

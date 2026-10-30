@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'functions/index.js'
+      - 'functions/contact-guard.js'
+      - 'scripts/test-contact-guard*.cjs'
       - 'public/**'
       - 'scripts/test-openai-*.cjs'
       - 'scripts/prepare-openai-staging.cjs'
@@ -26,6 +28,8 @@ jobs:
       - name: Vérifier la syntaxe
         run: |
           node --check functions/index.js
+          node --check functions/contact-guard.js
+          node --check public/scripts/contact-antispam.js
           node --check public/consent-ga.js
           node --check public/scripts/openai-measurement.js
           python -m json.tool firebase.json > /dev/null
@@ -34,4 +38,4 @@ jobs:
       - name: Tester les devis sans e-mails ni conversions réels
         run: |
           export MOCYNO_JSDOM_MODULE="$RUNNER_TEMP/mocyno-dom-qa/node_modules/jsdom"
-          node --test scripts/test-openai-measurement.cjs scripts/test-openai-dom.cjs scripts/test-openai-staging.cjs
+          node --test scripts/test-openai-measurement.cjs scripts/test-openai-dom.cjs scripts/test-openai-staging.cjs scripts/test-contact-guard.cjs scripts/test-contact-guard-ui.cjs
