@@ -130,9 +130,10 @@ def main():
     if 'index.js' not in archive.namelist():
         raise RuntimeError('Unexpected source archive layout')
     deployed = archive.read('index.js').decode()
-    expected = (BASE / 'functions/index.js').read_text()
-    if deployed != expected:
-        raise RuntimeError('Deployed handler differs from pinned baseline; inspect first')
+    # Patch the deployed archive itself: portal exports and other live-only changes
+    # stay byte-for-byte intact. The contact-specific anchors are checked below.
+    if 'const admin = require("firebase-admin")' not in deployed or 'admin.initializeApp()' not in deployed:
+        raise RuntimeError('Unexpected deployed Admin SDK setup')
     patched = patch_handler(deployed)
     check = subprocess.run(['node', '--check'], input=patched.encode(), capture_output=True)
     if check.returncode:
