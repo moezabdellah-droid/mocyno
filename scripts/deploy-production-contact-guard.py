@@ -70,7 +70,16 @@ def patch_handler(source):
         print('Existing deployed contact handler matches tested guard reference.', flush=True)
         return source
     if contact.count(anchor) != 1 or 'createContactGuard' in contact:
-        raise RuntimeError('Unexpected contact handler; mail-anchor count=' + str(contact.count(anchor)))
+        candidates = list(re.finditer(r'(?m)^[ \t]*try\s*\{\s*(?:(?://[^\n]*\n)\s*)*const adminEmail\s*=\s*await getResend\(\)\.emails\.send\(', contact))
+        if len(candidates) != 1:
+            print('Structural checks: ' + json.dumps({
+                'guard_present': 'createContactGuard' in contact,
+                'adminEmail_present': 'adminEmail' in contact,
+                'getResend_present': 'getResend()' in contact,
+                'send_calls': len(re.findall(r'\.emails\.send\(', contact)),
+                'candidate_count': len(candidates)}), flush=True)
+            raise RuntimeError('Unexpected contact handler; safe patch anchor absent')
+        anchor = candidates[0].group()
     guard = '''  let guardReservation;
   if (process.env.CONTACT_GUARD_MODE === "enforce") {
     try {
