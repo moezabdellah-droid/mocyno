@@ -1,0 +1,48 @@
+name: Production contact anti-spam targeted release
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.github/workflows/firebase-production-contact-guard.yml']
+permissions:
+  contents: read
+concurrency:
+  group: mocyno-production-contact-guard
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: github.event.pull_request.number == 1 && github.event.pull_request.head.repo.full_name == github.repository && github.event.before == '559af34c2bd39e35af69c65134d35375771fbed1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/checkout@v6
+        with:
+          ref: 1f026e880897f099d28a628729c3b6f3a18a3cc3
+          path: baseline
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Test guard module
+        run: node --test scripts/test-contact-guard.cjs
+      - name: Authenticate temporary deployment identity
+        env:
+          ACCOUNT_JSON: ${{ secrets.FIREBASE_SA }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,os
+          data=json.loads(os.environ["ACCOUNT_JSON"])
+          assert data["type"]=="service_account"
+          fd=os.open(os.environ["RUNNER_TEMP"]+"/guard-account.json",os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
+          with os.fdopen(fd,"w") as f: json.dump(data,f)
+          PY
+          gcloud auth activate-service-account --key-file="$RUNNER_TEMP/guard-account.json" --quiet
+      - name: Preserve live baseline and deploy only contact protection
+        run: python3 scripts/deploy-production-contact-guard.py
+      - name: Remove temporary authentication file
+        if: always()
+        run: rm -f "$RUNNER_TEMP/guard-account.json"
