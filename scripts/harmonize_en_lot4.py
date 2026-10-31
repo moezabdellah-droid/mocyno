@@ -67,7 +67,7 @@ EN_FOOTER = '''<footer class="site-footer" role="contentinfo" style="background:
 <p class="footer-meta">© 2025 MO'CYNO — SASU — SIRET 990 179 566 00015 — NAF 80.10Z</p>
 <div class="footer-inline">
 <span>31 Rue Chevalier Paul, 83000 Toulon, France</span><span>•</span>
-<span>CNAPS licence: <a href="https://teleservices-cnaps.interieur.gouv.fr/teleservices/ihm/#/morale/search" rel="noopener noreferrer" style="color:#fff;text-decoration:underline;" target="_blank">AUT-83-2124-09-09-20250998415</a> — This licence does not confer any public authority status
+<span>CNAPS licence: <a href="https://espace-consultation.cnaps.interieur.gouv.fr/annuaire/app/annuaire-public" rel="noopener noreferrer" style="color:#fff;text-decoration:underline;" target="_blank">AUT-83-2124-09-09-20250998415</a> — This licence does not confer any public authority status
             nor official endorsement. (Art. L612-14 CSI)</span>
 </div>
 </div>
