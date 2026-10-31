@@ -6,10 +6,13 @@ on:
     paths:
       - 'functions/index.js'
       - 'functions/contact-guard.js'
+      - 'functions/openai-conversions.js'
       - 'scripts/test-contact-guard*.cjs'
       - 'public/**'
       - 'scripts/test-openai-*.cjs'
       - 'scripts/prepare-openai-staging.cjs'
+      - 'scripts/prepare-openai-live-source.cjs'
+      - 'scripts/fixtures/contact-production-20261030.txt'
       - '.github/workflows/openai-measurement-qa.yml'
 
 permissions:
@@ -31,11 +34,12 @@ jobs:
           node --check functions/contact-guard.js
           node --check public/scripts/contact-antispam.js
           node --check public/consent-ga.js
-          node --check public/scripts/openai-measurement.js
+          node --check functions/openai-conversions.js
+          node --check public/scripts/openai-attribution.js
           python -m json.tool firebase.json > /dev/null
       - name: Installer le DOM de test isolé
-        run: npm install --prefix "$RUNNER_TEMP/mocyno-dom-qa" --ignore-scripts --no-audit --no-fund jsdom@30.1.3
+        run: npm install --prefix "$RUNNER_TEMP/mocyno-dom-qa" --ignore-scripts --no-audit --no-fund jsdom@26.1.0
       - name: Tester les devis sans e-mails ni conversions réels
         run: |
           export MOCYNO_JSDOM_MODULE="$RUNNER_TEMP/mocyno-dom-qa/node_modules/jsdom"
-          node --test scripts/test-openai-measurement.cjs scripts/test-openai-dom.cjs scripts/test-openai-staging.cjs scripts/test-contact-guard.cjs scripts/test-contact-guard-ui.cjs
+          node --test scripts/test-openai-capi.cjs scripts/test-openai-attribution.cjs scripts/test-openai-live-source.cjs scripts/test-contact-guard.cjs scripts/test-contact-guard-ui.cjs

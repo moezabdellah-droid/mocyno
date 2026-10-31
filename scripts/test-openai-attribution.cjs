@@ -1,0 +1,46 @@
+const { test } = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const { JSDOM } = require(process.env.MOCYNO_JSDOM_MODULE || 'jsdom');
+const root = path.resolve(__dirname, '..');
+const script = fs.readFileSync(path.join(root,'public/scripts/openai-attribution.js'),'utf8');
+const pages = ['fr/contact.html','fr/contact/index.html','en/contact/index.html','fr/securite-luxe-saint-tropez/index.html','fr/services/securite-evenementielle/index.html','fr/services/evenementiel-premium/index.html'];
+test('active consent filename and source stay aligned and never load the browser Pixel', () => {
+  const source=fs.readFileSync(path.join(root,'public/consent-ga.js'),'utf8');
+  const active=fs.readFileSync(path.join(root,'public/consent-ads-20261031-2.js'),'utf8');
+  assert.equal(active,source);
+  assert.ok(active.includes('/scripts/openai-attribution.js'));
+  assert.equal(active.includes('/scripts/openai-measurement.js'),false);
+  for(const page of pages)assert.ok(fs.readFileSync(path.join(root,'public',page),'utf8').includes('/consent-ads-20261031-2.js'));
+});
+for (const page of pages) test(`native form ${page}: distinct consent, exact observed attribution and revocation; no SDK or browser event`, async t => {
+  const dom = new JSDOM(fs.readFileSync(path.join(root,'public',page),'utf8'), { url:'https://mocyno.com/'+page+'?oppref=observed%2Breference',runScripts:'outside-only' });
+  t.after(()=>dom.window.close());
+  const w=dom.window;
+  w.localStorage.setItem('mocyno_consent_state','granted');
+  w.eval(script);
+  if (w.document.readyState==='loading') await new Promise(r=>w.document.addEventListener('DOMContentLoaded',r,{once:true}));
+  const form=w.document.querySelector('form[action="/api/contact"]');
+  assert.ok(form);
+  const field=name=>form.querySelector(`input[name="_mocyno_openai_${name}"]`).value;
+  assert.equal(field('consent'),'denied'); assert.equal(field('oppref'),'');
+  w.localStorage.setItem('mocyno_openai_consent_v1','granted');
+  w.dispatchEvent(new w.Event('mocyno:openai-consent'));
+  assert.equal(field('consent'),'granted'); assert.equal(field('oppref'),'observed+reference');
+  const submission = new w.Event('submit',{bubbles:true,cancelable:true});
+  assert.equal(form.dispatchEvent(submission),true);
+  assert.equal(submission.defaultPrevented,false);
+  w.localStorage.setItem('mocyno_openai_consent_v1','denied');
+  w.dispatchEvent(new w.StorageEvent('storage',{key:'mocyno_openai_consent_v1'}));
+  assert.equal(field('consent'),'denied'); assert.equal(field('oppref'),'');
+  assert.equal(w.sessionStorage.getItem('mocyno_openai_click_v1'),null);
+  assert.equal(w.oaiq,undefined);
+  assert.equal(w.document.querySelector('script[src*="openai.com"]'),null);
+});
+test('attribution reload without an observed click never generates a reference', async t=>{
+  const dom=new JSDOM('<form action="/api/contact"></form>',{url:'https://mocyno.com/en/contact/',runScripts:'outside-only'});t.after(()=>dom.window.close());
+  dom.window.localStorage.setItem('mocyno_openai_consent_v1','granted');dom.window.eval(script);
+  if(dom.window.document.readyState==='loading')await new Promise(r=>dom.window.document.addEventListener('DOMContentLoaded',r,{once:true}));
+  assert.equal(dom.window.document.querySelector('[name="_mocyno_openai_oppref"]').value,'');
+});

@@ -60,6 +60,20 @@
       location.reload();
     }
   };
+  // Existing cookie-policy buttons use this name. Reopening first withdraws
+  // consent, then reloads so analytics already loaded cannot keep running.
+  WIN.reopenConsentBanner = function () { WIN.MOCYNO_CONSENT.revoke(); };
+
+  function addSettingsControl() {
+    if (DOC.querySelector('[data-mocyno-consent-settings]')) return;
+    var button = DOC.createElement('button');
+    button.type = 'button';
+    button.setAttribute('data-mocyno-consent-settings', '');
+    button.textContent = isEnglish() ? 'Cookie settings' : 'Gérer mes cookies';
+    button.style.cssText = 'color:inherit;background:transparent;border:1px solid currentColor;border-radius:999px;padding:8px 12px;margin:12px;cursor:pointer;';
+    button.addEventListener('click', WIN.reopenConsentBanner);
+    (DOC.querySelector('footer') || DOC.body).appendChild(button);
+  }
 
   /* =========================================
    *  gtag bootstrap (sans charger gtag.js)
@@ -170,8 +184,8 @@
     txt.style.fontSize = '14px';
     txt.style.lineHeight = '1.45';
     txt.textContent = en
-      ? "Choose GA4 analytics only, or also OpenAI advertising measurement. OpenAI may receive browser identifiers and hashed contact information detected in forms. You can refuse or withdraw your consent."
-      : "Choisissez la mesure d’audience GA4 seule, ou également la mesure publicitaire OpenAI. OpenAI peut recevoir des identifiants de navigateur et des coordonnées hachées détectées dans les formulaires. Vous pouvez refuser ou retirer votre consentement.";
+      ? "Choose GA4 analytics only, or also OpenAI advertising measurement. After a quote request is accepted, our server may send OpenAI an event identifier, its time, the form page and an available advertising click reference. Your contact details and message are not included. You can refuse or withdraw your consent."
+      : "Choisissez la mesure d’audience GA4 seule, ou également la mesure publicitaire OpenAI. Après acceptation d’une demande, notre serveur peut transmettre à OpenAI un identifiant d’événement, sa date, la page du formulaire et une référence de clic publicitaire disponible. Vos coordonnées et votre message sont exclus. Vous pouvez refuser ou retirer votre consentement.";
 
     var textContainer = DOC.createElement('div');
     textContainer.appendChild(title);
@@ -276,10 +290,10 @@
    *  Boot
    * ========================================= */
   function start() {
-    // First-party helper loads without contacting OpenAI. It only loads the
-    // external Pixel after the separate advertising choice is explicitly granted.
+    // First-party helper forwards the separate consent choice to our form.
+    // No OpenAI browser SDK is loaded; accepted leads are measured server-side.
     var measurement = DOC.createElement('script');
-    measurement.src = '/scripts/openai-measurement.js?v=20261029-1';
+    measurement.src = '/scripts/openai-attribution.js?v=20261031-1';
     measurement.async = true;
     DOC.head.appendChild(measurement);
     // Si l'utilisateur avait déjà accepté, on charge directement
@@ -288,6 +302,7 @@
       loadAnalytics();
     }
     buildBanner();
+    addSettingsControl();
   }
 
   if (DOC.readyState !== 'loading') start();

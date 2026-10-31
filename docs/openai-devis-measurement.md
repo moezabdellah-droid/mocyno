@@ -1,5 +1,9 @@
 # MO’CYNO — devis réellement envoyés / OpenAI Ads
 
+> Préparation Pixel historique, remplacée le 31 octobre 2026 par
+> [la proposition serveur seule](openai-server-conversions.md). Ne pas utiliser
+> ce document historique comme plan de publication actuel.
+
 État : correctif destiné à une revue en brouillon, non déployé. La publication
 en production nécessite une validation distincte après recette.
 

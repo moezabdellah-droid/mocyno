@@ -791,7 +791,23 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
       return;
     }
 
-    if (guardReservation) await guardReservation.accepted();
+    const acceptedEventId = guardReservation ? guardReservation.eventId : require("node:crypto").randomUUID();
+    const acceptedAtMs = Date.now();
+
+    if (guardReservation) {
+      // Resend has already accepted the commercial notification. Preserve that
+      // outcome if the bookkeeping update fails; the reservation still blocks
+      // retries. This matches the targeted production protection release.
+      try { await guardReservation.accepted(); }
+      catch (_) { console.error("Guard acceptance record unavailable"); }
+    }
+
+    // Advertising must never change the accepted commercial outcome.
+    try {
+      const { sendAcceptedLead } = require("./openai-conversions");
+      const measurement = await sendAcceptedLead({ id: acceptedEventId, timestampMs: acceptedAtMs, body: req.body || {}, lang });
+      console.log("OpenAI conversion transport", measurement.state, measurement.status || "");
+    } catch (_) { console.error("OpenAI measurement unavailable"); }
 
     // 2. Send User Confirmation (to the sender)
     // We do not block execution on error for this one (fire and forget logic or loose coupling)
@@ -857,7 +873,8 @@ exports.contactForm = onRequest({ region: "europe-west1" }, async (req, res) => 
     if (wantsJson) {
       res.status(200).json({
         accepted: true,
-        event_id: guardReservation ? guardReservation.eventId : require("node:crypto").randomUUID(),
+        event_id: acceptedEventId,
+        redirect_url: merciUrl,
       });
       return;
     }
