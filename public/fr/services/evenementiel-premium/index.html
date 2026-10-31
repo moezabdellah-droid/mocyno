@@ -3,7 +3,7 @@
 
 <head>
   <!-- MO'CYNO_CONSENT_DEFAULT_START -->
-  <script defer src="/consent-ga.js"></script>
+  <script defer src="/scripts/consent-audit-20261031.js"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
@@ -50,18 +50,11 @@
   <!-- SEO:BEGIN -->
   <link href="https://mocyno.com/fr/services/evenementiel-premium/" rel="canonical" />
   <link href="https://mocyno.com/fr/services/evenementiel-premium/" hreflang="fr" rel="alternate" />
-  <link href="https://mocyno.com/en/services/premium-events/" hreflang="en" rel="alternate" />
+  
   <link href="https://mocyno.com/fr/services/evenementiel-premium/" hreflang="x-default" rel="alternate" />
   <!-- SEO:END -->
   <!-- SAFE GTM - No insertBefore dependency -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    var scriptTag = document.createElement('script');
-    scriptTag.async = true;
-    scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
-    document.head.appendChild(scriptTag);
-  </script>
+  
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
   <meta content="index,follow" name="robots">
   <link href="/favicon.ico" rel="icon">
@@ -153,14 +146,15 @@
 }
   </script>
   <!-- MO'CYNO_JSONLD_END -->
-  <script defer src="/tawk-consent.js"></script>
+  <script defer src="/scripts/tawk-audit-20261031.js"></script>
   <link rel="stylesheet" href="/styles/google-reviews.css?v=1.1">
+<meta name="gtm-container-id" content="GTM-N4MSSMV3">
+<link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
 </head>
 
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-N4MSSMV3"
-      style="display:none;visibility:hidden" width="0"></iframe></noscript>
+  
   <!-- End Google Tag Manager (noscript) -->
   <header class="site-header" role="banner">
     <div class="container nav">
@@ -172,10 +166,10 @@
         <span>MO'CYNO</span>
       </a>
       <button aria-label="Ouvrir ou fermer le menu" class="menu-toggle" onclick="document.querySelector('.nav .links').classList.toggle('open');
-      document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
-      <nav aria-label="Navigation principale" class="links" role="navigation">
+      document.querySelector('.nav-overlay').classList.toggle('show')" aria-expanded="false" aria-controls="primary-menu">Menu</button>
+      <nav aria-label="Navigation principale" class="links" role="navigation" id="primary-menu">
         <div class="zones-nav">
-          <a class="zones-trigger" href="/fr/#besoins">Besoins</a>
+          <a class="zones-trigger" href="/fr/#needs">Besoins</a>
           <div class="zones-menu">
             <ul class="zones-list">
               <li><a href="/fr/services/residentiel/">Villa</a></li>
@@ -391,7 +385,8 @@
         <a href="/sitemap.xml">Sitemap</a>
       </nav>
     </div>
-  </footer>
+  <button type="button" class="cookie-settings" data-cookie-settings>Gérer mes cookies</button>
+</footer>
 
   <!-- Floating CTA -->
   <a class="floating-cta" href="tel:+33666035116">
@@ -410,7 +405,7 @@
   </a>
 
   <script defer src="/scripts/google-reviews.js?v=1.1"></script>
-  <script defer src="/scripts/mobile-dropdown.js"></script>
+  <script defer src="/scripts/menu-audit-20261031.js"></script>
 </body>
 
 </html>

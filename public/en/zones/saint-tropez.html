@@ -17,21 +17,14 @@
   <meta content="https://mocyno.com/en/zones/saint-tropez/" property="og:url" />
   <meta content="https://mocyno.com/og-image.png" property="og:image" />
   <!-- SEO:BEGIN -->
-  <link href="https://mocyno.com/en/zones/saint-tropez.html/" rel="canonical" />
+  <link href="https://mocyno.com/en/zones/saint-tropez/" rel="canonical" />
   <link href="https://mocyno.com/fr/zones/saint-tropez/" hreflang="fr" rel="alternate" />
   <link href="https://mocyno.com/en/zones/saint-tropez.html/" hreflang="en" rel="alternate" />
   <link href="https://mocyno.com/fr/zones/saint-tropez/" hreflang="x-default" rel="alternate" />
   <!-- SEO:END -->
   <!-- SAFE GTM - No insertBefore dependency -->
-  <script defer src="/consent-ga.js"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    var scriptTag = document.createElement('script');
-    scriptTag.async = true;
-    scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
-    document.head.appendChild(scriptTag);
-  </script>
+  <script defer src="/scripts/consent-audit-20261031.js"></script>
+
   <meta content="index, follow" name="robots" />
   <meta name="ga-measurement-id" content="G-9RDHGKSLW9">
   <!-- OG Tags -->
@@ -99,13 +92,14 @@
   <link rel="stylesheet" href="/styles/visual-polish.css">
   <link rel="stylesheet" href="/styles/sticky-cta.css">
   <script defer src="/scripts/sticky-cta.js"></script>
-  <script defer src="/tawk-consent.js"></script>
+  <script defer src="/scripts/tawk-audit-20261031.js"></script>
+<meta name="gtm-container-id" content="GTM-N4MSSMV3">
+<link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
 </head>
 
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-N4MSSMV3"
-      style="display:none;visibility:hidden" width="0"></iframe></noscript>
+  
   <!-- End Google Tag Manager (noscript) -->
   <header class="site-header">
     <div class="container nav">
@@ -117,12 +111,12 @@
         <span>MO'CYNO</span>
       </a>
       <button class="menu-toggle" onclick="document.querySelector('.nav .links').classList.toggle('open');
-               document.querySelector('.nav-overlay').classList.toggle('show')">
+               document.querySelector('.nav-overlay').classList.toggle('show')" aria-expanded="false" aria-controls="primary-menu" aria-label="Open or close menu">
         Menu
       </button>
-      <nav class="links">
+      <nav class="links" id="primary-menu">
         <div class="zones-nav">
-          <a class="zones-trigger" href="/en/#besoins">Needs</a>
+          <a class="zones-trigger" href="/en/#needs">Needs</a>
           <div class="zones-menu">
             <ul class="zones-list">
               <li><a href="/en/services/residential/">Villa</a></li>
@@ -140,7 +134,7 @@
               <li><a href="/en/zones/cannes/">Cannes</a></li>
               <li><a href="/en/zones/nice/">Nice</a></li>
               <li><a href="/en/zones/toulon/">Toulon</a></li>
-              <li><a href="/en/zones/frejus/">Frejus</a></li>
+              <li><a href="/en/zones/frejus/">Fréjus</a></li>
               <li><a href="/en/zones/sainte-maxime/">Sainte-Maxime</a></li>
             </ul>
           </div>
@@ -232,7 +226,7 @@
               <li>Strict access control</li>
               <li>Absolute confidentiality guaranteed</li>
             </ul>
-            <a href="/en/services/protection-luxury/">Discover luxury protection</a>
+            <a href="/en/services/luxury-protection/">Discover luxury protection</a>
           </div>
           <div class="service-card">
             <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><rect x="2" y="6" width="20" height="8" rx="1" />  <path d="M17 14v7" />  <path d="M7 14v7" />  <path d="M17 3v3" />  <path d="M7 3v3" />  <path d="M10 14 2.3 6.3" />  <path d="m14 6 7.7 7.7" />  <path d="m8 6 8 8" /></svg> Construction Site Security</h3>
@@ -243,7 +237,7 @@
               <li>Delivery control</li>
               <li>Fight against theft and vandalism</li>
             </ul>
-            <a href="/en/services/monitoring-humaine/">Our construction solutions</a>
+            <a href="/en/services/construction-sites/">Our construction solutions</a>
           </div>
           <div class="service-card">
             <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
@@ -259,7 +253,7 @@
               <li>Close protection</li>
               <li>Securing sensitive areas</li>
             </ul>
-            <a href="/en/services/securite-evenementielle/">Secure an event</a>
+            <a href="/en/services/premium-events/">Secure an event</a>
           </div>
         </div>
       </div>
@@ -412,13 +406,14 @@
         <a href="/sitemap.xml">Sitemap</a>
       </nav>
     </div>
-  </footer>
+  <button type="button" class="cookie-settings" data-cookie-settings>Manage cookies</button>
+</footer>
   <!-- Specific styles included inline for performance -->
   <a class="floating-cta" href="tel:+33666035116">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M7 18v-6a5 5 0 1 1 10 0v6" />  <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" />  <path d="M21 12h1" />  <path d="M18.5 4.5 18 5" />  <path d="M2 12h1" />  <path d="M12 2v1" />  <path d="m4.929 4.929.707.707" />  <path d="M12 12v6" /></svg> Urgence / Quote 24/7
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M7 18v-6a5 5 0 1 1 10 0v6" />  <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" />  <path d="M21 12h1" />  <path d="M18.5 4.5 18 5" />  <path d="M2 12h1" />  <path d="M12 2v1" />  <path d="m4.929 4.929.707.707" />  <path d="M12 12v6" /></svg> 24/7 Emergency
   </a>
 
-  <script defer src="/scripts/mobile-dropdown.js"></script>
+  <script defer src="/scripts/menu-audit-20261031.js"></script>
 </body>
 
 </html>

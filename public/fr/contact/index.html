@@ -14,15 +14,8 @@
   <link rel="alternate" hreflang="x-default" href="https://mocyno.com/fr/contact/" />
   <link rel="stylesheet" href="/styles.css?v=2.8">
   <!-- Google Tag Manager -->
-  <script defer src="/consent-ga.js"></script>
-<script>(function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-N4MSSMV3');</script>
+  <script defer src="/scripts/consent-audit-20261031.js"></script>
+
   <!-- End Google Tag Manager -->
   <meta name="ga-measurement-id" content="G-Q5ZHXE665Z">
   
@@ -242,12 +235,13 @@
 
   <script defer src="/scripts/contact-turnstile.js?v=1"></script>
   <script defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
+<meta name="gtm-container-id" content="GTM-N4MSSMV3">
+<link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
 </head>
 
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4MSSMV3" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
+  
   <!-- End Google Tag Manager (noscript) -->
 
   <!-- Le header sera injecté par le script apply-premium-header -->
@@ -261,10 +255,10 @@
         <span>MO'CYNO</span>
       </a>
       <button aria-label="Ouvrir ou fermer le menu" class="menu-toggle" onclick="document.querySelector('.nav .links').classList.toggle('open');
-      document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
-      <nav aria-label="Navigation principale" class="links" role="navigation">
+      document.querySelector('.nav-overlay').classList.toggle('show')" aria-expanded="false" aria-controls="primary-menu">Menu</button>
+      <nav aria-label="Navigation principale" class="links" role="navigation" id="primary-menu">
         <div class="zones-nav">
-          <a class="zones-trigger" href="/fr/#besoins">Besoins</a>
+          <a class="zones-trigger" href="/fr/#needs">Besoins</a>
           <div class="zones-menu">
             <ul class="zones-list">
               <li><a href="/fr/services/residentiel/">Villa</a></li>
@@ -561,11 +555,12 @@
         <a href="/sitemap.xml">Sitemap</a>
       </nav>
     </div>
-  </footer>
+  <button type="button" class="cookie-settings" data-cookie-settings>Gérer mes cookies</button>
+</footer>
 
   <!-- Tawk.to -->
-  <script defer src="/tawk-consent.js"></script>
-  <script defer src="/scripts/mobile-dropdown.js"></script>
+  <script defer src="/scripts/tawk-audit-20261031.js"></script>
+  <script defer src="/scripts/menu-audit-20261031.js"></script>
 </body>
 
 </html>
