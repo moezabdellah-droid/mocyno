@@ -14,19 +14,12 @@
   <meta content="https://mocyno.com/og-image.png" property="og:image" />
   <!-- SEO:BEGIN -->
   <link href="https://mocyno.com/en/services/" rel="canonical" />
-  <link href="https://mocyno.com/en/services/" hreflang="en" rel="alternate" />
-  <link href="https://mocyno.com/en/services/" hreflang="en" rel="alternate" />
-  <link href="https://mocyno.com/en/services/" hreflang="x-default" rel="alternate" />
+  
+  
+  
   <!-- SEO:END -->
   <!-- SAFE GTM - No insertBefore dependency -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    var scriptTag = document.createElement('script');
-    scriptTag.async = true;
-    scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-WH9T9G58';
-    document.head.appendChild(scriptTag);
-  </script>
+  
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
   <meta content="index,follow" name="robots" />
   <base href="/en/" />
@@ -65,7 +58,7 @@
     "url":"https://mocyno.com/en/services/"
   }
   </script>
-  <script defer="" src="/consent-ga.js"></script>
+  <script defer="" src="/scripts/consent-audit-20261031.js"></script>
   <meta name="ga-measurement-id" content="G-9RDHGKSLW9">
   <!-- Swiper JS supprimé : grille fixe CSS utilisée -->
   <style>
@@ -78,13 +71,17 @@
   <link rel="stylesheet" href="/styles/visual-polish.css">
   <link rel="stylesheet" href="/styles/sticky-cta.css">
   <script defer src="/scripts/sticky-cta.js"></script>
-  <script defer src="/tawk-consent.js"></script>
+  <script defer src="/scripts/tawk-audit-20261031.js"></script>
+<link rel="alternate" hreflang="fr" href="https://mocyno.com/fr/services/">
+<link rel="alternate" hreflang="en" href="https://mocyno.com/en/services/">
+<link rel="alternate" hreflang="x-default" href="https://mocyno.com/fr/services/">
+<meta name="gtm-container-id" content="GTM-WH9T9G58">
+<link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
 </head>
 
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-WH9T9G58"
-      style="display:none;visibility:hidden" width="0"></iframe></noscript>
+  
   <!-- End Google Tag Manager (noscript) -->
   <header class="site-header" role="banner">
     <div class="container nav">
@@ -95,11 +92,11 @@
         </picture>
         <span>MO'CYNO</span>
       </a>
-      <button aria-label="Ouvrir ou fermer le menu" class="menu-toggle" onclick="document.querySelector('.nav .links').classList.toggle('open');
-      document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
-      <nav aria-label="Navigation principale" class="links" role="navigation">
+      <button aria-label="Open or close menu" class="menu-toggle" onclick="document.querySelector('.nav .links').classList.toggle('open');
+      document.querySelector('.nav-overlay').classList.toggle('show')" aria-expanded="false" aria-controls="primary-menu">Menu</button>
+      <nav aria-label="Navigation principale" class="links" role="navigation" id="primary-menu">
         <div class="zones-nav">
-          <a class="zones-trigger" href="/fr/#besoins">Needs</a>
+          <a class="zones-trigger" href="/en/#needs">Needs</a>
           <div class="zones-menu">
             <ul class="zones-list">
               <li><a href="/en/services/residential/">Villa</a></li>
@@ -110,20 +107,20 @@
           </div>
         </div>
         <div class="zones-nav">
-          <a class="zones-trigger" href="/fr/#areas">Areas</a>
+          <a class="zones-trigger" href="/en/#areas">Areas</a>
           <div class="zones-menu">
             <ul class="zones-list">
-              <li><a href="/fr/areas/saint-tropez/">Saint-Tropez</a></li>
-              <li><a href="/fr/areas/cannes/">Cannes</a></li>
-              <li><a href="/fr/areas/nice/">Nice</a></li>
-              <li><a href="/fr/areas/toulon/">Toulon</a></li>
-              <li><a href="/fr/areas/frejus/">Fréjus</a></li>
-              <li><a href="/fr/areas/sainte-maxime/">Sainte-Maxime</a></li>
+              <li><a href="/en/zones/saint-tropez/">Saint-Tropez</a></li>
+              <li><a href="/en/zones/cannes/">Cannes</a></li>
+              <li><a href="/en/zones/nice/">Nice</a></li>
+              <li><a href="/en/zones/toulon/">Toulon</a></li>
+              <li><a href="/en/zones/frejus/">Fréjus</a></li>
+              <li><a href="/en/zones/sainte-maxime/">Sainte-Maxime</a></li>
             </ul>
           </div>
         </div>
-        <a href="/fr/services/">Expertise</a>
-        <a href="/fr/blog/">News</a>
+        <a href="/en/services/">Expertise</a>
+        <a href="/en/blog/">News</a>
         <a class="btn primary" href="/en/contact/">Quote &amp; Contact</a>
         <a aria-label="Français" class="lang-switch" href="/fr/services/" hreflang="fr">FR</a>
       </nav>
@@ -321,10 +318,11 @@
         <a href="/sitemap.xml">Sitemap</a>
       </nav>
     </div>
-  </footer>
+  <button type="button" class="cookie-settings" data-cookie-settings>Manage cookies</button>
+</footer>
   <!-- Script Swiper supprimé : grille fixe utilisée à la place -->
   
-  <script defer src="/scripts/mobile-dropdown.js"></script>
+  <script defer src="/scripts/menu-audit-20261031.js"></script>
 </body>
 
 </html>

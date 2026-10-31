@@ -18,18 +18,13 @@
     <link href="/styles.css?v=2.8" rel="stylesheet">
     <link rel="stylesheet" href="/styles/visual-polish.css">
     <link rel="stylesheet" href="/styles/sticky-cta.css">
-    <script defer src="/consent-ga.js"></script>
+    <script defer src="/scripts/consent-audit-20261031.js"></script>
 <script defer src="/scripts/sticky-cta.js"></script>
-  <script defer src="/tawk-consent.js"></script>
+  <script defer src="/scripts/tawk-audit-20261031.js"></script>
 <!-- SAFE GTM -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    var scriptTag = document.createElement('script');
-    scriptTag.async = true;
-    scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
-    document.head.appendChild(scriptTag);
-  </script>
+  
+<meta name="gtm-container-id" content="GTM-N4MSSMV3">
+<link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
 </head>
 
 <body>
@@ -39,7 +34,7 @@
                 <img alt="Logo MO'CYNO" height="36" src="/mocyno-logo.webp" width="36" style="border-radius:8px">
                 <span>MO'CYNO</span>
             </a>
-            <nav class="links">
+            <nav class="links" id="primary-menu">
                 <a href="/en/#needs">Needs</a>
                 <div class="zones-nav">
                     <a class="zones-trigger" href="/en/#areas">Areas</a>
@@ -49,7 +44,7 @@
                             <li><a href="/en/zones/cannes/">Cannes</a></li>
                             <li><a href="/en/zones/nice/">Nice</a></li>
                             <li><a href="/en/zones/toulon/">Toulon</a></li>
-                            <li><a href="/en/zones/frejus/">Frejus</a></li>
+                            <li><a href="/en/zones/frejus/">Fréjus</a></li>
                             <li><a href="/en/zones/sainte-maxime/">Sainte-Maxime</a></li>
                         </ul>
                     </div>
@@ -148,8 +143,9 @@
         <a href="/sitemap.xml">Sitemap</a>
       </nav>
     </div>
-  </footer>
-  <script defer src="/scripts/mobile-dropdown.js"></script>
+  <button type="button" class="cookie-settings" data-cookie-settings>Manage cookies</button>
+</footer>
+  <script defer src="/scripts/menu-audit-20261031.js"></script>
 </body>
 
 </html>

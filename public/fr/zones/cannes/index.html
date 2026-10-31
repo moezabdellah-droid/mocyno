@@ -15,25 +15,14 @@
     <meta property="og:url" content="https://mocyno.com/fr/zones/cannes/">
     <meta property="og:image" content="https://mocyno.com/og-image.png">
     <!-- SEO:BEGIN -->
-  <link href="https://mocyno.com/fr/zones/cannes.html/" rel="canonical" />
+  <link href="https://mocyno.com/fr/zones/cannes/" rel="canonical" />
   <link href="https://mocyno.com/fr/zones/cannes.html/" hreflang="fr" rel="alternate" />
   <link href="https://mocyno.com/en/zones/cannes/" hreflang="en" rel="alternate" />
   <link href="https://mocyno.com/fr/zones/cannes.html/" hreflang="x-default" rel="alternate" />
   <!-- SEO:END -->
   <!-- SAFE GTM - No insertBefore dependency & Deferred Event -->
-    <script defer src="/consent-ga.js"></script>
-    <script>
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-                var scriptTag = document.createElement('script');
-                scriptTag.async = true;
-                scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
-                document.head.appendChild(scriptTag);
-            }, 100);
-        });
-    </script>
+    <script defer src="/scripts/consent-audit-20261031.js"></script>
+    
     <meta name="robots" content="index, follow">
 
     <link rel="icon" href="/favicon.ico">
@@ -127,13 +116,14 @@
     <noscript><link rel="stylesheet" href="/styles/visual-polish.css"></noscript>
     <link rel="stylesheet" href="/styles/sticky-cta.css">
     <script defer src="/scripts/sticky-cta.js"></script>
-  <script defer src="/tawk-consent.js"></script>
+  <script defer src="/scripts/tawk-audit-20261031.js"></script>
+<meta name="gtm-container-id" content="GTM-N4MSSMV3">
+<link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
 </head>
 
 <body>
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4MSSMV3" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
+    
     <!-- End Google Tag Manager (noscript) -->
     <header class="site-header" role="banner">
         <div class="container nav">
@@ -145,10 +135,10 @@
                 <span>MO'CYNO</span>
             </a>
             <button class="menu-toggle" aria-label="Ouvrir ou fermer le menu" onclick="document.querySelector('.nav .links').classList.toggle('open');
-      document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
-            <nav class="links" role="navigation" aria-label="Navigation principale">
+      document.querySelector('.nav-overlay').classList.toggle('show')" aria-expanded="false" aria-controls="primary-menu">Menu</button>
+            <nav class="links" role="navigation" aria-label="Navigation principale" id="primary-menu">
                 <div class="zones-nav">
-                    <a class="zones-trigger" href="/fr/#besoins">Besoins</a>
+                    <a class="zones-trigger" href="/fr/#needs">Besoins</a>
                     <div class="zones-menu">
                         <ul class="zones-list">
                             <li><a href="/fr/services/residentiel/">Villa</a></li>
@@ -451,11 +441,13 @@
                 <a href="/sitemap.xml">Sitemap</a>
             </nav>
         </div>
-    </footer>
+    <button type="button" class="cookie-settings" data-cookie-settings>Gérer mes cookies</button>
+</footer>
     <a class="floating-cta" href="tel:+33666035116">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M7 18v-6a5 5 0 1 1 10 0v6" />  <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" />  <path d="M21 12h1" />  <path d="M18.5 4.5 18 5" />  <path d="M2 12h1" />  <path d="M12 2v1" />  <path d="m4.929 4.929.707.707" />  <path d="M12 12v6" /></svg> Urgence / Devis 24/7
     </a>
 
+<script defer src="/scripts/menu-audit-20261031.js"></script>
 </body>
 
 </html>

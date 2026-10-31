@@ -14,15 +14,8 @@
   <link rel="alternate" hreflang="x-default" href="https://mocyno.com/fr/contact/" />
   <link rel="stylesheet" href="/styles.css?v=2.8">
   <!-- Google Tag Manager -->
-  <script defer src="/consent-ga.js"></script>
-<script>(function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-N4MSSMV3');</script>
+  <script defer src="/scripts/consent-audit-20261031.js"></script>
+
   <!-- End Google Tag Manager -->
   <meta name="ga-measurement-id" content="G-Q5ZHXE665Z">
   
@@ -240,12 +233,15 @@
     }
   </style>
 
+  <script defer src="/scripts/contact-turnstile.js?v=1"></script>
+  <script defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
+<meta name="gtm-container-id" content="GTM-N4MSSMV3">
+<link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
 </head>
 
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4MSSMV3" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
+  
   <!-- End Google Tag Manager (noscript) -->
 
   <!-- Le header sera injecté par le script apply-premium-header -->
@@ -258,11 +254,11 @@
         </picture>
         <span>MO'CYNO</span>
       </a>
-      <button aria-label="Ouvrir ou fermer le menu" class="menu-toggle" onclick="document.querySelector('.nav .links').classList.toggle('open');
-      document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
-      <nav aria-label="Navigation principale" class="links" role="navigation">
+      <button aria-label="Open or close menu" class="menu-toggle" onclick="document.querySelector('.nav .links').classList.toggle('open');
+      document.querySelector('.nav-overlay').classList.toggle('show')" aria-expanded="false" aria-controls="primary-menu">Menu</button>
+      <nav aria-label="Navigation principale" class="links" role="navigation" id="primary-menu">
         <div class="zones-nav">
-          <a class="zones-trigger" href="/en/#besoins">Needs</a>
+          <a class="zones-trigger" href="/en/#needs">Needs</a>
           <div class="zones-menu">
             <ul class="zones-list">
               <li><a href="/en/services/residential/">Villa</a></li>
@@ -336,8 +332,8 @@
     <section class="section" style="padding-top:60px; padding-bottom: 20px;">
 
       <span class="surtitle">FREE QUOTE — CONFIDENTIAL & NO OBLIGATION</span>
-      <h1 style="color: #0f3552; font-size: 2.5rem; margin-top: 0; margin-bottom: 40px; font-weight: 800;">Request
-        your free security assessment</h1>
+      <h2 style="color: #0f3552; font-size: 2.5rem; margin-top: 0; margin-bottom: 40px; font-weight: 800;">Request
+        your free security assessment</h2>
 
       <div class="contact-layout">
         <!-- Colonne Gauche : Formulaire -->
@@ -394,7 +390,15 @@
                 placeholder="Briefly describe your needs: geographical area, duration, context..."></textarea>
             </label>
 
-            <div style="margin-top: 16px; position:relative;">
+<div class="contact-verification" style="grid-column:1/-1">
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAAFtHs--4VXBMCMM4" data-action="quote"
+                data-language="en" data-theme="light" data-size="flexible"
+                data-callback="contactChallengePassed" data-expired-callback="contactChallengeExpired"
+                data-error-callback="contactChallengeFailed"></div>
+              <p id="contact-verification-status" role="status" aria-live="polite"></p>
+              <noscript>Enable JavaScript to complete the security check, or call us.</noscript>
+            </div>
+                        <div style="margin-top: 16px; position:relative;">
               <button class="btn primary" type="submit"
                 style="padding: 16px 32px; font-size: 1.1rem; border-radius: 50px; background-color: #cd122c; color: white; border: none; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
                 Send
@@ -537,11 +541,12 @@
         <a href="/sitemap.xml">Sitemap</a>
       </nav>
     </div>
-  </footer>
+  <button type="button" class="cookie-settings" data-cookie-settings>Manage cookies</button>
+</footer>
 
   <!-- Tawk.to -->
-  <script defer src="/tawk-consent.js"></script>
-  <script defer src="/scripts/mobile-dropdown.js"></script>
+  <script defer src="/scripts/tawk-audit-20261031.js"></script>
+  <script defer src="/scripts/menu-audit-20261031.js"></script>
 </body>
 
 </html>

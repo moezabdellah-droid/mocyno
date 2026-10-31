@@ -3,7 +3,7 @@
 
 <head>
   <!-- MO'CYNO_CONSENT_DEFAULT_START -->
-  <script defer src="/consent-ga.js"></script>
+  <script defer src="/scripts/consent-audit-20261031.js"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
@@ -54,14 +54,7 @@
   <link href="https://mocyno.com/fr/services/securite-evenementielle/" hreflang="x-default" rel="alternate" />
   <!-- SEO:END -->
   <!-- SAFE GTM - No insertBefore dependency -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    var scriptTag = document.createElement('script');
-    scriptTag.async = true;
-    scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
-    document.head.appendChild(scriptTag);
-  </script>
+  
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
   <meta content="index,follow" name="robots">
   <link href="/favicon.ico" rel="icon">
@@ -304,12 +297,13 @@
   <!-- MOCYNO:SEO_END -->
   <link rel="stylesheet" href="/styles/sticky-cta.css">
   <script defer src="/scripts/sticky-cta.js"></script>
+<meta name="gtm-container-id" content="GTM-N4MSSMV3">
+<link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
 </head>
 
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-N4MSSMV3"
-      style="display:none;visibility:hidden" width="0"></iframe></noscript>
+  
   <!-- End Google Tag Manager (noscript) -->
   <header class="site-header">
     <div class="container nav">
@@ -321,12 +315,12 @@
         <span>MO'CYNO</span>
       </a>
       <button class="menu-toggle" onclick="document.querySelector('.nav .links').classList.toggle('open');
-               document.querySelector('.nav-overlay').classList.toggle('show')">
+               document.querySelector('.nav-overlay').classList.toggle('show')" aria-expanded="false" aria-controls="primary-menu" aria-label="Open or close menu">
         Menu
       </button>
-      <nav class="links">
+      <nav class="links" id="primary-menu">
         <div class="zones-nav">
-          <a class="zones-trigger" href="/en/#besoins">Needs</a>
+          <a class="zones-trigger" href="/en/#needs">Needs</a>
           <div class="zones-menu">
             <ul class="zones-list">
               <li><a href="/en/services/residential/">Villa</a></li>
@@ -344,7 +338,7 @@
               <li><a href="/en/zones/cannes/">Cannes</a></li>
               <li><a href="/en/zones/nice/">Nice</a></li>
               <li><a href="/en/zones/toulon/">Toulon</a></li>
-              <li><a href="/en/zones/frejus/">Frejus</a></li>
+              <li><a href="/en/zones/frejus/">Fréjus</a></li>
               <li><a href="/en/zones/sainte-maxime/">Sainte-Maxime</a></li>
             </ul>
           </div>
@@ -514,10 +508,11 @@
         <a href="/sitemap.xml">Sitemap</a>
       </nav>
     </div>
-  </footer>
-  <script defer="" src="/tawk-consent.js"></script>
+  <button type="button" class="cookie-settings" data-cookie-settings>Manage cookies</button>
+</footer>
+  <script defer="" src="/scripts/tawk-audit-20261031.js"></script>
 
-  <script defer src="/scripts/mobile-dropdown.js"></script>
+  <script defer src="/scripts/menu-audit-20261031.js"></script>
 </body>
 
 </html>

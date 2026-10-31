@@ -18,15 +18,8 @@
   <link href="https://mocyno.com/fr/merci/" hreflang="x-default" rel="alternate" />
   <!-- SEO:END -->
   <!-- SAFE GTM - No insertBefore dependency -->
-  <script defer src="/consent-ga.js"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    var scriptTag = document.createElement('script');
-    scriptTag.async = true;
-    scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
-    document.head.appendChild(scriptTag);
-  </script>
+  <script defer src="/scripts/consent-audit-20261031.js"></script>
+
   <meta content="Thank you for your message. The MO'CYNO team will get back to you within 24 business hours."
     name="description" />
   <link href="/favicon.ico" rel="icon" />
@@ -37,13 +30,14 @@
   <meta content="#022C51" name="theme-color" />
   <meta name="ga-measurement-id" content="G-9RDHGKSLW9">
   
-  <script defer src="/tawk-consent.js"></script>
+  <script defer src="/scripts/tawk-audit-20261031.js"></script>
+<meta name="gtm-container-id" content="GTM-N4MSSMV3">
+<link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
 </head>
 
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-N4MSSMV3"
-      style="display:none;visibility:hidden" width="0"></iframe></noscript>
+  
   <!-- End Google Tag Manager (noscript) -->
   <header class="site-header">
     <div class="container nav">
@@ -55,10 +49,10 @@
         <span>MO'CYNO</span>
       </a>
       <button class="menu-toggle" onclick="document.querySelector('.nav .links').classList.toggle('open');
-               document.querySelector('.nav-overlay').classList.toggle('show')">
+               document.querySelector('.nav-overlay').classList.toggle('show')" aria-expanded="false" aria-controls="primary-menu" aria-label="Open or close menu">
         Menu
       </button>
-      <nav aria-label="Main navigation" class="links" role="navigation">
+      <nav aria-label="Main navigation" class="links" role="navigation" id="primary-menu">
         <div class="zones-nav">
           <a class="zones-trigger" href="/en/#needs">Needs</a>
           <div class="zones-menu">
@@ -78,7 +72,7 @@
               <li><a href="/en/zones/cannes/">Cannes</a></li>
               <li><a href="/en/zones/nice/">Nice</a></li>
               <li><a href="/en/zones/toulon/">Toulon</a></li>
-              <li><a href="/en/zones/frejus/">Frejus</a></li>
+              <li><a href="/en/zones/frejus/">Fréjus</a></li>
               <li><a href="/en/zones/sainte-maxime/">Sainte-Maxime</a></li>
             </ul>
           </div>
@@ -184,9 +178,10 @@
         <a href="/sitemap.xml">Sitemap</a>
       </nav>
     </div>
-  </footer>
+  <button type="button" class="cookie-settings" data-cookie-settings>Manage cookies</button>
+</footer>
   
-  <script defer src="/scripts/mobile-dropdown.js"></script>
+  <script defer src="/scripts/menu-audit-20261031.js"></script>
 </body>
 
 </html>

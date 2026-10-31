@@ -17,15 +17,8 @@
   <link href="https://mocyno.com/fr/a-propos/" hreflang="x-default" rel="alternate" />
   <!-- SEO:END -->
   <!-- SAFE GTM - No insertBefore dependency -->
-  <script defer src="/consent-ga.js"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    var scriptTag = document.createElement('script');
-    scriptTag.async = true;
-    scriptTag.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-N4MSSMV3';
-    document.head.appendChild(scriptTag);
-  </script>
+  <script defer src="/scripts/consent-audit-20261031.js"></script>
+
   <meta content="IE=edge" http-equiv="X-UA-Compatible" />
   <meta
     content="About MO'CYNO: private security company providing manned guarding, K9 units, SSIAP fire safety and event security across the French Riviera."
@@ -60,13 +53,14 @@
     <link href="/styles.css" rel="stylesheet" />
   </noscript>
   </meta>
-  <script defer src="/tawk-consent.js"></script>
+  <script defer src="/scripts/tawk-audit-20261031.js"></script>
+<meta name="gtm-container-id" content="GTM-N4MSSMV3">
+<link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
 </head>
 
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-N4MSSMV3"
-      style="display:none;visibility:hidden" width="0"></iframe></noscript>
+  
   <!-- End Google Tag Manager (noscript) -->
   <!-- [PATCH P0-1] Header EN standard — areas-nav — 2026-03-08 -->
   <header class="site-header" role="banner">
@@ -79,8 +73,8 @@
         <span>MO'CYNO</span>
       </a>
       <button aria-label="Open or close menu" class="menu-toggle"
-        onclick="document.querySelector('.nav .links').classList.toggle('open');document.querySelector('.nav-overlay').classList.toggle('show')">Menu</button>
-      <nav aria-label="Main navigation" class="links" role="navigation">
+        onclick="document.querySelector('.nav .links').classList.toggle('open');document.querySelector('.nav-overlay').classList.toggle('show')" aria-expanded="false" aria-controls="primary-menu">Menu</button>
+      <nav aria-label="Main navigation" class="links" role="navigation" id="primary-menu">
         <div class="zones-nav">
           <a class="zones-trigger" href="/en/#needs">Needs</a>
           <div class="zones-menu">
@@ -215,10 +209,11 @@
         <a href="/sitemap.xml">Sitemap</a>
       </nav>
     </div>
-  </footer>
+  <button type="button" class="cookie-settings" data-cookie-settings>Manage cookies</button>
+</footer>
 
   
-  <script defer src="/scripts/mobile-dropdown.js"></script>
+  <script defer src="/scripts/menu-audit-20261031.js"></script>
 </body>
 
 </html>
