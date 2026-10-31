@@ -240,6 +240,8 @@
     }
   </style>
 
+  <script defer src="/scripts/contact-turnstile.js?v=1"></script>
+  <script defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
 </head>
 
 <body>
@@ -394,7 +396,15 @@
                 placeholder="Briefly describe your needs: geographical area, duration, context..."></textarea>
             </label>
 
-            <div style="margin-top: 16px; position:relative;">
+<div class="contact-verification" style="grid-column:1/-1">
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAAFtHs--4VXBMCMM4" data-action="quote"
+                data-language="en" data-theme="light" data-size="flexible"
+                data-callback="contactChallengePassed" data-expired-callback="contactChallengeExpired"
+                data-error-callback="contactChallengeFailed"></div>
+              <p id="contact-verification-status" role="status" aria-live="polite"></p>
+              <noscript>Enable JavaScript to complete the security check, or call us.</noscript>
+            </div>
+                        <div style="margin-top: 16px; position:relative;">
               <button class="btn primary" type="submit"
                 style="padding: 16px 32px; font-size: 1.1rem; border-radius: 50px; background-color: #cd122c; color: white; border: none; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
                 Send

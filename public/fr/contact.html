@@ -38,6 +38,8 @@
     type="application/ld+json"> { "@context": "https://schema.org", "@type": "LocalBusiness", "@id": "https://mocyno.com/#organization", "name": "MO'CYNO", "url": "https://mocyno.com/fr/contact/", "telephone": "+33666035116", "email": "contact@mocyno.com", "address": { "@type": "PostalAddress", "streetAddress": "31 Rue Chevalier Paul", "addressLocality": "Toulon", "postalCode": "83000", "addressRegion": "PACA", "addressCountry": "FR" }, "areaServed": ["Toulon", "Saint-Tropez", "Cannes", "Nice", "Ramatuelle"], "priceRange": "$$" } </script>
   
   <script defer src="/tawk-consent.js"></script>
+  <script defer src="/scripts/contact-turnstile.js?v=1"></script>
+  <script defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
 </head>
 
 <body>
@@ -140,7 +142,15 @@
         <p class="small" style="font-size:0.85rem;color:#889bb3;margin-bottom:12px;font-style:italic;">
           Confidentialité garantie. Réponse sous 24h ouvrées par un expert.
         </p>
-        <button class="btn primary" type="submit">Envoyer</button>
+<div class="contact-verification" style="grid-column:1/-1">
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAAFtHs--4VXBMCMM4" data-action="quote"
+                data-language="fr" data-theme="light" data-size="flexible"
+                data-callback="contactChallengePassed" data-expired-callback="contactChallengeExpired"
+                data-error-callback="contactChallengeFailed"></div>
+              <p id="contact-verification-status" role="status" aria-live="polite"></p>
+              <noscript>Activez JavaScript pour la vérification de sécurité, ou contactez-nous par téléphone.</noscript>
+            </div>
+                    <button class="btn primary" type="submit">Envoyer</button>
       </form>
       <hr />
       <div class="contact-bar">
