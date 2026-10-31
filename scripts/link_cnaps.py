@@ -2,7 +2,7 @@ import os
 
 # Configuration
 ROOT_DIR = r"c:\Users\abdel\Desktop\Mocyno3\mocyno2\public"
-TARGET_URL = "https://teleservices-cnaps.interieur.gouv.fr/teleservices/ihm/#/morale/search"
+TARGET_URL = "https://espace-consultation.cnaps.interieur.gouv.fr/annuaire/app/annuaire-public"
 LINK_HTML = f'<a href="{TARGET_URL}" target="_blank" rel="noopener noreferrer" style="color:#fff;text-decoration:underline;">AUT-83-2124-09-09-20250998415</a>'
 
 # Strings to find
