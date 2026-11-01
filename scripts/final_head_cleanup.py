@@ -9,7 +9,7 @@ SEO_END = "<!-- SEO:END -->"
 
 # Regex patterns
 RE_TITLE = re.compile(r'<title>(.*?)</title>', re.IGNORECASE | re.DOTALL)
-RE_DESC = re.compile(r'<meta\s+name=["\']description["\']\s+content=["\'](.*?)["\']', re.IGNORECASE)
+RE_DESC = re.compile(r'<meta\s+name=["\']description["\']\s+content=(?P<quote>["\'])(?P<description>.*?)(?P=quote)', re.IGNORECASE | re.DOTALL)
 RE_CANONICAL = re.compile(r'<link\s+rel=["\']canonical["\']\s+href=["\'](.*?)["\']', re.IGNORECASE)
 
 # Tags to strip (we'll rebuild them)
@@ -30,7 +30,7 @@ def get_page_info(content, seo_block):
     # Description
     m_desc = RE_DESC.search(content)
     if m_desc:
-        desc = m_desc.group(1).strip()
+        desc = m_desc.group('description').strip()
         
     # Canonical (from protected block preferably)
     m_canon = RE_CANONICAL.search(seo_block)
