@@ -150,6 +150,8 @@
   <link rel="stylesheet" href="/styles/google-reviews.css?v=1.1">
 <meta name="gtm-container-id" content="GTM-N4MSSMV3">
 <link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
+  <script defer src="/scripts/contact-turnstile.js?v=1"></script>
+  <script defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
 </head>
 
 <body>
@@ -235,7 +237,7 @@
           sécurité sur toute la Côte d'Azur.</p>
 
         <!-- Lead Form for Ads (Intégré avec style premium) -->
-        <form action="/api/contact" class="lead-form-hero" method="POST"
+        <form id="contactForm" action="/api/contact" class="lead-form-hero" method="POST"
           style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 20px; max-width: 500px; margin-top: 20px;">
           <input autocomplete="off" name="website" style="display:none" tabindex="-1" type="text">
           <input name="service" type="hidden" value="Sécurité événementielle">
@@ -256,8 +258,16 @@
             type="email">
           <textarea name="message" required rows="4" maxlength="5000" placeholder="Décrivez votre événement (date, lieu, nombre de personnes)" aria-label="Décrivez votre événement (date, lieu, nombre de personnes)"
             style="padding:10px; border-radius:4px; border:none; width:100%; box-sizing:border-box; margin-top:10px; font:inherit;"></textarea>
+          <div class="contact-verification" style="margin-top:10px; color:inherit;">
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAAFtHs--4VXBMCMM4" data-action="quote"
+                data-language="fr" data-theme="light" data-size="flexible"
+                data-callback="contactChallengePassed" data-expired-callback="contactChallengeExpired"
+                data-error-callback="contactChallengeFailed"></div>
+              <p id="contact-verification-status" role="status" aria-live="polite"></p>
+              <noscript>Activez JavaScript pour la vérification de sécurité, ou contactez-nous par téléphone.</noscript>
+            </div>
           <button class="btn primary" style="width:100%; margin-top:10px; border:none; cursor:pointer;"
-            type="submit">Recevoir mon devis gratuit</button>
+            type="submit" disabled>Recevoir mon devis gratuit</button>
         </form>
       </div>
     </section>

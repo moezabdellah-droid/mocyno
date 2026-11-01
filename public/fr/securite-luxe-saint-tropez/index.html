@@ -247,6 +247,8 @@
     </script>
 <meta name="gtm-container-id" content="GTM-N4MSSMV3">
 <link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
+  <script defer src="/scripts/contact-turnstile.js?v=1"></script>
+  <script defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
 </head>
 
 <body class="luxe-mode">
@@ -362,7 +364,7 @@
         <div class="container">
             <h2 class="luxe-title">Audit de Sécurité Confidentiel</h2>
             <div class="luxe-form">
-                <form action="/api/contact" method="POST">
+                <form id="contactForm" action="/api/contact" method="POST">
                     <!-- Honeypot anti-bot -->
                     <input aria-hidden="true" autocomplete="off" name="website"
                         style="position:absolute;left:-9999px;opacity:0" tabindex="-1" type="text">
@@ -410,7 +412,16 @@
                       ></textarea>
                     </div>
 
-                    <button type="submit" class="btn-luxe" style="width:100%; border:none; cursor:pointer;">Recevoir
+                    <div class="contact-verification" style="margin-top:10px; color:inherit;">
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAAFtHs--4VXBMCMM4" data-action="quote"
+                data-language="fr" data-theme="light" data-size="flexible"
+                data-callback="contactChallengePassed" data-expired-callback="contactChallengeExpired"
+                data-error-callback="contactChallengeFailed"></div>
+              <p id="contact-verification-status" role="status" aria-live="polite"></p>
+              <noscript>Activez JavaScript pour la vérification de sécurité, ou contactez-nous par téléphone.</noscript>
+            </div>
+
+                    <button type="submit" disabled class="btn-luxe" style="width:100%; border:none; cursor:pointer;">Recevoir
                         l'audit confidentiel</button>
                 </form>
                 <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem;">
