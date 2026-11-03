@@ -85,3 +85,6 @@ functions/keys/
 
 # Generated build artefacts (A33 housekeeping)
 packages/types/dist/
+
+# Legacy Firebase runtime configuration must remain untracked
+/functions/.runtimeconfig.json
