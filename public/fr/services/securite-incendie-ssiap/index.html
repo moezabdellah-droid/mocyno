@@ -3,7 +3,7 @@
 
 <head>
     <!-- MO'CYNO_CONSENT_DEFAULT_START -->
-    <script defer src="/scripts/consent-audit-20261031.js"></script>
+    <script defer src="/scripts/consent-openai-20261103-v1.js"></script>
 <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
@@ -146,7 +146,7 @@
           "name": "Quelle est la différence entre SSIAP 1, SSIAP 2 et SSIAP 3 ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "L'agent SSIAP 1 effectue les rondes de sécurité, la surveillance des équipements et les premières interventions en cas d'alarme. Le chef d'équipe SSIAP 2 gère le PC sécurité, coordonne les agents et dirige les interventions. Le chef de service SSIAP 3 pilote la stratégie incendie globale, représente l'établissement auprès des commissions de sécurité et assure la conformité réglementaire."
+            "text": "SSIAP 1 correspond à l’agent de sécurité incendie, SSIAP 2 au chef d’équipe et SSIAP 3 au chef de service. Le niveau nécessaire dépend de l’organisation et des exigences de l’établissement ; ces fonctions ne sont pas interchangeables."
           }
         },
         {
@@ -154,7 +154,7 @@
           "name": "Vos agents SSIAP interviennent-ils dans les hôtels et palaces de la Côte d'Azur ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Oui. MO'CYNO fournit des agents SSIAP qualifiés pour les hôtels, palaces et résidences de tourisme classés ERP sur la Côte d'Azur : Saint-Tropez, Cannes, Nice, Antibes, Toulon et l'ensemble du Var."
+            "text": "Nous étudions les besoins des hôtels et palaces selon leur organisation et les prescriptions applicables. Le niveau SSIAP, les effectifs, les horaires et les qualifications mobilisables sont précisés dans la proposition."
           }
         },
         {
@@ -162,7 +162,7 @@
           "name": "Quelle est la zone d'intervention de MO'CYNO pour la sécurité incendie ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Nous intervenons dans tout le Var et les Alpes-Maritimes : Toulon, Saint-Tropez, Sainte-Maxime, Fréjus, Cannes, Nice et leurs environs. Nos équipes sont mobilisables rapidement pour une mission ponctuelle ou un contrat long terme."
+            "text": "Les demandes concernent le Var et les Alpes-Maritimes. La commune, les dates, les horaires et les niveaux SSIAP souhaités permettent de confirmer la faisabilité et la disponibilité avant engagement."
           }
         },
         {
@@ -170,7 +170,7 @@
           "name": "Vos agents SSIAP tiennent-ils la main courante réglementaire ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Oui. Nos agents SSIAP rédigent et tiennent la main courante conformément aux exigences ERP/IGH. Les rapports sont horodatés et disponibles pour vos commissions de sécurité."
+            "text": "La tenue de la main courante et les transmissions sont définies dans les consignes de la mission. Les événements consignés sont communiqués aux interlocuteurs désignés par l’établissement."
           }
         },
         {
@@ -178,7 +178,7 @@
           "name": "Pouvez-vous intervenir pour un événement ponctuel nécessitant des agents SSIAP ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Oui. Pour les événements privés, soirées de gala, congrès ou mariages dans des ERP temporaires, MO'CYNO fournit les agents SSIAP adaptés au niveau requis par la commission de sécurité compétente."
+            "text": "Une mission ponctuelle peut être étudiée selon le lieu, les horaires et les prescriptions de l’événement. Les qualifications nécessaires sont vérifiées avant engagement, en coordination avec votre organisation de sécurité événementielle."
           }
         }
       ]
@@ -189,6 +189,7 @@
     <!-- MO'CYNO_JSONLD_END -->
 <meta name="gtm-container-id" content="GTM-N4MSSMV3">
 <link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
+  <script defer src="/scripts/openai-consent-20261103-v1.js"></script>
 </head>
 
 <body>
@@ -265,8 +266,7 @@
             </div>
             <div class="container hero-content-premium">
                 <h1>Sécurité Incendie SSIAP</h1>
-                <p class="hero-subtitle-premium">Prévention, PC sécurité et gestion de crise par des agents certifiés
-                    SSIAP pour vos établissements ERP et IGH.</p>
+                <p class="hero-subtitle-premium">Agents SSIAP pour les rondes de prévention, le PC sécurité et l’application des consignes incendie de votre établissement.</p>
                 <div class="hero-actions-premium">
                     <a class="btn primary" href="/fr/contact/">Audit Conformité</a>
                     <a class="btn secondary" href="tel:+33666035116">Appel d'Urgence</a>
@@ -287,12 +287,8 @@
 
         <section class="section container">
             <div class="intro-block">
-                <h2>Expertise en Prévention Incendie</h2>
-                <p>
-                    MO'CYNO met à votre disposition des experts du feu : nos <strong>équipes SSIAP 1, 2 et 3</strong>
-                    assurent la protection des personnes et des biens dans les Établissements Recevant du Public (ERP)
-                    et les Immeubles de Grande Hauteur (IGH).
-                </p>
+                <h2>Un dispositif incendie adapté à votre établissement</h2>
+                <p>MO’CYNO propose des <strong>prestations SSIAP</strong> pour les établissements recevant du public et les immeubles de grande hauteur. Le niveau de qualification et l’organisation de la mission sont définis selon les caractéristiques du site, les prescriptions applicables et les besoins exprimés par son responsable. Les prestations peuvent concerner les rondes de prévention, la tenue du PC sécurité et la transmission des informations utiles aux secours.</p>
             </div>
         </section>
 
@@ -301,24 +297,20 @@
                 <h2>Nos Solutions SSIAP</h2>
                 <div class="grid-services">
                     <div class="service-card">
-                        <h3>🛡️ SSIAP 1 : Agent de Sécurité</h3>
-                        <p>Rondes de sécurité, vérification des équipements et sensibilisation du personnel aux risques
-                            incendie.</p>
+                        <h3>🛡️ SSIAP 1 : agent de sécurité incendie</h3>
+                        <p>Rondes de prévention, surveillance des installations prévues aux consignes et premières actions adaptées aux anomalies ou alarmes constatées.</p>
                     </div>
                     <div class="service-card">
-                        <h3>📋 SSIAP 2 : Chef d'Équipe</h3>
-                        <p>Gestion du PC sécurité, direction des interventions et formation des équipes de première
-                            intervention.</p>
+                        <h3>📋 SSIAP 2 : chef d’équipe</h3>
+                        <p>Encadrement des agents de sécurité incendie et organisation des actions de l’équipe, selon les consignes et le fonctionnement de l’établissement.</p>
                     </div>
                     <div class="service-card">
-                        <h3>📐 SSIAP 3 : Chef de Service</h3>
-                        <p>Conseil technique, suivi des commissions de sécurité et management global de la sécurité
-                            incendie.</p>
+                        <h3>📐 SSIAP 3 : chef de service</h3>
+                        <p>Organisation du service de sécurité incendie, conseil au responsable de l’établissement et suivi des documents relevant de la mission confiée.</p>
                     </div>
                     <div class="service-card">
-                        <h3>🏃 Évacuation &amp; Crise</h3>
-                        <p>Organisation des exercices d'évacuation, gestion des flux et coordination avec les
-                            sapeurs-pompiers.</p>
+                        <h3>🏃 Évacuation et coordination</h3>
+                        <p>Participation à l’organisation des évacuations et transmission des informations aux interlocuteurs désignés et aux secours, selon les procédures du site.</p>
                     </div>
                 </div>
             </div>
@@ -326,40 +318,38 @@
 
         <section class="section container">
             <div class="intro-block">
-                <h2>Missions Terrain de Nos Agents SSIAP</h2>
-                <p>
-                    Au-delà de la présence réglementaire, nos agents SSIAP assurent un ensemble de missions concrètes adaptées à chaque type d'établissement.
-                </p>
+                <h2>Les missions confiées à nos agents SSIAP</h2>
+                <p>Le contenu de la prestation est précisé avant sa mise en place. Il dépend des installations, des consignes d’exploitation et des qualifications nécessaires.</p>
                 <ul style="margin-top:16px;padding-left:20px;line-height:1.9;color:#334155">
-                    <li><strong>Rondes de surveillance</strong> : vérification des issues de secours, des équipements de détection et des extincteurs selon un planning défini.</li>
-                    <li><strong>PC sécurité</strong> : surveillance du tableau de signalisation, levée de doute en cas d'alarme, coordination avec les services de secours.</li>
-                    <li><strong>Évacuation</strong> : organisation et conduite des exercices d'évacuation, guidage des occupants, compte rendu aux responsables.</li>
-                    <li><strong>Main courante</strong> : rédaction des rapports d'événements, transmission aux commissions de sécurité, traçabilité complète.</li>
-                    <li><strong>Prévention</strong> : sensibilisation du personnel, identification des points de risque, recommandations de mise en conformité.</li>
-                    <li><strong>Coordination</strong> : lien entre l'établissement, la direction de sécurité, les sapeurs-pompiers et les responsables techniques.</li>
+                    <li><strong>Rondes</strong> : contrôle des dégagements et points de vigilance prévus aux consignes, avec signalement des anomalies constatées.</li>
+                    <li><strong>PC sécurité</strong> : suivi des équipements et des informations relevant du poste, avec application des procédures en cas d’alarme.</li>
+                    <li><strong>Évacuation</strong> : participation aux exercices et à l’orientation des occupants dans le cadre de l’organisation définie par l’établissement.</li>
+                    <li><strong>Main courante</strong> : consignation des événements et transmission des informations utiles au responsable désigné.</li>
+                    <li><strong>Prévention</strong> : repérage des situations à risque et remontée des observations, sans se substituer aux contrôles techniques réglementaires.</li>
+                    <li><strong>Coordination</strong> : échanges avec la direction, les équipes techniques et les services de secours selon les besoins de la mission.</li>
                 </ul>
             </div>
         </section>
 
         <section class="section bg-light">
             <div class="container">
-                <h2>Cas d'Usage : Quand Faire Appel à un Agent SSIAP ?</h2>
+                <h2>Dans quels établissements intervenir ?</h2>
                 <div class="grid-services">
                     <div class="service-card">
-                        <h3>🏨 Hôtels &amp; Palaces ERP</h3>
-                        <p>Les hôtels classés ERP ont l'obligation réglementaire de disposer d'agents SSIAP pendant les heures d'ouverture. Nos équipes s'intègrent discrètement à l'organisation de l'établissement pour une sécurité transparente et conforme. Voir aussi notre page <a href="/fr/services/hotellerie/">sécurité hôtellerie</a>.</p>
+                        <h3>🏨 Hôtels et établissements recevant du public</h3>
+                        <p>Les besoins en personnel de sécurité incendie dépendent du classement et des caractéristiques de l’établissement. MO’CYNO étudie le dispositif avec son responsable, en lien avec l’organisation de la <a href="/fr/services/hotellerie/">sécurité hôtellerie</a>.</p>
                     </div>
                     <div class="service-card">
-                        <h3>🎪 Événements &amp; ERP Temporaires</h3>
-                        <p>Soirées privées, festivals, congrès ou mariages dans un lieu recevant du public : nous fournissons les agents SSIAP au niveau requis par la commission de sécurité. Voir notre page <a href="/fr/services/evenementiel-premium/">sécurité événementielle</a>.</p>
+                        <h3>🎪 Événements et installations temporaires</h3>
+                        <p>Pour un salon, un congrès ou une réception, le besoin en agents SSIAP est étudié selon le lieu et les prescriptions applicables. La mission s’articule avec le dispositif de <a href="/fr/services/evenementiel-premium/">sécurité événementielle</a>.</p>
                     </div>
                     <div class="service-card">
-                        <h3>🏰 Domaines Privés &amp; Résidences IGH</h3>
-                        <p>Certaines propriétés de prestige ou résidences de grande hauteur nécessitent une surveillance incendie spécifique. MO'CYNO intervient sur la Côte d'Azur pour des missions ponctuelles ou en contrat régulier.</p>
+                        <h3>🏰 Immeubles de grande hauteur</h3>
+                        <p>Les missions en IGH sont définies selon les installations, les consignes d’exploitation et l’organisation du service de sécurité incendie de l’immeuble.</p>
                     </div>
                     <div class="service-card">
-                        <h3>🏗️ Sites Sensibles &amp; Chantiers</h3>
-                        <p>Certains chantiers BTP ou sites industriels nécessitent une veille incendie dès lors qu'ils reçoivent du public ou hébergent du personnel. Nos agents SSIAP adaptent leurs rondes aux contraintes du terrain.</p>
+                        <h3>🏗️ Sites techniques et chantiers</h3>
+                        <p>Les missions de prévention incendie sont définies selon les risques, les installations et les exigences du site, avec le responsable du chantier ou de l’établissement.</p>
                     </div>
                 </div>
             </div>
@@ -367,42 +357,36 @@
 
         <section class="section container">
             <div class="intro-block">
-                <h2>Zone d'Intervention : Var &amp; Côte d'Azur</h2>
-                <p>
-                    MO'CYNO déploie ses agents SSIAP dans l'ensemble du département du Var et des Alpes-Maritimes.
-                    Nos équipes sont opérationnelles à <a href="/fr/zones/toulon/"><strong>Toulon</strong></a>,
-                    <a href="/fr/zones/saint-tropez/"><strong>Saint-Tropez</strong></a>,
-                    <a href="/fr/zones/cannes/"><strong>Cannes</strong></a>, Nice, Fréjus, Sainte-Maxime et leurs environs.
-                    Pour une mission ponctuelle ou un contrat de gardiennage incendie longue durée, nous adaptons notre organisation à vos contraintes opérationnelles et à votre planning d'exploitation.
-                </p>
+                <h2>Sécurité incendie : une référence dans le Var</h2>
+                <p>MO’CYNO a réalisé des missions de sécurité incendie lors d’événements au Château de la Castille, dans le Var. Depuis <a href="/fr/zones/toulon/"><strong>Toulon</strong></a>, nous étudions vos besoins à <a href="/fr/zones/saint-tropez/"><strong>Saint-Tropez</strong></a>, <a href="/fr/zones/cannes/"><strong>Cannes</strong></a> et sur la Côte d’Azur. Le type d’établissement, les qualifications demandées et le planning permettent de préciser le dispositif.</p>
             </div>
         </section>
 
-        <section id="faq" style="margin:40px 0;background:#f9f9f9;padding:24px;border-radius:12px">
+        <section id="faq" class="container" style="margin:40px auto;background:#f9f9f9;padding:24px;border-radius:12px">
             <h2>FAQ — Sécurité Incendie SSIAP</h2>
             <details open style="margin-bottom:12px">
                 <summary><strong>Quelle est la différence entre SSIAP 1, SSIAP 2 et SSIAP 3 ?</strong></summary>
-                <p style="margin-top:8px">L'agent SSIAP 1 assure la surveillance, les rondes et les premières interventions. Le chef d'équipe SSIAP 2 gère le PC sécurité et dirige les interventions. Le chef de service SSIAP 3 pilote la politique incendie, représente l'établissement auprès des commissions de sécurité et garantit la conformité réglementaire.</p>
+                <p style="margin-top:8px">SSIAP 1 correspond à l’agent de sécurité incendie, SSIAP 2 au chef d’équipe et SSIAP 3 au chef de service. Le niveau nécessaire dépend de l’organisation et des exigences de l’établissement ; ces fonctions ne sont pas interchangeables.</p>
             </details>
             <details style="margin-bottom:12px">
                 <summary><strong>Vos agents SSIAP interviennent-ils dans les hôtels et palaces de la Côte d'Azur ?</strong></summary>
-                <p style="margin-top:8px">Oui. MO'CYNO fournit des agents SSIAP qualifiés pour les hôtels, palaces et résidences de tourisme classés ERP sur la Côte d'Azur : Saint-Tropez, Cannes, Nice, Antibes, Toulon et l'ensemble du Var.</p>
+                <p style="margin-top:8px">Nous étudions les besoins des hôtels et palaces selon leur organisation et les prescriptions applicables. Le niveau SSIAP, les effectifs, les horaires et les qualifications mobilisables sont précisés dans la proposition.</p>
             </details>
             <details style="margin-bottom:12px">
                 <summary><strong>Quelle est votre zone d'intervention pour la sécurité incendie ?</strong></summary>
-                <p style="margin-top:8px">Nous intervenons dans tout le Var et les Alpes-Maritimes : Toulon, Saint-Tropez, Sainte-Maxime, Fréjus, Cannes, Nice et leurs environs. Nos équipes sont mobilisables rapidement pour une mission ponctuelle ou un contrat long terme.</p>
+                <p style="margin-top:8px">Les demandes concernent le Var et les Alpes-Maritimes. La commune, les dates, les horaires et les niveaux SSIAP souhaités permettent de confirmer la faisabilité et la disponibilité avant engagement.</p>
             </details>
             <details style="margin-bottom:12px">
                 <summary><strong>Vos agents SSIAP tiennent-ils la main courante réglementaire ?</strong></summary>
-                <p style="margin-top:8px">Oui. Nos agents SSIAP rédigent et tiennent la main courante conformément aux exigences ERP/IGH. Les rapports sont horodatés, précis et disponibles pour vos commissions de sécurité.</p>
+                <p style="margin-top:8px">La tenue de la main courante et les transmissions sont définies dans les consignes de la mission. Les événements consignés sont communiqués aux interlocuteurs désignés par l’établissement.</p>
             </details>
             <details>
                 <summary><strong>Pouvez-vous intervenir pour un événement ponctuel nécessitant des agents SSIAP ?</strong></summary>
-                <p style="margin-top:8px">Oui. Pour les événements privés, soirées de gala, congrès ou mariages dans des ERP temporaires, MO'CYNO fournit les agents SSIAP adaptés au niveau requis par la commission de sécurité compétente. <a href="/fr/services/evenementiel-premium/">En savoir plus sur notre sécurité événementielle.</a></p>
+                <p style="margin-top:8px">Une mission ponctuelle peut être étudiée selon le lieu, les horaires et les prescriptions de l’événement. Les qualifications nécessaires sont vérifiées avant engagement, en coordination avec votre organisation de <a href="/fr/services/evenementiel-premium/">sécurité événementielle.</a></p>
             </details>
         </section>
 
-        <section style="margin:40px 0;border-top:1px solid #eee;padding-top:24px">
+        <section class="container" style="margin:40px auto;border-top:1px solid #eee;padding-top:24px">
             <h3>Voir aussi</h3>
             <nav style="display:flex;gap:16px;flex-wrap:wrap">
                 <a href="/fr/services/hotellerie/">Sécurité Hôtellerie</a>
@@ -415,9 +399,9 @@
         </section>
 
         <section class="cta container section" style="text-align:center">
-            <h2>Votre établissement est-il aux normes SSIAP ?</h2>
-            <p>Demandez un audit gratuit à nos experts incendie. Réponse sous 24h ouvrées.</p>
-            <p><a class="btn primary" href="/fr/contact/">Étude Gratuite</a></p>
+            <h2>Quel besoin SSIAP pour votre établissement ?</h2>
+            <p>Décrivez votre établissement, les niveaux SSIAP demandés et le planning envisagé pour une étude de votre besoin.</p>
+            <p><a class="btn primary" href="/fr/contact/">Demander une étude SSIAP</a></p>
             <p style="margin-top:12px;font-size:0.9rem;color:#64748b">Ou appelez-nous directement : <a href="tel:+33666035116" style="color:#022C51;font-weight:700">06 66 03 51 16</a></p>
         </section>
     </main>

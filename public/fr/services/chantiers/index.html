@@ -3,7 +3,7 @@
 
 <head>
   <!-- MO'CYNO_CONSENT_DEFAULT_START -->
-  <script defer src="/scripts/consent-audit-20261031.js"></script>
+  <script defer src="/scripts/consent-openai-20261103-v1.js"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
@@ -218,7 +218,7 @@
           "name": "Quelle est la meilleure solution pour un grand chantier ouvert ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Pour les grands espaces ouverts, nous recommandons le maître-chien (agent cynophile) dont la capacité de détection et de dissuasion est supérieure à celle d'un agent seul."
+            "text": "Le choix dépend du périmètre, des clôtures, des accès et des personnes présentes. Une mission cynophile peut être pertinente, mais elle n’est pas automatiquement la meilleure solution pour tous les chantiers."
           }
         },
         {
@@ -226,7 +226,7 @@
           "name": "Intervenez-vous sur des chantiers de courte durée ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Oui, nous proposons des contrats flexibles pour des besoins ponctuels (livraison de matériaux sensibles, week-ends fériés, etc.)."
+            "text": "Un besoin de courte durée peut être étudié, par exemple pendant une fermeture, un week-end ou une phase de stockage sensible. La disponibilité et les conditions de mobilisation sont confirmées avant engagement."
           }
         },
         {
@@ -234,7 +234,7 @@
           "name": "Avez-vous le matériel nécessaire (EPI) ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Absolument. Nos agents sont équipés de leurs EPI (chaussures de sécurité, casques, gilets fluo) et respectent les consignes de sécurité du site."
+            "text": "Les exigences du chantier, ses risques et les équipements de protection nécessaires sont examinés avant la mission. Les conditions d’accès et les consignes du responsable de site sont intégrées à son organisation."
           }
         }
       ]
@@ -250,6 +250,7 @@
   <script defer src="/scripts/sticky-cta.js"></script>
 <meta name="gtm-container-id" content="GTM-N4MSSMV3">
 <link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
+  <script defer src="/scripts/openai-consent-20261103-v1.js"></script>
 </head>
 
 <body>
@@ -331,8 +332,7 @@
       </div>
       <div class="container hero-content-premium">
         <h1>Sécurité Chantiers &amp; BTP</h1>
-        <p class="hero-subtitle-premium">Protection contre le vol de matériaux, contrôle d'accès et gardiennage 24h/24
-          pour vos sites de construction.</p>
+        <p class="hero-subtitle-premium">Gardiennage de chantier, rondes de nuit et contrôle des accès pour vos travaux dans le Var et sur la Côte d’Azur.</p>
         <div class="hero-actions-premium">
           <a class="btn primary" href="/fr/contact/">Sécuriser mon Chantier</a>
           <a class="btn secondary" href="tel:+33666035116">Rappel Urgent</a>
@@ -352,13 +352,8 @@
     </nav>
     <section class="section container">
       <div class="intro-block">
-        <h2>Expertise en Protection de Sites BTP</h2>
-        <p>
-          Les <strong>chantiers de construction</strong> et de rénovation sont particulièrement vulnérables aux
-          vols de matériaux (cuivre, outillage, carburant) et aux dégradations.
-          MO'CYNO assure une surveillance rigoureuse pour garantir la continuité de vos travaux et éviter les
-          retards coûteux.
-        </p>
+        <h2>Une surveillance adaptée aux phases du chantier</h2>
+        <p>MO’CYNO propose le gardiennage des <strong>chantiers de construction et de rénovation</strong> pour prévenir les intrusions, les vols et les dégradations. Le dispositif tient compte du périmètre, des accès, des zones de stockage et des horaires de fermeture. Une présence humaine ou cynophile peut être envisagée selon les contraintes du terrain, avec des consignes définies avec le responsable du chantier.</p>
       </div>
     </section>
 
@@ -367,24 +362,24 @@
         <h2>Nos Solutions pour le BTP</h2>
         <div class="grid-services">
           <div class="service-card">
-            <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M18 5h4" />  <path d="M20 3v4" />  <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /></svg> Gardiennage Nocturne</h3>
-            <p>Présence humaine aux heures de fermeture pour dissuader les intrusions et pillages.</p>
+            <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M18 5h4" />  <path d="M20 3v4" />  <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /></svg>Gardiennage de nuit</h3>
+            <p>Présence aux horaires de fermeture convenus, avec surveillance des accès et des zones de stockage incluses dans la mission.</p>
           </div>
           <div class="service-card">
             <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                 aria-hidden="true" focusable="false" style="vertical-align:middle;margin-right:6px">
                 <path stroke-linecap="round" stroke-linejoin="round"
                   d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75s.168-.75.375-.75S9.75 9.336 9.75 9.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" />
-              </svg> Sécurité Cynophile</h3>
-            <p>Maîtres-chiens pour une efficacité et une détection augmentées sur les grands périmètres.</p>
+              </svg>Rondes cynophiles</h3>
+            <p>Étude d’un dispositif agent-chien selon la surface, les clôtures, les circulations et la présence d’autres intervenants sur le chantier.</p>
           </div>
           <div class="service-card">
-            <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />  <path d="M13 5v2" />  <path d="M13 17v2" />  <path d="M13 11v2" /></svg> Contrôle d'Accès</h3>
-            <p>Vérification rigoureuse des badges, sous-traitants et livraisons de matériaux.</p>
+            <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />  <path d="M13 5v2" />  <path d="M13 17v2" />  <path d="M13 11v2" /></svg>Contrôle des accès</h3>
+            <p>Vérification des autorisations d’entrée des salariés, sous-traitants et livreurs selon les règles communiquées par le responsable du chantier.</p>
           </div>
           <div class="service-card">
-            <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><rect width="14" height="20" x="5" y="2" rx="2" ry="2" />  <path d="M12 18h.01" /></svg> Reporting Digital</h3>
-            <p>Traçabilité complète des rondes et incidents via notre main courante électronique.</p>
+            <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><rect width="14" height="20" x="5" y="2" rx="2" ry="2" />  <path d="M12 18h.01" /></svg>Comptes rendus de surveillance</h3>
+            <p>Consignation des anomalies et incidents observés, avec transmission au contact désigné selon le mode de suivi convenu.</p>
           </div>
         </div>
       </div>
@@ -392,34 +387,26 @@
 
     <section class="section container">
       <div class="intro-block">
-        <h2>Rayonnement Local</h2>
-        <p>
-          Nous sécurisons des chantiers dans tout le <strong>Var</strong> et les <strong>Alpes-Maritimes</strong>,
-          qu'il s'agisse de rénovations de villas de luxe, de programmes immobiliers ou d'infrastructures
-          publiques. Vos actifs sont protégés par une entreprise locale experte.
-        </p>
+        <h2>Chantiers dans le Var et les Alpes-Maritimes</h2>
+        <p>Depuis Toulon, MO’CYNO étudie vos besoins sur les chantiers du <strong>Var</strong> et des <strong>Alpes-Maritimes</strong>. La commune, la durée des travaux, les phases sensibles et les horaires de présence permettent de définir une proposition adaptée.</p>
       </div>
     </section>
-    <section id="faq" style="margin:40px 0;background:#f9f9f9;padding:24px;border-radius:12px">
+    <section id="faq" class="container" style="margin:40px auto;background:#f9f9f9;padding:24px;border-radius:12px">
       <h2>FAQ – Sécurité Chantiers</h2>
       <details style="margin-bottom:12px">
         <summary><strong>Quelle est la meilleure solution pour un grand chantier ouvert ?</strong></summary>
-        <p style="margin-top:8px">Pour les grands espaces ouverts, nous recommandons le maître-chien (agent
-          cynophile) dont la capacité de détection et de dissuasion est supérieure à celle d'un agent seul.
-        </p>
+        <p style="margin-top:8px">Le choix dépend du périmètre, des clôtures, des accès et des personnes présentes. Une mission cynophile peut être pertinente, mais elle n’est pas automatiquement la meilleure solution pour tous les chantiers.</p>
       </details>
       <details style="margin-bottom:12px">
         <summary><strong>Intervenez-vous sur des chantiers de courte durée ?</strong></summary>
-        <p style="margin-top:8px">Oui, nous proposons des contrats flexibles pour des besoins ponctuels
-          (livraison de matériaux sensibles, week-ends fériés, etc.).</p>
+        <p style="margin-top:8px">Un besoin de courte durée peut être étudié, par exemple pendant une fermeture, un week-end ou une phase de stockage sensible. La disponibilité et les conditions de mobilisation sont confirmées avant engagement.</p>
       </details>
       <details>
         <summary><strong>Avez-vous le matériel nécessaire (EPI) ?</strong></summary>
-        <p style="margin-top:8px">Absolument. Nos agents sont équipés de leurs EPI (chaussures de sécurité,
-          casques, gilets fluo) et respectent les consignes de sécurité du site.</p>
+        <p style="margin-top:8px">Les exigences du chantier, ses risques et les équipements de protection nécessaires sont examinés avant la mission. Les conditions d’accès et les consignes du responsable de site sont intégrées à son organisation.</p>
       </details>
     </section>
-    <section style="margin:40px 0;border-top:1px solid #eee;padding-top:24px">
+    <section class="container" style="margin:40px auto;border-top:1px solid #eee;padding-top:24px">
       <h3>Voir aussi</h3>
       <nav style="display:flex;gap:16px;flex-wrap:wrap">
         <a href="/fr/services/securite-cynophile/">sécurité cynophile</a>
@@ -428,8 +415,8 @@
       </nav>
     </section>
     <section class="cta container section" style="text-align:center">
-      <h2>Protégez votre chantier dès maintenant</h2>
-      <p>Devis gratuit et rapide.</p>
+      <h2>Préparez le gardiennage de votre chantier</h2>
+      <p>Précisez la commune, les accès, les dates et les périodes de fermeture à surveiller pour demander votre devis.</p>
       <p><a class="btn primary" href="/fr/contact/">Demander un devis chantier</a></p>
     </section>
   </main>
