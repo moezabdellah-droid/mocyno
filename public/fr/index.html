@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-  <link rel="preload" as="image" type="image/webp" href="/images/hero-home-main-villa-premium-opt.webp">
+  <link rel="preload" as="image" type="image/webp" media="(min-width: 768px)" href="/images/hero/mocyno-hero-desktop-1920x1080.webp">
   <title>MO&#x27;CYNO, sécurité privée et cynophile dans le Var</title>
   <!-- SAFE GTM - No insertBefore dependency & Deferred Event -->
   <script defer src="/scripts/consent-openai-20261103-v1.js"></script>
@@ -427,6 +427,24 @@
 <link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
 <style>.skip-link-lot4{position:absolute;left:12px;top:-100px;padding:12px 16px;background:#fff;color:#022c51;z-index:10001;border:2px solid #022c51}.skip-link-lot4:focus{top:12px}</style>
 <meta property="og:image" content="https://mocyno.com/og-image.png">
+<style>
+/* Hero photo : accueil uniquement, aucune feuille partagée modifiée. */
+.hero-premium.hero-photo { min-height:0!important; background:#090d17!important; display:block; }
+.hero-photo > .hero-image-wrapper { position:absolute!important; inset:0; }
+.hero-photo picture { display:block; width:100%; height:100%; }
+.hero-photo .hero-img { width:100%; height:100%; display:block; object-fit:cover; object-position:right center; }
+.hero-photo > .hero-image-wrapper > .hero-overlay-dark { background:linear-gradient(90deg,rgba(9,13,23,.35),transparent 65%); }
+.hero-photo > .hero-content-premium { box-sizing:border-box; width:50%; max-width:720px; margin:0 0 0 max(0px,calc((100% - 1440px)/2)); padding:56px 32px; }
+.hero-photo .hero-content-premium h1 { font-size:clamp(1.8rem,2.6vw,3rem); }
+@media(min-width:768px) { .hero-premium.hero-photo { min-height:56.25vw!important; } }
+@media(max-width:767px) {
+ .hero-photo > .hero-image-wrapper { position:relative!important; inset:auto; width:100%; aspect-ratio:4/5; }
+ .hero-photo > .hero-image-wrapper > .hero-overlay-dark { display:none; }
+ .hero-photo .hero-img { object-fit:contain; object-position:center; }
+ .hero-photo > .hero-content-premium { width:100%; max-width:none; margin:0; padding:28px 24px 36px; }
+ .hero-photo .hero-content-premium h1 { font-size:1.8rem; }
+}
+</style>
 </head>
 
 <body class="audit-home">
@@ -496,13 +514,13 @@
       onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')" aria-hidden="true"></div>
   </header>
   <main id="contenu-principal" tabindex="-1">
-<section class="hero-premium" style="position:relative;min-height:480px;overflow:hidden;background:#0f3552">
+<section class="hero-premium hero-photo" style="position:relative;min-height:480px;overflow:hidden;background:#0f3552">
       <div class="hero-image-wrapper" style="position:absolute;inset:0">
         <picture>
-          <source srcset="/images/hero-home-main-villa-premium-opt.webp" type="image/webp">
-          <img src="/images/hero-home-main-villa-premium.png"
-          alt="Portail ouvert sur une allée éclairée menant à une villa entourée de palmiers" class="hero-img" width="1200"
-          height="600" loading="eager" fetchpriority="high" >
+          <source media="(max-width: 767px)" srcset="/images/hero/mocyno-hero-mobile-1080x1350.webp" type="image/webp" width="1080" height="1350">
+          <source media="(max-width: 767px)" srcset="/images/hero/mocyno-hero-mobile-1080x1350.jpg" type="image/jpeg" width="1080" height="1350">
+          <source media="(min-width: 768px)" srcset="/images/hero/mocyno-hero-desktop-1920x1080.webp" type="image/webp" width="1920" height="1080">
+          <img src="/images/hero/mocyno-hero-desktop-1920x1080.jpg" alt="Agent de sécurité cynophile MO'CYNO et son chien lors des Voiles de Saint-Tropez" class="hero-img" width="1920" height="1080" loading="eager" fetchpriority="high">
         </picture>
         <div class="hero-overlay-dark"></div>
       </div>
