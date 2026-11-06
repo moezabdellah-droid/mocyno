@@ -233,11 +233,12 @@
     }
   </style>
 
-  <script defer src="/scripts/contact-turnstile.js?v=1"></script>
+  <script defer src="/scripts/contact-turnstile.js?v=20261105-double-submit-1"></script>
   <script defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
 <meta name="gtm-container-id" content="GTM-N4MSSMV3">
 <link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
   <script defer src="/scripts/openai-consent-20261103-v1.js"></script>
+  <script defer src="/scripts/contact-details-20261103.js"></script>
 </head>
 
 <body>
@@ -296,11 +297,12 @@
               <li><a href="/en/services/hospitality/">Hospitality</a></li>
               <li><a href="/en/services/construction-sites/">Construction Sites</a></li>
               <li><a href="/en/services/marinas-ports/">Marinas & Ports</a></li>
-            </ul>
+              <li><a href="/en/services/industrial-sites-warehouses/">Industrial Sites &amp; Warehouses</a></li>
+</ul>
           </div>
         </div>
         <a href="/en/blog/">News</a>
-        <a class="btn primary" href="/en/contact/">Free Quote</a>
+        <a class="btn primary" href="/en/contact/">Request a free quote</a>
         <a aria-label="Français" class="lang-switch" href="/fr/contact/" hreflang="fr">FR</a>
       </nav>
     </div>
@@ -320,11 +322,11 @@
     </div>
     <div class="container hero-content-premium">
       <h1>Get your free security assessment</h1>
-      <p class="hero-subtitle-premium">24h response — no obligation — certified CNAPS agents.</p>
+      <p class="hero-subtitle-premium">Response within 24 business hours — no obligation — free quote.</p>
       <div class="hero-actions-premium">
         <a class="btn primary" href="#contactForm"
           style="background: #eab308; border-color: #eab308; color: #0f3552;">Access the form</a>
-        <a class="btn secondary" href="tel:+33666035116">Direct call 24/7</a>
+        <a class="btn secondary" href="tel:+33485290390">Direct call 24/7</a>
       </div>
     </div>
   </section>
@@ -363,8 +365,8 @@
             </label>
 
             <label for="phone">
-              Phone Number
-              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel"
+              Phone Number <span class="required">*</span>
+              <input id="phone" name="phone" type="tel" required inputmode="tel" autocomplete="tel"
                 placeholder="+33 6 XX XX XX XX">
             </label>
 
@@ -379,15 +381,20 @@
                         <option value="luxury-protection">Luxury Security</option>
         <option value="residential-villas">Villa & Residential</option>
         <option value="construction-sites">Construction Sites</option>
-        <option value="hospitality-marinas">Hospitality & Marinas</option>
+        <option value="Industrial Sites &amp; Warehouses">Industrial Sites &amp; Warehouses</option>
+        <option value="hospitality-marinas">Hospitality</option>
+        <option value="hospitality-marinas">Marinas &amp; ports</option>
         <option value="luxury-boutiques">Luxury Boutiques</option>
         <option value="Other / Consulting">Other / Consulting</option>
               </select>
             </label>
 
+            <label for="site-town">Site town<input id="site-town" autocomplete="address-level2" maxlength="120"></label>
+            <label for="preferred-date">Preferred date<input id="preferred-date" type="date"></label>
+            <label for="required-duration">Required duration<input id="required-duration" maxlength="120" placeholder="Specify the duration and hours required"></label>
             <label for="message">
               Your message <span class="required">*</span>
-              <textarea id="message" name="message" rows="5" required
+              <textarea id="message" name="message" rows="5" required maxlength="5000"
                 placeholder="Briefly describe your needs: geographical area, duration, context..."></textarea>
             </label>
 
@@ -421,8 +428,8 @@
                   d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
               </svg>
               <div>
-                <strong><a href="tel:+33666035116">+33 6 66 03 51 16</a></strong>
-                <span>Available 24/7</span>
+                <strong>Landline: <a href="tel:+33485290390">+33 4 85 29 03 90</a></strong>
+                
               </div>
             </div>
 
@@ -433,8 +440,8 @@
                   d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
               </svg>
               <div>
-                <strong><a href="tel:+33485290390">+33 4 85 29 03 90</a></strong>
-                <span>Landline</span>
+                <strong>Mobile: <a href="tel:+33666035116">+33 6 66 03 51 16</a></strong>
+                <span>Available 24/7</span>
               </div>
             </div>
 
@@ -466,7 +473,7 @@
               style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #d2e0ed; display: flex; justify-content: flex-start; gap: 16px; align-items: center; width: 100%;">
               <span style="color:#64748b; font-size:0.95rem; font-weight:600; margin: 0;">Follow us :</span>
               <div style="display:flex; gap:16px;">
-                <a href="https://wa.me/message/53TDACISLGDRJ1" target="_blank" rel="noopener" class="social-logo"
+                <a href="https://wa.me/33666035116" target="_blank" rel="noopener" class="social-logo"
                   aria-label="WhatsApp">
                   <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
                     <path
@@ -518,16 +525,7 @@
             status nor official endorsement. (Art. L612-14 CSI)</span>
         </div>
         <div class="footer-social">
-          <a class="footer-social-link" href="https://wa.me/33666035116" aria-label="Contact MO'CYNO on WhatsApp"
-            target="_blank" rel="noopener noreferrer">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
-              <path
-                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.570-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-              <path
-                d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.117 1.528 5.845L0 24l6.335-1.508A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.667-.495-5.2-1.362l-.372-.22-3.861.919.951-3.77-.243-.387A9.953 9.953 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
-            </svg>
-            WhatsApp
-          </a>
+          
           <a class="footer-social-link" href="https://www.linkedin.com/company/mocyno/" aria-label="MO'CYNO on LinkedIn"
             target="_blank" rel="noopener noreferrer">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">

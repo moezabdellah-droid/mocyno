@@ -37,14 +37,14 @@
     <!-- MO'CYNO_CONSENT_DEFAULT_END -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>Surveillance humaine & Gardiennage — MO'CYNO</title>
+    <title>Gardiennage et agent de sécurité dans le Var | MO&#x27;CYNO</title>
     <meta
-        content="Agents de sécurité qualifiés pour la surveillance de sites sensibles, commerces et résidences privées dans le Var et les Alpes-Maritimes. Présence dissuasive 24h/24."
+        content="Agents de sécurité pour entreprises, entrepôts, commerces et résidences : poste fixe, rondes et contrôle des accès. Var et Côte d&#x27;Azur."
         name="description">
     <meta content="website" property="og:type">
-    <meta content="Surveillance humaine & Gardiennage — MO'CYNO" property="og:title">
+    <meta content="Gardiennage et agent de sécurité dans le Var | MO&#x27;CYNO" property="og:title">
     <meta
-        content="Agents de sécurité qualifiés pour la surveillance de sites sensibles, commerces et résidences privées dans le Var et les Alpes-Maritimes. Présence dissuasive 24h/24."
+        content="Agents de sécurité pour entreprises, entrepôts, commerces et résidences : poste fixe, rondes et contrôle des accès. Var et Côte d&#x27;Azur."
         property="og:description">
     <meta content="https://mocyno.com/fr/services/surveillance-humaine/" property="og:url">
     <meta content="https://mocyno.com/og-image.png" property="og:image">
@@ -61,9 +61,9 @@
     <link href="/favicon.ico" rel="icon">
     <link href="/favicon.svg" rel="icon" type="image/svg+xml">
     <meta content="#022C51" name="theme-color">
-    <link as="style" href="/styles.css?v=2.8" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
+    <link as="style" href="/styles.css?v=20261105-1" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
     <noscript>
-        <link href="/styles.css?v=2.8" rel="stylesheet" />
+        <link href="/styles.css?v=20261105-1" rel="stylesheet" />
     </noscript>
     <link href="/styles-compat-patch.css?v=2.7" rel="stylesheet">
 
@@ -79,77 +79,93 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
-      "@id": "https://mocyno.com/#organization",
-      "name": "MO'CYNO SASU",
-      "url": "https://mocyno.com/",
-      "logo": "https://mocyno.com/mocyno-logo.png",
-      "sameAs": ["https://www.linkedin.com/company/MO'CYNO"]
-    },
-    {
-      "@type": ["LocalBusiness", "SecurityService", "ProfessionalService"],
-      "@id": "https://mocyno.com/#localbusiness-fr",
-      "parentOrganization": { "@id": "https://mocyno.com/#organization" },
-      "name": "MO'CYNO",
-      "legalName": "MO'CYNO SASU",
-      "url": "https://mocyno.com/fr/",
-      "logo": "https://mocyno.com/mocyno-logo.png",
-      "telephone": "+33666035116",
-      "email": "contact@mocyno.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "31 Rue Chevalier Paul",
-        "postalCode": "83000",
-        "addressLocality": "Toulon",
-        "addressCountry": "FR"
-      },
-      "areaServed": [
-        { "@type": "AdministrativeArea", "name": "Provence-Alpes-Côte d'Azur, France" },
-        { "@type": "AdministrativeArea", "name": "Var, France" },
-        { "@type": "AdministrativeArea", "name": "Alpes-Maritimes, France" },
-        { "@type": "City", "name": "Toulon" },
-        { "@type": "City", "name": "Saint-Tropez" },
-        { "@type": "City", "name": "Sainte-Maxime" },
-        { "@type": "City", "name": "Cannes" },
-        { "@type": "City", "name": "Nice" },
-        { "@type": "City", "name": "Antibes" },
-        { "@type": "City", "name": "Fréjus" }
-      ],
-      "sameAs": [
-        "https://www.linkedin.com/company/MO'CYNO",
-        "https://www.instagram.com/MO'CYNOsecurite/"
-      ]
-    },
-    {
       "@type": "Service",
       "@id": "https://mocyno.com/fr/services/surveillance-humaine/#service-index",
-      "name": "Surveillance Humaine & Gardiennage",
-      "serviceType": "Sécurité Privée",
-      "provider": { "@id": "https://mocyno.com/#localbusiness-fr" },
+      "name": "Gardiennage et agents de sécurité dans le Var et sur la Côte d'Azur",
+      "serviceType": "Gardiennage et agents de sécurité dans le Var et sur la Côte d'Azur",
+      "provider": {
+        "@id": "https://mocyno.com/#organization"
+      },
       "url": "https://mocyno.com/fr/services/surveillance-humaine/",
       "areaServed": [
-        { "@type": "AdministrativeArea", "name": "Provence-Alpes-Côte d'Azur, France" },
-        { "@type": "AdministrativeArea", "name": "Var, France" },
-        { "@type": "AdministrativeArea", "name": "Alpes-Maritimes, France" },
-        { "@type": "City", "name": "Toulon" },
-        { "@type": "City", "name": "Saint-Tropez" },
-        { "@type": "City", "name": "Sainte-Maxime" },
-        { "@type": "City", "name": "Cannes" },
-        { "@type": "City", "name": "Nice" },
-        { "@type": "City", "name": "Antibes" },
-        { "@type": "City", "name": "Fréjus" }
+        {
+          "@type": "AdministrativeArea",
+          "name": "Provence-Alpes-Côte d'Azur, France"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Var, France"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Alpes-Maritimes, France"
+        },
+        {
+          "@type": "City",
+          "name": "Toulon"
+        },
+        {
+          "@type": "City",
+          "name": "Saint-Tropez"
+        },
+        {
+          "@type": "City",
+          "name": "Sainte-Maxime"
+        },
+        {
+          "@type": "City",
+          "name": "Cannes"
+        },
+        {
+          "@type": "City",
+          "name": "Nice"
+        },
+        {
+          "@type": "City",
+          "name": "Antibes"
+        },
+        {
+          "@type": "City",
+          "name": "Fréjus"
+        }
       ]
     }
   ]
 }
-    </script>
+</script>
     <!-- MO'CYNO_JSONLD_END -->
 <meta name="gtm-container-id" content="GTM-N4MSSMV3">
 <link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
   <script defer src="/scripts/openai-consent-20261103-v1.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Un agent peut-il intervenir la nuit ou le week-end ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, selon les horaires convenus dans le devis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pouvez-vous ajouter un maître-chien ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, si le site s'y prête. Voir la sécurité cynophile ."
+      }
+    }
+  ]
+}
+</script>
+<style>.skip-link-lot4{position:absolute;left:12px;top:-100px;padding:12px 16px;background:#fff;color:#022c51;z-index:10001;border:2px solid #022c51}.skip-link-lot4:focus{top:12px}</style>
 </head>
 
 <body>
+  <a class="skip-link-lot4" href="#contenu-principal">Aller au contenu</a>
     <header class="site-header" role="banner">
         <div class="container nav">
             <a class="logo" href="/fr/">
@@ -187,32 +203,30 @@
           <a class="zones-trigger" href="/fr/services/">Expertise</a>
           <div class="zones-menu">
             <ul class="zones-list">
-              <li><a href="/fr/services/surveillance-humaine/">Surveillance humaine</a></li>
               <li><a href="/fr/services/securite-cynophile/">Sécurité cynophile</a></li>
+              <li><a href="/fr/services/surveillance-humaine/">Surveillance humaine</a></li>
               <li><a href="/fr/services/securite-incendie-ssiap/">Sécurité incendie (SSIAP)</a></li>
               <li><a href="/fr/services/securite-evenementielle/">Sécurité événementielle</a></li>
-<li><a href="/fr/services/protection-luxe/">Protection du luxe</a></li>
-              <li><a href="/fr/services/luxe-boutiques/">Luxe & Boutiques</a></li>
-              <li><a href="/fr/services/residentiel/">Résidentiel & Villas</a></li>
+              <li><a href="/fr/services/residentiel/">Résidentiel et villas</a></li>
+              <li><a href="/fr/services/chantiers/">Chantiers et BTP</a></li>
+              <li><a href="/fr/services/sites-industriels-entrepots/">Sites industriels et entrepôts</a></li>
               <li><a href="/fr/services/hotellerie/">Hôtellerie</a></li>
-              <li><a href="/fr/services/chantiers/">Chantiers & BTP</a></li>
-              <li><a href="/fr/services/marinas-ports/">Marinas & Ports</a></li>
-            </ul>
+              <li><a href="/fr/services/marinas-ports/">Marinas et ports</a></li>
+              <li><a href="/fr/services/luxe-boutiques/">Boutiques et commerces</a></li>
+</ul>
           </div>
         </div>
                 <a href="/fr/blog/">Actualités</a>
-                <a class="btn primary" href="/fr/contact/">Devis &amp; Contact</a>
+                <a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a>
                 <a aria-label="English" class="lang-switch" href="/en/services/manned-guarding/" hreflang="en">EN</a>
             </nav>
         </div>
-        <div aria-label="Fermer le menu" class="nav-overlay"
-            onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')"
-            tabindex="0"></div>
+        <div class="nav-overlay"
+            onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')" aria-hidden="true"></div>
     </header>
 
-    <main>
-        <!-- HERO SECTION PREMIUM -->
-        <section class="hero-premium">
+    <main id="contenu-principal" tabindex="-1">
+<section class="hero-premium">
             <div class="hero-image-wrapper">
                 <picture>
           <source srcset="/images/services/hero-surveillance-humaine.webp" type="image/webp">
@@ -221,71 +235,14 @@
         </picture>
                 <div class="hero-overlay-dark"></div>
             </div>
-            <div class="container hero-content-premium">
-                <h1>Surveillance Humaine &amp; Gardiennage</h1>
-                <p class="hero-subtitle-premium">Agents de sécurité pour vos entrepôts, bureaux, commerces et résidences : gardiennage, rondes et contrôle des accès.</p>
-                <div class="hero-actions-premium">
-                    <a class="btn primary" href="/fr/contact/">Audit Gratuit</a>
-                    <a class="btn secondary" href="tel:+33666035116">Appel d'Urgence</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- ARIANE DÉCALÉ -->
-        <nav aria-label="Fil d'ariane" style="max-width:1200px;margin:20px auto 0;padding:0 16px">
-            <ol style="list-style:none;padding:0;display:flex;gap:8px;font-size:14px;color:#666">
-                <li><a href="/fr/" style="color:#022C51;text-decoration:none">Accueil</a></li>
-                <li aria-hidden="true">›</li>
-                <li><a href="/fr/services/" style="color:#022C51;text-decoration:none">Services</a></li>
-                <li aria-hidden="true">›</li>
-                <li style="color:#666">Surveillance Humaine</li>
-            </ol>
-        </nav>
-
-        <section class="section container">
-            <div class="intro-block">
-                <h2>Une surveillance adaptée à votre activité</h2>
-                <p>MO’CYNO organise des missions de <strong>surveillance humaine</strong> pour les entreprises, entrepôts, commerces et résidences dans le Var et sur la Côte d’Azur. Selon le besoin, la prestation associe présence à un poste défini, rondes et vérification des accès. Les consignes précisent les zones à surveiller, les personnes autorisées et les interlocuteurs à prévenir en cas d’incident, pendant l’activité du site ou ses heures de fermeture.</p>
-            </div>
-        </section>
-
-        <section class="section bg-light">
-            <div class="container">
-                <h2>Nos Missions de Surveillance</h2>
-                <div class="grid-services">
-                    <div class="service-card">
-                        <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M10 12h4" />  <path d="M10 8h4" />  <path d="M14 21v-3a2 2 0 0 0-4 0v3" />  <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" />  <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></svg>Entrepôts et bureaux</h3>
-                        <p>Contrôle des accès, rondes dans les zones autorisées et signalement des anomalies pour les sites logistiques, industriels et tertiaires.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M16 10a4 4 0 0 1-8 0" />  <path d="M3.103 6.034h17.794" />  <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z" /></svg>Commerces et boutiques</h3>
-                        <p>Présence dissuasive, vigilance aux accès et accompagnement des flux, avec des consignes adaptées à l’accueil des clients et au fonctionnement du magasin.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M10 5V3" />  <path d="M14 5V3" />  <path d="M15 21v-3a3 3 0 0 0-6 0v3" />  <path d="M18 3v8" />  <path d="M18 5H6" />  <path d="M22 11H2" />  <path d="M22 9v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9" />  <path d="M6 3v8" /></svg>Résidences et domaines</h3>
-                        <p>Surveillance des entrées et des espaces privés définis au contrat, en tenant compte des résidents, visiteurs, prestataires et horaires de présence.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M7 18v-6a5 5 0 1 1 10 0v6" />  <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" />  <path d="M21 12h1" />  <path d="M18.5 4.5 18 5" />  <path d="M2 12h1" />  <path d="M12 2v1" />  <path d="m4.929 4.929.707.707" />  <path d="M12 12v6" /></svg>Alertes et consignes</h3>
-                        <p>Vérification des anomalies constatées pendant la mission et transmission au responsable du site selon les procédures convenues.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section container">
-            <div class="intro-block">
-                <h2>Une référence de surveillance au Muy</h2>
-                <p>MO’CYNO compte parmi ses références la surveillance d’<strong>entrepôts dans le secteur du Collet Redon, au Muy</strong>. Depuis Toulon, nous étudions vos besoins dans le Var et sur la Côte d’Azur. Les moyens retenus dépendent du site, des accès, des horaires et de la durée souhaitée.</p>
-            </div>
-        </section>
-
-        <section class="cta container section" style="text-align:center">
-            <h2>Quel gardiennage pour vos locaux ?</h2>
-            <p>Indiquez la commune, le type de site, les horaires et la durée envisagée pour obtenir une proposition adaptée.</p>
-            <p><a class="btn primary" href="/fr/contact/">Demander mon Devis</a></p>
-        </section>
-    </main>
+            <div class="container hero-content-premium"><h1>Gardiennage et agents de sécurité dans le Var et sur la Côte d&#x27;Azur</h1><p class="hero-subtitle-premium">Nos agents surveillent vos bureaux, entrepôts, commerces et résidences, pendant l&#x27;activité ou à la fermeture. Selon le besoin, ils tiennent un poste fixe, font des rondes et contrôlent les accès.</p><div class="hero-actions-premium"><a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a> <a class="btn secondary" href="tel:+33485290390">Appeler le 04 85 29 03 90</a></div></div></section>
+<nav class="container section" aria-label="Fil d’Ariane"><a href="/fr/">Accueil</a> › <a href="/fr/services/">Services</a> › Surveillance humaine</nav>
+<section class="section bg-light"><div class="container"><h2>Nos missions</h2><ul><li>Contrôle des entrées</li><li>Rondes dans les zones autorisées</li><li>Signalement des anomalies au responsable du site</li><li>Intervention sur alarme, selon le contrat</li><li>Vidéo-protection, selon le site</li><li>Main courante électronique</li></ul></div></section>
+<section class="section"><div class="container"><h2>Avant de commencer</h2><p>Nous fixons avec vous les zones à surveiller, les personnes autorisées et les contacts à prévenir.</p></div></section>
+<section class="section"><div class="container"><div class="grid-2"><div class="card"><h2>Pour qui</h2><p>Entreprises, <a href="/fr/services/luxe-boutiques/">commerces</a>, gestionnaires de résidence</p></div><div class="card"><h2>Ce qui n’est pas inclus</h2><p>Fonctions hors sécurité, sauf accord précis</p></div></div></div></section>
+<section class="section container" id="faq"><div class="faq-list"><h2>Questions fréquentes</h2><details><summary>Un agent peut-il intervenir la nuit ou le week-end ?</summary><p>Oui, selon les horaires convenus dans le devis.</p></details><details><summary>Pouvez-vous ajouter un maître-chien ?</summary><p>Oui, si le site s&#x27;y prête. Voir la <a href="/fr/services/securite-cynophile/">sécurité cynophile</a>.</p></details></div></section><nav class="container section" aria-label="Liens internes"><h2>À voir aussi</h2><ul><li><a href="/fr/services/securite-cynophile/" style="text-decoration: underline;">Sécurité cynophile</a></li><li><a href="/fr/services/sites-industriels-entrepots/" style="text-decoration: underline;">Sites industriels et entrepôts</a></li><li><a href="/fr/services/luxe-boutiques/" style="text-decoration: underline;">Boutiques et commerces</a></li></ul></nav>
+<section class="section container"><div><a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a> <a class="btn secondary" href="tel:+33485290390">Appeler le 04 85 29 03 90</a></div></section>
+</main>
 
     <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
         <div class="container footer-grid">
@@ -335,6 +292,7 @@
                 </div>
             </div>
             <nav aria-label="Navigation secondaire" class="footer-links" role="navigation">
+        <a href="/fr/faq/">Questions fréquentes</a>
                 <a href="/fr/a-propos/">À propos</a>
                 <a href="/fr/mentions-legales/">Mentions légales</a>
                 <a href="/fr/politique-confidentialite/">Confidentialité</a>
