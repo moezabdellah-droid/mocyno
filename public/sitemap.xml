@@ -56,11 +56,6 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://mocyno.com/fr/services/protection-luxe/</loc>
-    <lastmod>2026-01-21</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
     <loc>https://mocyno.com/fr/services/securite-cynophile/</loc>
     <lastmod>2026-01-21</lastmod>
     <priority>0.9</priority>
@@ -82,11 +77,6 @@
   </url>
   <url>
     <loc>https://mocyno.com/fr/services/chantiers/</loc>
-    <lastmod>2026-01-21</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mocyno.com/fr/services/evenementiel-premium/</loc>
     <lastmod>2026-01-21</lastmod>
     <priority>0.9</priority>
   </url>
@@ -259,5 +249,21 @@
     <loc>https://mocyno.com/en/zones/toulon/</loc>
     <lastmod>2026-01-21</lastmod>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/fr/services/sites-industriels-entrepots/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/en/services/industrial-sites-warehouses/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mocyno.com/fr/faq/</loc>
+  </url>
+  <url>
+    <loc>https://mocyno.com/fr/securite-luxe-saint-tropez/</loc>
   </url>
 </urlset>

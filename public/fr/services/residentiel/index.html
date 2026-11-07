@@ -39,12 +39,12 @@
   <!-- MO'CYNO_CONSENT_DEFAULT_END -->
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <title>Sécurité Résidentielle &amp; Villas — MO'CYNO</title>
+  <title>Gardiennage de villa, Var et Côte d&#x27;Azur | MO&#x27;CYNO</title>
   <meta
-    content="Gardiennage de villas et résidences de prestige en PACA. Surveillance, rondes de quartier, alarmes et services de conciergerie sécurité."
+    content="Gardiennage et rondes pour villas, domaines et résidences, présents ou absents. Maître-chien possible selon le site. Var et Côte d&#x27;Azur."
     name="description">
   <meta content="website" property="og:type">
-  <meta content="Sécurité Résidentielle &amp; Villas — MO'CYNO" property="og:title">
+  <meta content="Gardiennage de villa, Var et Côte d&#x27;Azur | MO&#x27;CYNO" property="og:title">
   <meta content="https://mocyno.com/fr/services/residentiel/" property="og:url">
   <meta content="https://mocyno.com/og-image.png" property="og:image">
   <!-- Google Tag Manager -->
@@ -55,12 +55,12 @@
   <link href="/favicon.ico" rel="icon">
   <link href="/favicon.svg" rel="icon" type="image/svg+xml">
   <meta
-    content="Gardiennage de villas et résidences de prestige en PACA. Surveillance, rondes de quartier, alarmes et services de conciergerie sécurité."
+    content="Gardiennage et rondes pour villas, domaines et résidences, présents ou absents. Maître-chien possible selon le site. Var et Côte d&#x27;Azur."
     property="og:description">
   <meta content="#022C51" name="theme-color">
-  <link as="style" href="/styles.css?v=2.8" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
+  <link as="style" href="/styles.css?v=20261105-1" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
   <noscript>
-    <link href="/styles.css?v=2.8" rel="stylesheet">
+    <link href="/styles.css?v=20261105-1" rel="stylesheet">
     </link>
   </noscript>
   <link href="/styles-compat-patch.css?v=2.7" rel="stylesheet">
@@ -74,93 +74,12 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
-      "@id": "https://mocyno.com/#organization",
-      "name": "MO'CYNO SASU",
-      "url": "https://mocyno.com/",
-      "logo": "https://mocyno.com/mocyno-logo.png",
-      "sameAs": [
-        "https://www.linkedin.com/company/MO'CYNO"
-      ]
-    },
-    {
-      "@type": [
-        "LocalBusiness",
-        "SecurityService",
-        "ProfessionalService"
-      ],
-      "@id": "https://mocyno.com/#localbusiness-fr",
-      "parentOrganization": {
-        "@id": "https://mocyno.com/#organization"
-      },
-      "name": "MO'CYNO",
-      "legalName": "MO'CYNO SASU",
-      "url": "https://mocyno.com/fr/",
-      "logo": "https://mocyno.com/mocyno-logo.png",
-      "image": "/images/service-villa-security-saint-tropez.png",
-      "telephone": "+33666035116",
-      "email": "contact@mocyno.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "31 Rue Chevalier Paul",
-        "postalCode": "83000",
-        "addressLocality": "Toulon",
-        "addressCountry": "FR"
-      },
-      "areaServed": [
-        {
-          "@type": "AdministrativeArea",
-          "name": "Provence-Alpes-Côte d'Azur, France"
-        },
-        {
-          "@type": "AdministrativeArea",
-          "name": "Var, France"
-        },
-        {
-          "@type": "AdministrativeArea",
-          "name": "Alpes-Maritimes, France"
-        },
-        {
-          "@type": "City",
-          "name": "Toulon"
-        },
-        {
-          "@type": "City",
-          "name": "Saint-Tropez"
-        },
-        {
-          "@type": "City",
-          "name": "Sainte-Maxime"
-        },
-        {
-          "@type": "City",
-          "name": "Cannes"
-        },
-        {
-          "@type": "City",
-          "name": "Nice"
-        },
-        {
-          "@type": "City",
-          "name": "Antibes"
-        },
-        {
-          "@type": "City",
-          "name": "Fréjus"
-        }
-      ],
-      "sameAs": [
-        "https://www.linkedin.com/company/MO'CYNO",
-        "https://www.instagram.com/MO'CYNOsecurite/"
-      ]
-    },
-    {
       "@type": "Service",
       "@id": "https://mocyno.com/fr/services/residentiel/#service-index",
-      "name": "Sécurité Résidentielle & Villas",
-      "serviceType": "Sécurité Privée",
+      "name": "Gardiennage de villas et de résidences privées",
+      "serviceType": "Gardiennage de villas et de résidences privées",
       "provider": {
-        "@id": "https://mocyno.com/#localbusiness-fr"
+        "@id": "https://mocyno.com/#organization"
       },
       "url": "https://mocyno.com/fr/services/residentiel/",
       "areaServed": [
@@ -207,31 +126,23 @@
       ]
     },
     {
+      "@context": "https://schema.org",
       "@type": "FAQPage",
-      "@id": "https://mocyno.com/fr/services/residentiel/#faq",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Proposez-vous la garde des clés ?",
+          "name": "Gérez-vous les clés ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Les modalités d’accès, de remise et de restitution des clés doivent être convenues avant la mission. Une conservation de clés n’est proposée qu’après confirmation de ses conditions matérielles et contractuelles."
+            "text": "Nous convenons des conditions d'accès avant la mission."
           }
         },
         {
           "@type": "Question",
-          "name": "Puis-je avoir un maître-chien pour ma villa ?",
+          "name": "Peut-on réserver une mission ponctuelle ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Une mission cynophile peut être étudiée selon la surface, les accès, les occupants et la présence d’animaux. Le choix du dispositif est fait avec vous, selon la configuration réelle de la propriété."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Quelle est la durée minimum d'un contrat ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Une mission ponctuelle ou récurrente peut être étudiée. Les dates, horaires, conditions de mobilisation et éventuelle durée minimale sont précisés dans la proposition."
+            "text": "Oui. Les dates et conditions figurent au devis."
           }
         }
       ]
@@ -254,9 +165,11 @@
 <meta name="gtm-container-id" content="GTM-N4MSSMV3">
 <link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
   <script defer src="/scripts/openai-consent-20261103-v1.js"></script>
+<style>.skip-link-lot4{position:absolute;left:12px;top:-100px;padding:12px 16px;background:#fff;color:#022c51;z-index:10001;border:2px solid #022c51}.skip-link-lot4:focus{top:12px}</style>
 </head>
 
 <body>
+  <a class="skip-link-lot4" href="#contenu-principal">Aller au contenu</a>
   <!-- Google Tag Manager (noscript) -->
   
   <!-- End Google Tag Manager (noscript) -->
@@ -300,31 +213,29 @@
           <a class="zones-trigger" href="/fr/services/">Expertise</a>
           <div class="zones-menu">
             <ul class="zones-list">
-              <li><a href="/fr/services/surveillance-humaine/">Surveillance humaine</a></li>
               <li><a href="/fr/services/securite-cynophile/">Sécurité cynophile</a></li>
+              <li><a href="/fr/services/surveillance-humaine/">Surveillance humaine</a></li>
               <li><a href="/fr/services/securite-incendie-ssiap/">Sécurité incendie (SSIAP)</a></li>
               <li><a href="/fr/services/securite-evenementielle/">Sécurité événementielle</a></li>
-<li><a href="/fr/services/protection-luxe/">Protection du luxe</a></li>
-              <li><a href="/fr/services/luxe-boutiques/">Luxe & Boutiques</a></li>
-              <li><a href="/fr/services/residentiel/">Résidentiel & Villas</a></li>
+              <li><a href="/fr/services/residentiel/">Résidentiel et villas</a></li>
+              <li><a href="/fr/services/chantiers/">Chantiers et BTP</a></li>
+              <li><a href="/fr/services/sites-industriels-entrepots/">Sites industriels et entrepôts</a></li>
               <li><a href="/fr/services/hotellerie/">Hôtellerie</a></li>
-              <li><a href="/fr/services/chantiers/">Chantiers & BTP</a></li>
-              <li><a href="/fr/services/marinas-ports/">Marinas & Ports</a></li>
-            </ul>
+              <li><a href="/fr/services/marinas-ports/">Marinas et ports</a></li>
+              <li><a href="/fr/services/luxe-boutiques/">Boutiques et commerces</a></li>
+</ul>
           </div>
         </div>
         <a href="/fr/blog/">Actualités</a>
-        <a class="btn primary" href="/fr/contact/">Devis &amp; Contact</a>
+        <a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a>
         <a aria-label="English" class="lang-switch" href="/en/services/residential/" hreflang="en">EN</a>
       </nav>
     </div>
-    <div aria-label="Fermer le menu" class="nav-overlay"
-      onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')"
-      tabindex="0"></div>
+    <div class="nav-overlay"
+      onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')" aria-hidden="true"></div>
   </header>
-  <main>
-    <!-- HERO SECTION PREMIUM -->
-    <section class="hero-premium">
+  <main id="contenu-principal" tabindex="-1">
+<section class="hero-premium">
       <div class="hero-image-wrapper">
         <picture>
           <source srcset="/images/services/hero-residentiel.webp" type="image/webp">
@@ -333,92 +244,19 @@
         </picture>
         <div class="hero-overlay-dark"></div>
       </div>
-      <div class="container hero-content-premium">
-        <h1>Sécurité Résidentielle &amp; Villas</h1>
-        <p class="hero-subtitle-premium">Présence sur site, rondes et contrôle des accès pour votre résidence principale ou secondaire dans le Var et sur la Côte d’Azur.</p>
-        <div class="hero-actions-premium">
-          <a class="btn primary" href="/fr/contact/">Protéger ma Villa</a>
-          <a class="btn secondary" href="tel:+33666035116">Urgence 24/7</a>
-        </div>
-      </div>
-    </section>
+      <div class="container hero-content-premium"><h1>Gardiennage de villas et de résidences privées</h1><p class="hero-subtitle-premium">Nous surveillons votre villa, votre domaine ou votre résidence, que vous soyez présent ou absent. Selon la propriété, un agent reste sur place ou effectue des rondes aux horaires convenus.</p><div class="hero-actions-premium"><a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a> <a class="btn secondary" href="tel:+33485290390">Appeler le 04 85 29 03 90</a></div></div></section>
+<nav class="container section" aria-label="Fil d’Ariane"><a href="/fr/">Accueil</a> › <a href="/fr/services/">Services</a> › Résidentiel et villas</nav>
+<section class="section"><div class="container"><h2>Maître-chien pour votre villa ou votre domaine</h2><p>Un terrain étendu, plusieurs accès ou une propriété temporairement inoccupée, pendant des vacances, une fermeture saisonnière ou des travaux, demandent des consignes précises. Le maître-chien peut effectuer les rondes prévues autour des bâtiments et sur les zones autorisées du domaine. La présence de résidents, de visiteurs et d’animaux doit être prise en compte pour décider si le binôme convient au lieu.</p><p>La surveillance humaine peut être étudiée lorsque le fonctionnement du site ou les personnes présentes ne permettent pas de retenir un binôme. Le choix du dispositif dépend des accès, des horaires et des espaces réellement à surveiller.</p></div></section>
+<section class="section"><div class="container"><h2>Avant votre absence ou le début de la mission</h2><p>Nous définissons avec vous les accès autorisés, les horaires, les limites des rondes, les consignes et les contacts à prévenir. Précisez les passages attendus : résidents, personnel, visiteurs ou entreprises. Le relevé de courrier et la simulation de présence ne sont envisagés que selon le contrat et l’assurance.</p></div></section>
+<section class="section"><div class="container"><h2>Rondes et compte rendu</h2><p>Le maître-chien suit les consignes du domaine, observe les zones prévues et signale les anomalies aux contacts désignés. Les observations sont consignées dans la main courante électronique. Les modalités du compte rendu sont définies avant la mission.</p></div></section>
+<section class="section"><div class="container"><h2>Les limites à prévoir</h2><p>La mission porte sur les espaces et les périodes convenus. Elle ne dispense pas de fermer les accès ni d’entretenir les équipements existants. L’intervention sur alarme doit être prévue au contrat ; aucun délai d’arrivée n’est annoncé. Une demande supplémentaire doit être étudiée avant d’être incluse dans la mission. Une garde de clés n’est pas incluse sans accord préalable.</p></div></section>
+<section class="section"><div class="container"><h2>Les informations utiles au devis</h2><p>Préparez la commune, les dates, la durée, les horaires, la surface, le nombre d’accès et les zones à surveiller. Signalez la présence d’autres animaux et les passages attendus. Indiquez les équipements de vidéo-protection existants et les coordonnées des contacts à prévenir.</p></div></section>
+<section class="section"><div class="container"><div class="card"><h2>Pour qui</h2><p>Propriétaires, conciergeries, syndics</p></div></div></section>
+<section class="section container" id="exemples-missions"><h2>Exemples de missions</h2><div class="grid"><div class="card"><p>Villas de prestige : surveillance à Cannes, Mougins, Sainte-Maxime, Saint-Tropez, Ramatuelle et Cavalaire-sur-Mer.</p></div></div></section>
+<section class="section container" id="faq"><div class="faq-list"><h2>Questions fréquentes</h2><details><summary>Gérez-vous les clés ?</summary><p>Nous convenons des conditions d&#x27;accès avant la mission.</p></details><details><summary>Peut-on réserver une mission ponctuelle ?</summary><p>Oui. Les dates et conditions figurent au devis.</p></details></div></section><nav class="container section" aria-label="Liens internes"><h2>À voir aussi</h2><ul><li><a href="/fr/zones/saint-tropez/" style="text-decoration: underline;">Gardiennage de villa à Saint-Tropez</a></li><li><a href="/fr/zones/sainte-maxime/" style="text-decoration: underline;">Gardiennage de villa à Sainte-Maxime</a></li><li><a href="/fr/services/securite-cynophile/" style="text-decoration: underline;">Sécurité cynophile</a></li><li><a href="/fr/zones/ramatuelle/" style="text-decoration: underline;">Sécurité à Ramatuelle</a></li><li><a href="/fr/services/surveillance-humaine/" style="text-decoration: underline;">Surveillance humaine</a></li><li><a href="/fr/securite-luxe-saint-tropez/" style="text-decoration:underline">Surveillance d'un domaine à Saint-Tropez</a></li></ul></nav>
+<section class="section container"><div><a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a> <a class="btn secondary" href="tel:+33485290390">Appeler le 04 85 29 03 90</a></div></section>
 
-    <!-- ARIANE DÉCALÉ SOUS LE HERO COMME SUR ZONES -->
-    <nav aria-label="Fil d'ariane" style="max-width:1200px;margin:20px auto 0;padding:0 16px">
-      <ol style="list-style:none;padding:0;display:flex;gap:8px;font-size:14px;color:#666">
-        <li><a href="/fr/" style="color:#022C51;text-decoration:none">Accueil</a></li>
-        <li aria-hidden="true">›</li>
-        <li><a href="/fr/services/" style="color:#022C51;text-decoration:none">Services</a></li>
-        <li aria-hidden="true">›</li>
-        <li style="color:#666">Résidentiel &amp; Villas</li>
-      </ol>
-    </nav>
-    <section class="section container">
-      <div class="intro-block">
-        <h2>Un gardiennage adapté à votre propriété</h2>
-        <p>MO’CYNO propose la surveillance des villas, domaines et résidences privées, pendant leur occupation ou les périodes d’absence. Le dispositif dépend de la configuration des lieux, des accès et des horaires souhaités. Une présence fixe ou des rondes peuvent être prévues avec des consignes pour les résidents, invités et prestataires. Le périmètre de surveillance et les modalités d’alerte sont définis avant la mission.</p>
-      </div>
-    </section>
-
-    <section class="section bg-light">
-      <div class="container">
-        <h2>Nos solutions résidentielles</h2>
-        <div class="grid-services">
-          <div class="service-card">
-            <h3>🛡️ Gardiennage sur site</h3>
-            <p>Présence d’un agent aux horaires convenus pour surveiller les accès et les espaces privés inclus dans la mission.</p>
-          </div>
-          <div class="service-card">
-            <h3>🚗 Rondes sur la propriété</h3>
-            <p>Passages sur les parcours privés autorisés, avec contrôle des points définis aux consignes et signalement des anomalies.</p>
-          </div>
-          <div class="service-card">
-            <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M7 18v-6a5 5 0 1 1 10 0v6" />  <path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" />  <path d="M21 12h1" />  <path d="M18.5 4.5 18 5" />  <path d="M2 12h1" />  <path d="M12 2v1" />  <path d="m4.929 4.929.707.707" />  <path d="M12 12v6" /></svg>Consignes en cas d’alerte</h3>
-            <p>Définition des contacts à prévenir et des vérifications prévues en cas d’alarme, dans le cadre du dispositif contractuel retenu.</p>
-          </div>
-          <div class="service-card">
-            <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />  <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>Surveillance pendant vos absences</h3>
-            <p>Organisation des périodes de présence ou de passage pendant les vacances, les fermetures saisonnières ou les absences prolongées.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section container">
-      <div class="intro-block">
-        <h2>Des missions dans des villas de prestige</h2>
-        <p>MO’CYNO a réalisé des missions de surveillance dans des <strong>villas de prestige</strong>. Pour chaque propriété, le dispositif est défini selon les accès, les périodes de présence et les besoins de discrétion. Nous étudions les demandes dans le <strong>Var et sur la Côte d’Azur</strong>.</p>
-      </div>
-    </section>
-    <section id="faq" class="container" style="margin:40px auto;background:#f9f9f9;padding:24px;border-radius:12px">
-      <h2>FAQ – Sécurité Villa</h2>
-      <details style="margin-bottom:12px">
-        <summary><strong>Proposez-vous la garde des clés ?</strong></summary>
-        <p style="margin-top:8px">Les modalités d’accès, de remise et de restitution des clés doivent être convenues avant la mission. Une conservation de clés n’est proposée qu’après confirmation de ses conditions matérielles et contractuelles.</p>
-      </details>
-      <details style="margin-bottom:12px">
-        <summary><strong>Puis-je avoir un maître-chien pour ma villa ?</strong></summary>
-        <p style="margin-top:8px">Une mission cynophile peut être étudiée selon la surface, les accès, les occupants et la présence d’animaux. Le choix du dispositif est fait avec vous, selon la configuration réelle de la propriété.</p>
-      </details>
-      <details>
-        <summary><strong>Quelle est la durée minimum d'un contrat ?</strong></summary>
-        <p style="margin-top:8px">Une mission ponctuelle ou récurrente peut être étudiée. Les dates, horaires, conditions de mobilisation et éventuelle durée minimale sont précisés dans la proposition.</p>
-      </details>
-    </section>
-    <section class="container" style="margin:40px auto;border-top:1px solid #eee;padding-top:24px">
-      <h3>Voir aussi</h3>
-      <nav style="display:flex;gap:16px;flex-wrap:wrap">
-        <a href="/fr/services/securite-cynophile/">Sécurité Cynophile</a>
-        <a href="/fr/services/luxe-boutiques/">Luxe &amp; Boutiques</a>
-        <a href="/fr/services/">Tous nos services</a>
-      </nav>
-    </section>
-    <section class="cta container section" style="text-align:center">
-      <h2>Organisez la surveillance de votre villa</h2>
-      <p>Indiquez la commune, les périodes d’absence, les accès et les horaires souhaités pour une étude de votre besoin.</p>
-      <p><a class="btn primary" href="/fr/contact/">Protéger ma villa</a></p>
-    </section>
-  </main>
+</main>
     <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
     <div class="container footer-grid">
       <div class="footer-left">
@@ -443,6 +281,7 @@
       </div>
       </div>
       <nav aria-label="Navigation secondaire" class="footer-links" role="navigation">
+        <a href="/fr/faq/">Questions fréquentes</a>
         <a href="/fr/a-propos/">À propos</a>
         <a href="/fr/mentions-legales/">Mentions légales</a>
         <a href="/fr/politique-confidentialite/">Confidentialité</a>

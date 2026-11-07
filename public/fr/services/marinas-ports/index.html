@@ -37,14 +37,14 @@
   <!-- MO'CYNO_CONSENT_DEFAULT_END -->
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <title>Sécurité Marinas &amp; Ports de Plaisance — MO'CYNO</title>
+  <title>Surveillance de port et garde de navire à quai | MO&#x27;CYNO</title>
   <meta
-    content="Surveillance de marinas et de ports de plaisance en PACA : quais, pontons, contrôle des accès et surveillance aux abords des navires à quai."
+    content="Surveillance des quais et pontons, garde de navires à quai autour du navire. Aucune prestation à bord ni en mer. Var et Côte d&#x27;Azur."
     name="description">
   <meta content="website" property="og:type">
-  <meta content="Sécurité Marinas &amp; Ports de Plaisance — MO'CYNO" property="og:title">
+  <meta content="Surveillance de port et garde de navire à quai | MO&#x27;CYNO" property="og:title">
   <meta
-    content="Surveillance de marinas et de ports de plaisance en PACA : quais, pontons, contrôle des accès et surveillance aux abords des navires à quai."
+    content="Surveillance des quais et pontons, garde de navires à quai autour du navire. Aucune prestation à bord ni en mer. Var et Côte d&#x27;Azur."
     property="og:description">
   <meta content="https://mocyno.com/fr/services/marinas-ports/" property="og:url">
   <meta content="https://mocyno.com/og-image.png" property="og:image">
@@ -62,9 +62,9 @@
   <link href="/favicon.svg" rel="icon" type="image/svg+xml">
   <meta content="#022C51" name="theme-color">
   <link rel="preload" as="image" type="image/webp" href="/images/services/hero-marinas-ports.webp">
-  <link as="style" href="/styles.css?v=2.8" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
+  <link as="style" href="/styles.css?v=20261105-1" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
   <noscript>
-    <link href="/styles.css?v=2.8" rel="stylesheet" />
+    <link href="/styles.css?v=20261105-1" rel="stylesheet" />
   </noscript>
   <link href="/styles-compat-patch.css?v=2.7" rel="stylesheet">
 
@@ -80,77 +80,69 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
-      "@id": "https://mocyno.com/#organization",
-      "name": "MO'CYNO SASU",
-      "url": "https://mocyno.com/",
-      "logo": "https://mocyno.com/mocyno-logo.png",
-      "sameAs": ["https://www.linkedin.com/company/MO'CYNO"]
-    },
-    {
-      "@type": ["LocalBusiness", "SecurityService", "ProfessionalService"],
-      "@id": "https://mocyno.com/#localbusiness-fr",
-      "parentOrganization": { "@id": "https://mocyno.com/#organization" },
-      "name": "MO'CYNO",
-      "legalName": "MO'CYNO SASU",
-      "url": "https://mocyno.com/fr/",
-      "logo": "https://mocyno.com/mocyno-logo.png",
-      "telephone": "+33666035116",
-      "email": "contact@mocyno.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "31 Rue Chevalier Paul",
-        "postalCode": "83000",
-        "addressLocality": "Toulon",
-        "addressCountry": "FR"
-      },
-      "areaServed": [
-        { "@type": "AdministrativeArea", "name": "Provence-Alpes-Côte d'Azur, France" },
-        { "@type": "AdministrativeArea", "name": "Var, France" },
-        { "@type": "AdministrativeArea", "name": "Alpes-Maritimes, France" },
-        { "@type": "City", "name": "Toulon" },
-        { "@type": "City", "name": "Saint-Tropez" },
-        { "@type": "City", "name": "Sainte-Maxime" },
-        { "@type": "City", "name": "Cannes" },
-        { "@type": "City", "name": "Nice" },
-        { "@type": "City", "name": "Antibes" },
-        { "@type": "City", "name": "Fréjus" }
-      ],
-      "sameAs": [
-        "https://www.linkedin.com/company/MO'CYNO",
-        "https://www.instagram.com/MO'CYNOsecurite/"
-      ]
-    },
-    {
       "@type": "Service",
       "@id": "https://mocyno.com/fr/services/marinas-ports/#service-index",
-      "name": "Sécurité Marinas & Ports",
-      "serviceType": "Sécurité Privée",
-      "provider": { "@id": "https://mocyno.com/#localbusiness-fr" },
+      "name": "Surveillance de ports et garde de navires à quai",
+      "serviceType": "Surveillance de ports et garde de navires à quai",
+      "provider": {
+        "@id": "https://mocyno.com/#organization"
+      },
       "url": "https://mocyno.com/fr/services/marinas-ports/",
       "areaServed": [
-        { "@type": "AdministrativeArea", "name": "Provence-Alpes-Côte d'Azur, France" },
-        { "@type": "AdministrativeArea", "name": "Var, France" },
-        { "@type": "AdministrativeArea", "name": "Alpes-Maritimes, France" },
-        { "@type": "City", "name": "Toulon" },
-        { "@type": "City", "name": "Saint-Tropez" },
-        { "@type": "City", "name": "Sainte-Maxime" },
-        { "@type": "City", "name": "Cannes" },
-        { "@type": "City", "name": "Nice" },
-        { "@type": "City", "name": "Antibes" },
-        { "@type": "City", "name": "Fréjus" }
+        {
+          "@type": "AdministrativeArea",
+          "name": "Provence-Alpes-Côte d'Azur, France"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Var, France"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Alpes-Maritimes, France"
+        },
+        {
+          "@type": "City",
+          "name": "Toulon"
+        },
+        {
+          "@type": "City",
+          "name": "Saint-Tropez"
+        },
+        {
+          "@type": "City",
+          "name": "Sainte-Maxime"
+        },
+        {
+          "@type": "City",
+          "name": "Cannes"
+        },
+        {
+          "@type": "City",
+          "name": "Nice"
+        },
+        {
+          "@type": "City",
+          "name": "Antibes"
+        },
+        {
+          "@type": "City",
+          "name": "Fréjus"
+        }
       ]
     }
   ]
 }
-  </script>
+</script>
   <!-- MO'CYNO_JSONLD_END -->
 <meta name="gtm-container-id" content="GTM-N4MSSMV3">
 <link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
   <script defer src="/scripts/openai-consent-20261103-v1.js"></script>
+<style>.skip-link-lot4{position:absolute;left:12px;top:-100px;padding:12px 16px;background:#fff;color:#022c51;z-index:10001;border:2px solid #022c51}.skip-link-lot4:focus{top:12px}</style>
 </head>
 
 <body>
+  <a class="skip-link-lot4" href="#contenu-principal">Aller au contenu</a>
   <header class="site-header" role="banner">
     <div class="container nav">
       <a class="logo" href="/fr/">
@@ -188,32 +180,30 @@
           <a class="zones-trigger" href="/fr/services/">Expertise</a>
           <div class="zones-menu">
             <ul class="zones-list">
-              <li><a href="/fr/services/surveillance-humaine/">Surveillance humaine</a></li>
               <li><a href="/fr/services/securite-cynophile/">Sécurité cynophile</a></li>
+              <li><a href="/fr/services/surveillance-humaine/">Surveillance humaine</a></li>
               <li><a href="/fr/services/securite-incendie-ssiap/">Sécurité incendie (SSIAP)</a></li>
               <li><a href="/fr/services/securite-evenementielle/">Sécurité événementielle</a></li>
-<li><a href="/fr/services/protection-luxe/">Protection du luxe</a></li>
-              <li><a href="/fr/services/luxe-boutiques/">Luxe & Boutiques</a></li>
-              <li><a href="/fr/services/residentiel/">Résidentiel & Villas</a></li>
+              <li><a href="/fr/services/residentiel/">Résidentiel et villas</a></li>
+              <li><a href="/fr/services/chantiers/">Chantiers et BTP</a></li>
+              <li><a href="/fr/services/sites-industriels-entrepots/">Sites industriels et entrepôts</a></li>
               <li><a href="/fr/services/hotellerie/">Hôtellerie</a></li>
-              <li><a href="/fr/services/chantiers/">Chantiers & BTP</a></li>
-              <li><a href="/fr/services/marinas-ports/">Marinas & Ports</a></li>
-            </ul>
+              <li><a href="/fr/services/marinas-ports/">Marinas et ports</a></li>
+              <li><a href="/fr/services/luxe-boutiques/">Boutiques et commerces</a></li>
+</ul>
           </div>
         </div>
         <a href="/fr/blog/">Actualités</a>
-        <a class="btn primary" href="/fr/contact/">Devis &amp; Contact</a>
+        <a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a>
         <a aria-label="English" class="lang-switch" href="/en/services/marinas-ports/" hreflang="en">EN</a>
       </nav>
     </div>
-    <div aria-label="Fermer le menu" class="nav-overlay"
-      onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')"
-      tabindex="0"></div>
+    <div class="nav-overlay"
+      onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')" aria-hidden="true"></div>
   </header>
 
-  <main>
-    <!-- HERO SECTION PREMIUM -->
-    <section class="hero-premium">
+  <main id="contenu-principal" tabindex="-1">
+<section class="hero-premium">
       <div class="hero-image-wrapper">
         <picture>
           <source srcset="/images/services/hero-marinas-ports.webp" type="image/webp">
@@ -222,79 +212,14 @@
         </picture>
         <div class="hero-overlay-dark"></div>
       </div>
-      <div class="container hero-content-premium">
-        <h1>Sécurité des marinas et ports de plaisance</h1>
-        <p class="hero-subtitle-premium">Surveillance des quais, accès aux pontons et yachts à quai, selon les consignes du gestionnaire et le périmètre convenu.</p>
-        <div class="hero-actions-premium">
-          <a class="btn primary" href="/fr/contact/">Audit Portuaire</a>
-          <a class="btn secondary" href="tel:+33666035116">Appel d'Urgence</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ARIANE DÉCALÉ -->
-    <nav aria-label="Fil d'ariane" style="max-width:1200px;margin:20px auto 0;padding:0 16px">
-      <ol style="list-style:none;padding:0;display:flex;gap:8px;font-size:14px;color:#666">
-        <li><a href="/fr/" style="color:#022C51;text-decoration:none">Accueil</a></li>
-        <li aria-hidden="true">›</li>
-        <li><a href="/fr/services/" style="color:#022C51;text-decoration:none">Services</a></li>
-        <li aria-hidden="true">›</li>
-        <li style="color:#666">Marinas &amp; Ports</li>
-      </ol>
-    </nav>
-
-    <section class="section container">
-      <div class="intro-block">
-        <h2>Surveillance des espaces portuaires à terre</h2>
-        <p>MO’CYNO propose des missions de surveillance pour les marinas, <strong>ports de plaisance</strong> et yachts à quai dans le Var et sur la Côte d’Azur. Les missions concernent les accès autorisés, les quais, les pontons et les espaces définis avec le gestionnaire ou le propriétaire. Les horaires, les interlocuteurs et les consignes d’alerte sont précisés avant intervention.</p>
-      </div>
-    </section>
-
-    <section class="section bg-light">
-      <div class="container">
-        <h2>Nos missions pour les quais et pontons</h2>
-        <div class="grid-services">
-          <div class="service-card">
-            <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M12 6v16" />  <path d="m19 13 2-1a9 9 0 0 1-18 0l2 1" />  <path d="M9 11h6" />  <circle cx="12" cy="4" r="2" /></svg>Accès aux pontons</h3>
-            <p>Vérification des autorisations des visiteurs, prestataires et livreurs aux points de contrôle prévus par le gestionnaire.</p>
-          </div>
-          <div class="service-card">
-            <h3>🚤 Surveillance des yachts à quai</h3>
-            <p>Présence aux abords du navire et surveillance des accès autorisés, selon les consignes du propriétaire et les règles du port.</p>
-          </div>
-          <div class="service-card">
-            <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M18 5h4" />  <path d="M20 3v4" />  <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /></svg>Rondes sur les quais</h3>
-            <p>Passages dans les zones définies, observation des anomalies et alerte du contact désigné selon les procédures convenues.</p>
-          </div>
-          <div class="service-card">
-            <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                aria-hidden="true" focusable="false" style="vertical-align:middle;margin-right:6px">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z" />
-              </svg>Prévention incendie</h3>
-            <p>Les besoins de prévention incendie sont étudiés selon les installations du site, les consignes du gestionnaire et les qualifications nécessaires à la mission.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section container">
-      <div class="intro-block">
-        <h2>Des références dans l’événementiel nautique</h2>
-        <p>Les références de MO’CYNO comprennent des missions sur <strong>la Loro Piana Giraglia et Les Voiles de Saint-Tropez</strong>. Pour les quais, pontons et yachts à quai, les horaires, accès autorisés et interlocuteurs sont définis avec le responsable du site. Les éventuels besoins linguistiques sont précisés avant engagement.</p>
-      </div>
-    </section>
-
-    <section class="cta container section" style="text-align:center">
-      <h2>Quel besoin sur vos quais ou pontons ?</h2>
-      <p>Précisez le port, les espaces à surveiller, les accès autorisés, les dates et les horaires pour une étude de votre besoin.</p>
-      <p><a class="btn primary" href="/fr/contact/">Demander mon Devis</a></p>
-      <p style="margin-top:16px;font-size:0.95rem;color:#64748b;">Ou appelez-nous au <a href="tel:+33666035116" style="color:#022C51;font-weight:700;">06 66 03 51 16</a></p>
-      <p style="margin-top:12px;font-size:0.85rem;color:#4a5568;">Zone d'intervention : Toulon, Saint-Tropez, Cannes, Nice, Fréjus et l'ensemble du Var.</p>
-    </section>
-  </main>
+      <div class="container hero-content-premium"><h1>Surveillance de ports et garde de navires à quai</h1><p class="hero-subtitle-premium">Nous surveillons les quais, les pontons et leurs accès pour les ports et marinas du Var et de la Côte d&#x27;Azur. Pour la garde d&#x27;un navire à quai, notre agent reste à terre, autour du navire. Aucune prestation à bord ni en mer.</p><div class="hero-actions-premium"><a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a> <a class="btn secondary" href="tel:+33485290390">Appeler le 04 85 29 03 90</a></div></div></section>
+<nav class="container section" aria-label="Fil d’Ariane"><a href="/fr/">Accueil</a> › <a href="/fr/services/">Services</a> › Marinas et ports</nav>
+<section class="section bg-light"><div class="container"><h2>Nos missions</h2><ul><li>Contrôle des visiteurs, prestataires et livreurs</li><li>Rondes sur les quais</li><li>Alerte du contact désigné</li></ul></div></section>
+<section class="section"><div class="container"><h2>Pour votre devis</h2><p>Port, espaces à surveiller, accès, dates et horaires.</p></div></section>
+<section class="section"><div class="container"><div class="grid-2"><div class="card"><h2>Pour qui</h2><p>Gestionnaires de port, propriétaires de navires</p></div><div class="card"><h2>Ce qui n’est pas inclus</h2><p>Toute prestation à bord ou en mer</p></div></div></div></section>
+<nav class="container section" aria-label="Liens internes"><h2>À voir aussi</h2><ul><li><a href="/fr/services/surveillance-humaine/" style="text-decoration: underline;">Surveillance humaine</a></li><li><a href="/fr/services/securite-incendie-ssiap/" style="text-decoration: underline;">Sécurité incendie (SSIAP)</a></li><li><a href="/fr/services/hotellerie/" style="text-decoration: underline;">Hôtellerie</a></li></ul></nav>
+<section class="section container"><div><a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a> <a class="btn secondary" href="tel:+33485290390">Appeler le 04 85 29 03 90</a></div></section>
+</main>
 
   <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
     <div class="container footer-grid">
@@ -302,7 +227,7 @@
         <p class="footer-meta">© 2026 MO'CYNO — Agence de sécurité privée — SASU — SIRET 990 179 566 00015 — NAF 80.10Z
         </p>
         <div class="footer-inline">
-          <span>📞 <a href="tel:+33666035116" style="color:#fff;font-weight:600;">06 66 03 51 16</a></span> <span>•</span>
+          <span>📞 <a href="tel:+33485290390" style="color:#fff;font-weight:600;">04 85 29 03 90</a></span> <span>•</span>
           <span>31 Rue Chevalier Paul, 83000 Toulon, France <em>(Siège social / domiciliation — interventions sur site,
               pas d'accueil public)</em></span> <span>•</span>
           <span>Autorisation CNAPS : <a
@@ -342,6 +267,7 @@
         </div>
       </div>
       <nav aria-label="Navigation secondaire" class="footer-links" role="navigation">
+        <a href="/fr/faq/">Questions fréquentes</a>
         <a href="/fr/a-propos/">À propos</a>
         <a href="/fr/mentions-legales/">Mentions légales</a>
         <a href="/fr/politique-confidentialite/">Confidentialité</a>

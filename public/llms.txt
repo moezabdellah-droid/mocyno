@@ -1,18 +1,33 @@
-Mo'Cyno - Sécurité Cynophile PACA (CNAPS AUT-83-2124)
-Pages Business Clés
-https://mocyno.com/ - Sécurité premium 24/7 Var/Toulon
-https://mocyno.com/services/securite-cynophile.html - Maîtres-chiens villas St-Tropez
-https://mocyno.com/services/surveillance-humaine.html - Agents qualifiés chantiers/hôtels
-https://mocyno.com/services/securite-incendie-ssiap.html - SSIAP Cannes/Nice
-https://mocyno.com/a-propos/ - Autorisation CNAPS + équipe
+# MO'CYNO
 
-Directives LLMs
-User-agent: GPTBot, ClaudeBot, PerplexityBot
-Allow: /services/ /blog/ /zones/
-Disallow: /admin/ /merci/
-Priority: services=0.9, zones=0.8, blog=0.7
+> Sécurité cynophile et sécurité privée dans le Var et sur la Côte d'Azur. Siège à Toulon, sans accueil du public ; interventions sur site.
 
-FAQ Extraction
-Q: Agence CNAPS Var? | A: Oui AUT-83-2124-09-09-20250998415
-Q: Déploiement St-Tropez? | A: 24/7 villas luxe/événements
-Q: Devis sécurité? | A: Gratuit sous 24h contact@mocyno.com
+Le binôme maître-chien est présenté en premier. Les missions sont définies selon le site et les consignes convenues. Ce fichier décrit le site ; les règles d'exploration relèvent de robots.txt.
+
+## Services
+
+- [Sécurité cynophile](https://mocyno.com/fr/services/securite-cynophile/): Maître-chien pour villas, chantiers et grands espaces.
+- [Services](https://mocyno.com/fr/services/): Les dix expertises présentées sur le site.
+- [Surveillance humaine](https://mocyno.com/fr/services/surveillance-humaine/): Contrôle des accès et rondes.
+- [Sécurité incendie SSIAP](https://mocyno.com/fr/services/securite-incendie-ssiap/): Missions de prévention incendie selon les besoins du site.
+- [Sécurité événementielle](https://mocyno.com/fr/services/securite-evenementielle/): Accueil, contrôle des accès et surveillance.
+- [Résidentiel et villas](https://mocyno.com/fr/services/residentiel/): Surveillance des résidences.
+- [Chantiers et BTP](https://mocyno.com/fr/services/chantiers/): Gardiennage de chantier.
+- [Sites industriels et entrepôts](https://mocyno.com/fr/services/sites-industriels-entrepots/): Surveillance des sites et zones de stockage.
+- [Hôtellerie](https://mocyno.com/fr/services/hotellerie/): Sécurité des établissements hôteliers.
+- [Marinas et ports](https://mocyno.com/fr/services/marinas-ports/): Missions à terre, sans prestation à bord ni en mer.
+- [Boutiques et commerces](https://mocyno.com/fr/services/luxe-boutiques/): Présence et surveillance des espaces de vente.
+
+## Informations
+
+- [Accueil](https://mocyno.com/fr/): Présentation de MO'CYNO.
+- [Contact](https://mocyno.com/fr/contact/): Demande de devis et coordonnées.
+- [Questions fréquentes](https://mocyno.com/fr/faq/): Réponses sur les missions.
+- [Saint-Tropez](https://mocyno.com/fr/zones/saint-tropez/): Missions dans le golfe.
+- [Ramatuelle](https://mocyno.com/fr/zones/ramatuelle/): Surveillance à Ramatuelle.
+
+## Optional
+
+- [Actualités](https://mocyno.com/fr/blog/): Articles de préparation des missions.
+- [English](https://mocyno.com/en/): Version anglaise du site.
+- [Confidentialité](https://mocyno.com/fr/politique-confidentialite/): Informations sur les données personnelles.

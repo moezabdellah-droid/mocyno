@@ -37,14 +37,14 @@
     <!-- MO'CYNO_CONSENT_DEFAULT_END -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>Sécurité Incendie SSIAP — MO'CYNO</title>
+    <title>Agent SSIAP dans le Var et sur la Côte d&#x27;Azur | MO&#x27;CYNO</title>
     <meta
-        content="Agents SSIAP 1, 2 et 3 pour la prévention incendie et la gestion d'évacuation en région PACA. Expertise en conformité ERP et IGH."
+        content="Agents de sécurité incendie pour ERP, IGH et hôtels : rondes de prévention, PC sécurité et aide à l&#x27;évacuation. Var et Côte d&#x27;Azur."
         name="description">
     <meta content="website" property="og:type">
-    <meta content="Sécurité Incendie SSIAP — MO'CYNO" property="og:title">
+    <meta content="Agent SSIAP dans le Var et sur la Côte d&#x27;Azur | MO&#x27;CYNO" property="og:title">
     <meta
-        content="Agents SSIAP 1, 2 et 3 pour la prévention incendie et la gestion d'évacuation en région PACA. Expertise en conformité ERP et IGH."
+        content="Agents de sécurité incendie pour ERP, IGH et hôtels : rondes de prévention, PC sécurité et aide à l&#x27;évacuation. Var et Côte d&#x27;Azur."
         property="og:description">
     <meta content="https://mocyno.com/fr/services/securite-incendie-ssiap/" property="og:url">
     <meta content="https://mocyno.com/og-image.png" property="og:image">
@@ -61,9 +61,9 @@
     <link href="/favicon.ico" rel="icon">
     <link href="/favicon.svg" rel="icon" type="image/svg+xml">
     <meta content="#022C51" name="theme-color">
-    <link as="style" href="/styles.css?v=2.8" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
+    <link as="style" href="/styles.css?v=20261105-1" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
     <noscript>
-        <link href="/styles.css?v=2.8" rel="stylesheet" />
+        <link href="/styles.css?v=20261105-1" rel="stylesheet" />
     </noscript>
     <link href="/styles-compat-patch.css?v=2.7" rel="stylesheet">
 
@@ -79,120 +79,71 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
-      "@id": "https://mocyno.com/#organization",
-      "name": "MO'CYNO SASU",
-      "url": "https://mocyno.com/",
-      "logo": "https://mocyno.com/mocyno-logo.png",
-      "sameAs": ["https://www.linkedin.com/company/MO'CYNO"]
-    },
-    {
-      "@type": ["LocalBusiness", "SecurityService", "ProfessionalService"],
-      "@id": "https://mocyno.com/#localbusiness-fr",
-      "parentOrganization": { "@id": "https://mocyno.com/#organization" },
-      "name": "MO'CYNO",
-      "legalName": "MO'CYNO SASU",
-      "url": "https://mocyno.com/fr/",
-      "logo": "https://mocyno.com/mocyno-logo.png",
-      "telephone": "+33666035116",
-      "email": "contact@mocyno.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "31 Rue Chevalier Paul",
-        "postalCode": "83000",
-        "addressLocality": "Toulon",
-        "addressCountry": "FR"
-      },
-      "areaServed": [
-        { "@type": "AdministrativeArea", "name": "Provence-Alpes-Côte d'Azur, France" },
-        { "@type": "AdministrativeArea", "name": "Var, France" },
-        { "@type": "AdministrativeArea", "name": "Alpes-Maritimes, France" },
-        { "@type": "City", "name": "Toulon" },
-        { "@type": "City", "name": "Saint-Tropez" },
-        { "@type": "City", "name": "Sainte-Maxime" },
-        { "@type": "City", "name": "Cannes" },
-        { "@type": "City", "name": "Nice" },
-        { "@type": "City", "name": "Antibes" },
-        { "@type": "City", "name": "Fréjus" }
-      ],
-      "sameAs": [
-        "https://www.linkedin.com/company/MO'CYNO",
-        "https://www.instagram.com/MO'CYNOsecurite/"
-      ]
-    },
-    {
       "@type": "Service",
       "@id": "https://mocyno.com/fr/services/securite-incendie-ssiap/#service-index",
-      "name": "Sécurité Incendie SSIAP",
-      "serviceType": "Sécurité Privée — Prévention Incendie",
-      "provider": { "@id": "https://mocyno.com/#localbusiness-fr" },
+      "name": "Agents SSIAP pour vos ERP, IGH et hôtels",
+      "serviceType": "Agents SSIAP pour vos ERP, IGH et hôtels",
+      "provider": {
+        "@id": "https://mocyno.com/#organization"
+      },
       "url": "https://mocyno.com/fr/services/securite-incendie-ssiap/",
       "areaServed": [
-        { "@type": "AdministrativeArea", "name": "Provence-Alpes-Côte d'Azur, France" },
-        { "@type": "AdministrativeArea", "name": "Var, France" },
-        { "@type": "City", "name": "Toulon" },
-        { "@type": "City", "name": "Saint-Tropez" },
-        { "@type": "City", "name": "Cannes" },
-        { "@type": "City", "name": "Nice" },
-        { "@type": "City", "name": "Fréjus" }
+        {
+          "@type": "AdministrativeArea",
+          "name": "Provence-Alpes-Côte d'Azur, France"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Var, France"
+        },
+        {
+          "@type": "City",
+          "name": "Toulon"
+        },
+        {
+          "@type": "City",
+          "name": "Saint-Tropez"
+        },
+        {
+          "@type": "City",
+          "name": "Cannes"
+        },
+        {
+          "@type": "City",
+          "name": "Nice"
+        },
+        {
+          "@type": "City",
+          "name": "Fréjus"
+        }
       ]
     },
     {
+      "@context": "https://schema.org",
       "@type": "FAQPage",
-      "@id": "https://mocyno.com/fr/services/securite-incendie-ssiap/#faq",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Quelle est la différence entre SSIAP 1, SSIAP 2 et SSIAP 3 ?",
+          "name": "Quel niveau SSIAP me faut-il ?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "SSIAP 1 correspond à l’agent de sécurité incendie, SSIAP 2 au chef d’équipe et SSIAP 3 au chef de service. Le niveau nécessaire dépend de l’organisation et des exigences de l’établissement ; ces fonctions ne sont pas interchangeables."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Vos agents SSIAP interviennent-ils dans les hôtels et palaces de la Côte d'Azur ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Nous étudions les besoins des hôtels et palaces selon leur organisation et les prescriptions applicables. Le niveau SSIAP, les effectifs, les horaires et les qualifications mobilisables sont précisés dans la proposition."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Quelle est la zone d'intervention de MO'CYNO pour la sécurité incendie ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Les demandes concernent le Var et les Alpes-Maritimes. La commune, les dates, les horaires et les niveaux SSIAP souhaités permettent de confirmer la faisabilité et la disponibilité avant engagement."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Vos agents SSIAP tiennent-ils la main courante réglementaire ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "La tenue de la main courante et les transmissions sont définies dans les consignes de la mission. Les événements consignés sont communiqués aux interlocuteurs désignés par l’établissement."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Pouvez-vous intervenir pour un événement ponctuel nécessitant des agents SSIAP ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Une mission ponctuelle peut être étudiée selon le lieu, les horaires et les prescriptions de l’événement. Les qualifications nécessaires sont vérifiées avant engagement, en coordination avec votre organisation de sécurité événementielle."
+            "text": "Il dépend du classement et des caractéristiques de votre établissement. Indiquez-les-nous dans votre demande."
           }
         }
       ]
     }
   ]
 }
-    </script>
+</script>
     <!-- MO'CYNO_JSONLD_END -->
 <meta name="gtm-container-id" content="GTM-N4MSSMV3">
 <link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
   <script defer src="/scripts/openai-consent-20261103-v1.js"></script>
+<style>.skip-link-lot4{position:absolute;left:12px;top:-100px;padding:12px 16px;background:#fff;color:#022c51;z-index:10001;border:2px solid #022c51}.skip-link-lot4:focus{top:12px}</style>
 </head>
 
 <body>
+  <a class="skip-link-lot4" href="#contenu-principal">Aller au contenu</a>
     <header class="site-header" role="banner">
         <div class="container nav">
             <a class="logo" href="/fr/">
@@ -230,32 +181,30 @@
           <a class="zones-trigger" href="/fr/services/">Expertise</a>
           <div class="zones-menu">
             <ul class="zones-list">
-              <li><a href="/fr/services/surveillance-humaine/">Surveillance humaine</a></li>
               <li><a href="/fr/services/securite-cynophile/">Sécurité cynophile</a></li>
+              <li><a href="/fr/services/surveillance-humaine/">Surveillance humaine</a></li>
               <li><a href="/fr/services/securite-incendie-ssiap/">Sécurité incendie (SSIAP)</a></li>
               <li><a href="/fr/services/securite-evenementielle/">Sécurité événementielle</a></li>
-<li><a href="/fr/services/protection-luxe/">Protection du luxe</a></li>
-              <li><a href="/fr/services/luxe-boutiques/">Luxe & Boutiques</a></li>
-              <li><a href="/fr/services/residentiel/">Résidentiel & Villas</a></li>
+              <li><a href="/fr/services/residentiel/">Résidentiel et villas</a></li>
+              <li><a href="/fr/services/chantiers/">Chantiers et BTP</a></li>
+              <li><a href="/fr/services/sites-industriels-entrepots/">Sites industriels et entrepôts</a></li>
               <li><a href="/fr/services/hotellerie/">Hôtellerie</a></li>
-              <li><a href="/fr/services/chantiers/">Chantiers & BTP</a></li>
-              <li><a href="/fr/services/marinas-ports/">Marinas & Ports</a></li>
-            </ul>
+              <li><a href="/fr/services/marinas-ports/">Marinas et ports</a></li>
+              <li><a href="/fr/services/luxe-boutiques/">Boutiques et commerces</a></li>
+</ul>
           </div>
         </div>
                 <a href="/fr/blog/">Actualités</a>
-                <a class="btn primary" href="/fr/contact/">Devis &amp; Contact</a>
+                <a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a>
                 <a aria-label="English" class="lang-switch" href="/en/services/fire-safety-ssiap/" hreflang="en">EN</a>
             </nav>
         </div>
-        <div aria-label="Fermer le menu" class="nav-overlay"
-            onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')"
-            tabindex="0"></div>
+        <div class="nav-overlay"
+            onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')" aria-hidden="true"></div>
     </header>
 
-    <main>
-        <!-- HERO SECTION PREMIUM -->
-        <section class="hero-premium">
+    <main id="contenu-principal" tabindex="-1">
+<section class="hero-premium">
             <div class="hero-image-wrapper">
                 <picture>
           <source srcset="/assets/ssiap.webp" type="image/webp">
@@ -264,147 +213,14 @@
         </picture>
                 <div class="hero-overlay-dark"></div>
             </div>
-            <div class="container hero-content-premium">
-                <h1>Sécurité Incendie SSIAP</h1>
-                <p class="hero-subtitle-premium">Agents SSIAP pour les rondes de prévention, le PC sécurité et l’application des consignes incendie de votre établissement.</p>
-                <div class="hero-actions-premium">
-                    <a class="btn primary" href="/fr/contact/">Audit Conformité</a>
-                    <a class="btn secondary" href="tel:+33666035116">Appel d'Urgence</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- ARIANE DÉCALÉ -->
-        <nav aria-label="Fil d'ariane" style="max-width:1200px;margin:20px auto 0;padding:0 16px">
-            <ol style="list-style:none;padding:0;display:flex;gap:8px;font-size:14px;color:#666">
-                <li><a href="/fr/" style="color:#022C51;text-decoration:none">Accueil</a></li>
-                <li aria-hidden="true">›</li>
-                <li><a href="/fr/services/" style="color:#022C51;text-decoration:none">Services</a></li>
-                <li aria-hidden="true">›</li>
-                <li style="color:#666">Sécurité Incendie SSIAP</li>
-            </ol>
-        </nav>
-
-        <section class="section container">
-            <div class="intro-block">
-                <h2>Un dispositif incendie adapté à votre établissement</h2>
-                <p>MO’CYNO propose des <strong>prestations SSIAP</strong> pour les établissements recevant du public et les immeubles de grande hauteur. Le niveau de qualification et l’organisation de la mission sont définis selon les caractéristiques du site, les prescriptions applicables et les besoins exprimés par son responsable. Les prestations peuvent concerner les rondes de prévention, la tenue du PC sécurité et la transmission des informations utiles aux secours.</p>
-            </div>
-        </section>
-
-        <section class="section bg-light">
-            <div class="container">
-                <h2>Nos Solutions SSIAP</h2>
-                <div class="grid-services">
-                    <div class="service-card">
-                        <h3>🛡️ SSIAP 1 : agent de sécurité incendie</h3>
-                        <p>Rondes de prévention, surveillance des installations prévues aux consignes et premières actions adaptées aux anomalies ou alarmes constatées.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>📋 SSIAP 2 : chef d’équipe</h3>
-                        <p>Encadrement des agents de sécurité incendie et organisation des actions de l’équipe, selon les consignes et le fonctionnement de l’établissement.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>📐 SSIAP 3 : chef de service</h3>
-                        <p>Organisation du service de sécurité incendie, conseil au responsable de l’établissement et suivi des documents relevant de la mission confiée.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>🏃 Évacuation et coordination</h3>
-                        <p>Participation à l’organisation des évacuations et transmission des informations aux interlocuteurs désignés et aux secours, selon les procédures du site.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section container">
-            <div class="intro-block">
-                <h2>Les missions confiées à nos agents SSIAP</h2>
-                <p>Le contenu de la prestation est précisé avant sa mise en place. Il dépend des installations, des consignes d’exploitation et des qualifications nécessaires.</p>
-                <ul style="margin-top:16px;padding-left:20px;line-height:1.9;color:#334155">
-                    <li><strong>Rondes</strong> : contrôle des dégagements et points de vigilance prévus aux consignes, avec signalement des anomalies constatées.</li>
-                    <li><strong>PC sécurité</strong> : suivi des équipements et des informations relevant du poste, avec application des procédures en cas d’alarme.</li>
-                    <li><strong>Évacuation</strong> : participation aux exercices et à l’orientation des occupants dans le cadre de l’organisation définie par l’établissement.</li>
-                    <li><strong>Main courante</strong> : consignation des événements et transmission des informations utiles au responsable désigné.</li>
-                    <li><strong>Prévention</strong> : repérage des situations à risque et remontée des observations, sans se substituer aux contrôles techniques réglementaires.</li>
-                    <li><strong>Coordination</strong> : échanges avec la direction, les équipes techniques et les services de secours selon les besoins de la mission.</li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="section bg-light">
-            <div class="container">
-                <h2>Dans quels établissements intervenir ?</h2>
-                <div class="grid-services">
-                    <div class="service-card">
-                        <h3>🏨 Hôtels et établissements recevant du public</h3>
-                        <p>Les besoins en personnel de sécurité incendie dépendent du classement et des caractéristiques de l’établissement. MO’CYNO étudie le dispositif avec son responsable, en lien avec l’organisation de la <a href="/fr/services/hotellerie/">sécurité hôtellerie</a>.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>🎪 Événements et installations temporaires</h3>
-                        <p>Pour un salon, un congrès ou une réception, le besoin en agents SSIAP est étudié selon le lieu et les prescriptions applicables. La mission s’articule avec le dispositif de <a href="/fr/services/evenementiel-premium/">sécurité événementielle</a>.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>🏰 Immeubles de grande hauteur</h3>
-                        <p>Les missions en IGH sont définies selon les installations, les consignes d’exploitation et l’organisation du service de sécurité incendie de l’immeuble.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>🏗️ Sites techniques et chantiers</h3>
-                        <p>Les missions de prévention incendie sont définies selon les risques, les installations et les exigences du site, avec le responsable du chantier ou de l’établissement.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section container">
-            <div class="intro-block">
-                <h2>Sécurité incendie : une référence dans le Var</h2>
-                <p>MO’CYNO a réalisé des missions de sécurité incendie lors d’événements au Château de la Castille, dans le Var. Depuis <a href="/fr/zones/toulon/"><strong>Toulon</strong></a>, nous étudions vos besoins à <a href="/fr/zones/saint-tropez/"><strong>Saint-Tropez</strong></a>, <a href="/fr/zones/cannes/"><strong>Cannes</strong></a> et sur la Côte d’Azur. Le type d’établissement, les qualifications demandées et le planning permettent de préciser le dispositif.</p>
-            </div>
-        </section>
-
-        <section id="faq" class="container" style="margin:40px auto;background:#f9f9f9;padding:24px;border-radius:12px">
-            <h2>FAQ — Sécurité Incendie SSIAP</h2>
-            <details open style="margin-bottom:12px">
-                <summary><strong>Quelle est la différence entre SSIAP 1, SSIAP 2 et SSIAP 3 ?</strong></summary>
-                <p style="margin-top:8px">SSIAP 1 correspond à l’agent de sécurité incendie, SSIAP 2 au chef d’équipe et SSIAP 3 au chef de service. Le niveau nécessaire dépend de l’organisation et des exigences de l’établissement ; ces fonctions ne sont pas interchangeables.</p>
-            </details>
-            <details style="margin-bottom:12px">
-                <summary><strong>Vos agents SSIAP interviennent-ils dans les hôtels et palaces de la Côte d'Azur ?</strong></summary>
-                <p style="margin-top:8px">Nous étudions les besoins des hôtels et palaces selon leur organisation et les prescriptions applicables. Le niveau SSIAP, les effectifs, les horaires et les qualifications mobilisables sont précisés dans la proposition.</p>
-            </details>
-            <details style="margin-bottom:12px">
-                <summary><strong>Quelle est votre zone d'intervention pour la sécurité incendie ?</strong></summary>
-                <p style="margin-top:8px">Les demandes concernent le Var et les Alpes-Maritimes. La commune, les dates, les horaires et les niveaux SSIAP souhaités permettent de confirmer la faisabilité et la disponibilité avant engagement.</p>
-            </details>
-            <details style="margin-bottom:12px">
-                <summary><strong>Vos agents SSIAP tiennent-ils la main courante réglementaire ?</strong></summary>
-                <p style="margin-top:8px">La tenue de la main courante et les transmissions sont définies dans les consignes de la mission. Les événements consignés sont communiqués aux interlocuteurs désignés par l’établissement.</p>
-            </details>
-            <details>
-                <summary><strong>Pouvez-vous intervenir pour un événement ponctuel nécessitant des agents SSIAP ?</strong></summary>
-                <p style="margin-top:8px">Une mission ponctuelle peut être étudiée selon le lieu, les horaires et les prescriptions de l’événement. Les qualifications nécessaires sont vérifiées avant engagement, en coordination avec votre organisation de <a href="/fr/services/evenementiel-premium/">sécurité événementielle.</a></p>
-            </details>
-        </section>
-
-        <section class="container" style="margin:40px auto;border-top:1px solid #eee;padding-top:24px">
-            <h3>Voir aussi</h3>
-            <nav style="display:flex;gap:16px;flex-wrap:wrap">
-                <a href="/fr/services/hotellerie/">Sécurité Hôtellerie</a>
-                <a href="/fr/services/evenementiel-premium/">Sécurité Événementielle</a>
-                <a href="/fr/zones/toulon/">Zone Toulon</a>
-                <a href="/fr/zones/saint-tropez/">Zone Saint-Tropez</a>
-                <a href="/fr/zones/cannes/">Zone Cannes</a>
-                <a href="/fr/services/">Tous nos services</a>
-            </nav>
-        </section>
-
-        <section class="cta container section" style="text-align:center">
-            <h2>Quel besoin SSIAP pour votre établissement ?</h2>
-            <p>Décrivez votre établissement, les niveaux SSIAP demandés et le planning envisagé pour une étude de votre besoin.</p>
-            <p><a class="btn primary" href="/fr/contact/">Demander une étude SSIAP</a></p>
-            <p style="margin-top:12px;font-size:0.9rem;color:#64748b">Ou appelez-nous directement : <a href="tel:+33666035116" style="color:#022C51;font-weight:700">06 66 03 51 16</a></p>
-        </section>
-    </main>
+            <div class="container hero-content-premium"><h1>Agents SSIAP pour vos ERP, IGH et hôtels</h1><p class="hero-subtitle-premium">Nos agents de sécurité incendie assurent les rondes de prévention, tiennent le PC sécurité et participent à l&#x27;évacuation selon votre organisation. Nous définissons le niveau de qualification selon vos prescriptions.</p><div class="hero-actions-premium"><a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a> <a class="btn secondary" href="tel:+33485290390">Appeler le 04 85 29 03 90</a></div></div></section>
+<nav class="container section" aria-label="Fil d’Ariane"><a href="/fr/">Accueil</a> › <a href="/fr/services/">Services</a> › Sécurité incendie SSIAP</nav>
+<section class="section bg-light"><div class="container"><h2>Les niveaux SSIAP</h2><ul><li>SSIAP 1, agent</li><li>SSIAP 2, chef d&#x27;équipe</li><li>SSIAP 3, chef de service</li></ul></div></section>
+<section class="section"><div class="container"><h2>Nos missions</h2><ul><li>Contrôle des dégagements</li><li>Suivi du PC sécurité</li><li>Main courante</li><li>Transmission d&#x27;informations aux secours. Ces missions ne remplacent pas les contrôles techniques réglementaires.</li></ul></div></section>
+<section class="section"><div class="container"><div class="grid-2"><div class="card"><h2>Pour qui</h2><p>Directions d&#x27;ERP, d&#x27;IGH et d&#x27;<a href="/fr/services/hotellerie/">hôtels</a></p></div><div class="card"><h2>Ce qui n’est pas inclus</h2><p>Contrôles techniques réglementaires</p></div></div></div></section>
+<section class="section container" id="faq"><div class="faq-list"><h2>Questions fréquentes</h2><details><summary>Quel niveau SSIAP me faut-il ?</summary><p>Il dépend du classement et des caractéristiques de votre établissement. Indiquez-les-nous dans votre demande.</p></details></div></section><nav class="container section" aria-label="Liens internes"><h2>À voir aussi</h2><ul><li><a href="/fr/services/hotellerie/" style="text-decoration: underline;">Hôtellerie</a></li><li><a href="/fr/services/sites-industriels-entrepots/" style="text-decoration: underline;">Sites industriels et entrepôts</a></li><li><a href="/fr/services/surveillance-humaine/" style="text-decoration: underline;">Surveillance humaine</a></li></ul></nav>
+<section class="section container"><div><a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a> <a class="btn secondary" href="tel:+33485290390">Appeler le 04 85 29 03 90</a></div></section>
+</main>
 
     <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
         <div class="container footer-grid">
@@ -454,6 +270,7 @@
                 </div>
             </div>
             <nav aria-label="Navigation secondaire" class="footer-links" role="navigation">
+        <a href="/fr/faq/">Questions fréquentes</a>
                 <a href="/fr/a-propos/">À propos</a>
                 <a href="/fr/mentions-legales/">Mentions légales</a>
                 <a href="/fr/politique-confidentialite/">Confidentialité</a>

@@ -5,26 +5,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description"
-    content="Contactez MO'CYNO pour un devis gratuit de sécurité privée, gardiennage ou sécurité cynophile. Réponse sous 24h.">
-  <meta property="og:description" content="Contactez MO'CYNO pour un devis gratuit de sécurité privée, gardiennage ou sécurité cynophile. Réponse sous 24h." />
-  <title>Contact & Devis — MO'CYNO</title>
+    content="Demandez un devis de sécurité gratuit et sans engagement. Réponse sous 24 h ouvrées. Fixe 04 85 29 03 90, portable 06 66 03 51 16.">
+  <meta property="og:description" content="Demandez un devis de sécurité gratuit et sans engagement. Réponse sous 24 h ouvrées. Fixe 04 85 29 03 90, portable 06 66 03 51 16." />
+  <title>Devis sécurité gratuit | MO'CYNO Toulon</title>
   <link rel="canonical" href="https://mocyno.com/fr/contact/" />
   <link rel="alternate" hreflang="fr" href="https://mocyno.com/fr/contact/" />
   <link rel="alternate" hreflang="en" href="https://mocyno.com/en/contact/" />
   <link rel="alternate" hreflang="x-default" href="https://mocyno.com/fr/contact/" />
-  <link rel="stylesheet" href="/styles.css?v=2.8">
+  <link rel="stylesheet" href="/styles.css?v=20261105-1">
   <!-- Google Tag Manager -->
   <script defer src="/scripts/consent-openai-20261103-v1.js"></script>
 
   <!-- End Google Tag Manager -->
-  <meta name="ga-measurement-id" content="G-Q5ZHXE665Z">
+  <meta name="ga-measurement-id" content="G-9RDHGKSLW9">
   
   <style>
     .contact-layout {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: 60px;
-      margin-top: 40px;
+      margin-top: 24px;
     }
 
     .contact-form {
@@ -34,8 +34,7 @@
     }
 
     .contact-form label {
-      display: flex;
-      flex-direction: column;
+      display: block;
       font-weight: 700;
       color: #0f3552;
       font-size: 0.9rem;
@@ -45,6 +44,12 @@
     .contact-form input,
     .contact-form select,
     .contact-form textarea {
+      display: block;
+      width: 100%;
+      margin-top: 8px;
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
       padding: 14px 16px;
       border: 1px solid #d2e0ed;
       border-radius: 8px;
@@ -69,8 +74,16 @@
     }
 
     .contact-form .required {
+      display: inline;
       color: #0f3552;
     }
+
+    .contact-card a[href^="tel:"] {
+      white-space: nowrap;
+    }
+
+    .contact-layout > div { min-width: 0; }
+    .contact-form button[type="submit"] { max-width: 100%; white-space: normal; }
 
     .contact-aside {
       display: flex;
@@ -171,11 +184,11 @@
 
     @media (max-width: 768px) {
       .contact-layout {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
       }
 
       .contact-aside {
-        order: -1;
+        order: 0;
       }
     }
   </style>
@@ -233,14 +246,18 @@
     }
   </style>
 
-  <script defer src="/scripts/contact-turnstile.js?v=1"></script>
+  <script defer src="/scripts/contact-turnstile.js?v=20261105-double-submit-1"></script>
   <script defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
 <meta name="gtm-container-id" content="GTM-N4MSSMV3">
 <link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
   <script defer src="/scripts/openai-consent-20261103-v1.js"></script>
+  <script defer src="/scripts/contact-details-20261103.js"></script>
+<style>.skip-link-lot4{position:absolute;left:12px;top:-100px;padding:12px 16px;background:#fff;color:#022c51;z-index:10001;border:2px solid #022c51}.skip-link-lot4:focus{top:12px}</style>
+<meta property="og:image" content="https://mocyno.com/og-image.png">
 </head>
 
 <body>
+  <a class="skip-link-lot4" href="#contenu-principal">Aller au contenu</a>
   <!-- Google Tag Manager (noscript) -->
   
   <!-- End Google Tag Manager (noscript) -->
@@ -286,55 +303,33 @@
           <a class="zones-trigger" href="/fr/services/">Expertise</a>
           <div class="zones-menu">
             <ul class="zones-list">
-              <li><a href="/fr/services/surveillance-humaine/">Surveillance humaine</a></li>
               <li><a href="/fr/services/securite-cynophile/">Sécurité cynophile</a></li>
+              <li><a href="/fr/services/surveillance-humaine/">Surveillance humaine</a></li>
               <li><a href="/fr/services/securite-incendie-ssiap/">Sécurité incendie (SSIAP)</a></li>
               <li><a href="/fr/services/securite-evenementielle/">Sécurité événementielle</a></li>
-<li><a href="/fr/services/protection-luxe/">Protection du luxe</a></li>
-              <li><a href="/fr/services/luxe-boutiques/">Luxe & Boutiques</a></li>
-              <li><a href="/fr/services/residentiel/">Résidentiel & Villas</a></li>
+              <li><a href="/fr/services/residentiel/">Résidentiel et villas</a></li>
+              <li><a href="/fr/services/chantiers/">Chantiers et BTP</a></li>
+              <li><a href="/fr/services/sites-industriels-entrepots/">Sites industriels et entrepôts</a></li>
               <li><a href="/fr/services/hotellerie/">Hôtellerie</a></li>
-              <li><a href="/fr/services/chantiers/">Chantiers & BTP</a></li>
-              <li><a href="/fr/services/marinas-ports/">Marinas & Ports</a></li>
-            </ul>
+              <li><a href="/fr/services/marinas-ports/">Marinas et ports</a></li>
+              <li><a href="/fr/services/luxe-boutiques/">Boutiques et commerces</a></li>
+</ul>
           </div>
         </div>
         <a href="/fr/blog/">Actualités</a>
-        <a class="btn primary" href="/fr/contact/">Devis &amp; Contact</a>
+        <a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a>
         <a aria-label="English" class="lang-switch" href="/en/" hreflang="en">EN</a>
       </nav>
     </div>
-    <div aria-label="Fermer le menu" class="nav-overlay"
-      onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')"
-      tabindex="0"></div>
+    <div class="nav-overlay"
+      onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')" aria-hidden="true"></div>
   </header>
   <!-- HERO SECTION PREMIUM -->
-  <section class="hero-premium">
-    <div class="hero-image-wrapper">
-      <picture>
-          <source srcset="/images/hero-home-main-villa-premium.webp" type="image/webp">
-          <img alt="Contact MO'CYNO" class="hero-img" height="1024" src="/images/hero-home-main-villa-premium.png"
-        width="1024">
-        </picture>
-      <div class="hero-overlay-dark"></div>
-    </div>
-    <div class="container hero-content-premium">
-      <h1>Obtenez votre étude de sécurité gratuite</h1>
-      <p class="hero-subtitle-premium">Réponse sous 24h ouvrées — sans engagement — agents CNAPS agréés.</p>
-      <div class="hero-actions-premium">
-        <a class="btn primary" href="#contactForm"
-          style="background: #eab308; border-color: #eab308; color: #0f3552;">Accéder au formulaire</a>
-        <a class="btn secondary" href="tel:+33666035116">Appel direct 24/7</a>
-      </div>
-    </div>
-  </section>
+  <main class="container" style="max-width:1100px; padding-bottom: 80px;" id="contenu-principal" tabindex="-1">
+    <section class="section" style="padding-top:16px; padding-bottom: 20px;">
 
-  <main class="container" style="max-width:1100px; padding-bottom: 80px;">
-    <section class="section" style="padding-top:60px; padding-bottom: 20px;">
-
-      <span class="surtitle">DEVIS GRATUIT — CONFIDENTIEL & SANS ENGAGEMENT</span>
-      <h2 style="color: #0f3552; font-size: 2.5rem; margin-top: 0; margin-bottom: 40px; font-weight: 800;">Demandez
-        votre étude de sécurité</h2>
+<h1 style="color:#0f3552; font-size:clamp(1.75rem,4vw,2.5rem); line-height:1.2; margin:0 0 8px;">Demandez votre devis de sécurité</h1>
+      <p style="margin:0;">Devis gratuit et sans engagement. Réponse sous 24 heures ouvrées.</p>
 
       <div class="contact-layout">
         <!-- Colonne Gauche : Formulaire -->
@@ -363,8 +358,8 @@
             </label>
 
             <label for="phone">
-              Téléphone
-              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel"
+              Téléphone <span class="required">*</span>
+              <input id="phone" name="phone" type="tel" required inputmode="tel" autocomplete="tel"
                 placeholder="+33 6 XX XX XX XX">
             </label>
 
@@ -372,22 +367,26 @@
               Type de besoin
               <select id="service" name="service">
                 <option value="" disabled selected>— Sélectionner —</option>
+                <option value="Équipe cynophile (K9)">Maître-chien (sécurité cynophile)</option>
                 <option value="Surveillance humaine">Surveillance humaine</option>
-                <option value="Équipe cynophile (K9)">Équipe cynophile (K9)</option>
-                <option value="SSIAP / Incendie">SSIAP / Prévention incendie</option>
+                <option value="SSIAP / Incendie">Sécurité incendie (SSIAP)</option>
                 <option value="Événementiel">Sécurité événementielle</option>
-                        <option value="protection-luxe">Protection luxe</option>
-        <option value="residentiel-villas">Résidentiel & Villas</option>
-        <option value="securite-chantier">Sécurité chantier</option>
-        <option value="hotellerie-marinas">Hôtellerie & Marinas</option>
-        <option value="boutiques-luxe">Boutiques de luxe</option>
-        <option value="Autre">Autre / Conseil</option>
+                <option value="residentiel-villas">Résidentiel et villas</option>
+                <option value="securite-chantier">Chantiers et BTP</option>
+                <option value="Sites industriels &amp; entrepôts">Sites industriels et entrepôts</option>
+                <option value="hotellerie-marinas">Hôtellerie</option>
+                <option value="hotellerie-marinas">Marinas et ports</option>
+                <option value="boutiques-luxe">Boutiques et commerces</option>
+                <option value="Autre">Autre demande</option>
               </select>
             </label>
 
+            <label for="site-town">Commune du site<input id="site-town" autocomplete="address-level2" maxlength="120"></label>
+            <label for="preferred-date">Date souhaitée<input id="preferred-date" type="date"></label>
+            <label for="required-duration">Durée souhaitée<input id="required-duration" maxlength="120" placeholder="Précisez la durée et les horaires souhaités"></label>
             <label for="message">
               Votre message <span class="required">*</span>
-              <textarea id="message" name="message" rows="5" required
+              <textarea id="message" name="message" rows="5" required maxlength="5000"
                 placeholder="Décrivez brièvement votre besoin : zone géographique, durée, contexte..."></textarea>
             </label>
 
@@ -402,10 +401,11 @@
                         <div style="margin-top: 16px; position:relative;">
               <button class="btn primary" type="submit"
                 style="padding: 16px 32px; font-size: 1.1rem; border-radius: 50px; background-color: #cd122c; color: white; border: none; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
-                Envoyer
+                Recevoir mon devis gratuit
               </button>
             </div>
           </form>
+          <p style="margin-top:16px;">Vos informations servent à traiter votre demande. <a href="/fr/politique-confidentialite/" style="text-decoration:underline;">Politique de confidentialité</a></p>
         </div>
 
         <!-- Colonne Droite : Infos & Réassurance -->
@@ -414,59 +414,13 @@
           <div class="contact-card">
             <h2 class="contact-card-title">Nos coordonnées</h2>
 
-            <div class="contact-address">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path
-                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-              </svg>
-              <div>
-                <strong><a href="tel:+33666035116">+33 6 66 03 51 16</a></strong>
-                <span>Disponible 24h/24 — 7j/7</span>
-              </div>
-            </div>
-
-            <div class="contact-address">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path
-                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-              </svg>
-              <div>
-                <strong><a href="tel:+33485290390">04 85 29 03 90</a></strong>
-                <span>Téléphone fixe</span>
-              </div>
-            </div>
-
-            <div class="contact-address">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect width="20" height="16" x="2" y="4" rx="2" />
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-              </svg>
-              <div>
-                <strong><a href="mailto:contact@mocyno.com">contact@mocyno.com</a></strong>
-                <span>Réponse sous 24h ouvrées</span>
-              </div>
-            </div>
-
-            <div class="contact-address">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              <div>
-                <strong>31 Rue Chevalier Paul, 83000 Toulon</strong>
-                <span>Siège social — interventions sur site uniquement</span>
-              </div>
-            </div>
+            <p>Vous préférez appeler ? Fixe <a href="tel:+33485290390">04 85 29 03 90</a> ; portable <a href="tel:+33666035116">06 66 03 51 16</a> ; joignables 24 h/24 et 7 j/7. Courriel : <a href="mailto:contact@mocyno.com">contact@mocyno.com</a>. Notre siège au 31 rue Chevalier Paul, à Toulon, n'accueille pas de public.</p>
 
             <div class="social-banner"
               style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #d2e0ed; display: flex; justify-content: flex-start; gap: 16px; align-items: center; width: 100%;">
               <span style="color:#64748b; font-size:0.95rem; font-weight:600; margin: 0;">Rejoignez-nous :</span>
               <div style="display:flex; gap:16px;">
-                <a href="https://wa.me/message/53TDACISLGDRJ1" target="_blank" rel="noopener" class="social-logo"
+                <a href="https://wa.me/33666035116" target="_blank" rel="noopener" class="social-logo"
                   aria-label="WhatsApp">
                   <svg viewBox="0 0 24 24" fill="white" width="20" height="20">
                     <path
@@ -520,16 +474,7 @@
             CSI)</span>
         </div>
         <div class="footer-social">
-          <a class="footer-social-link" href="https://wa.me/33666035116" aria-label="Contacter MO'CYNO sur WhatsApp"
-            target="_blank" rel="noopener noreferrer">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
-              <path
-                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.570-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-              <path
-                d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.117 1.528 5.845L0 24l6.335-1.508A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.667-.495-5.2-1.362l-.372-.22-3.861.919.951-3.77-.243-.387A9.953 9.953 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
-            </svg>
-            WhatsApp
-          </a>
+          
           <a class="footer-social-link" href="https://www.linkedin.com/company/mocyno/"
             aria-label="MO'CYNO sur LinkedIn" target="_blank" rel="noopener noreferrer">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
@@ -549,6 +494,7 @@
         </div>
       </div>
       <nav aria-label="Navigation secondaire" class="footer-links" role="navigation">
+        <a href="/fr/faq/">Questions fréquentes</a>
         <a href="/fr/a-propos/">À propos</a>
         <a href="/fr/mentions-legales/">Mentions légales</a>
         <a href="/fr/politique-confidentialite/">Confidentialité</a>
