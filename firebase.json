@@ -12,6 +12,16 @@
     ],
     "redirects": [
       {
+        "source": "/fr/services/protection-luxe",
+        "destination": "/fr/services/luxe-boutiques/",
+        "type": 301
+      },
+      {
+        "source": "/fr/services/protection-luxe/**",
+        "destination": "/fr/services/luxe-boutiques/",
+        "type": 301
+      },
+      {
         "source": "/",
         "destination": "/fr/",
         "type": 301
@@ -260,6 +270,16 @@
         "source": "/fr/services/intervention-sur-alarme",
         "destination": "/fr/services/surveillance-humaine/",
         "type": 301
+      },
+      {
+        "source": "/fr/services/evenementiel-premium",
+        "destination": "/fr/services/securite-evenementielle/",
+        "type": 301
+      },
+      {
+        "source": "/fr/services/evenementiel-premium/**",
+        "destination": "/fr/services/securite-evenementielle/",
+        "type": 301
       }
     ],
     "rewrites": [
@@ -286,8 +306,8 @@
       },
       {
         "source": "/api/**",
-        "function": {
-          "functionId": "contactForm",
+        "run": {
+          "serviceId": "contactform",
           "region": "europe-west1"
         }
       }
