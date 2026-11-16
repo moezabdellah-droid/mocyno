@@ -4,34 +4,7 @@
 <head>
     <!-- MO'CYNO_CONSENT_DEFAULT_START -->
     <script defer src="/scripts/consent-openai-20261103-v1.js"></script>
-<script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('consent', 'default', {
-            ad_storage: 'denied',
-            ad_user_data: 'denied',
-            ad_personalization: 'denied',
-            analytics_storage: 'denied',
-            functionality_storage: 'denied',
-            personalization_storage: 'denied',
-            security_storage: 'granted',
-            wait_for_update: 500
-        });
-        try {
-            var s = localStorage.getItem('mocyno_consent_state');
-            if (s === 'granted') {
-                gtag('consent', 'update', {
-                    ad_storage: 'granted',
-                    ad_user_data: 'granted',
-                    ad_personalization: 'granted',
-                    analytics_storage: 'granted',
-                    functionality_storage: 'granted',
-                    personalization_storage: 'granted',
-                    security_storage: 'granted'
-                });
-            }
-        } catch (e) { }
-    </script>
+
     <!-- MO'CYNO_CONSENT_DEFAULT_END -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
@@ -58,7 +31,7 @@
         rel="stylesheet">
 
     <!-- CSS -->
-    <link href="/styles.css?v=20261105-1" rel="stylesheet">
+    <link href="/styles.css?v=91e66d5362fb728f" rel="stylesheet">
     <link href="/css/luxe.css" rel="stylesheet">
 
     <!-- MOD4: Fix CSS H3 invisibles dans la section Services -->
@@ -80,9 +53,7 @@
     
     <!-- End Google Tag Manager -->
     <!-- Google tag (gtag.js) event -->
-    <script>
-        gtag('event', 'ads_conversion_Nous_contacter_1', {});
-    </script>
+    
 
     <meta property="og:site_name" content="MO'CYNO">
     <meta name="ga-measurement-id" content="G-9RDHGKSLW9">
@@ -115,7 +86,7 @@
 </script>
 <meta name="gtm-container-id" content="GTM-N4MSSMV3">
 <link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
-  <script defer src="/scripts/contact-turnstile.js?v=20261105-double-submit-1"></script>
+  <script defer src="/scripts/contact-turnstile.js?v=20261108-refresh-1"></script>
   <script defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
   <script defer src="/scripts/contact-details-20261103.js"></script>
 <link rel="alternate" hreflang="x-default" href="https://mocyno.com/fr/securite-luxe-saint-tropez/">
@@ -126,6 +97,7 @@
 body.luxe-mode h1,body.luxe-mode h2,body.luxe-mode h3,body.luxe-mode h4,body.luxe-mode h5,body.luxe-mode h6,body.luxe-mode .site-header{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
 .luxe-hero::before{background:rgba(0,0,0,0.82);backdrop-filter:none}
 </style>
+<meta name="robots" content="index, follow">
 </head>
 
 <body class="luxe-mode">
@@ -138,8 +110,8 @@ body.luxe-mode h1,body.luxe-mode h2,body.luxe-mode h3,body.luxe-mode h4,body.lux
     <div class="container nav">
       <a class="logo" href="/fr/">
         <picture>
-          <source srcset="/mocyno-logo.webp" type="image/webp" />
-          <img alt="Logo MO'Cyno" height="36" src="/mocyno-logo.webp" style="border-radius:8px" width="36" />
+          <source srcset="/mocyno-logo-72-lossless.webp 2x, /mocyno-logo-108-lossless.webp 3x" type="image/webp" />
+          <img alt="Logo MO'Cyno" height="36" src="/mocyno-logo-72-lossless.webp" style="border-radius:8px" width="36" />
         </picture>
         <span>MO'CYNO</span>
       </a>
@@ -281,7 +253,7 @@ body.luxe-mode h1,body.luxe-mode h2,body.luxe-mode h3,body.luxe-mode h4,body.lux
         <p class="footer-meta">© 2026 MO'CYNO — Agence de sécurité privée — SASU — SIRET 990 179 566 00015 — NAF 80.10Z
         </p>
         <div class="footer-inline">
-          <span>📞 <a href="tel:+33485290390" style="color:#fff;font-weight:600;">04 85 29 03 90</a></span> <span>•</span>
+          <span><svg class="footer-tel-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.71 12 19.79 19.79 0 0 1 1.63 3.36 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <a href="tel:+33485290390" style="color:#fff;font-weight:600;">04 85 29 03 90</a></span> <span>•</span>
           <span>31 Rue Chevalier Paul, 83000 Toulon, France <em>(Siège social / domiciliation — interventions sur site,
               pas d'accueil public)</em></span> <span>•</span>
           <span>Autorisation CNAPS : <a
@@ -326,7 +298,7 @@ body.luxe-mode h1,body.luxe-mode h2,body.luxe-mode h3,body.luxe-mode h4,body.lux
         <a href="/fr/mentions-legales/">Mentions légales</a>
         <a href="/fr/politique-confidentialite/">Confidentialité</a>
         <a href="/fr/cookies/">Cookies</a>
-        <a href="/sitemap.xml">Sitemap</a>
+        <a href="/sitemap-index.xml">Sitemap</a>
       </nav>
     </div>
   <button type="button" class="cookie-settings" data-cookie-settings>Gérer mes cookies</button>
@@ -336,6 +308,22 @@ body.luxe-mode h1,body.luxe-mode h2,body.luxe-mode h3,body.luxe-mode h4,body.lux
     
 
 <script defer src="/scripts/menu-audit-20261031.js"></script>
+<script>
+(function () {
+  'use strict';
+  var form = document.getElementById('contactForm');
+  if (!form) return;
+  form.addEventListener('submit', function (event) {
+    if (event.defaultPrevented) return;
+    try {
+      sessionStorage.removeItem('mocyno_lead_pending');
+      sessionStorage.setItem('mocyno_lead_pending', String(Date.now()));
+    } catch (_) {
+      try { sessionStorage.removeItem('mocyno_lead_pending'); } catch (_) {}
+    }
+  }, { passive: true });
+})();
+</script>
 </body>
 
 </html>

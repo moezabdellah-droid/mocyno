@@ -30,3 +30,15 @@ html[lang="fr"]:has(.mocyno-consent) .floating-cta{visibility:hidden!important}
  html[lang="fr"] .floating-cta{left:12px!important;right:auto!important;bottom:12px!important;max-width:calc(100% - 24px)}
  html[lang="fr"] div:has(>a.btn[href="/fr/contact/"]):has(>a.btn[href="tel:+33485290390"]){display:flex;flex-direction:column;align-items:flex-start;row-gap:12px!important;column-gap:12px}
 }
+/* Lot 16 A - marges laterales des sections (P1) : seul le padding horizontal change */
+.section.container{padding-left:16px;padding-right:16px}
+@media (min-width:768px){.section.container{padding-left:24px;padding-right:24px}}
+@media (min-width:1280px){.section.container{padding-left:32px;padding-right:32px}}
+/* Lot 16 A - zones tactiles (P4) : cible 44 px */
+.nav .menu-toggle{min-height:44px;min-width:44px}
+.footer-inline a[href^="tel:"],.footer-social-link,.footer-links a{display:inline-flex;align-items:center;min-height:44px}
+.hero-content-premium p>a[href^="tel:"]:only-child{display:inline-flex;align-items:center;min-height:44px}
+/* Lot 16 A - icone telephone du pied de page (P7) */
+.footer-tel-icon{display:inline-block;vertical-align:middle;margin-right:4px}
+/* Lot 16 A - alignement : elements suivant la ligne telephone centres */
+.footer-inline > span:has(> a[href^="tel:"]) ~ span{align-self:center}

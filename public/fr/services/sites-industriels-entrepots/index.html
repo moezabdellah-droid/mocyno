@@ -4,47 +4,16 @@
 <head>
   <!-- MO'CYNO_CONSENT_DEFAULT_START -->
   <script defer src="/scripts/consent-openai-20261103-v1.js"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
 
-    // Default (avant GTM) : denied + wait_for_update
-    gtag('consent', 'default', {
-      ad_storage: 'denied',
-      ad_user_data: 'denied',
-      ad_personalization: 'denied',
-      analytics_storage: 'denied',
-      functionality_storage: 'denied',
-      personalization_storage: 'denied',
-      security_storage: 'granted',
-      wait_for_update: 500
-    });
-
-    // Restore consent (si déjà accepté)
-    try {
-      var s = localStorage.getItem('mocyno_consent_state');
-      if (s === 'granted') {
-        gtag('consent', 'update', {
-          ad_storage: 'granted',
-          ad_user_data: 'granted',
-          ad_personalization: 'granted',
-          analytics_storage: 'granted',
-          functionality_storage: 'granted',
-          personalization_storage: 'granted',
-          security_storage: 'granted'
-        });
-      }
-    } catch (e) { }
-  </script>
   <!-- MO'CYNO_CONSENT_DEFAULT_END -->
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <title>Sécurité de site industriel et d&#x27;entrepôt | MO&#x27;CYNO</title>
+  <title>Sécurité de site industriel et entrepôt, Var | MO'CYNO</title>
   <meta
     content="Gardiennage, rondes et maître-chien pour sites industriels et entrepôts, de nuit, le week-end et pendant les fermetures. Var et Côte d&#x27;Azur."
     name="description">
   <meta content="website" property="og:type">
-  <meta content="Sécurité de site industriel et d&#x27;entrepôt | MO&#x27;CYNO" property="og:title">
+  <meta content="Sécurité de site industriel et entrepôt, Var | MO&#x27;CYNO" property="og:title">
   <meta
     content="Gardiennage, rondes et maître-chien pour sites industriels et entrepôts, de nuit, le week-end et pendant les fermetures. Var et Côte d&#x27;Azur."
     property="og:description">
@@ -59,17 +28,17 @@
   <!-- SAFE GTM - No insertBefore dependency -->
   
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
-  <meta content="index,follow" name="robots">
+  <meta name="robots" content="index, follow">
   <link href="/favicon.ico" rel="icon">
   <link href="/favicon.svg" rel="icon" type="image/svg+xml">
 
-  <link href="/styles.css?v=20261105-1" rel="stylesheet">
+  <link href="/styles.css?v=91e66d5362fb728f" rel="stylesheet">
   <!-- Open Graph -->
   <meta content="#022C51" name="theme-color">
   <!-- Hreflang -->
   <!-- Schema.org -->
 
-  <link href="/styles.css?v=20261105-1" rel="stylesheet">
+  <link href="/styles.css?v=91e66d5362fb728f" rel="stylesheet">
   
   <link href="/styles-compat-patch.css?v=2.7" rel="stylesheet">
   <!-- GA consent -->
@@ -165,6 +134,102 @@
 }
 </script>
 <style>.skip-link-lot4{position:absolute;left:12px;top:-100px;padding:12px 16px;background:#fff;color:#022c51;z-index:10001;border:2px solid #022c51}.skip-link-lot4:focus{top:12px}</style>
+  <!-- Shared source: templates/seo/organization.json (P1.3) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://mocyno.com/#organization",
+  "name": "MO'CYNO",
+  "url": "https://mocyno.com/",
+  "logo": "https://mocyno.com/logo-512.png",
+  "image": "https://mocyno.com/og-image.png",
+  "description": "Société de sécurité privée spécialisée en sécurité cynophile : maîtres-chiens, gardiennage, rondes, intervention sur alarme selon contrat, vidéo-protection, SSIAP et sécurité événementielle dans le Var et sur la Côte d'Azur.",
+  "telephone": "+33485290390",
+  "email": "contact@mocyno.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "31 Rue Chevalier Paul",
+    "addressLocality": "Toulon",
+    "postalCode": "83000",
+    "addressRegion": "Provence-Alpes-Côte d'Azur",
+    "addressCountry": "FR"
+  },
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+33485290390",
+      "contactType": "customer service",
+      "availableLanguage": [
+        "fr",
+        "en"
+      ]
+    },
+    {
+      "@type": "ContactPoint",
+      "telephone": "+33666035116",
+      "contactType": "customer service",
+      "availableLanguage": [
+        "fr",
+        "en"
+      ]
+    }
+  ],
+  "areaServed": [
+    {
+      "@type": "AdministrativeArea",
+      "name": "Var"
+    },
+    {
+      "@type": "City",
+      "name": "Toulon"
+    },
+    {
+      "@type": "City",
+      "name": "Saint-Tropez"
+    },
+    {
+      "@type": "City",
+      "name": "Ramatuelle"
+    },
+    {
+      "@type": "City",
+      "name": "Sainte-Maxime"
+    },
+    {
+      "@type": "City",
+      "name": "Fréjus"
+    },
+    {
+      "@type": "City",
+      "name": "Cannes"
+    },
+    {
+      "@type": "City",
+      "name": "Nice"
+    }
+  ],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "opens": "00:00",
+    "closes": "23:59"
+  },
+  "sameAs": [
+    "https://maps.google.com/?cid=1923001679797881211",
+    "https://www.linkedin.com/company/mocyno/",
+    "https://www.instagram.com/mocyno_officiel/"
+  ]
+}
+  </script>
 </head>
 
 <body class="k9-page">
@@ -176,8 +241,8 @@
     <div class="container nav">
       <a class="logo" href="/fr/">
         <picture>
-          <source srcset="/mocyno-logo.webp" type="image/webp">
-          <img alt="Logo MO'CYNO" height="36" src="/mocyno-logo.webp" style="border-radius:8px" width="36">
+          <source srcset="/mocyno-logo-72-lossless.webp 2x, /mocyno-logo-108-lossless.webp 3x" type="image/webp">
+          <img alt="MO'CYNO" height="36" src="/mocyno-logo-72-lossless.webp" style="border-radius:8px" width="36">
         </picture>
         <span>MO'CYNO</span>
       </a>
@@ -199,7 +264,9 @@
           <a class="zones-trigger" href="/fr/#zones">Zones</a>
           <div class="zones-menu">
             <ul class="zones-list">
+<li><a href="/fr/zones/var/">Var</a></li>
               <li><a href="/fr/zones/saint-tropez/">Saint-Tropez</a></li>
+<li><a href="/fr/zones/ramatuelle/">Ramatuelle</a></li>
               <li><a href="/fr/zones/cannes/">Cannes</a></li>
               <li><a href="/fr/zones/nice/">Nice</a></li>
               <li><a href="/fr/zones/toulon/">Toulon</a></li>
@@ -226,7 +293,7 @@
           </div>
         </div>
         <a href="/fr/blog/">Actualités</a>
-        <a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a>
+        <a class="btn primary" href="/fr/contact/?besoin=industrie">Demander un devis gratuit</a>
         <a aria-label="English" class="lang-switch" href="/en/services/industrial-sites-warehouses/" hreflang="en">EN</a>
       </nav>
     </div>
@@ -234,7 +301,11 @@
       onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')" aria-hidden="true"></div>
   </header>
   <main id="contenu-principal" tabindex="-1">
-<section class="hero-premium k9-hero"><div class="hero-image-wrapper"><img class="hero-img" src="/assets/services-banner.png" width="1024" height="1024" alt="Illustration de services de sécurité, dont un périmètre industriel clôturé" fetchpriority="high"><div class="hero-overlay-dark"></div></div><div class="container hero-content-premium"><div class="k9-hero-copy"><h1>Sécurité de sites industriels et d&#x27;entrepôts</h1><p class="hero-subtitle-premium">MO&#x27;CYNO protège vos stocks, votre matériel et vos bâtiments, de jour, de nuit, le week-end et pendant les fermetures. Nous intervenons dans le Var, à Cannes et sur la Côte d&#x27;Azur.</p><div class="hero-actions-premium"><a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a> <a class="btn secondary" href="tel:+33485290390">Appeler le 04 85 29 03 90</a></div></div></div></section>
+<section class="hero-premium k9-hero"><div class="hero-image-wrapper"><picture>
+<source media="(max-width: 767px)" srcset="/assets/services-banner-p3-600.webp" type="image/webp" width="600" height="600">
+<source srcset="/assets/services-banner-p3-1024.webp" type="image/webp" width="1024" height="1024">
+<img class="hero-img" src="/assets/services-banner.png" width="1024" height="1024" alt="Illustration de services de sécurité, dont un périmètre industriel clôturé" fetchpriority="high">
+</picture><div class="hero-overlay-dark"></div></div><div class="container hero-content-premium"><div class="k9-hero-copy"><h1>Sécurité de sites industriels et d&#x27;entrepôts</h1><p class="hero-subtitle-premium">MO'CYNO protège vos stocks, votre matériel et vos bâtiments, de jour, de nuit, le week-end et pendant les fermetures. Nous intervenons dans le Var, à Cannes et sur la Côte d&#x27;Azur.</p><div class="hero-actions-premium"><a class="btn primary" href="/fr/contact/?besoin=industrie">Demander un devis gratuit</a> <a class="btn secondary" href="tel:+33485290390">Appeler le 04 85 29 03 90</a></div><p><a href="tel:+33666035116" style="color:#fff">Portable : 06 66 03 51 16</a></p></div></div></section>
 <nav class="k9-shell k9-breadcrumb" aria-label="Fil d’Ariane"><a href="/fr/">Accueil</a> › <a href="/fr/services/">Services</a> › Sites industriels et entrepôts</nav>
 <section class="k9-section"><div class="k9-shell"><h2>Maître-chien et surveillance de sites industriels et d’entrepôts</h2><p>Les grands espaces et les sites isolés peuvent conduire à étudier d’abord un binôme <a href="/fr/services/securite-cynophile/">maître-chien</a>. Ses rondes portent sur les bâtiments, les zones de stockage et les périmètres autorisés. Les déplacements d’engins, les activités maintenues et les contraintes du site doivent être précisés pour déterminer où le binôme peut intervenir.</p><p>Pour un accès utilisé par le personnel, les visiteurs ou les livraisons, nous étudions les tâches de surveillance humaine avec le responsable du site. Le poste d’accès, les rondes et les périodes de fermeture doivent être définis avant la mission.</p></div></section>
 <section class="k9-section k9-tint"><div class="k9-shell"><h2>Vos risques</h2><ul><li>Vol de stock</li><li>Vol de matériel ou de carburant</li><li>Intrusion et dégradations</li><li>Site fermé sans présence</li></ul></div></section>
@@ -245,7 +316,7 @@
 <section class="k9-section"><div class="k9-shell"><div class="card"><h2>Pour qui</h2><p>Responsables de site, de maintenance et de logistique, directions immobilières</p></div></div></section>
 <section aria-label="Avis Google" class="k9-google"><div class="k9-shell"><div id="google-reviews"></div></div></section>
 <section class="k9-section k9-tint" id="faq"><div class="k9-shell k9-faq"><h2>Questions fréquentes</h2><details><summary>Pouvez-vous couvrir une fermeture annuelle ?</summary><p>Oui, nous étudions les dates et les horaires pour chaque site.</p></details><details><summary>Que faut-il pour un devis ?</summary><p>La commune, la surface, les horaires, les accès et le type de stock.</p></details></div></section><nav class="container section" aria-label="Liens internes"><h2>À voir aussi</h2><ul><li><a href="/fr/services/surveillance-humaine/" style="text-decoration: underline;">Surveillance humaine</a></li><li><a href="/fr/services/securite-cynophile/" style="text-decoration: underline;">Sécurité cynophile</a></li><li><a href="/fr/services/securite-incendie-ssiap/" style="text-decoration: underline;">Sécurité incendie (SSIAP)</a></li><li><a href="/fr/services/chantiers/" style="text-decoration: underline;">Chantiers</a></li></ul></nav>
-<section class="section container"><div><a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a> <a class="btn secondary" href="tel:+33485290390">Appeler le 04 85 29 03 90</a></div></section>
+<section class="section container"><p>Nous intervenons dans tout <a href="/fr/zones/var/" style="text-decoration: underline;">le Var</a>, notamment à <a href="/fr/zones/toulon/" style="text-decoration: underline;">Toulon</a>, <a href="/fr/zones/saint-tropez/" style="text-decoration: underline;">Saint-Tropez</a>, <a href="/fr/zones/sainte-maxime/" style="text-decoration: underline;">Sainte-Maxime</a> et <a href="/fr/zones/frejus/" style="text-decoration: underline;">Fréjus</a>, ainsi qu'à <a href="/fr/zones/cannes/" style="text-decoration: underline;">Cannes</a> et <a href="/fr/zones/nice/" style="text-decoration: underline;">Nice</a>.</p></section><section class="section container"><div><a class="btn primary" href="/fr/contact/?besoin=industrie">Demander un devis gratuit</a> <a class="btn secondary" href="tel:+33485290390">Appeler le 04 85 29 03 90</a></div></section>
 </main>
   <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
     <div class="container footer-grid">
@@ -253,6 +324,7 @@
         <p class="footer-meta">© 2026 MO'CYNO — Agence de sécurité privée — SASU — SIRET 990 179 566 00015 — NAF 80.10Z
         </p>
         <div class="footer-inline">
+          <span><svg class="footer-tel-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.71 12 19.79 19.79 0 0 1 1.63 3.36 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <a href="tel:+33485290390">04 85 29 03 90</a> · <a href="tel:+33666035116">06 66 03 51 16</a></span> <span>•</span>
           <span>31 Rue Chevalier Paul, 83000 Toulon, France <em>(Siège social / domiciliation — interventions sur site,
               pas d'accueil public)</em></span> <span>•</span>
           <span>Autorisation CNAPS : <a
@@ -292,12 +364,13 @@
         </div>
       </div>
       <nav aria-label="Navigation secondaire" class="footer-links" role="navigation">
+          <a href="https://maps.google.com/?cid=1923001679797881211" target="_blank" rel="noopener noreferrer">Voir nos avis Google</a>
         <a href="/fr/faq/">Questions fréquentes</a>
         <a href="/fr/a-propos/">À propos</a>
         <a href="/fr/mentions-legales/">Mentions légales</a>
         <a href="/fr/politique-confidentialite/">Confidentialité</a>
         <a href="/fr/cookies/">Cookies</a>
-        <a href="/sitemap.xml">Sitemap</a>
+        <a href="/sitemap-index.xml">Sitemap</a>
       </nav>
     </div>
   <button type="button" class="cookie-settings" data-cookie-settings>Gérer mes cookies</button>
