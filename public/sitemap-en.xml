@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://mocyno.com/en/</loc>
-    <lastmod>2026-11-08</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
@@ -152,4 +152,5 @@
     <priority>0.8</priority>
   </url>
   <url><loc>https://mocyno.com/en/zones/var/</loc><lastmod>2026-11-08</lastmod><priority>0.8</priority></url>
+<url><loc>https://mocyno.com/en/services/alarm-response-cctv/</loc><lastmod>2026-11-16</lastmod></url>
 </urlset>
