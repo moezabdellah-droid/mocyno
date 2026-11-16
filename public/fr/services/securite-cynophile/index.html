@@ -4,42 +4,11 @@
 <head>
   <!-- MO'CYNO_CONSENT_DEFAULT_START -->
   <script defer src="/scripts/consent-openai-20261103-v1.js"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
 
-    // Default (avant GTM) : denied + wait_for_update
-    gtag('consent', 'default', {
-      ad_storage: 'denied',
-      ad_user_data: 'denied',
-      ad_personalization: 'denied',
-      analytics_storage: 'denied',
-      functionality_storage: 'denied',
-      personalization_storage: 'denied',
-      security_storage: 'granted',
-      wait_for_update: 500
-    });
-
-    // Restore consent (si déjà accepté)
-    try {
-      var s = localStorage.getItem('mocyno_consent_state');
-      if (s === 'granted') {
-        gtag('consent', 'update', {
-          ad_storage: 'granted',
-          ad_user_data: 'granted',
-          ad_personalization: 'granted',
-          analytics_storage: 'granted',
-          functionality_storage: 'granted',
-          personalization_storage: 'granted',
-          security_storage: 'granted'
-        });
-      }
-    } catch (e) { }
-  </script>
   <!-- MO'CYNO_CONSENT_DEFAULT_END -->
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <title>Maître-chien de sécurité dans le Var | MO&#x27;CYNO</title>
+  <title>Maître-chien de sécurité dans le Var | MO'CYNO</title>
   <meta
     content="Agents cynophiles pour villas, chantiers, sites isolés et événements dans le Var et sur la Côte d&#x27;Azur. Rondes de nuit et surveillance. Devis gratuit."
     name="description">
@@ -59,17 +28,17 @@
   <!-- SAFE GTM - No insertBefore dependency -->
   
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
-  <meta content="index,follow" name="robots">
+  <meta name="robots" content="index, follow">
   <link href="/favicon.ico" rel="icon">
   <link href="/favicon.svg" rel="icon" type="image/svg+xml">
 
-  <link href="/styles.css?v=20261105-1" rel="stylesheet">
+  <link href="/styles.css?v=91e66d5362fb728f" rel="stylesheet">
   <!-- Open Graph -->
   <meta content="#022C51" name="theme-color">
   <!-- Hreflang -->
   <!-- Schema.org -->
 
-  <link href="/styles.css?v=20261105-1" rel="stylesheet">
+  <link href="/styles.css?v=91e66d5362fb728f" rel="stylesheet">
   
   <link href="/styles-compat-patch.css?v=2.7" rel="stylesheet">
   <!-- GA consent -->
@@ -164,6 +133,102 @@
 <link rel="stylesheet" href="/styles/google-reviews.css">
 <link rel="stylesheet" href="/styles/k9-service-20261104.css">
 <style>.skip-link-lot4{position:absolute;left:12px;top:-100px;padding:12px 16px;background:#fff;color:#022c51;z-index:10001;border:2px solid #022c51}.skip-link-lot4:focus{top:12px}</style>
+  <!-- Shared source: templates/seo/organization.json (P1.3) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://mocyno.com/#organization",
+  "name": "MO'CYNO",
+  "url": "https://mocyno.com/",
+  "logo": "https://mocyno.com/logo-512.png",
+  "image": "https://mocyno.com/og-image.png",
+  "description": "Société de sécurité privée spécialisée en sécurité cynophile : maîtres-chiens, gardiennage, rondes, intervention sur alarme selon contrat, vidéo-protection, SSIAP et sécurité événementielle dans le Var et sur la Côte d'Azur.",
+  "telephone": "+33485290390",
+  "email": "contact@mocyno.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "31 Rue Chevalier Paul",
+    "addressLocality": "Toulon",
+    "postalCode": "83000",
+    "addressRegion": "Provence-Alpes-Côte d'Azur",
+    "addressCountry": "FR"
+  },
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+33485290390",
+      "contactType": "customer service",
+      "availableLanguage": [
+        "fr",
+        "en"
+      ]
+    },
+    {
+      "@type": "ContactPoint",
+      "telephone": "+33666035116",
+      "contactType": "customer service",
+      "availableLanguage": [
+        "fr",
+        "en"
+      ]
+    }
+  ],
+  "areaServed": [
+    {
+      "@type": "AdministrativeArea",
+      "name": "Var"
+    },
+    {
+      "@type": "City",
+      "name": "Toulon"
+    },
+    {
+      "@type": "City",
+      "name": "Saint-Tropez"
+    },
+    {
+      "@type": "City",
+      "name": "Ramatuelle"
+    },
+    {
+      "@type": "City",
+      "name": "Sainte-Maxime"
+    },
+    {
+      "@type": "City",
+      "name": "Fréjus"
+    },
+    {
+      "@type": "City",
+      "name": "Cannes"
+    },
+    {
+      "@type": "City",
+      "name": "Nice"
+    }
+  ],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "opens": "00:00",
+    "closes": "23:59"
+  },
+  "sameAs": [
+    "https://maps.google.com/?cid=1923001679797881211",
+    "https://www.linkedin.com/company/mocyno/",
+    "https://www.instagram.com/mocyno_officiel/"
+  ]
+}
+  </script>
 </head>
 
 <body class="k9-page">
@@ -175,8 +240,8 @@
     <div class="container nav">
       <a class="logo" href="/fr/">
         <picture>
-          <source srcset="/mocyno-logo.webp" type="image/webp">
-          <img alt="Logo MO'CYNO" height="36" src="/mocyno-logo.webp" style="border-radius:8px" width="36">
+          <source srcset="/mocyno-logo-72-lossless.webp 2x, /mocyno-logo-108-lossless.webp 3x" type="image/webp">
+          <img alt="MO'CYNO" height="36" src="/mocyno-logo-72-lossless.webp" style="border-radius:8px" width="36">
         </picture>
         <span>MO'CYNO</span>
       </a>
@@ -198,7 +263,9 @@
           <a class="zones-trigger" href="/fr/#zones">Zones</a>
           <div class="zones-menu">
             <ul class="zones-list">
+<li><a href="/fr/zones/var/">Var</a></li>
               <li><a href="/fr/zones/saint-tropez/">Saint-Tropez</a></li>
+<li><a href="/fr/zones/ramatuelle/">Ramatuelle</a></li>
               <li><a href="/fr/zones/cannes/">Cannes</a></li>
               <li><a href="/fr/zones/nice/">Nice</a></li>
               <li><a href="/fr/zones/toulon/">Toulon</a></li>
@@ -225,7 +292,7 @@
           </div>
         </div>
         <a href="/fr/blog/">Actualités</a>
-        <a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a>
+        <a class="btn primary" href="/fr/contact/?besoin=cynophile">Demander un devis gratuit</a>
         <a aria-label="English" class="lang-switch" href="/en/services/securite-cynophile/" hreflang="en">EN</a>
       </nav>
     </div>
@@ -233,12 +300,16 @@
       onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')" aria-hidden="true"></div>
   </header>
   <main id="contenu-principal" tabindex="-1">
-<section class="hero-premium k9-hero"><div class="hero-image-wrapper"><img class="hero-img" src="/images/section-k9-villa-patrol.png" width="640" height="640" alt="Illustration d’un binôme maître-chien aux abords d’une villa" fetchpriority="high"><div class="hero-overlay-dark"></div></div><div class="container hero-content-premium"><div class="k9-hero-copy"><h1>Maître-chien de sécurité pour vos villas, chantiers et sites isolés</h1><p class="hero-subtitle-premium">MO&#x27;CYNO déploie des agents cynophiles dans le Var, à Cannes et sur la Côte d&#x27;Azur. Le maître-chien surveille le périmètre convenu et signale les anomalies aux contacts prévus.</p><div class="hero-actions-premium"><a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a> <a class="btn secondary" href="tel:+33485290390">Appeler le 04 85 29 03 90</a></div></div></div></section>
+<section class="hero-premium k9-hero"><div class="hero-image-wrapper"><picture>
+<source media="(max-width: 767px)" srcset="/images/section-k9-villa-patrol-p3-600.webp" type="image/webp" width="600" height="600">
+<source srcset="/images/section-k9-villa-patrol-p3-640.webp" type="image/webp" width="640" height="640">
+<img class="hero-img" src="/images/section-k9-villa-patrol.png" width="640" height="640" alt="Illustration d’un binôme maître-chien aux abords d’une villa" fetchpriority="high">
+</picture><div class="hero-overlay-dark"></div></div><div class="container hero-content-premium"><div class="k9-hero-copy"><h1>Maître-chien de sécurité dans le Var pour vos villas, chantiers et sites isolés</h1><p class="hero-subtitle-premium">MO'CYNO déploie des agents cynophiles dans le Var, à Cannes et sur la Côte d&#x27;Azur. Le maître-chien surveille le périmètre convenu et signale les anomalies aux contacts prévus.</p><div class="hero-actions-premium"><a class="btn primary" href="/fr/contact/?besoin=cynophile">Demander un devis gratuit</a> <a class="btn secondary" href="tel:+33485290390">Appeler le 04 85 29 03 90</a></div><p><a href="tel:+33666035116" style="color:#fff">Portable : 06 66 03 51 16</a></p></div></div></section>
 <nav class="k9-shell k9-breadcrumb" aria-label="Fil d’Ariane"><a href="/fr/">Accueil</a> › <a href="/fr/services/">Services</a> › Sécurité cynophile</nav>
 <section class="k9-section k9-tint"><div class="k9-shell"><h2>Ce que fait le maître-chien</h2><p>Il effectue des rondes sur les zones autorisées et reste visible aux accès. Il vérifie une anomalie selon vos consignes, puis prévient le contact désigné.</p></div></section>
 <section class="k9-section"><div class="k9-shell"><h2>Où l&#x27;utiliser</h2><ul><li>Villas et domaines</li><li><a href="/fr/services/chantiers/">Chantiers</a> fermés la nuit ou le week-end</li><li><a href="/fr/services/sites-industriels-entrepots/">Entrepôts</a> et sites isolés</li><li>Parkings et <a href="/fr/services/securite-evenementielle/">événements</a>, selon la présence du public</li></ul></div></section>
-<section class="k9-section k9-tint"><div class="k9-shell"><h2 id="bien-etre">Le bien-être du chien, au cœur de notre métier</h2><p>Nos maîtres-chiens sont déclarés et titulaires d&#x27;une carte professionnelle valide. ULK est le chien mascotte de MO&#x27;CYNO. L&#x27;agent et son chien suivent une formation réglementée de plus de 300 heures. Elle couvre notamment l&#x27;hygiène, le lieu de vie, la vaccination, le transport, la psychologie canine et les gestes de premiers secours. Un nouveau chien inscrit sur la carte professionnelle demande au moins 70 heures de formation pratique. La loi interdit les mauvais traitements et impose un entretien correct du chien.</p></div></section>
-<section class="k9-section"><div class="k9-shell"><h2>Nos six engagements pour le respect et la protection de nos chiens</h2><p>Chez MO&#x27;CYNO, le chien est un partenaire de travail, pas un simple moyen de dissuasion. Nous organisons chaque mission en tenant compte de sa santé, de ses besoins et de ses capacités. Suivi vétérinaire, récupération, transport, hébergement et adaptation des missions : sa protection fait partie intégrante de notre organisation.</p></div></section>
+<section class="k9-section k9-tint"><div class="k9-shell"><h2 id="bien-etre">Le bien-être du chien, au cœur de notre métier</h2><p>Nos maîtres-chiens sont déclarés et titulaires d&#x27;une carte professionnelle valide. ULK est le chien mascotte de MO'CYNO. L&#x27;agent et son chien suivent une formation réglementée de plus de 300 heures. Elle couvre notamment l&#x27;hygiène, le lieu de vie, la vaccination, le transport, la psychologie canine et les gestes de premiers secours. Un nouveau chien inscrit sur la carte professionnelle demande au moins 70 heures de formation pratique. La loi interdit les mauvais traitements et impose un entretien correct du chien.</p></div></section>
+<section class="k9-section"><div class="k9-shell"><h2>Nos six engagements pour le respect et la protection de nos chiens</h2><p>Chez MO'CYNO, le chien est un partenaire de travail, pas un simple moyen de dissuasion. Nous organisons chaque mission en tenant compte de sa santé, de ses besoins et de ses capacités. Suivi vétérinaire, récupération, transport, hébergement et adaptation des missions : sa protection fait partie intégrante de notre organisation.</p></div></section>
 <div class="k9-shell lot5-engagements"><section class="k9-section k9-tint"><div class="k9-shell"><h3>Suivi vétérinaire</h3><p>Chaque chien bénéficie d&#x27;un suivi vétérinaire régulier, avec au minimum un bilan de santé annuel et des consultations supplémentaires selon son âge, son état de santé et son activité. Son programme de vaccination et de prévention antiparasitaire est défini avec le vétérinaire. Avant chaque mission, son conducteur vérifie son état général. Tout signe de douleur, de blessure ou de fatigue inhabituelle entraîne sa mise au repos et, si nécessaire, une consultation.</p></div></section>
 <section class="k9-section"><div class="k9-shell"><h3>Repos pendant les missions</h3><p>Nos missions alternent périodes d&#x27;activité et temps de récupération. Les pauses du chien sont organisées dans un espace calme, sécurisé et adapté aux conditions météorologiques, avec de l&#x27;eau fraîche à disposition. Leur fréquence et leur durée sont ajustées à l&#x27;effort fourni, à la température et à l&#x27;état du chien. Elles sont prolongées dès que son comportement ou sa récupération le nécessitent.</p></div></section>
 <section class="k9-section k9-tint"><div class="k9-shell"><h3>Durée des vacations</h3><p>La durée de présence du binôme sur un site ne correspond pas à une durée de travail continu du chien. Chaque vacation est organisée avec des périodes de récupération et adaptée à son état physique, à l&#x27;intensité des rondes et aux conditions du site. Si ces conditions ne permettent plus de préserver son bien-être, nous adaptons le dispositif, organisons une relève ou interrompons son engagement.</p></div></section>
@@ -250,7 +321,7 @@
 <section class="k9-google" aria-label="Avis Google"><div class="k9-shell"><div id="google-reviews"></div></div></section>
 <section class="section container" id="exemples-missions"><h2>Exemples de missions</h2><div class="grid"><div class="card"><p>Événement privé à Saint-Tropez : surveillance jour et nuit pendant un mois, avec une équipe de 18 agents cynophiles répartis entre le jour et la nuit.</p></div><div class="card"><p>Régates internationales à Saint-Tropez, 2026 : sécurisation de nuit des installations et surveillance des objets de valeur exposés, avec 2 agents cynophiles.</p></div><div class="card"><p>Villas de prestige : surveillance à Cannes, Mougins, Sainte-Maxime, Saint-Tropez, Ramatuelle et Cavalaire-sur-Mer.</p></div></div></section>
 <section class="k9-section k9-tint" id="faq"><div class="k9-shell k9-faq"><h2>Questions fréquentes</h2><details><summary>Le chien travaille-t-il sans limite ?</summary><p>Non. Chaque vacation prévoit des périodes de récupération adaptées au chien, à l&#x27;effort et à la température.</p></details><details><summary>Qui s&#x27;occupe du chien ?</summary><p>Son <a href="/fr/services/securite-cynophile/">maître-chien</a>, formé à son entretien, à sa santé et aux gestes d&#x27;urgence.</p></details><details><summary>Le maître-chien convient-il à tous les sites ?</summary><p>Non. Nous vérifions d&#x27;abord la surface, les clôtures, les personnes présentes et la présence d&#x27;autres animaux.</p></details><details><summary>Quelles informations préparer ?</summary><p>La commune, les dates, les horaires, les accès et les particularités du lieu.</p></details><details><summary>Garantissez-vous l&#x27;absence d&#x27;incident ?</summary><p>Non. Nous assurons la surveillance convenue, sans garantie de résultat ni de délai d&#x27;arrivée.</p></details></div></section><nav class="container section" aria-label="Liens internes"><h2>Le maître-chien selon votre site et votre ville</h2><ul><li><a href="/fr/services/residentiel/" style="text-decoration: underline;">Maître-chien pour une villa</a></li><li><a href="/fr/services/chantiers/" style="text-decoration: underline;">Maître-chien pour un chantier</a></li><li><a href="/fr/services/sites-industriels-entrepots/" style="text-decoration: underline;">Maître-chien pour un entrepôt</a></li><li><a href="/fr/zones/saint-tropez/" style="text-decoration: underline;">Maître-chien à Saint-Tropez</a></li><li><a href="/fr/zones/cannes/" style="text-decoration: underline;">Maître-chien à Cannes</a></li><li><a href="/fr/zones/toulon/" style="text-decoration: underline;">Maître-chien à Toulon</a></li></ul></nav>
-<section class="section container"><div><a class="btn primary" href="/fr/contact/">Demander un devis gratuit</a> <a class="btn secondary" href="tel:+33485290390">Appeler le 04 85 29 03 90</a></div></section>
+<section class="section container"><p>Nous intervenons dans tout <a href="/fr/zones/var/" style="text-decoration: underline;">le Var</a>, notamment à <a href="/fr/zones/toulon/" style="text-decoration: underline;">Toulon</a>, <a href="/fr/zones/saint-tropez/" style="text-decoration: underline;">Saint-Tropez</a>, <a href="/fr/zones/sainte-maxime/" style="text-decoration: underline;">Sainte-Maxime</a> et <a href="/fr/zones/frejus/" style="text-decoration: underline;">Fréjus</a>, ainsi qu'à <a href="/fr/zones/cannes/" style="text-decoration: underline;">Cannes</a> et <a href="/fr/zones/nice/" style="text-decoration: underline;">Nice</a>.</p></section><section class="section container"><div><a class="btn primary" href="/fr/contact/?besoin=cynophile">Demander un devis gratuit</a> <a class="btn secondary" href="tel:+33485290390">Appeler le 04 85 29 03 90</a></div></section>
 </main>
   <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
     <div class="container footer-grid">
@@ -258,6 +329,7 @@
         <p class="footer-meta">© 2026 MO'CYNO — Agence de sécurité privée — SASU — SIRET 990 179 566 00015 — NAF 80.10Z
         </p>
         <div class="footer-inline">
+          <span><svg class="footer-tel-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.71 12 19.79 19.79 0 0 1 1.63 3.36 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <a href="tel:+33485290390">04 85 29 03 90</a> · <a href="tel:+33666035116">06 66 03 51 16</a></span> <span>•</span>
           <span>31 Rue Chevalier Paul, 83000 Toulon, France <em>(Siège social / domiciliation — interventions sur site,
               pas d'accueil public)</em></span> <span>•</span>
           <span>Autorisation CNAPS : <a
@@ -297,12 +369,13 @@
         </div>
       </div>
       <nav aria-label="Navigation secondaire" class="footer-links" role="navigation">
+          <a href="https://maps.google.com/?cid=1923001679797881211" target="_blank" rel="noopener noreferrer">Voir nos avis Google</a>
         <a href="/fr/faq/">Questions fréquentes</a>
         <a href="/fr/a-propos/">À propos</a>
         <a href="/fr/mentions-legales/">Mentions légales</a>
         <a href="/fr/politique-confidentialite/">Confidentialité</a>
         <a href="/fr/cookies/">Cookies</a>
-        <a href="/sitemap.xml">Sitemap</a>
+        <a href="/sitemap-index.xml">Sitemap</a>
       </nav>
     </div>
   <button type="button" class="cookie-settings" data-cookie-settings>Gérer mes cookies</button>

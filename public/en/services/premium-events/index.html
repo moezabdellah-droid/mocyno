@@ -4,47 +4,16 @@
 <head>
   <!-- MO'CYNO_CONSENT_DEFAULT_START -->
   <script defer src="/scripts/consent-openai-20261103-v1.js"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
 
-    // Default (avant GTM) : denied + wait_for_update
-    gtag('consent', 'default', {
-      ad_storage: 'denied',
-      ad_user_data: 'denied',
-      ad_personalization: 'denied',
-      analytics_storage: 'denied',
-      functionality_storage: 'denied',
-      personalization_storage: 'denied',
-      security_storage: 'granted',
-      wait_for_update: 500
-    });
-
-    // Restore consent (si déjà accepté)
-    try {
-      var s = localStorage.getItem('mocyno_consent_state');
-      if (s === 'granted') {
-        gtag('consent', 'update', {
-          ad_storage: 'granted',
-          ad_user_data: 'granted',
-          ad_personalization: 'granted',
-          analytics_storage: 'granted',
-          functionality_storage: 'granted',
-          personalization_storage: 'granted',
-          security_storage: 'granted'
-        });
-      }
-    } catch (e) { }
-  </script>
   <!-- MO'CYNO_CONSENT_DEFAULT_END -->
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <title>Premium Event Security — MO'CYNO</title>
+  <title>Event Security in the Var &amp; Riviera | MO'CYNO</title>
   <meta
-    content="Security for private and corporate event venues on the French Riviera. Guest screening, access control and monitoring of restricted areas."
+    content="Screening, access control and monitoring for trade fairs, congresses, receptions and weddings in the Var and on the French Riviera. Free quote."
     name="description">
   <meta content="website" property="og:type">
-  <meta content="Premium Event Security — MO'CYNO" property="og:title">
+  <meta content="Event Security in the Var &amp; Riviera | MO&#x27;CYNO" property="og:title">
   <meta content="https://mocyno.com/en/services/premium-events/" property="og:url">
   <meta content="https://mocyno.com/og-image.png" property="og:image">
   <!-- SEO:BEGIN -->
@@ -60,12 +29,12 @@
   <link href="/favicon.ico" rel="icon">
   <link href="/favicon.svg" rel="icon" type="image/svg+xml">
   <meta
-    content="Security for private and corporate event venues on the French Riviera. Guest screening, access control and monitoring of restricted areas."
+    content="Screening, access control and monitoring for trade fairs, congresses, receptions and weddings in the Var and on the French Riviera. Free quote."
     property="og:description">
   <meta content="#022C51" name="theme-color">
-  <link as="style" href="/styles.css?v=2.8" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
+  <link as="style" href="/styles.css?v=91e66d5362fb728f" onload="this.onload=null;this.rel='stylesheet'" rel="preload">
   <noscript>
-    <link href="/styles.css?v=2.8" rel="stylesheet" />
+    <link href="/styles.css?v=91e66d5362fb728f" rel="stylesheet" />
   </noscript>
   <link href="/styles-compat-patch.css?v=2.7" rel="stylesheet">
 
@@ -78,93 +47,12 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
-      "@id": "https://mocyno.com/#organization",
-      "name": "MO'CYNO SASU",
-      "url": "https://mocyno.com/",
-      "logo": "https://mocyno.com/mocyno-logo.png",
-      "sameAs": [
-        "https://www.linkedin.com/company/MO'CYNO"
-      ]
-    },
-    {
-      "@type": [
-        "LocalBusiness",
-        "SecurityService",
-        "ProfessionalService"
-      ],
-      "@id": "https://mocyno.com/#localbusiness-en",
-      "parentOrganization": {
-        "@id": "https://mocyno.com/#organization"
-      },
-      "name": "MO'CYNO",
-      "legalName": "MO'CYNO SASU",
-      "url": "https://mocyno.com/en/",
-      "logo": "https://mocyno.com/mocyno-logo.png",
-      "image": "/images/service-event-security-cannes.png",
-      "telephone": "+33485290390",
-      "email": "contact@mocyno.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "31 Rue Chevalier Paul",
-        "postalCode": "83000",
-        "addressLocality": "Toulon",
-        "addressCountry": "FR"
-      },
-      "areaServed": [
-        {
-          "@type": "AdministrativeArea",
-          "name": "Provence-Alpes-Côte d'Azur, France"
-        },
-        {
-          "@type": "AdministrativeArea",
-          "name": "Var, France"
-        },
-        {
-          "@type": "AdministrativeArea",
-          "name": "Alpes-Maritimes, France"
-        },
-        {
-          "@type": "City",
-          "name": "Toulon"
-        },
-        {
-          "@type": "City",
-          "name": "Saint-Tropez"
-        },
-        {
-          "@type": "City",
-          "name": "Sainte-Maxime"
-        },
-        {
-          "@type": "City",
-          "name": "Cannes"
-        },
-        {
-          "@type": "City",
-          "name": "Nice"
-        },
-        {
-          "@type": "City",
-          "name": "Antibes"
-        },
-        {
-          "@type": "City",
-          "name": "Fréjus"
-        }
-      ],
-      "sameAs": [
-        "https://www.linkedin.com/company/MO'CYNO",
-        "https://www.instagram.com/MO'CYNOsecurite/"
-      ]
-    },
-    {
       "@type": "Service",
       "@id": "https://mocyno.com/en/services/premium-events/#service-index",
       "name": "Premium Event Security",
       "serviceType": "Sécurité Private",
       "provider": {
-        "@id": "https://mocyno.com/#localbusiness-en"
+        "@id": "https://mocyno.com/#organization"
       },
       "url": "https://mocyno.com/en/services/premium-events/",
       "areaServed": [
@@ -299,6 +187,102 @@
   <script defer src="/scripts/sticky-cta.js"></script>
 <meta name="gtm-container-id" content="GTM-N4MSSMV3">
 <link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
+  <!-- Shared source: templates/seo/organization.json (P1.3) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://mocyno.com/#organization",
+  "name": "MO'CYNO",
+  "url": "https://mocyno.com/",
+  "logo": "https://mocyno.com/logo-512.png",
+  "image": "https://mocyno.com/og-image.png",
+  "description": "Société de sécurité privée spécialisée en sécurité cynophile : maîtres-chiens, gardiennage, rondes, intervention sur alarme selon contrat, vidéo-protection, SSIAP et sécurité événementielle dans le Var et sur la Côte d'Azur.",
+  "telephone": "+33485290390",
+  "email": "contact@mocyno.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "31 Rue Chevalier Paul",
+    "addressLocality": "Toulon",
+    "postalCode": "83000",
+    "addressRegion": "Provence-Alpes-Côte d'Azur",
+    "addressCountry": "FR"
+  },
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+33485290390",
+      "contactType": "customer service",
+      "availableLanguage": [
+        "fr",
+        "en"
+      ]
+    },
+    {
+      "@type": "ContactPoint",
+      "telephone": "+33666035116",
+      "contactType": "customer service",
+      "availableLanguage": [
+        "fr",
+        "en"
+      ]
+    }
+  ],
+  "areaServed": [
+    {
+      "@type": "AdministrativeArea",
+      "name": "Var"
+    },
+    {
+      "@type": "City",
+      "name": "Toulon"
+    },
+    {
+      "@type": "City",
+      "name": "Saint-Tropez"
+    },
+    {
+      "@type": "City",
+      "name": "Ramatuelle"
+    },
+    {
+      "@type": "City",
+      "name": "Sainte-Maxime"
+    },
+    {
+      "@type": "City",
+      "name": "Fréjus"
+    },
+    {
+      "@type": "City",
+      "name": "Cannes"
+    },
+    {
+      "@type": "City",
+      "name": "Nice"
+    }
+  ],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "opens": "00:00",
+    "closes": "23:59"
+  },
+  "sameAs": [
+    "https://maps.google.com/?cid=1923001679797881211",
+    "https://www.linkedin.com/company/mocyno/",
+    "https://www.instagram.com/mocyno_officiel/"
+  ]
+}
+  </script>
 </head>
 
 <body>
@@ -309,8 +293,8 @@
     <div class="container nav">
       <a class="logo" href="/en/">
         <picture>
-          <source srcset="/mocyno-logo.webp" type="image/webp">
-          <img alt="Logo MO'CYNO" height="36" src="/mocyno-logo.webp" style="border-radius:8px" width="36">
+          <source srcset="/mocyno-logo-72-lossless.webp 2x, /mocyno-logo-108-lossless.webp 3x" type="image/webp">
+          <img alt="MO'CYNO" height="36" src="/mocyno-logo-72-lossless.webp" style="border-radius:8px" width="36">
         </picture>
         <span>MO'CYNO</span>
       </a>
@@ -334,7 +318,9 @@
           <a class="zones-trigger" href="/en/#areas">Areas</a>
           <div class="zones-menu">
             <ul class="zones-list">
+<li><a href="/en/zones/var/">Var</a></li>
               <li><a href="/en/zones/saint-tropez/">Saint-Tropez</a></li>
+<li><a href="/en/zones/ramatuelle/">Ramatuelle</a></li>
               <li><a href="/en/zones/cannes/">Cannes</a></li>
               <li><a href="/en/zones/nice/">Nice</a></li>
               <li><a href="/en/zones/toulon/">Toulon</a></li>
@@ -351,7 +337,6 @@
               <li><a href="/en/services/securite-cynophile/">K9 Units</a></li>
               <li><a href="/en/services/fire-safety-ssiap/">Fire Safety (SSIAP)</a></li>
               <li><a href="/en/services/premium-events/">Event Security</a></li>
-              <li><a href="/en/services/luxury-protection/">Luxury Security</a></li>
               <li><a href="/en/services/luxury-boutiques/">Luxury Boutiques</a></li>
               <li><a href="/en/services/residential/">Villa & Residential</a></li>
               <li><a href="/en/services/hospitality/">Hospitality</a></li>
@@ -362,7 +347,7 @@
           </div>
         </div>
         <a href="/en/blog/">News</a>
-        <a class="btn primary" href="/en/contact/">Request a free quote</a>
+        <a class="btn primary" href="/en/contact/?besoin=evenementiel">Request a free quote</a>
         <a aria-label="Français" class="lang-switch" href="/fr/services/securite-evenementielle/" hreflang="fr">FR</a>
       </nav>
     </div>
@@ -374,19 +359,20 @@
     <section class="hero-premium">
       <div class="hero-image-wrapper">
         <picture>
-          <source srcset="/images/service-event-security-cannes.webp" type="image/webp">
-          <img alt="Premium event security in Cannes by MO'CYNO agents" class="hero-img" height="1024"
-          src="/images/service-event-security-cannes.png" width="1024">
-        </picture>
+<source media="(max-width: 767px)" srcset="/images/service-event-security-cannes-p3-600.webp" type="image/webp" width="600" height="600">
+<source srcset="/images/service-event-security-cannes-p3-1024.webp" type="image/webp" width="1024" height="1024">
+<img alt="MO&#x27;CYNO officers at an event in Cannes" class="hero-img" height="1024"
+          src="/images/service-event-security-cannes.png" width="1024" fetchpriority="high">
+</picture>
         <div class="hero-overlay-dark"></div>
       </div>
       <div class="container hero-content-premium">
         <h1>Premium Event Security</h1>
         <p class="hero-subtitle-premium">Discretion and confidentiality instructions are agreed for the assignment.</p>
         <div class="hero-actions-premium">
-          <a class="btn primary" href="/en/contact/">Request a free quote</a>
+          <a class="btn primary" href="/en/contact/?besoin=evenementiel">Request a free quote</a>
           <a class="btn secondary" href="tel:+33485290390">Confidential Audit</a>
-        </div>
+        </div><p><a href="tel:+33666035116" style="color:#fff">Mobile: +33 6 66 03 51 16</a></p>
       </div>
     </section>
 
@@ -402,7 +388,7 @@
     </nav>
     <section class="section container">
       <div class="intro-block">
-        <h2>Expertise in Event Safety &amp; VIP Logistics</h2>
+        <h2>Expertise in Event Safety &amp; Access Control</h2>
         <p>Discretion and confidentiality instructions are agreed for the assignment.</p>
       </div>
     </section>
@@ -412,7 +398,7 @@
         <h2>Our Event Security Solutions</h2>
         <div class="grid-services">
           <div class="service-card">
-            <h3>🎟️ VIP Management</h3>
+            <h3>🎟️ Guest Reception</h3>
             <p>Courtesy and firmness for guest list screening and access control.</p>
           </div>
           <div class="service-card">
@@ -458,10 +444,10 @@
         <a href="/en/services/">All services</a>
       </nav>
     </section>
-    <section class="cta container section" style="text-align:center">
+    <section class="section container"><p>We work across <a href="/en/zones/var/" style="text-decoration: underline;">the Var</a>, including <a href="/en/zones/toulon/" style="text-decoration: underline;">Toulon</a>, <a href="/en/zones/saint-tropez/" style="text-decoration: underline;">Saint-Tropez</a>, <a href="/en/zones/sainte-maxime/" style="text-decoration: underline;">Sainte-Maxime</a> and <a href="/en/zones/frejus/" style="text-decoration: underline;">Fréjus</a>, as well as <a href="/en/zones/cannes/" style="text-decoration: underline;">Cannes</a> and <a href="/en/zones/nice/" style="text-decoration: underline;">Nice</a>.</p></section><section class="cta container section" style="text-align:center">
       <h2>Discuss security for your event</h2>
       <p>Confidential consultation.</p>
-      <p><a class="btn primary" href="/en/contact/">Request a free quote</a></p>
+      <p><a class="btn primary" href="/en/contact/?besoin=evenementiel">Request a free quote</a></p>
     </section>
   </main>
     <footer class="site-footer" role="contentinfo" style="background:#0f3552;color:#fff">
@@ -469,6 +455,7 @@
       <div class="footer-left">
         <p class="footer-meta">© 2026 MO'CYNO — Private security agency — SASU — SIRET 990 179 566 00015 — NAF 80.10Z</p>
         <div class="footer-inline">
+          <span>📞 <a href="tel:+33485290390">+33 4 85 29 03 90</a> · <a href="tel:+33666035116">+33 6 66 03 51 16</a></span> <span>•</span>
           <span>31 Rue Chevalier Paul, 83000 Toulon, France <em>(Registered office — on-site operations only, no public reception)</em></span> <span>•</span>
           <span>CNAPS licence: <a href="https://espace-consultation.cnaps.interieur.gouv.fr/annuaire/app/annuaire-public" rel="noopener noreferrer" style="color:#fff;text-decoration:underline;" target="_blank">AUT-83-2124-09-09-20250998415</a> — This licence does not confer any public authority status nor official endorsement. (Art. L612-14 CSI)</span>
         </div>
@@ -488,6 +475,7 @@
       </div>
       </div>
       <nav aria-label="Secondary navigation" class="footer-links" role="navigation">
+          <a href="https://maps.google.com/?cid=1923001679797881211" target="_blank" rel="noopener noreferrer">See our Google reviews</a>
         <a href="/en/about/">About</a>
         <a href="/en/legal/">Legal</a>
         <a href="/en/privacy/">Privacy</a>

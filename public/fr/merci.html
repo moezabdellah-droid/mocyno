@@ -5,17 +5,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Merci pour votre message — MO'CYNO</title>
-  <meta name="description" content="Merci pour votre message. L’équipe MO’CYNO reviendra vers vous sous 24 h ouvrées.">
+  <meta name="description" content="Merci pour votre message. L’équipe MO'CYNO reviendra vers vous sous 24 h ouvrées.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Merci pour votre message — MO'CYNO">
   <meta property="og:description"
-    content="Merci pour votre message. L’équipe MO’CYNO reviendra vers vous sous 24 h ouvrées.">
+    content="Merci pour votre message. L’équipe MO'CYNO reviendra vers vous sous 24 h ouvrées.">
   <meta property="og:url" content="https://mocyno.com/fr/merci/">
   <meta property="og:image" content="https://mocyno.com/og-image.png">
   <!-- SEO:BEGIN -->
   <link rel="canonical" href="https://mocyno.com/fr/merci/">
   <link rel="alternate" hreflang="fr" href="https://mocyno.com/fr/merci/">
-  <link rel="alternate" hreflang="en" href="https://mocyno.com/en/merci_en/">
+  <link rel="alternate" hreflang="en" href="https://mocyno.com/en/merci/">
   <link rel="alternate" hreflang="x-default" href="https://mocyno.com/fr/merci/">
   <!-- SEO:END -->
   <!-- SAFE GTM - No insertBefore dependency -->
@@ -23,9 +23,9 @@
 
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="/favicon.ico">
-  <link rel="preload" href="/styles.css?v=20261105-1" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="/styles.css?v=91e66d5362fb728f" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript>
-    <link rel="stylesheet" href="/styles.css?v=20261105-1">
+    <link rel="stylesheet" href="/styles.css?v=91e66d5362fb728f">
   </noscript>
   <meta name="theme-color" content="#022C51">
   <!-- GA4 via Consent Mode v2 -->
@@ -36,13 +36,130 @@
     function gtag() { dataLayer.push(arguments); }
     window.gtag = window.gtag || gtag;
     window.addEventListener('load', function () {
-      window.dataLayer.push({ event: 'lead_submitted' });
-    });
+  var redirectEnglish = false;
+  try {
+    redirectEnglish = localStorage.getItem('last_contact_lang') === 'en';
+    if (redirectEnglish) {
+      try { localStorage.removeItem('last_contact_lang'); } catch (_) {}
+    }
+  } catch (_) {}
+  if (redirectEnglish) {
+    window.location.replace('/en/merci/');
+    return;
+  }
+  var pending;
+  try {
+    pending = sessionStorage.getItem('mocyno_lead_pending');
+    if (pending === null) return;
+    sessionStorage.removeItem('mocyno_lead_pending');
+  } catch (_) { return; }
+  if (!/^\d+$/.test(pending)) return;
+  var timestamp = Number(pending);
+  var age = Date.now() - timestamp;
+  if (!Number.isFinite(timestamp) || age < 0 || age >= 15 * 60 * 1000) return;
+  window.dataLayer.push({ event: 'lead_submitted' });
+});
   </script>
   <script defer src="/scripts/tawk-audit-20261031.js"></script>
 <meta name="gtm-container-id" content="GTM-N4MSSMV3">
 <link rel="stylesheet" href="/styles/audit-fixes.css?v=audit-20261031-1">
 <style>.skip-link-lot4{position:absolute;left:12px;top:-100px;padding:12px 16px;background:#fff;color:#022c51;z-index:10001;border:2px solid #022c51}.skip-link-lot4:focus{top:12px}</style>
+  <!-- Shared source: templates/seo/organization.json (P1.3) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://mocyno.com/#organization",
+  "name": "MO'CYNO",
+  "url": "https://mocyno.com/",
+  "logo": "https://mocyno.com/logo-512.png",
+  "image": "https://mocyno.com/og-image.png",
+  "description": "Société de sécurité privée spécialisée en sécurité cynophile : maîtres-chiens, gardiennage, rondes, intervention sur alarme selon contrat, vidéo-protection, SSIAP et sécurité événementielle dans le Var et sur la Côte d'Azur.",
+  "telephone": "+33485290390",
+  "email": "contact@mocyno.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "31 Rue Chevalier Paul",
+    "addressLocality": "Toulon",
+    "postalCode": "83000",
+    "addressRegion": "Provence-Alpes-Côte d'Azur",
+    "addressCountry": "FR"
+  },
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+33485290390",
+      "contactType": "customer service",
+      "availableLanguage": [
+        "fr",
+        "en"
+      ]
+    },
+    {
+      "@type": "ContactPoint",
+      "telephone": "+33666035116",
+      "contactType": "customer service",
+      "availableLanguage": [
+        "fr",
+        "en"
+      ]
+    }
+  ],
+  "areaServed": [
+    {
+      "@type": "AdministrativeArea",
+      "name": "Var"
+    },
+    {
+      "@type": "City",
+      "name": "Toulon"
+    },
+    {
+      "@type": "City",
+      "name": "Saint-Tropez"
+    },
+    {
+      "@type": "City",
+      "name": "Ramatuelle"
+    },
+    {
+      "@type": "City",
+      "name": "Sainte-Maxime"
+    },
+    {
+      "@type": "City",
+      "name": "Fréjus"
+    },
+    {
+      "@type": "City",
+      "name": "Cannes"
+    },
+    {
+      "@type": "City",
+      "name": "Nice"
+    }
+  ],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "opens": "00:00",
+    "closes": "23:59"
+  },
+  "sameAs": [
+    "https://maps.google.com/?cid=1923001679797881211",
+    "https://www.linkedin.com/company/mocyno/",
+    "https://www.instagram.com/mocyno_officiel/"
+  ]
+}
+  </script>
 </head>
 
 <body>
@@ -54,8 +171,8 @@
     <div class="container nav">
       <a class="logo" href="/fr/">
         <picture>
-          <source srcset="/mocyno-logo.webp" type="image/webp">
-          <img src="/mocyno-logo.webp" alt="Logo MO'Cyno" width="36" height="36" style="border-radius:8px">
+          <source srcset="/mocyno-logo-72-lossless.webp 2x, /mocyno-logo-108-lossless.webp 3x" type="image/webp">
+          <img src="/mocyno-logo-72-lossless.webp" alt="MO'CYNO" width="36" height="36" style="border-radius:8px">
         </picture>
         <span>MO'CYNO</span>
       </a>
@@ -77,7 +194,9 @@
           <a class="zones-trigger" href="/fr/#zones">Zones</a>
           <div class="zones-menu">
             <ul class="zones-list">
+<li><a href="/fr/zones/var/">Var</a></li>
               <li><a href="/fr/zones/saint-tropez/">Saint-Tropez</a></li>
+<li><a href="/fr/zones/ramatuelle/">Ramatuelle</a></li>
               <li><a href="/fr/zones/cannes/">Cannes</a></li>
               <li><a href="/fr/zones/nice/">Nice</a></li>
               <li><a href="/fr/zones/toulon/">Toulon</a></li>
@@ -112,12 +231,12 @@
       onclick="document.querySelector('.nav .links').classList.remove('open');this.classList.remove('show')" aria-hidden="true"></div>
   </header>
   <main class="container" role="main" style="max-width:700px;text-align:center;padding-top:80px;padding-bottom:80px" id="contenu-principal" tabindex="-1">
-    <img src="/mocyno-logo.webp" alt="Logo MO'CYNO" width="72" height="72"
+    <img src="/mocyno-logo.webp" alt="MO'CYNO" width="72" height="72"
       style="border-radius:12px;margin-bottom:24px">
     <h1>Merci pour votre message&nbsp;!</h1>
     <p style="margin-bottom:32px">
       Votre demande a bien été envoyée.<br>
-      Un membre de l’équipe MO’CYNO vous répondra sous 24 heures ouvrées.
+      Un membre de l’équipe MO'CYNO vous répondra sous 24 heures ouvrées.
     </p>
     <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap">
       <a href="/fr/" class="btn primary" style="padding:12px 24px;border-radius:32px;text-decoration:none">Retour à
@@ -139,6 +258,7 @@
         <p class="footer-meta">© 2026 MO'CYNO — Agence de sécurité privée — SASU — SIRET 990 179 566 00015 — NAF 80.10Z
         </p>
         <div class="footer-inline">
+          <span>📞 <a href="tel:+33485290390">04 85 29 03 90</a> · <a href="tel:+33666035116">06 66 03 51 16</a></span> <span>•</span>
           <span>31 Rue Chevalier Paul, 83000 Toulon, France <em>(Siège social — interventions sur site, pas d'accueil
               public)</em></span> <span>•</span>
           <span>Autorisation CNAPS : <a
@@ -177,6 +297,7 @@
         </div>
       </div>
       <nav class="footer-links" role="navigation" aria-label="Navigation secondaire">
+          <a href="https://maps.google.com/?cid=1923001679797881211" target="_blank" rel="noopener noreferrer">Voir nos avis Google</a>
         <a href="/fr/faq/">Questions fréquentes</a>
         <a href="/fr/a-propos/">À propos</a>
         <a href="/fr/mentions-legales/">Mentions légales</a>
@@ -187,17 +308,7 @@
     </div>
   <button type="button" class="cookie-settings" data-cookie-settings>Gérer mes cookies</button>
 </footer>
-  <script>
-    window.addEventListener('load', function () {
-      try {
-        var lang = localStorage.getItem('last_contact_lang');
-        if (lang === 'en') {
-          localStorage.removeItem('last_contact_lang');
-          window.location.href = '/en/merci_en.html';
-        }
-      } catch (e) { }
-    });
-  </script>
+  
   
   <script defer src="/scripts/menu-audit-20261031.js"></script>
 </body>
