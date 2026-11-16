@@ -132,6 +132,16 @@
         "type": 301
       },
       {
+        "source": "/en/services/securite-cynophile",
+        "destination": "/en/services/k9-security/",
+        "type": 301
+      },
+      {
+        "source": "/en/services/securite-cynophile/**",
+        "destination": "/en/services/k9-security/",
+        "type": 301
+      },
+      {
         "source": "/services/securite-cynophile",
         "destination": "/fr/services/securite-cynophile/",
         "type": 301
